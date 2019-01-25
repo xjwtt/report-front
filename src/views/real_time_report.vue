@@ -1,0 +1,167 @@
+<template>
+  <div class="context-page"
+       onselectstart="return false">
+    <div class="header">
+      <div>
+        <span class="title">{{this.$t("real_time_report") }}</span>
+      </div>
+      <div class="right">
+        <div v-show="!editMode">
+          <span>{{$t("selection_date")}}： </span>
+          <el-date-picker v-model="dateValue"
+                          type="daterange"
+                          align="right"
+                          :editable="false"
+                          :clearable="false"
+                          :placeholder="$t('selection_date')"
+                          style="width:230px"
+                          :picker-options="pickerOptions">
+          </el-date-picker>
+          <el-button class="button"
+                     @click="editMode=true">{{this.$t("personalized_home_page")}}</el-button>
+        </div>
+        <div class="button"
+             v-show="editMode">
+          <el-button @click="addWidget">{{$t("add_plugin-in")}}</el-button>
+          <el-button @click="resetWidget">{{$t("restore_default")}}</el-button>
+          <el-button @click="saveWidget">{{$t("save_layout")}}</el-button>
+          <el-button @click="recoveryWidget">{{$t("return")}}</el-button>
+        </div>
+      </div>
+    </div>
+    <div class="briefReport">
+      <grid-layout :layout="userWidgets"
+                   :col-num="16"
+                   :row-height="100"
+                   :is-draggable="editMode"
+                   :is-resizable="editMode"
+                   :is-mirrored="false"
+                   :vertical-compact="true"
+                   :margin="[10, 10]"
+                   :use-css-transforms="true">
+        <grid-item v-for="(element,index) in userWidgets"
+                   :key="element.Id"
+                   :x="element.x"
+                   :y="element.y"
+                   :w="element.w"
+                   :h="element.h"
+                   :i="element.i"
+                   :minH="element.minH"
+                   :minW="element.minW"
+                   drag-allow-from=".title">
+          <dynamic-widget v-bind="element"
+                          :layoutMode="editMode"
+                          :showHideButton="editMode"
+                          :upDateTime="dateValue"
+                          :selectMalls="selectedMalls"
+                          v-on:delete-widget="userWidgets.splice(index, 1);" />
+
+        </grid-item>
+      </grid-layout>
+    </div>
+  </div>
+</template>
+
+<script>
+import Moment from 'moment'
+import { mapState } from 'vuex'
+import DynamicWidget from '@/components/DynamicWidget'
+import { GridLayout, GridItem } from 'vue-grid-layout'
+export default {
+  data () {
+    return {
+      editMode: false,
+
+      dateValue: [Moment(new Date()).format('YYYY-MM-DD'), Moment(new Date()).format('YYYY-MM-DD')],
+      pickerOptions: {
+        shortcuts: [{
+          text: '最近一周',
+          onClick (picker) {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+            picker.$emit('pick', [start, end])
+          }
+        }, {
+          text: '最近一个月',
+          onClick (picker) {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+            picker.$emit('pick', [start, end])
+          }
+        }, {
+          text: '最近三个月',
+          onClick (picker) {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+            picker.$emit('pick', [start, end])
+          }
+        }]
+      }
+    }
+  },
+  methods: {
+    async addWidget () {
+      let unUsedWidget = await this.$store.dispatch({ type: 'widget/getUnUsedWidget' })
+      console.log(unUsedWidget)
+    },
+    async saveWidget () {
+      await this.$store.dispatch({ type: 'widget/saveUserWidget' })
+      await this.$store.dispatch({ type: 'widget/getUserWidget' })
+      this.editMode = false
+    },
+    async resetWidget () {
+      await this.$store.dispatch({ type: 'widget/resetUserWidget' })
+    },
+    async recoveryWidget () {
+      await this.$store.dispatch({ type: 'widget/getUserWidget' })
+      this.editMode = false
+    }
+  },
+  computed: {
+    ...mapState('widget', {
+      userWidgets: state => state.userWidgets
+    }),
+    ...mapState('app', {
+      selectedMalls: state => state.selectedMalls
+    })
+  },
+  components: {
+    DynamicWidget,
+    GridLayout,
+    GridItem
+  }
+}
+</script>
+
+<style scoped>
+.context-page {
+  display: flex;
+  flex-direction: column;
+}
+
+.context-page > .header {
+  flex:0 0 auto;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.context-page > .header .title {
+  font-size: 24px;
+}
+
+.context-page > .header .right {
+  display: flex;
+  flex-direction: row;
+}
+
+.context-page > .header .button {
+  margin-left: 10px;
+}
+</style>

@@ -1,0 +1,85 @@
+<template>
+  <div>
+    <el-button @click="exportExcel">导出</el-button>
+    <el-table id="table"
+              :data="data"
+              :default-sort=sort
+              stripe
+              border
+              style="width: 100%">
+      <el-table-column v-for="column in columns"
+                       :key="column.Id"
+                       :prop="column.prop"
+                       :label="column.label"
+                       :sortable="column.sortable"
+                       :formatter="column.formatter">
+      </el-table-column>
+    </el-table>
+  </div>
+</template>
+
+<script>
+import fm from '@/lib/fieldsManager'
+import FileSaver from 'file-saver'
+import XLSX from 'xlsx'
+export default {
+  props: {
+    fields: {
+      type: Array,
+      required: true
+    },
+    data: {
+      type: Array
+    },
+    defaultSort: {
+      type: Object
+    }
+  },
+  methods: {
+    exportExcel () {
+      /* generate workbook object from table */
+      var wb = XLSX.utils.table_to_book(document.querySelector('#table'))
+      /* get binary string as output */
+      var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'array' })
+      try {
+        FileSaver.saveAs(new Blob([wbout], { type: 'application/octet-stream' }), 'exportExcel.xlsx')
+      } catch (e) { if (typeof console !== 'undefined') console.log(e, wbout) }
+      return wbout
+    }
+  },
+  computed: {
+    columns () {
+      let locale = this.$i18n.locale
+      let columns = [{
+        prop: 'DomainLabel',
+        label: this.$t('store'),
+        sortable: false,
+        formatter: (row, col) => row['DomainLabel']
+      }]
+      for (let index = 0; index < this.fields.length; index++) {
+        let fieldName = this.fields[index]
+        let field = fm[fieldName]
+        if (field) {
+          columns.push({
+            prop: fieldName,
+            label: this.$t(field.displayI18Key),
+            sortable: field.sortable ? field.sortable : false,
+            formatter: (row, col) => field.tableDisplayFunc ? field.tableDisplayFunc(row[fieldName], locale) : row[fieldName]
+          })
+        }
+      }
+      return columns
+    },
+    sort () {
+      if (this.defaultSort && this.defaultSort.prop && this.defaultSort.order && fm[this.defaultSort.prop]) {
+        return {
+          prop: this.defaultSort.prop,
+          order: this.defaultSort.order
+        }
+      } else {
+        return null
+      }
+    }
+  }
+}
+</script>

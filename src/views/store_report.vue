@@ -1,0 +1,174 @@
+<template>
+  <div class="report-page">
+    <div class="report-page-card">
+      <el-date-picker v-model="dateRange"
+                      type="daterange"
+                      align="right"
+                      unlink-panels
+                      :range-separator="$t('至')"
+                      :start-placeholder="$t('开始日期')"
+                      :end-placeholder="$t('结束日期')"
+                      :picker-options="pickerOptions">
+      </el-date-picker>
+
+      <el-button type="primary"
+                 size="small"
+                 @click="onQuery">{{$t('查询')}}</el-button>
+    </div>
+    <div>
+
+    </div>
+    <div class="report-page-card">
+      <el-radio-group v-model="selectedFieldIndex"
+                      size="small">
+        <el-radio-button v-for="(field,key) in fieldsOptions"
+                         :key="key"
+                         :label="key">{{$t(field.displayI18Key)}}</el-radio-button>
+      </el-radio-group>
+      <chart :style="{width:'100%',height: chartOptions.height+'px'}"
+             :autoResize="true"
+             :options="chartOptions"
+             :height="chartOptions.height"
+             theme="light"></chart>
+    </div>
+
+    <div class="report-page-card">
+      <the-table :fields=dateFields
+                 :data=data
+                 :defaultSort="{prop: 'Enter', order: 'descending'}"></the-table>
+    </div>
+  </div>
+</template>
+
+<script>
+import { mapActions } from 'vuex'
+import moment from 'moment'
+import fm from '@/lib/fieldsManager'
+import _ from 'underscore'
+
+export default {
+  data () {
+    return {
+      selectedFieldIndex: 0,
+      data: [],
+      dateRange: [moment(), moment()],
+      dateFields: ['Enter', 'Exit', 'EnteringRate',
+        'Fitting', 'FittingRate',
+        'ConvertRate', 'Sales', 'Receipts', 'Pieces', 'PricePerCustomer', 'PiecePerCustomer', 'PricePerReceipt', 'PiecePerReceipt', 'PricePerPiece',
+        'Clerk', 'ClerkRatio', 'Acreage'
+      ]
+    }
+  },
+  methods: {
+    ...mapActions('report', ['query']),
+    async onQuery () {
+      let result = await this.query({
+        st: this.dateRange[0],
+        et: this.dateRange[1],
+        dateFields: this.dateFields,
+        groupBy: [
+          { domain: 'Mall', period: 'All', timeFormatter: 'All' }
+        ]
+      })
+      this.data = result.Report[0]
+    }
+  },
+  async mounted () {
+    await this.onQuery()
+  },
+  computed: {
+    chartOptions () {
+      const titleHeight = 35
+      const selectedFieldKey = this.dateFields[this.selectedFieldIndex]
+      const selectedField = fm[selectedFieldKey]
+      const sortData = selectedField.sortable ? _.sortBy(this.data, value => value[selectedFieldKey]) : this.data
+
+      const ydata = _.map(sortData, value => value.DomainLabel)
+      const xdata = _.map(sortData, value => value[this.dateFields[this.selectedFieldIndex]])
+      const option = {
+        height: this.data.length * 90 + titleHeight + 15,
+        title: {
+          text: `连锁案场${this.$t(selectedField.displayI18Key)}分布图`,
+          x: 'center',
+          y: 'top'
+        },
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'shadow'
+          }
+        },
+        grid: {
+          top: titleHeight,
+          left: '3%',
+          right: '3%',
+          height: this.data.length * 90,
+          containLabel: true
+        },
+        xAxis: {
+          type: 'value',
+          name: selectedField.unitI18Key,
+          nameLocation: 'center'
+        },
+        yAxis: {
+          type: 'category',
+          data: ydata,
+          axisLabel: {
+            interval: 0,
+            rotate: -15
+          }
+        },
+        series: [
+          {
+            type: 'bar',
+            data: xdata
+          }
+        ]
+      }
+      return option
+    },
+    fieldsOptions () {
+      return _.map(this.dateFields, value => fm[value])
+    },
+    pickerOptions () {
+      return {
+        shortcuts: [{
+          text: this.$t('今天'),
+          onClick (picker) {
+            let start = moment().subtract(0, 'days')
+            picker.$emit('pick', [start, start])
+          }
+        }, {
+          text: this.$t('昨天'),
+          onClick (picker) {
+            let start = moment().subtract(1, 'days')
+            picker.$emit('pick', [start, start])
+          }
+        }, {
+          text: this.$t('周'),
+          onClick (picker) {
+            let end = moment().subtract(0, 'days')
+            let start = moment().startOf('week')
+            picker.$emit('pick', [start, end])
+          }
+        }, {
+          text: this.$t('月'),
+          onClick (picker) {
+            let end = moment().subtract(0, 'days')
+            let start = moment().startOf('month')
+            picker.$emit('pick', [start, end])
+          }
+        }, {
+          text: this.$t('年'),
+          onClick (picker) {
+            let end = moment().subtract(0, 'days')
+            let start = moment().startOf('year')
+            picker.$emit('pick', [start, end])
+          }
+        }
+        ]
+      }
+    }
+  }
+}
+</script>
