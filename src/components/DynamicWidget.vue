@@ -84,7 +84,7 @@ export default {
 
       let res
       try {
-        res = await ajax.post('/report/GlobalReport.html?op=report', queryArgs, { skipInterceptors: true })
+        res = await ajax.post('/report/GlobalReport.action', queryArgs, { skipInterceptors: true })
       } catch (e) {
         this.error = '<div>Run Query Error</div>'
         return

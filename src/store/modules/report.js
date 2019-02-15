@@ -41,7 +41,7 @@ export default {
         Locations: { MallIds: mallIds },
         GroupBy: groupBy
       }
-      return ajax.post('report/GlobalReport.html?op=report', args)
+      return ajax.post('report/GlobalReport.action', args)
     },
     async ConventTable (context, payload) {
       let fields = context.fields

@@ -3,6 +3,10 @@ import Vuex from 'vuex'
 import app from './modules/app'
 import report from './modules/report'
 import widget from './modules/widget'
+import company from './modules/company'
+import menu from './modules/menu'
+import role from './modules/role'
+
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
@@ -18,7 +22,10 @@ const store = new Vuex.Store({
   modules: {
     app,
     report,
-    widget
+    widget,
+    company,
+    menu,
+    role
   }
 })
 

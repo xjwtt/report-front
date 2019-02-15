@@ -52,7 +52,7 @@ export default {
   actions: {
     async login (context, payload) {
       try {
-        await ajax.post('login.html?op=login', payload.data, {
+        await ajax.post('login.action?op=login', payload.data, {
           skipInterceptors: true
         })
         return true
@@ -61,7 +61,7 @@ export default {
     },
     async logout (context) {
       try {
-        await ajax.post('login.html?op=logout')
+        await ajax.post('login.action?op=logout')
       } catch (e) {
         return
       }
@@ -69,7 +69,7 @@ export default {
     },
     async getUserInfo (context) {
       try {
-        let result = await ajax.get('system/UserManager.html?op=userInfo', {
+        let result = await ajax.get('system/UserManager.action?op=userInfo', {
           skipInterceptors: true
         })
         context.commit('setUserInfo', result)

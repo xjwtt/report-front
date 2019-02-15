@@ -4,7 +4,7 @@
              style="flex:auto">
       <div slot="header"
            class="clearfix">
-        <span>{{$t('widget_manager')}}</span>
+        <span>{{$t('company_manager')}}</span>
       </div>
       <datatable v-bind="$data">
         <slot>
@@ -29,7 +29,7 @@
           </div>
         </slot>
       </datatable>
-      <edit-page-widget ref=editDialog></edit-page-widget>
+      <edit-company ref=editDialog @handleQueryChange="handleQueryChange"></edit-company>
       <el-dialog title="提示"
                  :visible.sync="delDialogVisible"
                  width="30%">
@@ -48,21 +48,19 @@
 
 <script>
 import Vue from 'vue'
-import EditPageWidget from '@/components/EditPageWidget'
+import EditCompany from '@/components/EditCompany'
 import _ from 'underscore'
 
 export default {
+  name: 'company_manager',
   data: () => ({
     // table
     supportBackup: true,
     tblClass: 'table-bordered',
     tblStyle: 'color: #666',
     columns: [
-      // { title: 'ID', field: 'Id', sortable: true },
-      {title: 'CompanyName', field: 'CompanyName', sortable: true},
-      {title: 'I18Key', field: 'Title', thComp: 'th-filter'},
-      {title: 'Name', field: 'Title', tdComp: 'td-i18n'},
-      {title: 'Sort', field: 'SortField', thComp: 'th-filter', sortable: true},
+      {title: 'company_name', field: 'Name', thComp: 'th-filter', sortable: true},
+      {title: 'Status', field: 'Status', sortable: true, tdComp: 'td-status'},
       {title: 'Operation', tdComp: 'td-opt', visible: true}
     ],
     data: [],
@@ -75,7 +73,6 @@ export default {
 
     delDialogVisible: false,
     waitToDel: []
-
   }),
   mounted () {
     this.xprops.eventbus
@@ -96,14 +93,12 @@ export default {
       this.delDialogVisible = true
     },
     async sureDelete () {
-      await this.$store.dispatch({type: 'widget/delWidgets', data: this.waitToDel})
+      await this.$store.dispatch({type: 'company/deleteCompany', data: this.waitToDel})
       this.delDialogVisible = false
       this.handleQueryChange()
     },
     async handleQueryChange () {
-      // let rep = await this.$store.dispatch({ type: 'widget/getAllWidget', data: { IsMobile: -1, queryOptions: this.query } })
-      this.query['IsMobile'] = -1
-      let rep = await this.$store.dispatch({type: 'widget/getAllWidget', data: this.query})
+      let rep = await this.$store.dispatch({type: 'company/getAllCompany', data: this.query})
       this.total = rep.total
       this.data = rep.list
     }
@@ -117,7 +112,11 @@ export default {
     }
   },
   components: {
-    EditPageWidget
+    EditCompany
   }
 }
 </script>
+
+<style scoped>
+
+</style>
