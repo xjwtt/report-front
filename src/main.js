@@ -20,6 +20,7 @@ import IntervalPicker from './components/IntervalPicker'
 import DateRangePicker from './components/DateRangePicker'
 import SingelMallSelect from './components/SingelMallSelect'
 import TheTable from './components/TheTable'
+import ZoneSelector from './components/ZoneSelector'
 
 Vue.config.productionTip = false
 
@@ -34,6 +35,8 @@ Vue.component('interval-picker', IntervalPicker)
 Vue.component('date-range-picker', DateRangePicker)
 Vue.component('singel-mall-select', SingelMallSelect)
 Vue.component('the-table', TheTable)
+Vue.component('zone-selector', ZoneSelector)
+
 let asyncMain = async () => {
   await store.dispatch('app/getUserInfo')
   /* eslint-disable no-new */

@@ -25,7 +25,6 @@
                  :class="'fa-trash'"></i>
               <span>{{selection.length}}</span>
             </button>
-
           </div>
         </slot>
       </datatable>

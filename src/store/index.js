@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import app from './modules/app'
 import report from './modules/report'
 import widget from './modules/widget'
+import zone from './modules/zone'
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
@@ -18,7 +19,8 @@ const store = new Vuex.Store({
   modules: {
     app,
     report,
-    widget
+    widget,
+    zone
   }
 })
 

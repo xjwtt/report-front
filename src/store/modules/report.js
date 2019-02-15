@@ -32,13 +32,17 @@ export default {
         })
       })
 
+      let location = payload.PhyIds
+        ? { PhyIds: payload.PhyIds }
+        : { MallIds: mallIds }
+
       st = moment(st).format('YYYY-MM-DD')
       et = moment(et).format('YYYY-MM-DD')
       let args = {
         DataFields: dateFields,
         StartDate: st,
         EndDate: et,
-        Locations: { MallIds: mallIds },
+        Locations: location,
         GroupBy: groupBy
       }
       return ajax.post('report/GlobalReport.html?op=report', args)

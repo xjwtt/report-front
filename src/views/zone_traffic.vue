@@ -2,6 +2,7 @@
   <div class="report-page">
     <div class="report-page-card">
       <singel-mall-select></singel-mall-select>
+      <zone-selector ref=zoneSelector></zone-selector>
       <interval-picker></interval-picker>
       <date-range-picker></date-range-picker>
       <el-button type="primary"
@@ -19,9 +20,9 @@
       <el-radio-group v-model="chartType"
                       style="vertical-align: middle;"
                       size="mini">
-        <el-radio-button :label="'Enter'">进入客流</el-radio-button>
-        <el-radio-button :label="'Exit'">离开客流</el-radio-button>
-        <el-radio-button :label="'Stay'">滞留</el-radio-button>
+        <el-radio-button :label="'Enter'">{{$t('客流数')}}</el-radio-button>
+        <!-- <el-radio-button :label="'Exit'">离开客流</el-radio-button> -->
+        <!-- <el-radio-button :label="'Stay'">滞留</el-radio-button> -->
       </el-radio-group>
       <chart style="width:100%"
              :autoResize="true"
@@ -30,10 +31,10 @@
 
     </div>
     <div class="report-page-card">
-      <!-- <v-table :width="1000"
+      <v-table :width="1000"
                :columns="columns"
                :table-data="tableData"
-               :show-vertical-border="false"></v-table> -->
+               :show-vertical-border="false"></v-table>
 
     </div>
   </div>
@@ -67,11 +68,12 @@ export default {
       this.data = await this.query({
         dateFields: ['Enter', 'Exit', 'Stay', 'ConvertRate', 'HighTemp', 'LowTemp', 'WeatherName', 'WeatherImages'],
         groupBy: [
-          { domain: 'Mall' },
-          { domain: 'Mall', period: 'All', timeFormatter: 'All' },
+          { domain: 'Zone' },
+          { domain: 'Zone', period: 'All', timeFormatter: 'All' },
           { domain: 'All' },
           { domain: 'All', period: 'All', timeFormatter: 'All' }
-        ]
+        ],
+        PhyIds: this.$refs.zoneSelector.zoneIds
       })
     }
   },
@@ -81,7 +83,6 @@ export default {
       if (this.data) {
         let table = []
         let grouped = _.groupBy(this.data.Report[0], (_) => _.DomainLabel)
-        _.each(grouped, _ => console.log(_))
         for (let mallName in grouped) {
           let mall = grouped[mallName]
           for (let fieldIndex in fields) {
@@ -93,10 +94,9 @@ export default {
             table.push(row)
           }
         }
-        console.log(table)
       }
 
-      let dataType = this.$t('进入客流')
+      let dataType = this.$t('客流数')
       let yAxisName = this.$t('人次')
       let minName = this.$t('最小值')
       let maxName = this.$t('最大值')
@@ -166,7 +166,7 @@ export default {
       }
     }
   },
-  async created () {
+  async mounted () {
     this.onQuery()
   }
 }
