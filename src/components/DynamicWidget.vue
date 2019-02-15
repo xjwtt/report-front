@@ -21,7 +21,7 @@
     </div>
     <div v-if="DetailLink"
          class="bottom">
-      <a :href="DetailLink">{{$t("check_details")}}</a>
+      <a :href="DetailLink">{{$t('check_details')}}</a>
     </div>
   </div>
 </template>
@@ -31,6 +31,7 @@
 import moment from 'moment'
 import _ from 'underscore'
 import ajax from '@/lib/ajax'
+
 export default {
   name: 'DynamicWidget',
   props: {
@@ -67,15 +68,23 @@ export default {
   },
   methods: {
     async queryData (isSetTimer) {
-      if (this.error || this.layoutMode || !this.queryArgsFn) { return }
+      if (this.error || this.layoutMode || !this.queryArgsFn) {
+        return
+      }
       this.loading = true
       // args
       let dates = _.clone(this.upDateTime)
       try {
         var queryArgs = this.queryArgsFn(dates, moment)
-        if (!queryArgs.StartDate) { queryArgs.StartDate = moment(dates[0]).format('YYYY-MM-DD') }
-        if (!queryArgs.EndDate) { queryArgs.EndDate = moment(dates[1]).format('YYYY-MM-DD') }
-        if (!queryArgs.Locations) { queryArgs.Locations = { MallIds: _.pluck(this.selectMalls, 'Id') } }
+        if (!queryArgs.StartDate) {
+          queryArgs.StartDate = moment(dates[0]).format('YYYY-MM-DD')
+        }
+        if (!queryArgs.EndDate) {
+          queryArgs.EndDate = moment(dates[1]).format('YYYY-MM-DD')
+        }
+        if (!queryArgs.Locations) {
+          queryArgs.Locations = {MallIds: _.pluck(this.selectMalls, 'Id')}
+        }
       } catch (e) {
         this.error = `<div>Run QueryArgsFn Error<br>${e}</div>`
         this.loading = false
@@ -84,7 +93,7 @@ export default {
 
       let res
       try {
-        res = await ajax.post('/report/GlobalReport.action', queryArgs, { skipInterceptors: true })
+        res = await ajax.post('/report/GlobalReport.action', queryArgs, {skipInterceptors: true})
       } catch (e) {
         this.error = '<div>Run Query Error</div>'
         return
@@ -112,7 +121,7 @@ export default {
       let template = this.error ? this.error : this.Code ? this.Code : '<div>Empty</div>'
       return {
         template: template,
-        props: { D: { type: Object } },
+        props: {D: {type: Object}},
         filters: {
           fixed: function (a, b) {
             return a.toFixed(b)
@@ -138,7 +147,9 @@ export default {
       this.$watch(prop, () => {
         this.error = null
         try {
-          this.DisplayMap = new Function('c', 't', `${this.DefaultDisplayData}`)(null, (_) => { return this.$t(_) })
+          this.DisplayMap = new Function('c', 't', `${this.DefaultDisplayData}`)(null, (_) => {
+            return this.$t(_)
+          })
         } catch (e) {
           this.error = `<div>Init DefaultDisplayData Error<br>${e}</div>`
           return
@@ -158,7 +169,7 @@ export default {
         } catch (e) {
           this.error = `<div>Init ResultProcessorFn Error<br>${e}</div>`
         }
-      }, { immediate: true })
+      }, {immediate: true})
     })
 
     this.queryData(true)
@@ -178,54 +189,54 @@ export default {
 </script>
 
 <style>
-.widget {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-  border: 1px solid #ccc;
-  box-shadow: 5px 5px 5px #ccc;
-}
+  .widget {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    border: 1px solid #ccc;
+    box-shadow: 5px 5px 5px #ccc;
+  }
 
-.widget > .title {
-  height: 50px;
-  line-height: 50px;
-  background: #dedede;
-  font-size: 14px;
-  padding-left: 15px;
-  padding-right: 10px;
-}
+  .widget > .title {
+    height: 50px;
+    line-height: 50px;
+    background: #dedede;
+    font-size: 14px;
+    padding-left: 15px;
+    padding-right: 10px;
+  }
 
-.widget > .title > .right {
-  float: right;
-  font-size:26px;
-}
+  .widget > .title > .right {
+    float: right;
+    font-size: 26px;
+  }
 
-.widget > .body {
-  flex: 1 1;
-  display: flex;
-}
+  .widget > .body {
+    flex: 1 1;
+    display: flex;
+  }
 
-.widget > .body > .root {
-  width: 100%;
-  height: 100%;
-}
+  .widget > .body > .root {
+    width: 100%;
+    height: 100%;
+  }
 
-/* .widget > .body :first-child {
-  width: 100%;
-  height: 100%;
-} */
+  /* .widget > .body :first-child {
+    width: 100%;
+    height: 100%;
+  } */
 
-.widget > .bottom {
-  height: 30px;
-  background: #dedede;
-}
+  .widget > .bottom {
+    height: 30px;
+    background: #dedede;
+  }
 
-.widget > .bottom > a {
-  line-height: 30px;
-  display: block;
-  text-align: center;
-  color: #0275d8;
-  text-decoration: none;
-}
+  .widget > .bottom > a {
+    line-height: 30px;
+    display: block;
+    text-align: center;
+    color: #0275d8;
+    text-decoration: none;
+  }
 </style>

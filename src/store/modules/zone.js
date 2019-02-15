@@ -6,8 +6,8 @@ export default {
   state: {},
   mutations: {},
   actions: {
-    async getAll (context, payload) {
-      return ajax.post('business/PhysicalManager.html?op=grid', payload)
+    async select (context, payload) {
+      return ajax.post('business/SelectPhysicalManager.action', payload)
     }
   }
 }

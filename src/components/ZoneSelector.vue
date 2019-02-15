@@ -31,7 +31,7 @@ export default {
     zoneSelected: {}
   }),
   methods: {
-    ...mapActions('zone', ['getAll'])
+    ...mapActions('zone', ['select'])
   },
   computed: {
     zoneIds: {
@@ -68,7 +68,7 @@ export default {
   watch: {
     selectedMall: {
       async handler (newValue) {
-        let result = await this.getAll({ MallIds: [newValue.Id] })
+        let result = await this.select({ MallIds: [newValue.Id] })
         this.groupedZones = _.groupBy(result, _ => _.ZoneTypeName)
         this.activeType = this.groupedZones.hasOwnProperty(this.activeType) ? this.activeType : Object.keys(this.groupedZones)[0]
         this.zoneSelected = {}

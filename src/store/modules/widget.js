@@ -58,10 +58,12 @@ export default {
       })
     },
     async getAllWidget (context, payload) {
-      return ajax.post('system/gridPageWidgetManager.action', payload.data)
+      return ajax.post('system/PageWidgetManager.action?op=grid', payload.data)
     },
     async delWidgets (context, payload) {
-      return ajax.post('/system/deletePageWidget.action', payload.data)
+      return ajax.post('system/PageWidgetManager.action?op=del', {
+        Ids: payload.data
+      })
     },
     async addEditWidget (context, payload) {
       return ajax.post('system/PageWidgetManager.action?op=save', payload.data)
