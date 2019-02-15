@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     search () {
-      const { query } = this
+      const {query} = this
       // `$props.query` would be initialized to `{ limit: 10, offset: 0, sort: '', order: '' }` by default
       // custom query conditions must be set to observable by using `Vue.set / $vm.$set`
       this.$set(query, this.field, this.keyword)
@@ -51,8 +51,8 @@ export default {
 }
 </script>
 <style>
-input[type='search']::-webkit-search-cancel-button {
-  -webkit-appearance: searchfield-cancel-button;
-  cursor: pointer;
-}
+  input[type='search']::-webkit-search-cancel-button {
+    -webkit-appearance: searchfield-cancel-button;
+    cursor: pointer;
+  }
 </style>

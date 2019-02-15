@@ -22,6 +22,10 @@ export const allRouters = {
   widget_manager: () => import('@/views/widget_manager'),
   site_traffic: () => import('@/views/site_traffic'),
   store_report: () => import('@/views/store_report'),
+  store_report: () => import('@/views/store_report'),
   zone_traffic: () => import('@/views/zone_traffic')
   // entrance_traffic: () => import('@/views/entrance_traffic')
+  company_manager: () => import('@/views/company_manager'),
+  menu_manager: () => import('@/views/menu_manager'),
+  role_manager: () => import('@/views/role_manager')
 }

@@ -171,5 +171,11 @@ export default {
   weatherName: '天气类型',
   highTemp: '最低气温',
   lowTemp: '最高气温',
-  activityName: '活动节假日'
+  activityName: '活动节假日',
+  company_name: '公司名称',
+  is_enabled: '是否启用',
+  please_enter_the_field_name: '请输入案场名称',
+  start_using: '启用',
+  block_up: '停用'
+
 }

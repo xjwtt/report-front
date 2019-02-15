@@ -1,5 +1,6 @@
 import ajax from '@/lib/ajax'
 import _ from 'underscore'
+
 export default {
   namespaced: true,
   state: {
@@ -23,14 +24,14 @@ export default {
   },
   actions: {
     async getUnUsedWidget (context) {
-      let res = await ajax.post('system/PageWidgetManager.html?op=select', {
+      let res = await ajax.post('system/PageWidgetManager.action?op=select', {
         IsMobile: -1
       })
       let Ids = _.map(context.state.userWidgets, element => element.Id)
       return _.reject(res, element => _.contains(Ids, element.Id))
     },
     async resetUserWidget (context) {
-      let res = await ajax.post('system/PageWidgetManager.html?op=select', {
+      let res = await ajax.post('system/PageWidgetManager.action?op=select', {
         IsMobile: -1
       })
 
@@ -38,7 +39,7 @@ export default {
       context.commit('setUserWidgets', res)
     },
     async getUserWidget (context) {
-      let res = await ajax.post('system/UserManager.html?op=getUserWidget')
+      let res = await ajax.post('system/UserManager.action?op=getUserWidget')
       context.commit('setUserWidgets', res)
     },
     async saveUserWidget (context) {
@@ -52,20 +53,18 @@ export default {
           Options: {}
         }
       })
-      await ajax.post('/system/UserManager.html?op=saveUserWidget', {
+      await ajax.post('/system/UserManager.action?op=saveUserWidget', {
         PageWidgets: res
       })
     },
     async getAllWidget (context, payload) {
-      return ajax.post('system/PageWidgetManager.html?op=grid', payload.data)
+      return ajax.post('system/gridPageWidgetManager.action', payload.data)
     },
     async delWidgets (context, payload) {
-      return ajax.post('system/PageWidgetManager.html?op=del', {
-        Ids: payload.data
-      })
+      return ajax.post('/system/deletePageWidget.action', payload.data)
     },
     async addEditWidget (context, payload) {
-      return ajax.post('system/PageWidgetManager.html?op=save', payload.data)
+      return ajax.post('system/PageWidgetManager.action?op=save', payload.data)
     }
   }
 }
