@@ -7,7 +7,7 @@ export default {
   mutations: {},
   actions: {
     async select (context, payload) {
-      return ajax.post('business/SelectPhysicalManager.action', payload)
+      return ajax.post('/business/SelectPhysicalManager.action', payload)
     }
   }
 }

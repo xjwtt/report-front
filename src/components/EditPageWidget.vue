@@ -49,8 +49,8 @@
                   <el-input v-model.trim="modifyForm.ReflashInterval"></el-input>
                 </el-form-item>
                 <el-form-item label="排序"
-                              prop="Sort">
-                  <el-input-number v-model="modifyForm.Sort"
+                              prop="Ranked">
+                  <el-input-number v-model="modifyForm.Ranked"
                                    placeholder="Y"></el-input-number>
                 </el-form-item>
               </el-tab-pane>
@@ -83,9 +83,9 @@
           </el-form>
         </el-col>
         <el-col :span="8">
-          <customWidget style="width:300px;height:500px"
+          <custom-widget style="width:300px;height:500px"
                         v-bind="modifyForm"
-                        layoutMode></customWidget>
+                        layoutMode></custom-widget>
         </el-col>
       </el-row>
     </template>
@@ -100,7 +100,8 @@
 
 <script>
 import customWidget from '@/components/DynamicWidget'
-import { codemirror } from 'vue-codemirror-lite'
+import {codemirror} from 'vue-codemirror-lite'
+
 require('codemirror/mode/htmlembedded/htmlembedded')
 require('codemirror/mode/javascript/javascript')
 
@@ -115,7 +116,22 @@ let validateSize = (rule, value, callback) => {
     callback()
   }
 }
-const defaultForm = () => { return { Code: '', minH: 1, minW: 1, Id: null, QueryArgs: '', ResultProcessor: '', ChartsOption: '', DefaultDisplayData: '', ReflashButton: false, ReflashInterval: 10000, DetailLink: '', Sort: 0 } }
+const defaultForm = () => {
+  return {
+    Code: '',
+    minH: 1,
+    minW: 1,
+    Id: null,
+    QueryArgs: '',
+    ResultProcessor: '',
+    ChartsOption: '',
+    DefaultDisplayData: '',
+    ReflashButton: false,
+    ReflashInterval: 10000,
+    DetailLink: '',
+    Ranked: 0
+  }
+}
 export default {
   data () {
     return {
@@ -124,25 +140,25 @@ export default {
       modifyForm: defaultForm(),
       rules: {
         Title: [
-          { required: true, message: '请输入插件名称', trigger: 'blur' }
+          {required: true, message: '请输入插件名称', trigger: 'blur'}
         ],
         Code: [
-          { required: true, message: '请填入代码', trigger: 'blur' }
+          {required: true, message: '请填入代码', trigger: 'blur'}
         ],
         DefaultDisplayData: [
-          { required: true, message: '请配置默认显示数据', trigger: 'blur' }
+          {required: true, message: '请配置默认显示数据', trigger: 'blur'}
         ],
         QueryArgs: [
-          { required: true, message: '请配置参数', trigger: 'blur' }
+          {required: true, message: '请配置参数', trigger: 'blur'}
         ],
         minH: [
-          { validator: validateSize, required: true, type: 'number', trigger: 'blur' }
+          {validator: validateSize, required: true, type: 'number', trigger: 'blur'}
         ],
         minW: [
-          { validator: validateSize, required: true, type: 'number', trigger: 'blur' }
+          {validator: validateSize, required: true, type: 'number', trigger: 'blur'}
         ],
-        Sort: [
-          { required: true, type: 'number', trigger: 'blur' }
+        Ranked: [
+          {required: true, type: 'number', trigger: 'blur'}
         ]
       }
     }
@@ -158,9 +174,9 @@ export default {
     async submitForm (formName) {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
-          let rep = await this.$store.dispatch({ type: 'widget/addEditWidget', data: this.modifyForm })
-          console.log(rep)
+          await this.$store.dispatch({type: 'widget/addEditWidget', data: this.modifyForm})
           this.dialogVisible = false
+          this.$emit('handleQueryChange')
         } else {
           this.$message.error(this.$t('参数不正确'))
         }

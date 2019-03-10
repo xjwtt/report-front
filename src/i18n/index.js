@@ -5,9 +5,9 @@ import ElementLocale from 'element-ui/lib/locale'
 //  Setup vue-i18n
 Vue.use(VueI18n)
 const i18n = new VueI18n({
-  locale: 'zh-CN',
+  locale: 'zh',
   messages: {
-    'zh-CN': require('./lang/zh-CN').default,
+    'zh': require('./lang/zh-CN').default,
     'en': require('./lang/en').default
   }
 })

@@ -4,7 +4,7 @@
              style="flex:auto">
       <div slot="header"
            class="clearfix">
-        <span>{{$t('role_manager')}}</span>
+        <span>{{$t('mall_manager')}}</span>
       </div>
       <datatable v-bind="$data">
         <slot>
@@ -29,7 +29,7 @@
           </div>
         </slot>
       </datatable>
-      <edit-role ref=editDialog @handleQueryChange="handleQueryChange"></edit-role>
+      <edit-mall ref=editDialog @handleQueryChange="handleQueryChange"></edit-mall>
       <el-dialog title="提示"
                  :visible.sync="delDialogVisible"
                  width="30%">
@@ -48,19 +48,24 @@
 
 <script>
 import Vue from 'vue'
-import EditRole from '@/components/EditRole'
+import EditMall from '@/components/EditMall'
 import _ from 'underscore'
 
 export default {
-  name: 'role_manager',
+  name: 'mall_manager',
   data: () => ({
     // table
     supportBackup: true,
     tblClass: 'table-bordered',
     tblStyle: 'color: #666',
     columns: [
-      {title: 'role_name', field: 'Name', thComp: 'th-filter', sortable: true},
-      {title: 'Description', field: 'Description'},
+      {title: 'mall_name', field: 'Name', thComp: 'th-filter', sortable: true},
+      {title: 'location', field: 'MallLocation', thComp: 'th-filter', sortable: true},
+      {title: '店员数量', field: 'ClerkNumber', sortable: true},
+      {title: '经营面积', field: 'OperationAcreage', sortable: true},
+      {title: '案场编号', field: 'MallCode', thComp: 'th-filter', sortable: true},
+      {title: '序号', field: 'Ranked', sortable: true},
+      {title: 'Enabled', field: 'Enabled', sortable: true, tdComp: 'td-status'},
       {title: 'Operation', tdComp: 'td-opt', visible: true}
     ],
     data: [],
@@ -93,12 +98,12 @@ export default {
       this.delDialogVisible = true
     },
     async sureDelete () {
-      await this.$store.dispatch({type: 'role/deleteRole', data: this.waitToDel})
+      await this.$store.dispatch({type: 'mall/delMall', data: this.waitToDel})
       this.delDialogVisible = false
       this.handleQueryChange()
     },
     async handleQueryChange () {
-      let rep = await this.$store.dispatch({type: 'role/gridRole', data: this.query})
+      let rep = await this.$store.dispatch({type: 'mall/gridMall', data: this.query})
       this.total = rep.total
       this.data = rep.list
     }
@@ -112,7 +117,7 @@ export default {
     }
   },
   components: {
-    EditRole
+    EditMall
   }
 }
 </script>

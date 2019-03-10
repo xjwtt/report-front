@@ -75,7 +75,7 @@ export default {
       dateValue: [Moment(new Date()).format('YYYY-MM-DD'), Moment(new Date()).format('YYYY-MM-DD')],
       pickerOptions: {
         shortcuts: [{
-          text: '最近一周',
+          text: this.$t('last_7_days'),
           onClick (picker) {
             const end = new Date()
             const start = new Date()
@@ -83,19 +83,11 @@ export default {
             picker.$emit('pick', [start, end])
           }
         }, {
-          text: '最近一个月',
+          text: this.$t('last_30_days'),
           onClick (picker) {
             const end = new Date()
             const start = new Date()
             start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
-            picker.$emit('pick', [start, end])
-          }
-        }, {
-          text: '最近三个月',
-          onClick (picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
             picker.$emit('pick', [start, end])
           }
         }]

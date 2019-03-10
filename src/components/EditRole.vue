@@ -21,7 +21,12 @@
               <el-input v-model.trim="modifyForm.Description"></el-input>
             </el-form-item>
           </el-form>
-          <el-tree :data="menuTree" :props="defaultProps" show-checkbox></el-tree>
+          <el-tree :data="menuTree"
+                   :props="defaultProps"
+                   show-checkbox
+                   node-key="Id"
+                   ref="menuTree"
+                   :default-checked-keys="menuSelect"></el-tree>
         </el-col>
       </el-row>
     </template>
@@ -35,8 +40,10 @@
 </template>
 
 <script>
+import _ from 'underscore'
+
 const defaultForm = () => {
-  return {Name: '', Description: ''}
+  return {Id: '', Name: '', Description: ''}
 }
 export default {
   name: 'EditRole',
@@ -52,6 +59,7 @@ export default {
       },
       // menu tree
       menuTree: [],
+      menuSelect: [],
       defaultProps: {
         children: 'children',
         label: 'Name'
@@ -64,11 +72,44 @@ export default {
       this.$nextTick(() => {
         this.$refs['modifyForm'].resetFields()
       })
+      this.roleMenu(form ? form.Id : '')
       this.modifyForm = form ? Object.assign({}, form) : defaultForm()
+    },
+    async roleMenu (roleId) {
+      let rep = await this.$store.dispatch({type: 'role/roleMenu', data: {Id: roleId}})
+      this.menuTree = rep.menuTree
+      this.menuSelect = _.map(rep.menuSelect, function (it) {
+        if (it.TreeShow === 1) {
+          return it.MenuId
+        }
+      })
     },
     async submitForm (formName) {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
+          // let menuIds = _.map(this.$refs.menuTree.getCheckedNodes(false, false), function (it) {
+          //   return it.Id
+          // })
+          let aMenus = this.$refs.menuTree.getCheckedNodes(false, true)
+          let menusMap = {}
+          _.each(this.$refs.menuTree.getCheckedNodes(false, false), function (it) {
+            menusMap[it.Id] = it.Id
+          })
+          let roleMenu = _.map(aMenus, function (it) {
+            let v = menusMap[it.Id]
+            let rm = {menuId: it.Id}
+            if (v) {
+              rm['TreeShow'] = 1
+            } else {
+              rm['TreeShow'] = 0
+            }
+            return rm
+          })
+          this.modifyForm['RoleMenu'] = roleMenu
+          let rep = await this.$store.dispatch({type: 'role/saveOrUpdateRole', data: this.modifyForm})
+          console.log(rep)
+          this.dialogVisible = false
+          this.$emit('handleQueryChange')
         } else {
           this.$message.error(this.$t('参数不正确'))
         }

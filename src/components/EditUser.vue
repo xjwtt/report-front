@@ -1,0 +1,182 @@
+<template>
+  <el-dialog title="编辑"
+             v-if="dialogVisible"
+             :visible.sync="dialogVisible"
+             :close-on-click-modal="false"
+             width="70%">
+    <template>
+      <el-row :gutter="20">
+        <el-col :span="14">
+          <el-form :model="modifyForm"
+                   :rules="rules"
+                   ref=modifyForm
+                   label-width="150px"
+                   class="demo-modifyForm">
+            <el-form-item :label="$t('user_code')"
+                          prop="UserCode">
+              <el-input v-model.trim="modifyForm.UserCode"></el-input>
+            </el-form-item>
+            <el-form-item :label="$t('user_company')"
+                          prop="CompanyId">
+              <el-select v-model.trim="modifyForm.CompanyId" filterable :placeholder="$t('please_select')">
+                <el-option v-for="company in companys"
+                           :key="company.Id"
+                           :label="company.Name"
+                           :value="company.Id">
+                </el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item :label="$t('user_name')"
+                          prop="Name">
+              <el-input v-model.trim="modifyForm.Name"></el-input>
+            </el-form-item>
+            <el-form-item :label="$t('user_role')"
+                          prop="RoleId">
+              <el-select v-model.trim="modifyForm.RoleId" filterable :placeholder="$t('please_select')">
+                <el-option v-for="role in roles"
+                           :key="role.Id"
+                           :label="role.Name"
+                           :value="role.Id">
+                </el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item :label="$t('language')"
+                          prop="Language">
+              <el-select v-model.trim="modifyForm.Language">
+                <el-option v-for="item in languageTypes"
+                           :key="item.Id"
+                           :label="item.Name"
+                           :value="item.KeyName">
+                </el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item v-if="pwdShow" :label="$t('user_password')"
+                          prop="UserPwd">
+              <el-input type="password" v-model.trim="modifyForm.UserPwd"></el-input>
+            </el-form-item>
+            <el-form-item v-if="pwdShow" :label="$t('user_conpassword')"
+                          prop="conUserPwd">
+              <el-input type="password" v-model.trim="modifyForm.conUserPwd"></el-input>
+            </el-form-item>
+            <el-form-item :label="$t('user_email')"
+                          prop="Email">
+              <el-input v-model.trim="modifyForm.Email"></el-input>
+            </el-form-item>
+            <el-form-item :label="$t('user_telephone')"
+                          prop="Telephone">
+              <el-input v-model.trim="modifyForm.Telephone"></el-input>
+            </el-form-item>
+          </el-form>
+        </el-col>
+      </el-row>
+    </template>
+    <span slot="footer"
+          class="dialog-footer">
+      <el-button type="primary"
+                 @click="submitForm('modifyForm')">确 定</el-button>
+      <el-button @click="dialogVisible = false">取 消</el-button>
+    </span>
+  </el-dialog>
+</template>
+
+<script>
+const defaultForm = () => {
+  return {
+    Id: '',
+    UserCode: '',
+    CompanyId: '',
+    Name: '',
+    RoleId: '',
+    UserPwd: '',
+    Language: 'zh',
+    Telephone: '',
+    Email: ''
+  }
+}
+export default {
+  name: 'EditUser',
+  data () {
+    return {
+      // form
+      dialogVisible: false,
+      modifyForm: defaultForm(),
+      pwdShow: true,
+      rules: {
+        UserCode: [
+          {required: true, message: this.$t('please_enter_the_field_name'), trigger: 'blur'}
+        ],
+        CompanyId: [
+          {required: true, message: this.$t('please_enter_the_field_name'), trigger: 'blur'}
+        ],
+        Name: [
+          {required: true, message: this.$t('please_enter_the_field_name'), trigger: 'blur'}
+        ],
+        RoleId: [
+          {required: true, message: this.$t('please_enter_the_field_name'), trigger: 'blur'}
+        ],
+        UserPwd: [
+          {required: true, message: this.$t('please_enter_the_field_name'), trigger: 'blur'}
+        ],
+        conUserPwd: [
+          {required: true, message: this.$t('please_enter_the_field_name'), trigger: 'blur'}
+        ],
+        Language: [
+          {required: true, message: this.$t('please_enter_the_field_name'), trigger: 'blur'}
+        ]
+      },
+      companys: [],
+      roles: [],
+      languageTypes: []
+    }
+  },
+  methods: {
+    show (form) {
+      this.dialogVisible = true
+      this.$nextTick(() => {
+        this.$refs['modifyForm'].resetFields()
+      })
+      this.selectCompanyByUser()
+      this.selectRole()
+      this.selectCategoryByKeyName()
+      if (form) {
+        this.pwdShow = false
+        this.modifyForm = Object.assign({}, form)
+      } else {
+        this.pwdShow = true
+        this.modifyForm = defaultForm()
+      }
+    },
+    async selectCompanyByUser () {
+      let rep = await this.$store.dispatch({type: 'company/selectCompany'})
+      this.companys = rep
+    },
+    async selectRole () {
+      let rep = await this.$store.dispatch({type: 'role/selectRole'})
+      this.roles = rep
+    },
+    async submitForm (formName) {
+      this.$refs[formName].validate(async (valid) => {
+        if (valid) {
+          if (this.modifyForm.conUserPwd && (this.modifyForm.UserPwd !== this.modifyForm.conUserPwd)) {
+            this.$message.error('两次的密码不同!')
+          } else {
+            await this.$store.dispatch({type: 'user/saveOrUpdateUser', data: this.modifyForm})
+            this.dialogVisible = false
+          }
+          this.$emit('handleQueryChange')
+        } else {
+          this.$message.error(this.$t('参数不正确'))
+        }
+      })
+    },
+    async selectCategoryByKeyName () {
+      let rep = await this.$store.dispatch({type: 'category/selectCategoryByKeyName', data: {KeyName: 'LanguageType'}})
+      this.languageTypes = rep
+    }
+  }
+}
+</script>
+
+<style scoped>
+
+</style>

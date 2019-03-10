@@ -4,7 +4,7 @@
              style="flex:auto">
       <div slot="header"
            class="clearfix">
-        <span>{{$t('role_manager')}}</span>
+        <span>{{$t('businesstime_manager')}}</span>
       </div>
       <datatable v-bind="$data">
         <slot>
@@ -29,7 +29,9 @@
           </div>
         </slot>
       </datatable>
-      <edit-role ref=editDialog @handleQueryChange="handleQueryChange"></edit-role>
+      <edit-businesstime ref=editDialog @handleQueryChange="handleQueryChange"></edit-businesstime>
+      <related-businesstime-mall ref=RelatedBusinesstimeMall
+                                 @handleQueryChange="handleQueryChange"></related-businesstime-mall>
       <el-dialog title="提示"
                  :visible.sync="delDialogVisible"
                  width="30%">
@@ -48,20 +50,26 @@
 
 <script>
 import Vue from 'vue'
-import EditRole from '@/components/EditRole'
+import EditBusinesstime from '@/components/EditBusinesstime'
+import RelatedBusinesstimeMall from '@/components/RelatedBusinesstimeMall'
 import _ from 'underscore'
 
 export default {
-  name: 'role_manager',
+  name: 'businesstime_manager',
   data: () => ({
     // table
     supportBackup: true,
     tblClass: 'table-bordered',
     tblStyle: 'color: #666',
     columns: [
-      {title: 'role_name', field: 'Name', thComp: 'th-filter', sortable: true},
-      {title: 'Description', field: 'Description'},
-      {title: 'Operation', tdComp: 'td-opt', visible: true}
+      {title: '类型', field: 'TimeTypeName', sortable: true},
+      {title: '起始日期', field: 'StartDate', sortable: true},
+      {title: '起始时间', field: 'StartTime', sortable: true},
+      {title: '结束日期', field: 'EndDate', sortable: true},
+      {title: '结束时间', field: 'EndTime', sortable: true},
+      {title: '星期', field: 'Weekdays'},
+      {title: '描述', field: 'Description'},
+      {title: 'Operation', tdComp: 'td-userOpt', visible: true}
     ],
     data: [],
     total: 0,
@@ -77,6 +85,7 @@ export default {
   mounted () {
     this.xprops.eventbus
       .$on('EDIT', this.$refs.editDialog.show)
+      .$on('RelatedMall', this.$refs.RelatedBusinesstimeMall.show)
       .$on('DELETE', this.del)
   },
   methods: {
@@ -93,12 +102,12 @@ export default {
       this.delDialogVisible = true
     },
     async sureDelete () {
-      await this.$store.dispatch({type: 'role/deleteRole', data: this.waitToDel})
+      await this.$store.dispatch({type: 'businesstime/deleteBusinessTime', data: this.waitToDel})
       this.delDialogVisible = false
       this.handleQueryChange()
     },
     async handleQueryChange () {
-      let rep = await this.$store.dispatch({type: 'role/gridRole', data: this.query})
+      let rep = await this.$store.dispatch({type: 'businesstime/gridBusinessTime', data: this.query})
       this.total = rep.total
       this.data = rep.list
     }
@@ -112,7 +121,8 @@ export default {
     }
   },
   components: {
-    EditRole
+    EditBusinesstime,
+    RelatedBusinesstimeMall
   }
 }
 </script>

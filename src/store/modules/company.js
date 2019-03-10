@@ -13,6 +13,9 @@ export default {
     },
     async deleteCompany (context, payload) {
       return ajax.post('/business/deleteCompany.action', payload.data)
+    },
+    async selectCompany (context, payload) {
+      return ajax.get('/business/selectCompany.action')
     }
   }
 }

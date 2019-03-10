@@ -2,6 +2,7 @@ import ajax from '@/lib/ajax'
 import _ from 'underscore'
 import { addRouterFromMenus } from '@/router/index'
 import appconst from '@/lib/appconst'
+import i18n from '../../i18n'
 export default {
   namespaced: true,
   state: {
@@ -32,6 +33,7 @@ export default {
       state.selectedMalls = payload.Malls
       state.menus = payload.Menus
       state.isLogin = true
+      i18n.locale = payload.Language
       addRouterFromMenus(payload.Menus)
     },
     setTimeInterval (state, payload) {

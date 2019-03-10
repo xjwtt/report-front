@@ -8,11 +8,17 @@ export default {
     async gridRole (context, payload) {
       return ajax.post('/system/gridRole.action', payload.data)
     },
-    async saveOrUpdateCompany (context, payload) {
-      return ajax.post('/business/saveOrUpdateCompany.action', payload.data)
+    async saveOrUpdateRole (context, payload) {
+      return ajax.post('/system/saveOrUpdateRole.action', payload.data)
     },
-    async deleteCompany (context, payload) {
-      return ajax.post('/business/deleteCompany.action', payload.data)
+    async deleteRole (context, payload) {
+      return ajax.post('/system/delRole.action', payload.data)
+    },
+    async roleMenu (context, payload) {
+      return ajax.post('/system/roleMenu.action', payload.data)
+    },
+    async selectRole (context, payload) {
+      return ajax.post('/system/selectRole.action')
     }
   }
 }

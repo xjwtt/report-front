@@ -5,15 +5,15 @@
                       type="daterange"
                       align="right"
                       unlink-panels
-                      :range-separator="$t('至')"
-                      :start-placeholder="$t('开始日期')"
-                      :end-placeholder="$t('结束日期')"
+                      :range-separator="$t('to')"
+                      :start-placeholder="$t('start_date')"
+                      :end-placeholder="$t('end_date')"
                       :picker-options="pickerOptions">
       </el-date-picker>
 
       <el-button type="primary"
                  size="small"
-                 @click="onQuery">{{$t('查询')}}</el-button>
+                 @click="onQuery">{{$t('query')}}</el-button>
     </div>
     <div>
 
@@ -88,7 +88,7 @@ export default {
       const option = {
         height: this.data.length * 90 + titleHeight + 15,
         title: {
-          text: `连锁案场${this.$t(selectedField.displayI18Key)}分布图`,
+          text: `${this.$t(selectedField.displayI18Key)} ${this.$t('chart')}`,
           x: 'center',
           y: 'top'
         },
@@ -133,33 +133,33 @@ export default {
     pickerOptions () {
       return {
         shortcuts: [{
-          text: this.$t('今天'),
+          text: this.$t('today'),
           onClick (picker) {
             let start = moment().subtract(0, 'days')
             picker.$emit('pick', [start, start])
           }
         }, {
-          text: this.$t('昨天'),
+          text: this.$t('yesterday'),
           onClick (picker) {
             let start = moment().subtract(1, 'days')
             picker.$emit('pick', [start, start])
           }
         }, {
-          text: this.$t('周'),
+          text: this.$t('week'),
           onClick (picker) {
             let end = moment().subtract(0, 'days')
             let start = moment().startOf('week')
             picker.$emit('pick', [start, end])
           }
         }, {
-          text: this.$t('月'),
+          text: this.$t('month'),
           onClick (picker) {
             let end = moment().subtract(0, 'days')
             let start = moment().startOf('month')
             picker.$emit('pick', [start, end])
           }
         }, {
-          text: this.$t('年'),
+          text: this.$t('year'),
           onClick (picker) {
             let end = moment().subtract(0, 'days')
             let start = moment().startOf('year')

@@ -9,7 +9,7 @@
         <span v-if="showHideButton"
               style="cursor:pointer"
               @click="$emit('delete-widget')">
-          <i class="el-icon-view"></i>{{$t("hide")}}</span>
+          <i class="el-icon-view"></i>{{$t('hide')}}</span>
       </div>
     </div>
     <div class="body"
@@ -102,7 +102,7 @@ export default {
       }
 
       try {
-        this.resultProcessorFn(res, this.DisplayMap)
+        this.resultProcessorFn(res, this.DisplayMap, _)
       } catch (e) {
         this.error = `<div>Run resultProcessorFn Error<br>${e}</div>`
         return
@@ -165,14 +165,14 @@ export default {
           return
         }
         try {
-          this.resultProcessorFn = new Function('r', 'd', `${this.ResultProcessor}`)
+          this.resultProcessorFn = new Function('r', 'd', '_', `${this.ResultProcessor}`)
         } catch (e) {
           this.error = `<div>Init ResultProcessorFn Error<br>${e}</div>`
         }
       }, {immediate: true})
     })
 
-    this.queryData(true)
+    // this.queryData(true)
   },
   activated () {
     this.queryData(true)

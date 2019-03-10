@@ -28,7 +28,7 @@
           </div>
         </slot>
       </datatable>
-      <edit-page-widget ref=editDialog></edit-page-widget>
+      <edit-page-widget ref=editDialog @handleQueryChange="handleQueryChange"></edit-page-widget>
       <el-dialog title="提示"
                  :visible.sync="delDialogVisible"
                  width="30%">
@@ -61,7 +61,7 @@ export default {
       {title: 'CompanyName', field: 'CompanyName', sortable: true},
       {title: 'I18Key', field: 'Title', thComp: 'th-filter'},
       {title: 'Name', field: 'Title', tdComp: 'td-i18n'},
-      {title: 'Sort', field: 'SortField', thComp: 'th-filter', sortable: true},
+      {title: 'Ranked', field: 'Ranked', thComp: 'th-filter', sortable: true},
       {title: 'Operation', tdComp: 'td-opt', visible: true}
     ],
     data: [],
@@ -101,7 +101,7 @@ export default {
     },
     async handleQueryChange () {
       // let rep = await this.$store.dispatch({ type: 'widget/getAllWidget', data: { IsMobile: -1, queryOptions: this.query } })
-      this.query['IsMobile'] = -1
+      this.query['Mobile'] = -1
       let rep = await this.$store.dispatch({type: 'widget/getAllWidget', data: this.query})
       this.total = rep.total
       this.data = rep.list

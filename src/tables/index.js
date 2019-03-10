@@ -4,6 +4,12 @@ import tdI18n from './tableFields/td-i18n'
 import thFilter from './tableFields/th-Filter'
 import tdOpt from './tableFields/td-Opt'
 import tdStatus from './tableFields/td-status'
+import tdLock from './tableFields/td-lock'
+import tdUserOpt from './tableFields/td-userOpt'
+import tdGetWeather from './tableFields/td-getWeather'
+import tdCameraStatus from './tableFields/td-cameraStatus'
+import tdMoveopt from './tableFields/td-moveopt'
+import tdReverse from './tableFields/td-reverse'
 
 Vue.use(Datatable)
 Vue.prototype.$i18nForDatatable = Vue.prototype.$t
@@ -11,3 +17,9 @@ Vue.component('td-i18n', tdI18n)
 Vue.component('th-filter', thFilter)
 Vue.component('td-opt', tdOpt)
 Vue.component('td-status', tdStatus)
+Vue.component('td-lock', tdLock)
+Vue.component('td-userOpt', tdUserOpt)
+Vue.component('td-getWeather', tdGetWeather)
+Vue.component('td-cameraStatus', tdCameraStatus)
+Vue.component('td-moveopt', tdMoveopt)
+Vue.component('td-reverse', tdReverse)

@@ -4,19 +4,16 @@
              style="flex:auto">
       <div slot="header"
            class="clearfix">
-        <span>{{$t('role_manager')}}</span>
+        <span>{{$t('cameraZone_manager')}}</span>
       </div>
+      <template>
+        <el-radio v-model="query.Enabled" :label="1">启用</el-radio>
+        <el-radio v-model="query.Enabled" :label="-1">停用</el-radio>
+      </template>
       <datatable v-bind="$data">
         <slot>
           <div class="pull-right"
                style="margin:0 5px">
-            <button class="btn btn-default"
-                    type="button"
-                    @click="newOne()">
-              <i class="fa"
-                 :class="'fa-plus'"></i>
-            </button>
-
             <button v-if="selection.length>0"
                     class="btn btn-danger"
                     type="button"
@@ -29,7 +26,7 @@
           </div>
         </slot>
       </datatable>
-      <edit-role ref=editDialog @handleQueryChange="handleQueryChange"></edit-role>
+      <edit-camera-zone ref=editDialog @handleQueryChange="handleQueryChange"></edit-camera-zone>
       <el-dialog title="提示"
                  :visible.sync="delDialogVisible"
                  width="30%">
@@ -48,24 +45,26 @@
 
 <script>
 import Vue from 'vue'
-import EditRole from '@/components/EditRole'
+import EditCameraZone from '@/components/EditCameraZone'
 import _ from 'underscore'
 
 export default {
-  name: 'role_manager',
+  name: 'cameraZone_manager',
   data: () => ({
     // table
     supportBackup: true,
     tblClass: 'table-bordered',
     tblStyle: 'color: #666',
     columns: [
-      {title: 'role_name', field: 'Name', thComp: 'th-filter', sortable: true},
-      {title: 'Description', field: 'Description'},
+      {title: 'MallName', field: 'MallName', thComp: 'th-filter', sortable: true},
+      {title: '设备#区域', field: 'DeviceIdZone'},
+      {title: 'ZoneClass', field: 'ZoneClass', thComp: 'th-filter', sortable: true},
+      {title: 'Enabled', field: 'Enabled', sortable: true, tdComp: 'td-status'},
       {title: 'Operation', tdComp: 'td-opt', visible: true}
     ],
     data: [],
     total: 0,
-    query: {},
+    query: {Enabled: 1},
     selection: [],
     xprops: {
       eventbus: new Vue()
@@ -93,12 +92,15 @@ export default {
       this.delDialogVisible = true
     },
     async sureDelete () {
-      await this.$store.dispatch({type: 'role/deleteRole', data: this.waitToDel})
+      await this.$store.dispatch({type: 'cameraZone/deleteCameraZone', data: this.waitToDel})
       this.delDialogVisible = false
       this.handleQueryChange()
     },
     async handleQueryChange () {
-      let rep = await this.$store.dispatch({type: 'role/gridRole', data: this.query})
+      let rep = await this.$store.dispatch({type: 'cameraZone/gridCameraZoneMd', data: this.query})
+      _.each(rep.list, function (it) {
+        it.DeviceIdZone = it.DeviceId + '#' + it.ZoneId
+      })
       this.total = rep.total
       this.data = rep.list
     }
@@ -112,7 +114,7 @@ export default {
     }
   },
   components: {
-    EditRole
+    EditCameraZone
   }
 }
 </script>

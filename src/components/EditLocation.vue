@@ -12,30 +12,22 @@
                    ref=modifyForm
                    label-width="150px"
                    class="demo-modifyForm">
-            <el-form-item :label="$t('menu_parentName')"
+            <el-form-item :label="$t('location_parentName')"
                           prop="ParentName">
               <el-input v-model.trim="parentName" :disabled="true"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('menu_name')"
+            <el-form-item :label="$t('location_name')"
                           prop="Name">
               <el-input v-model.trim="modifyForm.Name"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('menu_pageUrl')"
-                          prop="PageUrl">
-              <el-input v-model.trim="modifyForm.PageUrl"></el-input>
+            <el-form-item :label="$t('location_ranked')"
+                          prop="Rank">
+              <el-input-number v-model.trim="modifyForm.Ranked"></el-input-number>
             </el-form-item>
-            <el-form-item :label="$t('menu_Ranked')"
-                          prop="Ranked">
-              <el-input v-model.trim="modifyForm.Ranked"></el-input>
-            </el-form-item>
-            <el-form-item :label="$t('menu_description')"
-                          prop="Description">
-              <el-input v-model.trim="modifyForm.Description"></el-input>
-            </el-form-item>
-            <el-form-item :label="$t('menu_enabled')"
-                          prop="Visible">
-              <el-radio v-model="modifyForm.Visible" :label="1">{{$t('menu_show')}}</el-radio>
-              <el-radio v-model="modifyForm.Visible" :label="-1">{{$t('menu_hide')}}</el-radio>
+            <el-form-item :label="$t('location_getWeather')"
+                          prop="GetWeather">
+              <el-radio v-model="modifyForm.GetWeather" :label="1">{{$t('acquire')}}</el-radio>
+              <el-radio v-model="modifyForm.GetWeather" :label="-1">{{$t('not_acquire')}}</el-radio>
             </el-form-item>
           </el-form>
         </el-col>
@@ -52,7 +44,7 @@
 
 <script>
 const defaultForm = () => {
-  return {ParentId: '', Name: '', PageUrl: '', Ranked: 0, Description: '', Visible: 1}
+  return {ParentId: '', Name: '', Ranked: 0, GetWeather: -1}
 }
 export default {
   name: 'EditMenu',
@@ -65,13 +57,7 @@ export default {
         Name: [
           {required: true, message: this.$t('please_enter_the_field_name'), trigger: 'blur'}
         ],
-        PageUrl: [
-          {required: true, message: this.$t('please_enter_the_field_name'), trigger: 'blur'}
-        ],
         Ranked: [
-          {required: true, message: this.$t('please_enter_the_field_name'), trigger: 'blur'}
-        ],
-        Description: [
           {required: true, message: this.$t('please_enter_the_field_name'), trigger: 'blur'}
         ]
       }
@@ -84,24 +70,24 @@ export default {
         this.$refs['modifyForm'].resetFields()
       })
       if (form.ParentId) {
-        this.selecMenutById(form.ParentId)
+        this.selectLocationById(form.ParentId)
       }
       this.modifyForm = form ? Object.assign({}, form) : defaultForm()
     },
     async submitForm (formName) {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
-          await this.$store.dispatch({type: 'menu/saveOrUpdateMenu', data: this.modifyForm})
+          await this.$store.dispatch({type: 'location/saveOrUpdateLocation', data: this.modifyForm})
           this.dialogVisible = false
           this.$emit('handleQueryChange')
-          this.$emit('userMenuTree')
+          this.$emit('loadLocationTree')
         } else {
           this.$message.error(this.$t('参数不正确'))
         }
       })
     },
-    async selecMenutById (id) {
-      let rep = await this.$store.dispatch({type: 'menu/selecMenutById', data: {id: id}})
+    async selectLocationById (id) {
+      let rep = await this.$store.dispatch({type: 'location/selectLocationById', data: {id: id}})
       this.parentName = rep.Name
     }
   }

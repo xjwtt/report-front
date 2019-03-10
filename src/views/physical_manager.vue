@@ -4,8 +4,12 @@
              style="flex:auto">
       <div slot="header"
            class="clearfix">
-        <span>{{$t('role_manager')}}</span>
+        <span>{{$t('physical_manager')}}</span>
       </div>
+      <template>
+        <el-radio v-model="query.Enabled" :label="1">启用</el-radio>
+        <el-radio v-model="query.Enabled" :label="-1">停用</el-radio>
+      </template>
       <datatable v-bind="$data">
         <slot>
           <div class="pull-right"
@@ -29,7 +33,7 @@
           </div>
         </slot>
       </datatable>
-      <edit-role ref=editDialog @handleQueryChange="handleQueryChange"></edit-role>
+      <edit-physical ref=editDialog @handleQueryChange="handleQueryChange"></edit-physical>
       <el-dialog title="提示"
                  :visible.sync="delDialogVisible"
                  width="30%">
@@ -48,24 +52,27 @@
 
 <script>
 import Vue from 'vue'
-import EditRole from '@/components/EditRole'
+import EditPhysical from '@/components/EditPhysical'
 import _ from 'underscore'
 
 export default {
-  name: 'role_manager',
+  name: 'physical_manager',
   data: () => ({
     // table
     supportBackup: true,
     tblClass: 'table-bordered',
     tblStyle: 'color: #666',
     columns: [
-      {title: 'role_name', field: 'Name', thComp: 'th-filter', sortable: true},
-      {title: 'Description', field: 'Description'},
+      {title: 'mall_name', field: 'MallName', thComp: 'th-filter', sortable: true},
+      {title: 'physical_name', field: 'Name', thComp: 'th-filter', sortable: true},
+      {title: 'zoneType_name', field: 'ZoneTypeName', thComp: 'th-filter', sortable: true},
+      {title: 'Ranked', field: 'Ranked', sortable: true},
+      {title: 'Enabled', field: 'Enabled', sortable: true, tdComp: 'td-status'},
       {title: 'Operation', tdComp: 'td-opt', visible: true}
     ],
     data: [],
     total: 0,
-    query: {},
+    query: {Enabled: 1},
     selection: [],
     xprops: {
       eventbus: new Vue()
@@ -93,12 +100,12 @@ export default {
       this.delDialogVisible = true
     },
     async sureDelete () {
-      await this.$store.dispatch({type: 'role/deleteRole', data: this.waitToDel})
+      await this.$store.dispatch({type: 'physical/deletPhysical', data: this.waitToDel})
       this.delDialogVisible = false
       this.handleQueryChange()
     },
     async handleQueryChange () {
-      let rep = await this.$store.dispatch({type: 'role/gridRole', data: this.query})
+      let rep = await this.$store.dispatch({type: 'physical/gridPhysicalZone', data: this.query})
       this.total = rep.total
       this.data = rep.list
     }
@@ -112,7 +119,7 @@ export default {
     }
   },
   components: {
-    EditRole
+    EditPhysical
   }
 }
 </script>

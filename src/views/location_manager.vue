@@ -4,11 +4,11 @@
              style="flex:auto">
       <div slot="header"
            class="clearfix">
-        <span>{{$t('menu_manager')}}</span>
+        <span>{{$t('location_manager')}}</span>
       </div>
       <el-row :gutter="20">
         <el-col :span="6">
-          <el-tree :data="menuTree" :props="defaultProps" @node-click="handleNodeClick"
+          <el-tree :data="locationTree" :props="defaultProps" @node-click="handleNodeClick"
                    node-key="Id"
                    :default-expanded-keys="defaultExpandedKeys"
                    :check-on-click-node="true"></el-tree>
@@ -24,7 +24,6 @@
                   <i class="fa"
                      :class="'fa-plus'"></i>
                 </button>
-
                 <button v-if="selection.length>0"
                         class="btn btn-danger"
                         type="button"
@@ -40,7 +39,8 @@
         </el-col>
       </el-row>
 
-      <edit-menus ref=editDialog @handleQueryChange="handleQueryChange" @userMenuTree="userMenuTree"></edit-menus>
+      <edit-location ref=editDialog @handleQueryChange="handleQueryChange"
+                     @loadLocationTree="loadLocationTree"></edit-location>
       <el-dialog title="提示"
                  :visible.sync="delDialogVisible"
                  width="30%">
@@ -59,11 +59,11 @@
 
 <script>
 import Vue from 'vue'
-import EditMenus from '@/components/EditMenu'
+import EditLocation from '@/components/EditLocation'
 import _ from 'underscore'
 
 export default {
-  name: 'menu_manager',
+  name: 'location_manager',
   data: () => ({
     // table
     supportBackup: true,
@@ -71,11 +71,8 @@ export default {
     tblStyle: 'color: #666',
     columns: [
       {title: 'Name', field: 'Name', sortable: true},
-      {title: '描述', field: 'Description'},
-      {title: '访问地址', field: 'PageUrl'},
-      {title: '图标', field: 'ImageUrl'},
+      {title: '天气情况', field: 'GetWeather', tdComp: 'td-getWeather'},
       {title: '次序', field: 'Ranked', sortable: true},
-      {title: 'Status', field: 'Visible', sortable: true, tdComp: 'td-status'},
       {title: 'Operation', tdComp: 'td-opt', visible: true}
     ],
     data: [],
@@ -90,7 +87,7 @@ export default {
     waitToDel: [],
     // Tree
     handleId: '-',
-    menuTree: [],
+    locationTree: [],
     defaultProps: {
       children: 'children',
       label: 'Name'
@@ -110,7 +107,7 @@ export default {
       this.handleQueryChange()
     },
     newOne () {
-      let newData = {ParentId: this.handleId, Name: '', PageUrl: '', Rank: 0, Description: '', Visible: 1}
+      let newData = {ParentId: this.handleId, Name: '', Ranked: 0, GetWeather: 1}
       this.$refs.editDialog.show(newData)
     },
     del (row) {
@@ -123,18 +120,18 @@ export default {
       this.delDialogVisible = true
     },
     async sureDelete () {
-      await this.$store.dispatch({type: 'menu/deleteMenu', data: this.waitToDel})
+      await this.$store.dispatch({type: 'location/deleteLocation', data: this.waitToDel})
       this.delDialogVisible = false
       this.handleQueryChange()
-      this.userMenuTree()
+      this.loadLocationTree()
     },
-    async userMenuTree () {
-      let rep = await this.$store.dispatch({type: 'menu/userMenuTree'})
-      this.menuTree = rep
+    async loadLocationTree () {
+      let rep = await this.$store.dispatch({type: 'location/locationTree'})
+      this.locationTree = rep
     },
     async handleQueryChange (parentId) {
       this.query['parentId'] = this.handleId
-      let rep = await this.$store.dispatch({type: 'menu/gridMenu', data: this.query})
+      let rep = await this.$store.dispatch({type: 'location/gridLocation', data: this.query})
       this.total = rep.total
       this.data = rep.list
     }
@@ -142,14 +139,14 @@ export default {
   watch: {
     query: {
       handler () {
-        this.userMenuTree()
+        this.loadLocationTree()
         this.handleQueryChange()
       },
       deep: true
     }
   },
   components: {
-    EditMenus
+    EditLocation
   }
 }
 </script>

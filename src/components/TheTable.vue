@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-button @click="exportExcel">导出</el-button>
+    <el-button @click="exportExcel">{{$t('export')}}</el-button>
     <el-table id="table"
               :data="data"
               :default-sort=sort

@@ -24,15 +24,15 @@ export default {
   },
   actions: {
     async getUnUsedWidget (context) {
-      let res = await ajax.post('system/PageWidgetManager.action?op=select', {
-        IsMobile: -1
+      let res = await ajax.post('system/SelectPageWidgetManager.action', {
+        Mobile: -1
       })
       let Ids = _.map(context.state.userWidgets, element => element.Id)
       return _.reject(res, element => _.contains(Ids, element.Id))
     },
     async resetUserWidget (context) {
-      let res = await ajax.post('system/PageWidgetManager.action?op=select', {
-        IsMobile: -1
+      let res = await ajax.post('system/SelectPageWidgetManager.action', {
+        Mobile: -1
       })
 
       console.log(res)
@@ -58,10 +58,10 @@ export default {
       })
     },
     async getAllWidget (context, payload) {
-      return ajax.post('system/PageWidgetManager.action?op=grid', payload.data)
+      return ajax.post('system/gridPageWidgetManager.action', payload.data)
     },
     async delWidgets (context, payload) {
-      return ajax.post('system/PageWidgetManager.action?op=del', {
+      return ajax.post('system/deletePageWidget.action', {
         Ids: payload.data
       })
     },
