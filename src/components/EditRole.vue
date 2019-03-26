@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="编辑"
+  <el-dialog :title="$t('edit')"
              v-if="dialogVisible"
              :visible.sync="dialogVisible"
              :close-on-click-modal="false"
@@ -12,6 +12,17 @@
                    ref=modifyForm
                    label-width="150px"
                    class="demo-modifyForm">
+            <el-form-item :label="$t('Company')" prop="CompanyId">
+              <el-select v-model.trim="modifyForm.CompanyId"
+                         filterable
+                         placeholder="...">
+                <el-option v-for="item in companys"
+                           :key="item.Id"
+                           :label="item.Name"
+                           :value="item.Id">
+                </el-option>
+              </el-select>
+            </el-form-item>
             <el-form-item :label="$t('role_name')"
                           prop="Name">
               <el-input v-model.trim="modifyForm.Name"></el-input>
@@ -33,8 +44,8 @@
     <span slot="footer"
           class="dialog-footer">
       <el-button type="primary"
-                 @click="submitForm('modifyForm')">确 定</el-button>
-      <el-button @click="dialogVisible = false">取 消</el-button>
+                 @click="submitForm('modifyForm')">{{$t('ok')}}</el-button>
+      <el-button @click="dialogVisible = false">{{$t('cancel')}}</el-button>
     </span>
   </el-dialog>
 </template>
@@ -43,7 +54,7 @@
 import _ from 'underscore'
 
 const defaultForm = () => {
-  return {Id: '', Name: '', Description: ''}
+  return {Id: '', CompanyId: '', Name: '', Description: ''}
 }
 export default {
   name: 'EditRole',
@@ -53,10 +64,14 @@ export default {
       dialogVisible: false,
       modifyForm: defaultForm(),
       rules: {
+        CompanyId: [
+          {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
+        ],
         Name: [
-          {required: true, message: this.$t('please_enter_the_field_name'), trigger: 'blur'}
+          {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
         ]
       },
+      companys: [],
       // menu tree
       menuTree: [],
       menuSelect: [],
@@ -72,6 +87,7 @@ export default {
       this.$nextTick(() => {
         this.$refs['modifyForm'].resetFields()
       })
+      this.selectCompany()
       this.roleMenu(form ? form.Id : '')
       this.modifyForm = form ? Object.assign({}, form) : defaultForm()
     },
@@ -83,6 +99,10 @@ export default {
           return it.MenuId
         }
       })
+    },
+    async selectCompany () {
+      let rep = await this.$store.dispatch({type: 'company/selectCompany'})
+      this.companys = rep
     },
     async submitForm (formName) {
       this.$refs[formName].validate(async (valid) => {
@@ -111,7 +131,7 @@ export default {
           this.dialogVisible = false
           this.$emit('handleQueryChange')
         } else {
-          this.$message.error(this.$t('参数不正确'))
+          this.$message.error(this.$t('incorrect_parameter'))
         }
       })
     }

@@ -74,22 +74,52 @@ export default {
       this.loading = true
       // args
       let dates = _.clone(this.upDateTime)
+      let queryArgs = null
+
       try {
-        var queryArgs = this.queryArgsFn(dates, moment)
-        if (!queryArgs.StartDate) {
-          queryArgs.StartDate = moment(dates[0]).format('YYYY-MM-DD')
-        }
-        if (!queryArgs.EndDate) {
-          queryArgs.EndDate = moment(dates[1]).format('YYYY-MM-DD')
-        }
-        if (!queryArgs.Locations) {
-          queryArgs.Locations = {MallIds: _.pluck(this.selectMalls, 'Id')}
-        }
+        queryArgs = this.queryArgsFn(dates, moment)
       } catch (e) {
         this.error = `<div>Run QueryArgsFn Error<br>${e}</div>`
         this.loading = false
         return
       }
+
+      for (let key in queryArgs) {
+        if (!queryArgs[key].StartDate) {
+          queryArgs[key].StartDate = moment(dates[0]).format('YYYY-MM-DD')
+        } else {
+          queryArgs[key].StartDate = moment(queryArgs[key].StartDate).format('YYYY-MM-DD')
+        }
+        if (!queryArgs[key].EndDate) {
+          queryArgs[key].EndDate = moment(dates[1]).format('YYYY-MM-DD')
+        } else {
+          queryArgs[key].EndDate = moment(queryArgs[key].EndDate).format('YYYY-MM-DD')
+        }
+        if (!queryArgs[key].Locations) {
+          queryArgs[key].Locations = {MallIds: _.pluck(this.selectMalls, 'Id')}
+        }
+        if (queryArgs[key].Locations && !queryArgs[key].Locations.MallIds) {
+          queryArgs[key].Locations.MallIds = _.pluck(this.selectMalls, 'Id')
+        }
+      }
+
+      // try {
+      //   debugger
+      //   var queryArgs = this.queryArgsFn(dates, moment)
+      //   if (!queryArgs.StartDate) {
+      //     queryArgs.StartDate = moment(dates[0]).format('YYYY-MM-DD')
+      //   }
+      //   if (!queryArgs.EndDate) {
+      //     queryArgs.EndDate = moment(dates[1]).format('YYYY-MM-DD')
+      //   }
+      //   if (!queryArgs.Locations) {
+      //     queryArgs.Locations = {MallIds: _.pluck(this.selectMalls, 'Id')}
+      //   }
+      // } catch (e) {
+      //   this.error = `<div>Run QueryArgsFn Error<br>${e}</div>`
+      //   this.loading = false
+      //   return
+      // }
 
       let res
       try {
@@ -123,8 +153,15 @@ export default {
         template: template,
         props: {D: {type: Object}},
         filters: {
+          compare: function (raw, compareTo) {
+            if (typeof (raw) === 'number' && typeof (compareTo) === 'number') {
+              return compareTo === 0 ? '-' : (raw / compareTo * 100).toFixed(2) + '%'
+            } else {
+              return '-'
+            }
+          },
           fixed: function (a, b) {
-            return a.toFixed(b)
+            return typeof (a) === 'number' ? a.toFixed(b) : a
           },
           floor: function (a) {
             return Math.floor(a)
@@ -165,7 +202,7 @@ export default {
           return
         }
         try {
-          this.resultProcessorFn = new Function('r', 'd', '_', `${this.ResultProcessor}`)
+          this.resultProcessorFn = new Function('r', 'D', '_', `${this.ResultProcessor}`)
         } catch (e) {
           this.error = `<div>Init ResultProcessorFn Error<br>${e}</div>`
         }

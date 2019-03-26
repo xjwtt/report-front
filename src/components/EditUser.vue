@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="编辑"
+  <el-dialog :title="$t('edit')"
              v-if="dialogVisible"
              :visible.sync="dialogVisible"
              :close-on-click-modal="false"
@@ -73,8 +73,8 @@
     <span slot="footer"
           class="dialog-footer">
       <el-button type="primary"
-                 @click="submitForm('modifyForm')">确 定</el-button>
-      <el-button @click="dialogVisible = false">取 消</el-button>
+                 @click="submitForm('modifyForm')">{{$t('ok')}}</el-button>
+      <el-button @click="dialogVisible = false">{{$t('cancel')}}</el-button>
     </span>
   </el-dialog>
 </template>
@@ -86,6 +86,7 @@ const defaultForm = () => {
     UserCode: '',
     CompanyId: '',
     Name: '',
+    ParentId: '',
     RoleId: '',
     UserPwd: '',
     Language: 'zh',
@@ -103,25 +104,25 @@ export default {
       pwdShow: true,
       rules: {
         UserCode: [
-          {required: true, message: this.$t('please_enter_the_field_name'), trigger: 'blur'}
+          {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
         ],
         CompanyId: [
-          {required: true, message: this.$t('please_enter_the_field_name'), trigger: 'blur'}
+          {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
         ],
         Name: [
-          {required: true, message: this.$t('please_enter_the_field_name'), trigger: 'blur'}
+          {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
         ],
         RoleId: [
-          {required: true, message: this.$t('please_enter_the_field_name'), trigger: 'blur'}
+          {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
         ],
         UserPwd: [
-          {required: true, message: this.$t('please_enter_the_field_name'), trigger: 'blur'}
+          {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
         ],
         conUserPwd: [
-          {required: true, message: this.$t('please_enter_the_field_name'), trigger: 'blur'}
+          {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
         ],
         Language: [
-          {required: true, message: this.$t('please_enter_the_field_name'), trigger: 'blur'}
+          {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
         ]
       },
       companys: [],
@@ -138,6 +139,7 @@ export default {
       this.selectCompanyByUser()
       this.selectRole()
       this.selectCategoryByKeyName()
+      // this.selectUserByParentId()
       if (form) {
         this.pwdShow = false
         this.modifyForm = Object.assign({}, form)
@@ -146,6 +148,10 @@ export default {
         this.modifyForm = defaultForm()
       }
     },
+    // async selectUserByParentId () {
+    //   let rep = await this.$store.dispatch({type: 'user/selectUserByParentId'})
+    //   this.users = rep
+    // },
     async selectCompanyByUser () {
       let rep = await this.$store.dispatch({type: 'company/selectCompany'})
       this.companys = rep
@@ -158,14 +164,14 @@ export default {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
           if (this.modifyForm.conUserPwd && (this.modifyForm.UserPwd !== this.modifyForm.conUserPwd)) {
-            this.$message.error('两次的密码不同!')
+            this.$message.error(this.$t('two_passwords_are_different'))
           } else {
             await this.$store.dispatch({type: 'user/saveOrUpdateUser', data: this.modifyForm})
             this.dialogVisible = false
           }
           this.$emit('handleQueryChange')
         } else {
-          this.$message.error(this.$t('参数不正确'))
+          this.$message.error(this.$t('incorrect_parameter'))
         }
       })
     },

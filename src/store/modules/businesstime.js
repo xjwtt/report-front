@@ -8,6 +8,9 @@ export default {
     async gridBusinessTime (context, payload) {
       return ajax.post('/business/gridBusinessTime.action', payload.data)
     },
+    async gridMallBusinessTime (context, payload) {
+      return ajax.post('/business/gridMallBusinessTime.action', payload.data)
+    },
     async saveOrUpdateBusinessTime (context, payload) {
       return ajax.post('/business/saveOrUpdateBusinessTime.action', payload.data)
     },

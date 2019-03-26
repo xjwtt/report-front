@@ -32,15 +32,15 @@
       <edit-businesstime ref=editDialog @handleQueryChange="handleQueryChange"></edit-businesstime>
       <related-businesstime-mall ref=RelatedBusinesstimeMall
                                  @handleQueryChange="handleQueryChange"></related-businesstime-mall>
-      <el-dialog title="提示"
+      <el-dialog :title="$t('prompt')"
                  :visible.sync="delDialogVisible"
                  width="30%">
-        <span>确定删除{{waitToDel.length}}条内容吗？</span>
+        <span>{{$t('confirm_delete')}}{{waitToDel.length}}{{$t('items_delete')}}</span>
         <span slot="footer"
               class="dialog-footer">
-          <el-button @click="delDialogVisible = false">取 消</el-button>
+          <el-button @click="delDialogVisible = false">{{$t('cancel')}}</el-button>
           <el-button type="primary"
-                     @click="sureDelete">确 定</el-button>
+                     @click="sureDelete">{{$t('ok')}}</el-button>
         </span>
       </el-dialog>
     </el-card>
@@ -62,14 +62,15 @@ export default {
     tblClass: 'table-bordered',
     tblStyle: 'color: #666',
     columns: [
-      {title: '类型', field: 'TimeTypeName', sortable: true},
-      {title: '起始日期', field: 'StartDate', sortable: true},
-      {title: '起始时间', field: 'StartTime', sortable: true},
-      {title: '结束日期', field: 'EndDate', sortable: true},
-      {title: '结束时间', field: 'EndTime', sortable: true},
-      {title: '星期', field: 'Weekdays'},
-      {title: '描述', field: 'Description'},
-      {title: 'Operation', tdComp: 'td-userOpt', visible: true}
+      {title: 'companyName', field: 'CompanyName', thComp: 'th-filter', sortable: true},
+      {title: 'TimeTypeName', field: 'TimeTypeName', sortable: true},
+      {title: 'StartDate', field: 'StartDate', sortable: true},
+      {title: 'StartTime', field: 'StartTime', sortable: true},
+      {title: 'EndDate', field: 'EndDate', sortable: true},
+      {title: 'EndTime', field: 'EndTime', sortable: true},
+      {title: 'Weekdays', field: 'Weekdays'},
+      {title: 'Description', field: 'Description'},
+      {title: 'Operation', tdComp: 'td-businesstimeOpt', visible: true}
     ],
     data: [],
     total: 0,
@@ -78,7 +79,6 @@ export default {
     xprops: {
       eventbus: new Vue()
     },
-
     delDialogVisible: false,
     waitToDel: []
   }),

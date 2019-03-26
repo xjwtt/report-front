@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="编辑"
+  <el-dialog :title="$t('edit')"
              v-if="dialogVisible"
              :visible.sync="dialogVisible"
              :close-on-click-modal="false"
@@ -28,8 +28,8 @@
     <span slot="footer"
           class="dialog-footer">
       <el-button type="primary"
-                 @click="submitForm('modifyForm')">确 定</el-button>
-      <el-button @click="dialogVisible = false">取 消</el-button>
+                 @click="submitForm('modifyForm')">{{$t('ok')}}</el-button>
+      <el-button @click="dialogVisible = false">{{$t('cancel')}}</el-button>
     </span>
   </el-dialog>
 </template>
@@ -46,7 +46,7 @@ export default {
       modifyForm: defaultForm(),
       rules: {
         Name: [
-          {required: true, message: this.$t('please_enter_the_field_name'), trigger: 'blur'}
+          {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
         ]
       }
     }
@@ -66,7 +66,7 @@ export default {
           this.dialogVisible = false
           this.$emit('handleQueryChange')
         } else {
-          this.$message.error(this.$t('参数不正确'))
+          this.$message.error(this.$t('incorrect_parameter'))
         }
       })
     }

@@ -29,12 +29,12 @@ export default {
     columns: [
       {title: 'mall_name', field: 'MallName', thComp: 'th-filter', sortable: true},
       {title: 'deviceId', field: 'DeviceId', thComp: 'th-filter', sortable: true},
-      {title: '位置', field: 'Position'},
-      {title: '区域数量', field: 'ZoneCount', sortable: true},
+      {title: 'Position', field: 'Position'},
+      {title: 'ZoneCount', field: 'ZoneCount', sortable: true},
       {title: 'IpAddress', field: 'IpAddress', sortable: true},
-      {title: '数据最后时间', field: 'LastDataTime', sortable: true},
-      {title: '设备最后心跳时间', field: 'UpdateTime', sortable: true},
-      {title: '运行状态', field: 'UpdateTime', sortable: true, tdComp: 'td-cameraStatus'}
+      {title: 'LastDataTime', field: 'LastDataTime', sortable: true},
+      {title: 'UpdateTime', field: 'UpdateTime', sortable: true},
+      {title: 'Status', field: 'UpdateTime', sortable: true, tdComp: 'td-cameraStatus'}
     ],
     data: [],
     total: 0,

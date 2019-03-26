@@ -7,8 +7,8 @@
         <span>{{$t('cameraZone_manager')}}</span>
       </div>
       <template>
-        <el-radio v-model="query.Enabled" :label="1">启用</el-radio>
-        <el-radio v-model="query.Enabled" :label="-1">停用</el-radio>
+        <el-radio v-model="query.Enabled" :label="1">{{$t('start_using')}}</el-radio>
+        <el-radio v-model="query.Enabled" :label="-1">{{$t('block_up')}}</el-radio>
       </template>
       <datatable v-bind="$data">
         <slot>
@@ -27,15 +27,15 @@
         </slot>
       </datatable>
       <edit-camera-zone ref=editDialog @handleQueryChange="handleQueryChange"></edit-camera-zone>
-      <el-dialog title="提示"
+      <el-dialog :title="$t('prompt')"
                  :visible.sync="delDialogVisible"
                  width="30%">
-        <span>确定删除{{waitToDel.length}}条内容吗？</span>
+        <span>{{$t('confirm_delete')}}{{waitToDel.length}}{{$t('items_delete')}}</span>
         <span slot="footer"
               class="dialog-footer">
-          <el-button @click="delDialogVisible = false">取 消</el-button>
+          <el-button @click="delDialogVisible = false">{{$t('cancel')}}</el-button>
           <el-button type="primary"
-                     @click="sureDelete">确 定</el-button>
+                     @click="sureDelete">{{$t('ok')}}</el-button>
         </span>
       </el-dialog>
     </el-card>
@@ -57,7 +57,7 @@ export default {
     tblStyle: 'color: #666',
     columns: [
       {title: 'MallName', field: 'MallName', thComp: 'th-filter', sortable: true},
-      {title: '设备#区域', field: 'DeviceIdZone'},
+      {title: 'camera_zone', field: 'DeviceIdZone'},
       {title: 'ZoneClass', field: 'ZoneClass', thComp: 'th-filter', sortable: true},
       {title: 'Enabled', field: 'Enabled', sortable: true, tdComp: 'td-status'},
       {title: 'Operation', tdComp: 'td-opt', visible: true}

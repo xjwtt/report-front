@@ -1,12 +1,12 @@
 <template>
   <div>
-    <el-dialog title="编辑"
+    <el-dialog :title="$t('edit')"
                v-if="dialogVisible"
                :visible.sync="dialogVisible"
                :close-on-click-modal="false"
                width="70%">
       <el-tabs v-model="activeName">
-        <el-tab-pane :label="$t('摄像机')" name="device">
+        <el-tab-pane :label="$t('camera')" name="device">
           <el-row :gutter="20">
             <el-col :span="14">
               <el-form :model="modifyForm"
@@ -14,7 +14,7 @@
                        ref=modifyForm
                        label-width="150px"
                        class="demo-modifyForm">
-                <el-form-item :label="$t('案场')" prop="MallId">
+                <el-form-item :label="$t('Mall')" prop="MallId">
                   <el-select v-model.trim="modifyForm.MallId"
                              filterable
                              placeholder="...">
@@ -33,7 +33,7 @@
                               prop="DeviceName">
                   <el-input v-model.trim="modifyForm.DeviceName"></el-input>
                 </el-form-item>
-                <el-form-item :label="$t('位置')"
+                <el-form-item :label="$t('Position')"
                               prop="Position">
                   <el-input v-model.trim="modifyForm.Position"></el-input>
                 </el-form-item>
@@ -41,7 +41,7 @@
                               prop="IpAddress">
                   <el-input v-model.trim="modifyForm.IpAddress"></el-input>
                 </el-form-item>
-                <el-form-item :label="$t('序列号')"
+                <el-form-item :label="$t('SerialNumber')"
                               prop="SerialNumber">
                   <el-input v-model.trim="modifyForm.SerialNumber"></el-input>
                 </el-form-item>
@@ -54,7 +54,7 @@
             </el-col>
           </el-row>
         </el-tab-pane>
-        <el-tab-pane :label="$t('摄像机区域')" name="deviceZone">
+        <el-tab-pane :label="$t('camera_zone')" name="deviceZone">
           <el-row :gutter="20">
             <el-col :span="2" :offset="18">
               <button class="el-icon-plus" type="button" @click="newOneCameraZone()"></button>
@@ -68,15 +68,15 @@
                 style="width: 100%">
                 <el-table-column
                   prop="ZoneId"
-                  :label="$t('区域码')">
+                  :label="$t('Zone')">
                 </el-table-column>
                 <el-table-column
                   prop="ZoneClass"
-                  :label="$t('统计方式')">
+                  :label="$t('zone_class')">
                 </el-table-column>
                 <el-table-column
                   fixed="right"
-                  :label="$t('状态')">
+                  :label="$t('status')">
                   <template slot-scope="scope">
                     <el-tag size="medium" :type="scope.row.Enabled ===1?'success':'danger'" >
                       {{ scope.row.Enabled ===1?$t('start_using'):$t('block_up') }}
@@ -85,11 +85,11 @@
                 </el-table-column>
                 <el-table-column
                   fixed="right"
-                  :label="$t('操作')"
+                  :label="$t('operation')"
                   width="180">
                   <template slot-scope="scope">
-                    <el-button @click="cameraZoneEdit(scope.row)" type="text" size="small">编辑</el-button>
-                    <el-button @click="cameraZoneRemove(scope.row)" type="text" size="small">删除</el-button>
+                    <el-button @click="cameraZoneEdit(scope.row)" type="text" size="small">{{$t('edit')}}</el-button>
+                    <el-button @click="cameraZoneRemove(scope.row)" type="text" size="small">{{$t('delete')}}</el-button>
                   </template>
                 </el-table-column>
               </el-table>
@@ -100,11 +100,11 @@
       <span slot="footer"
             class="dialog-footer">
       <el-button type="primary"
-                 @click="submitForm('modifyForm')">确 定</el-button>
-      <el-button @click="dialogVisible = false">取 消</el-button>
+                 @click="submitForm('modifyForm')">{{$t('ok')}}</el-button>
+      <el-button @click="dialogVisible = false">{{$t('cancel')}}</el-button>
     </span>
     </el-dialog>
-    <el-dialog title="摄像区域"
+    <el-dialog :title="$t('camera_zone')"
                v-if="cameraZoneDialogVisible"
                :visible.sync="cameraZoneDialogVisible"
                :close-on-click-modal="false"
@@ -114,11 +114,11 @@
                ref=zoneForm
                label-width="100px"
                class="demo-zoneForm">
-        <el-form-item :label="$t('区域码')"
+        <el-form-item :label="$t('zone')"
                       prop="ZoneId">
           <el-input v-model.number="zoneForm.ZoneId"></el-input>
         </el-form-item>
-        <el-form-item :label="$t('统计方式')"
+        <el-form-item :label="$t('zone_class')"
                       prop="ZoneClass">
           <el-radio v-model="zoneForm.ZoneClass" label="Count">{{$t('客流(Count)')}}</el-radio>
           <el-radio v-model="zoneForm.ZoneClass" label="Passby">{{$t('经过(Passby)')}}</el-radio>
@@ -136,19 +136,19 @@
       <span slot="footer"
             class="dialog-footer">
       <el-button type="primary"
-                 @click="zoneSubmitForm('zoneForm')">确 定</el-button>
-      <el-button @click="cameraZoneDialogVisible = false">取 消</el-button>
+                 @click="zoneSubmitForm('zoneForm')">{{$t('ok')}}</el-button>
+      <el-button @click="cameraZoneDialogVisible = false">{{$t('cancel')}}</el-button>
     </span>
     </el-dialog>
-    <el-dialog title="提示"
+    <el-dialog :title="$t('prompt')"
                :visible.sync="delDialogVisible"
                width="30%">
-      <span>确定删除吗？</span>
+      <span>{{$t('confirm_delete')}}{{waitToDel.length}}{{$t('items_delete')}}</span>
       <span slot="footer"
             class="dialog-footer">
-          <el-button @click="delDialogVisible = false">取 消</el-button>
+          <el-button @click="delDialogVisible = false">{{$t('cancel')}}</el-button>
           <el-button type="primary"
-                     @click="sureDelete">确 定</el-button>
+                     @click="sureDelete">{{$t('ok')}}</el-button>
         </span>
     </el-dialog>
   </div>
@@ -185,10 +185,10 @@ export default {
       modifyForm: defaultForm(),
       rules: {
         MallId: [
-          {required: true, message: this.$t('please_enter_the_field_name'), trigger: 'blur'}
+          {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
         ],
         DeviceId: [
-          {required: true, message: this.$t('please_enter_the_field_name'), trigger: 'blur'}
+          {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
         ]
       },
       malls: [],
@@ -229,7 +229,7 @@ export default {
             this.$message.error(this.$t('必须添加区域码'))
           }
         } else {
-          this.$message.error(this.$t('参数不正确'))
+          this.$message.error(this.$t('incorrect_parameter'))
         }
       })
     },
@@ -296,7 +296,7 @@ export default {
             return it.ZoneId
           })
         } else {
-          this.$message.error(this.$t('参数不正确'))
+          this.$message.error(this.$t('incorrect_parameter'))
         }
       })
     }

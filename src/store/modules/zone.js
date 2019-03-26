@@ -8,6 +8,9 @@ export default {
   actions: {
     async select (context, payload) {
       return ajax.post('/business/SelectPhysicalManager.action', payload)
+    },
+    async selectPZZTByMallIdZoneTypeEnable (context, payload) {
+      return ajax.post('/business/selectPZZTByMallIdZoneTypeEnable.action', payload.data)
     }
   }
 }

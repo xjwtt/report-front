@@ -1,0 +1,78 @@
+<template>
+  <div class="config-page">
+    <el-card class="box-card"
+             style="flex:auto">
+      <div slot="header"
+           class="clearfix">
+        <span>{{$t('weather_manager')}}</span>
+      </div>
+      <datatable v-bind="$data">
+        <slot>
+          <div class="pull-right"
+               style="margin:0 5px">
+            <button :title="$t('get_today_weather')"
+                    class="btn btn-default"
+                    type="button"
+                    @click="getTodayWeather()">
+              <i class="fa" :class="'el-icon-success'"></i>
+            </button>
+          </div>
+        </slot>
+      </datatable>
+    </el-card>
+  </div>
+</template>
+
+<script>
+import Vue from 'vue'
+
+export default {
+  name: 'weather_manager',
+  data: () => ({
+    // table
+    supportBackup: true,
+    tblClass: 'table-bordered',
+    tblStyle: 'color: #666',
+    columns: [
+      {title: 'CityName', field: 'CityName', thComp: 'th-filter', sortable: true},
+      {title: 'Date', field: 'Date', thComp: 'th-filter', sortable: true},
+      {title: 'WeatherName', field: 'WeatherName'},
+      {title: 'HighTemp', field: 'HighTemp'},
+      {title: 'LowTemp', field: 'LowTemp'},
+      {title: 'PM25', field: 'PM25'},
+      {title: 'Wind', field: 'Wind'}
+    ],
+    data: [],
+    total: 0,
+    query: {},
+    selection: [],
+    xprops: {
+      eventbus: new Vue()
+    }
+  }),
+  methods: {
+    async getTodayWeather () {
+      await this.$store.dispatch({type: 'weather/getTodayWeather', data: this.query})
+      this.$message.success(this.$t('success'))
+      this.handleQueryChange()
+    },
+    async handleQueryChange () {
+      let rep = await this.$store.dispatch({type: 'weather/weatherGrid', data: this.query})
+      this.total = rep.total
+      this.data = rep.list
+    }
+  },
+  watch: {
+    query: {
+      handler () {
+        this.handleQueryChange()
+      },
+      deep: true
+    }
+  }
+}
+</script>
+
+<style scoped>
+
+</style>

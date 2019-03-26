@@ -16,8 +16,8 @@
     <span slot="footer"
           class="dialog-footer">
       <el-button type="primary"
-                 @click="submitForm('modifyForm')">确 定</el-button>
-      <el-button @click="dialogVisible = false">取 消</el-button>
+                 @click="submitForm('modifyForm')">{{$t('ok')}}</el-button>
+      <el-button @click="dialogVisible = false">{{$t('cancel')}}</el-button>
     </span>
   </el-dialog>
 </template>
@@ -32,7 +32,7 @@ export default {
       dialogVisible: false,
       malls: [],
       businessTimeId: '',
-      selectMallsValue: null,
+      selectMallsValue: [],
       filterMethod (query, item) {
         return item.Name.indexOf(query) > -1
       }
@@ -41,11 +41,11 @@ export default {
   methods: {
     show (form) {
       this.dialogVisible = true
-      this.selectCompanyMall()
+      this.selectCompanyMall(form.CompanyId)
       this.userMall(form.Id)
     },
-    async selectCompanyMall () {
-      let rep = await this.$store.dispatch({type: 'mall/selectCompanyMall'})
+    async selectCompanyMall (companyId) {
+      let rep = await this.$store.dispatch({type: 'mall/selectCompanyMall', data: {CompanyId: companyId}})
       this.malls = rep
     },
     async userMall (businessTimeId) {

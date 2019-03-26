@@ -1,37 +1,5 @@
 <template>
-  <div>
-    <el-button @click="exportExcel">{{$t('export')}}</el-button>
-    <el-table id="trafficeTable"
-              :data="data"
-              stripe
-              border
-              style="width: 100%"
-              max-height="280">
-      <el-table-column v-for="column in columns"
-                       :key="column.Id"
-                       :prop="column.prop"
-                       :label="column.label"
-                       :sortable="true"
-                       :fixed="column.fixed">
-      </el-table-column>
-    </el-table>
-    <!--<bigdata-table-->
-    <!--ref="table"-->
-    <!--v-model="bigData"-->
-    <!--:fixed="true"-->
-    <!--:disabledHover="true"-->
-    <!--:stripe="true"-->
-    <!--:col-width="150"-->
-    <!--:header-height="80"-->
-    <!--:at-right-cell-posi="80"-->
-    <!--:at-left-cell-posi="80"-->
-    <!--:columns="columns"-->
-    <!--:fixed-col="2"-->
-    <!--:selectable="true"-->
-    <!--:paste="true"-->
-    <!--:disabled-hover="false"-->
-    <!--&gt;</bigdata-table>-->
-  </div>
+  <canvas-datagrid ref="a1" v-bind.prop='data'></canvas-datagrid>
 </template>
 
 <script>
@@ -134,25 +102,27 @@ export default {
       let that = this
       let result = _.map(columns, function (it) {
         let re = {
-          prop: it,
-          fixed: false,
-          title: it,
-          label: it,
-          width: it.length * 12 < 120 ? 120 : it.length * 12,
-          formatter: (row, col) => row[it]
+          // prop: it,
+          // fixed: false,
+          name: it
+          // editable: false,
+          // title: it,
+          // dataTypeName: it
+          // label: it,
+          // width: it.length * 12 < 120 ? 120 : it.length * 12,
+          // formatter: (row, col) => row[it]
         }
         switch (it) {
           case 'location':
           case 'type':
           case 'total':
             re.title = that.$t(it)
-            re.label = that.$t(it)
-            re.fixed = true
+            // re.label = that.$t(it)
+            // re.fixed = true
             break
         }
         return re
       })
-      Object.freeze(result)
       return result
     },
     bigData () {
@@ -187,7 +157,7 @@ export default {
               data.push(charTypesData)
             })
           })
-          return data
+          return {'data': data, 'schema': this.columns}
         case 'DomainLabel':
           _.each(dataObject, function (values, key) {
             let charTypesData = [key]
@@ -198,7 +168,7 @@ export default {
               data.push(charTypesData)
             })
           })
-          return data
+          return {'data': data}
       }
     },
     data () {
@@ -218,6 +188,7 @@ export default {
           })
           let data = _.values(dataObjecy)
           _.each(data, function (d) {
+            d.editable = false
             switch (d.key) {
               case 'EnteringRate':
                 d['total'] = ''
@@ -233,8 +204,7 @@ export default {
                 })
             }
           })
-          Object.freeze(data)
-          return data
+          return {'data': data, 'schema': this.columns}
         case 'DomainLabel':
           _.each(that.tableData, function (d) {
             _.each(that.charTypes, function (t) {
@@ -245,14 +215,29 @@ export default {
               dataObjecy[key][t] = d[t]
             })
           })
-          Object.freeze(dataObjecy)
-          return _.values(dataObjecy)
+          return {'data': _.values(dataObjecy), 'schema': this.columns}
       }
     }
+  },
+  mounted () {
+    console.log(this.$refs)
+    this.$refs.a1.style.width = '100%'
+    this.$refs.a1.filters = {}
+    console.log(this.$refs)
+    this.$refs.a1.attributes.editable = false
+    this.$refs.a1.attributes.columnHeaderClickBehavior = 'none'
+    this.$refs.a1.attributes.showColumnSelector = false
+    this.$refs.a1.attributes.showFilter = false
+    this.$refs.a1.attributes.showOrderByOption = false
+    this.$refs.a1.attributes.showClearSettingsOption = false
+    this.$refs.a1.attributes.showRowNumbers = false
+    this.$refs.a1.attributes.showRowHeaders = false
+    // this.$refs.a1.editable = false
+    // this.$refs.a1.style.height="500px"
+    // this.$refs.a1.style.height="500px"
   }
 }
 </script>
 
 <style scoped>
-
 </style>

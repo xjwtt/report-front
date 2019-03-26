@@ -2,7 +2,7 @@
   <div class="report-page">
     <div class="report-page-card">
       <singel-mall-select></singel-mall-select>
-      <zone-selector ref=zoneSelector></zone-selector>
+      <zone-selector :zone-types="zoneTyps" ref=zoneSelector></zone-selector>
       <interval-picker></interval-picker>
       <date-range-picker></date-range-picker>
       <el-button type="primary"
@@ -11,7 +11,6 @@
       </el-button>
     </div>
     <div class="report-page-card">
-     {{$t('traffic_chart')}}
       <el-radio-group v-model="reportType"
                       style="vertical-align: middle;"
                       size="mini">
@@ -25,18 +24,19 @@
         <!-- <el-radio-button :label="'Exit'">离开客流</el-radio-button> -->
         <!-- <el-radio-button :label="'Stay'">滞留</el-radio-button> -->
       </el-radio-group>
-      <chart style="width:100%"
+      <chart ref="showChart"
+             :options="options"
+             style="width:100%"
              :autoResize="true"
-             :options="chartOption"
+             manual-update="true"
              theme="light"></chart>
-
     </div>
     <div class="report-page-card">
-      <traffice-table :columnsInit=columnsInit
-                      :charTypes=charTypes
-                      :tableType=tableType
-                      :tableData=tableData>
-      </traffice-table>
+      <traffice-table02 :columnsInit=columnsInit
+                        :charTypes=charTypes
+                        :tableType=tableType
+                        :tableData=tableData>
+      </traffice-table02>
     </div>
   </div>
 </template>
@@ -47,74 +47,44 @@ import _ from 'underscore'
 
 export default {
   data: () => ({
+    zoneTyps: ['Entrance', 'Domain', 'Floor', 'Corridor'],
     data: null,
     reportType: [1, 'TimeLabel'],
     chartType: 'Enter',
-    charTypes: ['Enter', 'Exit']
+    charTypes: ['Enter', 'Exit'],
+    options: {}
   }),
   methods: {
     ...mapActions('report', ['query']),
     async onQuery () {
       this.data = await this.query({
-        dateFields: ['Enter', 'Exit', 'Stay', 'ConvertRate', 'HighTemp', 'LowTemp', 'WeatherName', 'WeatherImages'],
-        groupBy: [
-          {domain: 'Zone', period: 'All', timeFormatter: 'All'},
-          {domain: 'All'},
-          {domain: 'Zone'}
-          // { domain: 'All', period: 'All', timeFormatter: 'All' }
-        ],
-        PhyIds: this.$refs.zoneSelector.zoneIds
-      })
-    }
-  },
-  computed: {
-    columnsInit () {
-      return ['location']
-    },
-    tableData () {
-      let dataArrayIndex = this.reportType[0]
-      switch (dataArrayIndex) {
-        case 0:
-          return this.data ? this.data.Report[dataArrayIndex] : []
-        case 1:
-          return this.data ? this.data.Report[2] : []
-      }
-    },
-    tableType () {
-      return this.reportType[1]
-    },
-    chartOption () {
-      let fields = ['Enter', 'Exit', 'Stay']
-      if (this.data) {
-        let table = []
-        let grouped = _.groupBy(this.data.Report[0], (_) => _.DomainLabel)
-        for (let mallName in grouped) {
-          let mall = grouped[mallName]
-          for (let fieldIndex in fields) {
-            let field = fields[fieldIndex]
-            let row = {mallName: mallName, metric: field}
-            _.each(mall, (_) => {
-              row[_['TimeLabel']] = _[field]
-            })
-            table.push(row)
-          }
+        'report': {
+          dateFields: ['Enter', 'Exit', 'Stay', 'HighTemp', 'LowTemp', 'WeatherName'],
+          groupBy: [
+            {domain: 'Zone', period: 'All', timeFormatter: 'All'},
+            {domain: 'All'},
+            {domain: 'Zone'}
+            // { domain: 'All', period: 'All', timeFormatter: 'All' }
+          ],
+          PhyIds: this.$refs.zoneSelector.zoneIds
         }
-      }
-
-      let dataType = this.$t('客流数')
-      let yAxisName = this.$t('人次')
-      let minName = this.$t('最小值')
-      let maxName = this.$t('最大值')
-      let avgName = this.$t('平均值')
+      })
+    },
+    updateCharts () {
+      let dataType = this.$t('enter')
+      let yAxisName = this.$t('man_time')
+      let minName = this.$t('min')
+      let maxName = this.$t('max')
+      let avgName = this.$t('avg')
 
       let dataArrayIndex = this.reportType[0]
       let xSelector = (_) => _[this.reportType[1]]
       let ySelector = (_) => _[this.chartType]
 
-      let xData = this.data ? _.map(this.data.Report[dataArrayIndex], xSelector) : null
-      let yData = this.data ? _.map(this.data.Report[dataArrayIndex], ySelector) : null
+      let xData = this.data ? _.map(this.data['report'][dataArrayIndex], xSelector) : null
+      let yData = this.data ? _.map(this.data['report'][dataArrayIndex], ySelector) : null
 
-      return {
+      let result = {
         'title': {
           'text': ''
         },
@@ -169,9 +139,39 @@ export default {
           'data': yData
         }]
       }
+      Object.freeze(result)
+      this.$refs.showChart.mergeOptions(result)
+    }
+  },
+  computed: {
+    columnsInit () {
+      return ['location']
+    },
+    tableData () {
+      let result = []
+      let dataArrayIndex = this.reportType[0]
+      switch (dataArrayIndex) {
+        case 0:
+          result = this.data ? this.data['report'][dataArrayIndex] : []
+          break
+        case 1:
+          result = this.data ? this.data['report'][2] : []
+          break
+      }
+      Object.freeze(result)
+      return result
+    },
+    tableType () {
+      return this.reportType[1]
     }
   },
   async mounted () {
+    let watched = ['reportType', 'data']
+    watched.forEach(prop => {
+      this.$watch(prop, () => {
+        this.updateCharts()
+      }, {immediate: true})
+    })
     this.onQuery()
   }
 }

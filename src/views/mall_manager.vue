@@ -30,15 +30,15 @@
         </slot>
       </datatable>
       <edit-mall ref=editDialog @handleQueryChange="handleQueryChange"></edit-mall>
-      <el-dialog title="提示"
+      <el-dialog :title="$t('prompt')"
                  :visible.sync="delDialogVisible"
                  width="30%">
-        <span>确定删除{{waitToDel.length}}条内容吗？</span>
+        <span>{{$t('confirm_delete')}}{{waitToDel.length}}{{$t('items_delete')}}</span>
         <span slot="footer"
               class="dialog-footer">
-          <el-button @click="delDialogVisible = false">取 消</el-button>
+          <el-button @click="delDialogVisible = false">{{$t('cancel')}}</el-button>
           <el-button type="primary"
-                     @click="sureDelete">确 定</el-button>
+                     @click="sureDelete">{{$t('ok')}}</el-button>
         </span>
       </el-dialog>
     </el-card>
@@ -60,11 +60,12 @@ export default {
     tblStyle: 'color: #666',
     columns: [
       {title: 'mall_name', field: 'Name', thComp: 'th-filter', sortable: true},
+      {title: 'timezone', field: 'TimeZone', thComp: 'th-filter', sortable: true},
       {title: 'location', field: 'MallLocation', thComp: 'th-filter', sortable: true},
-      {title: '店员数量', field: 'ClerkNumber', sortable: true},
-      {title: '经营面积', field: 'OperationAcreage', sortable: true},
-      {title: '案场编号', field: 'MallCode', thComp: 'th-filter', sortable: true},
-      {title: '序号', field: 'Ranked', sortable: true},
+      {title: 'MallCode', field: 'MallCode', thComp: 'th-filter', sortable: true},
+      {title: 'ClerkNumber', field: 'ClerkNumber', sortable: true},
+      {title: 'OperationAcreage', field: 'OperationAcreage', sortable: true},
+      {title: 'Ranked', field: 'Ranked', sortable: true},
       {title: 'Enabled', field: 'Enabled', sortable: true, tdComp: 'td-status'},
       {title: 'Operation', tdComp: 'td-opt', visible: true}
     ],

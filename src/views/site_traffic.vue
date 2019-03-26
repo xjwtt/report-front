@@ -9,7 +9,6 @@
       </el-button>
     </div>
     <div class="report-page-card">
-      {{$t('total_traffic_chart')}}
       <el-radio-group v-model="reportType"
                       style="vertical-align: middle;"
                       size="mini">
@@ -30,11 +29,11 @@
 
     </div>
     <div class="report-page-card">
-      <traffice-table :columnsInit=columnsInit
+      <traffice-table02 :columnsInit=columnsInit
                       :charTypes=charTypes
                       :tableType=tableType
                       :tableData=tableData>
-      </traffice-table>
+      </traffice-table02>
     </div>
   </div>
 </template>
@@ -55,14 +54,87 @@ export default {
     ...mapActions('report', ['query']),
     async onQuery () {
       this.data = await this.query({
-        dateFields: this.dateFields,
-        groupBy: [
-          // {domain: 'Mall'},
-          {domain: 'Mall', period: 'All', timeFormatter: 'All'},
-          {domain: 'All'}
-          // {domain: 'All', period: 'All', timeFormatter: 'All'}
-        ]
+        'report': {
+          dateFields: this.dateFields,
+          groupBy: [
+            // {domain: 'Mall'},
+            {domain: 'Mall', period: 'All', timeFormatter: 'All'},
+            {domain: 'All'}
+            // {domain: 'All', period: 'All', timeFormatter: 'All'}
+          ]
+        }
       })
+    },
+    updateCharts () {
+      let dataType = this.$t('enter')
+      let yAxisName = this.$t('man_time')
+      let minName = this.$t('min')
+      let maxName = this.$t('max')
+      let avgName = this.$t('avg')
+
+      let dataArrayIndex = this.reportType[0]
+      let xSelector = (_) => _[this.reportType[1]]
+      let ySelector = (_) => _[this.chartType]
+
+      let xData = this.data ? _.map(this.data['report'][dataArrayIndex], xSelector) : []
+      let yData = this.data ? _.map(this.data['report'][dataArrayIndex], ySelector) : []
+      let result = {
+        'title': {
+          'text': ''
+        },
+        'tooltip': {
+          'trigger': 'axis'
+        },
+        'grid': {
+          'left': '3%',
+          'right': '4%',
+          'bottom': '3%',
+          'containLabel': true
+        },
+        'toolbox': {
+          'feature': {
+            'saveAsImage': {}
+          }
+        },
+        'xAxis': {
+          'type': 'category',
+          'boundaryGap': true,
+          'data': xData,
+          'axisLabel': {
+            'rotate': 45
+          }
+        },
+        'yAxis': [{
+          'type': 'value',
+          'name': yAxisName,
+          'axisLabel': {
+            'formatter': '{value} '
+          }
+        }],
+        'series': [{
+          'name': dataType,
+          'type': 'bar',
+          'stack': '',
+          'markPoint': {
+            'data': [{
+              'type': 'max',
+              'name': maxName
+            }, {
+              'type': 'min',
+              'name': minName
+            }]
+          },
+          'markLine': {
+            'data': [{
+              'type': 'average',
+              'name': avgName
+            }]
+          },
+          'data': yData
+        }]
+      }
+      Object.freeze(result)
+      this.$refs.chart.mergeOptions(result)
     }
   },
   computed: {
@@ -76,42 +148,24 @@ export default {
     },
     tableData () {
       let dataArrayIndex = this.reportType[0]
-      return this.data ? this.data.Report[dataArrayIndex] : []
+      return this.data ? this.data['report'][dataArrayIndex] : []
     },
     tableType () {
       return this.reportType[1]
     },
     chartOption () {
-      let fields = ['Enter', 'Exit', 'Stay']
-      if (this.data) {
-        let table = []
-        let grouped = _.groupBy(this.data.Report[0], (_) => _.DomainLabel)
-        // _.each(grouped, _ => console.log(_))
-        for (let mallName in grouped) {
-          let mall = grouped[mallName]
-          for (let fieldIndex in fields) {
-            let field = fields[fieldIndex]
-            let row = {mallName: mallName, metric: field}
-            _.each(mall, (_) => {
-              row[_['TimeLabel']] = _[field]
-            })
-            table.push(row)
-          }
-        }
-      }
-
-      let dataType = this.$t('进入客流')
-      let yAxisName = this.$t('人次')
-      let minName = this.$t('最小值')
-      let maxName = this.$t('最大值')
-      let avgName = this.$t('平均值')
+      let dataType = this.$t('enter')
+      let yAxisName = this.$t('man_time')
+      let minName = this.$t('min')
+      let maxName = this.$t('max')
+      let avgName = this.$t('avg')
 
       let dataArrayIndex = this.reportType[0]
       let xSelector = (_) => _[this.reportType[1]]
       let ySelector = (_) => _[this.chartType]
 
-      let xData = this.data ? _.map(this.data.Report[dataArrayIndex], xSelector) : []
-      let yData = this.data ? _.map(this.data.Report[dataArrayIndex], ySelector) : []
+      let xData = this.data ? _.map(this.data['report'][dataArrayIndex], xSelector) : []
+      let yData = this.data ? _.map(this.data['report'][dataArrayIndex], ySelector) : []
       return {
         'title': {
           'text': ''
@@ -171,6 +225,14 @@ export default {
   },
   async created () {
     this.onQuery()
+  },
+  async mounted () {
+    let watched = ['reportType', 'data']
+    watched.forEach(prop => {
+      this.$watch(prop, () => {
+        this.updateCharts()
+      }, {immediate: true})
+    })
   }
 }
 </script>

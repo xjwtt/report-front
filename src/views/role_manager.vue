@@ -30,15 +30,15 @@
         </slot>
       </datatable>
       <edit-role ref=editDialog @handleQueryChange="handleQueryChange"></edit-role>
-      <el-dialog title="提示"
+      <el-dialog :title="$t('prompt')"
                  :visible.sync="delDialogVisible"
                  width="30%">
-        <span>确定删除{{waitToDel.length}}条内容吗？</span>
+        <span>{{$t('confirm_delete')}}{{waitToDel.length}}{{$t('items_delete')}}</span>
         <span slot="footer"
               class="dialog-footer">
-          <el-button @click="delDialogVisible = false">取 消</el-button>
+          <el-button @click="delDialogVisible = false">{{$t('cancel')}}</el-button>
           <el-button type="primary"
-                     @click="sureDelete">确 定</el-button>
+                     @click="sureDelete">{{$t('ok')}}</el-button>
         </span>
       </el-dialog>
     </el-card>
@@ -59,7 +59,8 @@ export default {
     tblClass: 'table-bordered',
     tblStyle: 'color: #666',
     columns: [
-      {title: 'role_name', field: 'Name', thComp: 'th-filter', sortable: true},
+      {title: 'CompanyName', field: 'CompanyName', thComp: 'th-filter', sortable: true},
+      {title: 'Role_name', field: 'Name', thComp: 'th-filter', sortable: true},
       {title: 'Description', field: 'Description'},
       {title: 'Operation', tdComp: 'td-opt', visible: true}
     ],

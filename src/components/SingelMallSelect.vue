@@ -8,7 +8,6 @@
                :label="mall.Name"
                :value="mall.Id">
     </el-option>
-
   </el-select>
 </template>
 

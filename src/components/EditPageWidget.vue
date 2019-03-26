@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="编辑"
+  <el-dialog :title="$t('edit')"
              v-if="dialogVisible"
              :visible.sync="dialogVisible"
              :close-on-click-modal="false"
@@ -92,8 +92,8 @@
     <span slot="footer"
           class="dialog-footer">
       <el-button type="primary"
-                 @click="submitForm('modifyForm')">确 定</el-button>
-      <el-button @click="dialogVisible = false">取 消</el-button>
+                 @click="submitForm('modifyForm')">{{$t('ok')}}</el-button>
+      <el-button @click="dialogVisible = false">{{$t('cancel')}}</el-button>
     </span>
   </el-dialog>
 </template>
@@ -178,7 +178,7 @@ export default {
           this.dialogVisible = false
           this.$emit('handleQueryChange')
         } else {
-          this.$message.error(this.$t('参数不正确'))
+          this.$message.error(this.$t('incorrect_parameter'))
         }
       })
     }

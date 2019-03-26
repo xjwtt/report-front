@@ -31,15 +31,27 @@
       </datatable>
       <edit-user ref=editDialog @handleQueryChange="handleQueryChange"></edit-user>
       <related-user-mall ref=RelatedUserMall @handleQueryChange="handleQueryChange"></related-user-mall>
-      <el-dialog title="提示"
+      <reset-password ref=resetPassword @handleQueryChange="handleQueryChange"></reset-password>
+      <el-dialog :title="$t('prompt')"
                  :visible.sync="delDialogVisible"
                  width="30%">
-        <span>确定删除{{waitToDel.length}}条内容吗？</span>
+        <span>{{$t('confirm_delete')}}{{waitToDel.length}}{{$t('items_delete')}}</span>
         <span slot="footer"
               class="dialog-footer">
-          <el-button @click="delDialogVisible = false">取 消</el-button>
+          <el-button @click="delDialogVisible = false">{{$t('cancel')}}</el-button>
           <el-button type="primary"
-                     @click="sureDelete">确 定</el-button>
+                     @click="sureDelete">{{$t('ok')}}</el-button>
+        </span>
+      </el-dialog>
+      <el-dialog :title="$t('prompt')"
+                 :visible.sync="deblockingDialogVisible"
+                 width="30%">
+        <span>{{deblockingMessage}}</span>
+        <span slot="footer"
+              class="dialog-footer">
+          <el-button @click="deblockingDialogVisible = false">{{$t('cancel')}}</el-button>
+          <el-button type="primary"
+                     @click="sureDeblocking">{{$t('ok')}}</el-button>
         </span>
       </el-dialog>
     </el-card>
@@ -50,6 +62,7 @@
 <script>
 import Vue from 'vue'
 import EditUser from '@/components/EditUser'
+import ResetPassword from '@/components/ResetPassword'
 import RelatedUserMall from '@/components/RelatedUserMall'
 import _ from 'underscore'
 
@@ -61,6 +74,7 @@ export default {
     tblClass: 'table-bordered',
     tblStyle: 'color: #666',
     columns: [
+      {title: 'company_name', field: 'CompanyName', thComp: 'th-filter', sortable: true},
       {title: 'user_code', field: 'UserCode', thComp: 'th-filter', sortable: true},
       {title: 'user_name', field: 'Name', thComp: 'th-filter', sortable: true},
       {title: 'role_name', field: 'RoleName', thComp: 'th-filter', sortable: true},
@@ -68,7 +82,6 @@ export default {
       {title: 'mall_number', field: 'MallNumber'},
       {title: 'language', field: 'Language'},
       {title: 'is_lock', field: 'IsLock', sortable: true, tdComp: 'td-lock'},
-      {title: 'lock_time', field: 'LockTime', sortable: true},
       {title: 'Operation', tdComp: 'td-userOpt', visible: true}
     ],
     data: [],
@@ -78,8 +91,11 @@ export default {
     xprops: {
       eventbus: new Vue()
     },
-
+    deblockingDialogVisible: false,
+    deblockingMessage: '',
+    deblockingRow: null,
     delDialogVisible: false,
+
     waitToDel: []
   }),
   mounted () {
@@ -87,6 +103,8 @@ export default {
       .$on('EDIT', this.$refs.editDialog.show)
       .$on('RelatedMall', this.$refs.RelatedUserMall.show)
       .$on('DELETE', this.del)
+      .$on('Deblocking', this.deblocking)
+      .$on('ResetPassword', this.$refs.resetPassword.show)
   },
   methods: {
     newOne () {
@@ -100,6 +118,22 @@ export default {
         this.waitToDel = _.map(this.selection, el => el.Id)
       }
       this.delDialogVisible = true
+    },
+    deblocking (row) {
+      this.deblockingMessage = this.$t('unlock') + ' ' + row.UserCode + ' ?'
+      this.deblockingRow = row
+      this.deblockingDialogVisible = true
+    },
+    async sureDeblocking () {
+      if (this.deblockingRow) {
+        await this.$store.dispatch({type: 'user/unlock', data: {Id: this.deblockingRow.Id}})
+        this.deblockingDialogVisible = false
+        this.handleQueryChange()
+        this.$message.success(this.$t('success'))
+      } else {
+        this.$message.error(this.$t('please_select_an_unlocked_user'))
+        this.deblockingDialogVisible = false
+      }
     },
     async sureDelete () {
       await this.$store.dispatch({type: 'user/deleteUser', data: this.waitToDel})
@@ -122,7 +156,8 @@ export default {
   },
   components: {
     EditUser,
-    RelatedUserMall
+    RelatedUserMall,
+    ResetPassword
   }
 }
 </script>

@@ -14,6 +14,15 @@ export default {
     async deleteUser (context, payload) {
       return ajax.post('/system/delUser.action', payload.data)
     },
+    async unlock (context, payload) {
+      return ajax.post('/system/unlock.action', payload.data)
+    },
+    async resetPassword (context, payload) {
+      return ajax.post('/system/resetPassword.action', payload.data)
+    },
+    async selectUserByParentId (context, payload) {
+      return ajax.post('/system/selectUserByParentId.action', payload.data)
+    },
     async roleMenu (context, payload) {
       return ajax.post('/system/roleMenu.action', payload.data)
     },

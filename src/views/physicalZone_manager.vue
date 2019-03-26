@@ -7,7 +7,7 @@
         <span>{{$t('camera_manager')}}</span>
       </div>
       <el-row :gutter="20">
-        <el-col :span="18">
+        <el-col :span="20">
           <span>{{$t('mall_name')}}:</span>
           <el-select v-model.trim="modifyForm.MallId"
                      filterable
@@ -43,8 +43,8 @@
       <el-row :gutter="20">
         <el-col :span="18">
           <el-tabs v-model="activeName">
-            <el-tab-pane label="已关联" name="already">
-              <el-button type="primary" @click="save">{{$t('保存')}}</el-button>
+            <el-tab-pane :label="$t('associated')" name="already">
+              <el-button type="primary" @click="save">{{$t('save')}}</el-button>
               <datatable :columns="alreadyColumns"
                          :total='alreadyData.length'
                          :data="alreadyData"
@@ -55,7 +55,7 @@
                          tblClass="table-bordered">
               </datatable>
             </el-tab-pane>
-            <el-tab-pane label="未关联" name="isnot">
+            <el-tab-pane :label="$t('not_associated')" name="isnot">
               <datatable :columns="isnotColumns"
                          :total='isnotData.length'
                          :data="isnotData"

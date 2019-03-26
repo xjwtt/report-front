@@ -7,8 +7,8 @@
         <span>{{$t('physical_manager')}}</span>
       </div>
       <template>
-        <el-radio v-model="query.Enabled" :label="1">启用</el-radio>
-        <el-radio v-model="query.Enabled" :label="-1">停用</el-radio>
+        <el-radio v-model="query.Enabled" :label="1">{{$t('start_using')}}</el-radio>
+        <el-radio v-model="query.Enabled" :label="-1">{{$t('block_up')}}</el-radio>
       </template>
       <datatable v-bind="$data">
         <slot>
@@ -34,15 +34,15 @@
         </slot>
       </datatable>
       <edit-physical ref=editDialog @handleQueryChange="handleQueryChange"></edit-physical>
-      <el-dialog title="提示"
+      <el-dialog :title="$t('prompt')"
                  :visible.sync="delDialogVisible"
                  width="30%">
-        <span>确定删除{{waitToDel.length}}条内容吗？</span>
+        <span>{{$t('confirm_delete')}}{{waitToDel.length}}{{$t('items_delete')}}</span>
         <span slot="footer"
               class="dialog-footer">
-          <el-button @click="delDialogVisible = false">取 消</el-button>
+          <el-button @click="delDialogVisible = false">{{$t('cancel')}}</el-button>
           <el-button type="primary"
-                     @click="sureDelete">确 定</el-button>
+                     @click="sureDelete">{{$t('ok')}}</el-button>
         </span>
       </el-dialog>
     </el-card>

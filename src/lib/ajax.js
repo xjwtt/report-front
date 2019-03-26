@@ -2,7 +2,6 @@ import axios from 'axios'
 import Vue from 'vue'
 import i18n from '@/i18n'
 import { router } from '@/router/index'
-
 const t = key => i18n.t(key)
 
 const ajax = axios.create({

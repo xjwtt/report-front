@@ -12,22 +12,21 @@
                    ref=modifyForm
                    label-width="150px"
                    class="demo-modifyForm">
-            <el-form-item :label="$t('location_parentName')"
-                          prop="ParentName">
-              <el-input v-model.trim="parentName" :disabled="true"></el-input>
+            <el-form-item :label="$t('user_code')"
+                          prop="UserCode">
+              <el-input :disabled="true" v-model.trim="modifyForm.UserCode"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('location_name')"
+            <el-form-item :label="$t('user_name')"
                           prop="Name">
-              <el-input v-model.trim="modifyForm.Name"></el-input>
+              <el-input :disabled="true" v-model.trim="modifyForm.Name"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('location_ranked')"
-                          prop="Rank">
-              <el-input-number v-model.trim="modifyForm.Ranked"></el-input-number>
+            <el-form-item :label="$t('user_password')"
+                          prop="UserPwd">
+              <el-input type="password" v-model.trim="modifyForm.UserPwd"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('location_getWeather')"
-                          prop="GetWeather">
-              <el-radio v-model="modifyForm.GetWeather" :label="1">{{$t('acquire')}}</el-radio>
-              <el-radio v-model="modifyForm.GetWeather" :label="-1">{{$t('not_acquire')}}</el-radio>
+            <el-form-item :label="$t('user_conpassword')"
+                          prop="conUserPwd">
+              <el-input type="password" v-model.trim="modifyForm.conUserPwd"></el-input>
             </el-form-item>
           </el-form>
         </el-col>
@@ -44,20 +43,25 @@
 
 <script>
 const defaultForm = () => {
-  return {ParentId: '', Name: '', Ranked: 0, GetWeather: -1}
+  return {
+    UserCode: '',
+    Name: '',
+    UserPwd: '',
+    conUserPwd: ''
+  }
 }
 export default {
-  name: 'EditMenu',
+  name: 'ResetPassword',
   data () {
     return {
       dialogVisible: false,
       modifyForm: defaultForm(),
-      parentName: '',
+      userId: null,
       rules: {
-        Name: [
+        UserPwd: [
           {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
         ],
-        Ranked: [
+        conUserPwd: [
           {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
         ]
       }
@@ -66,35 +70,31 @@ export default {
   methods: {
     show (form) {
       this.dialogVisible = true
+      this.userId = form.Id
+      this.modifyForm.UserCode = form.UserCode
+      this.modifyForm.Name = form.Name
       this.$nextTick(() => {
-        this.$refs['modifyForm'].resetFields()
+        this.$refs.modifyForm.resetFields()
       })
-      debugger
-      if (form.ParentId) {
-        this.selectLocationById(form.ParentId)
-      }
-      this.modifyForm = form ? Object.assign({}, form) : defaultForm()
     },
     async submitForm (formName) {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
-          await this.$store.dispatch({type: 'location/saveOrUpdateLocation', data: this.modifyForm})
-          this.dialogVisible = false
+          if (this.modifyForm.conUserPwd && (this.modifyForm.UserPwd !== this.modifyForm.conUserPwd)) {
+            this.$message.error(this.$t('two_passwords_are_different'))
+          } else {
+            await this.$store.dispatch({
+              type: 'user/resetPassword',
+              data: {Id: this.userId, Password: this.modifyForm.UserPwd}
+            })
+            this.dialogVisible = false
+          }
           this.$emit('handleQueryChange')
-          this.$emit('loadLocationTree')
         } else {
           this.$message.error(this.$t('incorrect_parameter'))
         }
       })
-    },
-    async selectLocationById (id) {
-      let rep = await this.$store.dispatch({type: 'location/selectLocationById', data: {id: id}})
-      this.parentName = rep.Name
     }
   }
 }
 </script>
-
-<style scoped>
-
-</style>

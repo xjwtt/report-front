@@ -12,7 +12,7 @@ export default {
       return ajax.post('/business/businessTimeMall.action', payload.data)
     },
     async selectCompanyMall (context, payload) {
-      return ajax.get('/business/selectCompanyMall.action')
+      return ajax.post('/business/selectCompanyMall.action', payload.data)
     },
     async gridMall (context, payload) {
       return ajax.post('/business/gridMall.action', payload.data)

@@ -16,6 +16,8 @@ import physical from './modules/physical'
 import category from './modules/category'
 import zonecamera from './modules/zonecamera'
 import businesstime from './modules/businesstime'
+import weather from './modules/weather'
+import recover from './modules/recover'
 
 Vue.use(Vuex)
 
@@ -45,7 +47,9 @@ const store = new Vuex.Store({
     physical,
     category,
     zonecamera,
-    businesstime
+    businesstime,
+    weather,
+    recover
   }
 })
 

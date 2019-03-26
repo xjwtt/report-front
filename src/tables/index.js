@@ -5,6 +5,7 @@ import thFilter from './tableFields/th-Filter'
 import tdOpt from './tableFields/td-Opt'
 import tdStatus from './tableFields/td-status'
 import tdLock from './tableFields/td-lock'
+import tdBusinesstimeOpt from './tableFields/td-businesstimeOpt'
 import tdUserOpt from './tableFields/td-userOpt'
 import tdGetWeather from './tableFields/td-getWeather'
 import tdCameraStatus from './tableFields/td-cameraStatus'
@@ -18,6 +19,7 @@ Vue.component('th-filter', thFilter)
 Vue.component('td-opt', tdOpt)
 Vue.component('td-status', tdStatus)
 Vue.component('td-lock', tdLock)
+Vue.component('td-businesstimeOpt', tdBusinesstimeOpt)
 Vue.component('td-userOpt', tdUserOpt)
 Vue.component('td-getWeather', tdGetWeather)
 Vue.component('td-cameraStatus', tdCameraStatus)

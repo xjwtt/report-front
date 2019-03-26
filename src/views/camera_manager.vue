@@ -7,8 +7,8 @@
         <span>{{$t('camera_manager')}}</span>
       </div>
       <template>
-        <el-radio v-model="query.Enabled" :label="1">启用</el-radio>
-        <el-radio v-model="query.Enabled" :label="-1">停用</el-radio>
+        <el-radio v-model="query.Enabled" :label="1">{{$t('start_using')}}</el-radio>
+        <el-radio v-model="query.Enabled" :label="-1">{{$t('block_up')}}</el-radio>
       </template>
       <datatable v-bind="$data">
         <slot>
@@ -34,15 +34,15 @@
         </slot>
       </datatable>
       <edit-camera ref=editDialog @handleQueryChange="handleQueryChange"></edit-camera>
-      <el-dialog title="提示"
+      <el-dialog :title="$t('prompt')"
                  :visible.sync="delDialogVisible"
                  width="30%">
-        <span>确定删除{{waitToDel.length}}条内容吗？</span>
+        <span>{{$t('confirm_delete')}}{{waitToDel.length}}{{$t('items_delete')}}</span>
         <span slot="footer"
               class="dialog-footer">
-          <el-button @click="delDialogVisible = false">取 消</el-button>
+          <el-button @click="delDialogVisible = false">{{$t('cancel')}}</el-button>
           <el-button type="primary"
-                     @click="sureDelete">确 定</el-button>
+                     @click="sureDelete">{{$t('ok')}}</el-button>
         </span>
       </el-dialog>
     </el-card>
@@ -65,13 +65,13 @@ export default {
     columns: [
       {title: 'mall_name', field: 'MallName', thComp: 'th-filter', sortable: true},
       {title: 'deviceId', field: 'DeviceId', thComp: 'th-filter', sortable: true},
-      {title: '位置', field: 'Position'},
-      {title: '区域数量', field: 'ZoneCount', sortable: true},
+      {title: 'Position', field: 'Position'},
+      {title: 'zone_count', field: 'ZoneCount', sortable: true},
       {title: 'IpAddress', field: 'IpAddress', sortable: true},
       {title: 'MacAddress', field: 'MacAddress'},
       {title: 'SerialNumber', field: 'SerialNumber'},
-      {title: '数据最后时间', field: 'LastDataTime', sortable: true},
-      {title: '设备最后心跳时间', field: 'UpdateTime', sortable: true},
+      {title: 'LastDataTime', field: 'LastDataTime', sortable: true},
+      {title: 'UpdateTime', field: 'UpdateTime', sortable: true},
       {title: 'Enabled', field: 'Enabled', sortable: true, tdComp: 'td-status'},
       {title: 'Operation', tdComp: 'td-opt', visible: true}
     ],

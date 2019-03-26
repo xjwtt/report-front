@@ -41,15 +41,15 @@
 
       <edit-location ref=editDialog @handleQueryChange="handleQueryChange"
                      @loadLocationTree="loadLocationTree"></edit-location>
-      <el-dialog title="提示"
+      <el-dialog :title="$t('prompt')"
                  :visible.sync="delDialogVisible"
                  width="30%">
-        <span>确定删除{{waitToDel.length}}条内容吗？</span>
+        <span>{{$t('confirm_delete')}}{{waitToDel.length}}{{$t('items_delete')}}</span>
         <span slot="footer"
               class="dialog-footer">
-          <el-button @click="delDialogVisible = false">取 消</el-button>
+          <el-button @click="delDialogVisible = false">{{$t('cancel')}}</el-button>
           <el-button type="primary"
-                     @click="sureDelete">确 定</el-button>
+                     @click="sureDelete">{{$t('ok')}}</el-button>
         </span>
       </el-dialog>
     </el-card>
@@ -71,8 +71,8 @@ export default {
     tblStyle: 'color: #666',
     columns: [
       {title: 'Name', field: 'Name', sortable: true},
-      {title: '天气情况', field: 'GetWeather', tdComp: 'td-getWeather'},
-      {title: '次序', field: 'Ranked', sortable: true},
+      {title: 'GetWeather', field: 'GetWeather', tdComp: 'td-getWeather'},
+      {title: 'Ranked', field: 'Ranked', sortable: true},
       {title: 'Operation', tdComp: 'td-opt', visible: true}
     ],
     data: [],
@@ -107,7 +107,7 @@ export default {
       this.handleQueryChange()
     },
     newOne () {
-      let newData = {ParentId: this.handleId, Name: '', Ranked: 0, GetWeather: 1}
+      let newData = {ParentId: this.handleId, Name: '', Ranked: 0, GetWeather: -1}
       this.$refs.editDialog.show(newData)
     },
     del (row) {

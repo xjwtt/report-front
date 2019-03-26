@@ -1,7 +1,7 @@
 <template>
   <div>
-    <el-radio v-model="reverse" :label="1">{{$t('正向')}}</el-radio>
-    <el-radio v-model="reverse" :label="-1">{{$t('反向')}}</el-radio>
+    <el-radio v-model="reverse" :label="1">{{$t('facade')}}</el-radio>
+    <el-radio v-model="reverse" :label="-1">{{$t('reverse')}}</el-radio>
   </div>
 </template>
 

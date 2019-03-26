@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="编辑"
+  <el-dialog :title="$t('edit')"
              v-if="dialogVisible"
              :visible.sync="dialogVisible"
              :close-on-click-modal="false"
@@ -16,7 +16,7 @@
                           prop="Name">
               <el-input v-model.trim="modifyForm.Name"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('所属集团')" prop="CompanyId">
+            <el-form-item :label="$t('Company')" prop="CompanyId">
               <el-select v-model.trim="modifyForm.CompanyId"
                          filterable
                          placeholder="...">
@@ -27,7 +27,7 @@
                 </el-option>
               </el-select>
             </el-form-item>
-            <el-form-item :label="$t('省/直辖市')" prop="ProvinceId">
+            <el-form-item :label="$t('ProvinceId')" prop="ProvinceId">
               <el-select v-model.trim="modifyForm.ProvinceId"
                          filterable
                          placeholder="...">
@@ -39,7 +39,7 @@
                 </el-option>
               </el-select>
             </el-form-item>
-            <el-form-item :label="$t('城市')" prop="CityId">
+            <el-form-item :label="$t('CityId')" prop="CityId">
               <el-select v-model.trim="modifyForm.CityId"
                          filterable
                          placeholder="...">
@@ -51,7 +51,7 @@
                 </el-option>
               </el-select>
             </el-form-item>
-            <el-form-item :label="$t('区/县')" prop="DistrictId">
+            <el-form-item :label="$t('DistrictId')" prop="DistrictId">
               <el-select v-model.trim="modifyForm.DistrictId"
                          filterable
                          placeholder="...">
@@ -63,27 +63,27 @@
                 </el-option>
               </el-select>
             </el-form-item>
-            <el-form-item :label="$t('时区')" prop="TimeZone">
+            <el-form-item :label="$t('TimeZone')" prop="TimeZone">
               <el-select v-model.trim="modifyForm.TimeZone"
                          filterable
                          placeholder="...">
                 <el-option v-for="item in timeZones"
                            :key="item.Id"
-                           :label="item.Name"
+                           :label="item.Id"
                            :value="item.Id">
 
                 </el-option>
               </el-select>
             </el-form-item>
-            <el-form-item :label="$t('店员数')"
+            <el-form-item :label="$t('ClerkNumber')"
                           prop="ClerkNumber">
               <el-input v-model.trim="modifyForm.ClerkNumber"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('面积')"
+            <el-form-item :label="$t('OperationAcreage')"
                           prop="OperationAcreage">
               <el-input v-model.trim="modifyForm.OperationAcreage"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('序号')"
+            <el-form-item :label="$t('Ranked')"
                           prop="Ranked">
               <el-input-number v-model.trim="modifyForm.Ranked"></el-input-number>
             </el-form-item>
@@ -99,8 +99,8 @@
     <span slot="footer"
           class="dialog-footer">
       <el-button type="primary"
-                 @click="submitForm('modifyForm')">确 定</el-button>
-      <el-button @click="dialogVisible = false">取 消</el-button>
+                 @click="submitForm('modifyForm')">{{$t('ok')}}</el-button>
+      <el-button @click="dialogVisible = false">{{$t('cancel')}}</el-button>
     </span>
   </el-dialog>
 </template>
@@ -115,7 +115,7 @@ const defaultForm = () => {
     ProvinceId: '',
     CityId: '',
     DistrictId: '',
-    TimeZone: 8,
+    TimeZone: 'Asia/Shanghai',
     ClerkNumber: 0,
     OperationAcreage: 0,
     Ranked: 0,
@@ -123,8 +123,8 @@ const defaultForm = () => {
   }
 }
 const timeZones = () => {
-  return _.map([-12, -11, -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], function (it) {
-    return {Id: it, Name: it + '区'}
+  return _.map(['Asia/Shanghai', 'Asia/Ho_Chi_Minh', 'Pacific/Guadalcanal', 'America/Los_Angeles', 'America/Puerto_Rico', 'America/Phoenix', 'Asia/Karachi', 'Pacific/Auckland', 'Asia/Yerevan', 'Pacific/Apia', 'Asia/Tokyo', 'Asia/Kolkata', 'America/Indiana/Indianapolis', 'Europe/Paris', 'Africa/Addis_Ababa', 'America/Chicago', 'America/St_Johns', 'Africa/Harare', 'Asia/Dhaka', 'America/Sao_Paulo', 'America/Anchorage', 'Africa/Cairo', 'America/Argentina/Buenos_Aires', 'Australia/Sydney', 'Australia/Darwin'], function (it) {
+    return {Id: it}
   })
 }
 export default {
@@ -135,19 +135,19 @@ export default {
       modifyForm: defaultForm(),
       rules: {
         Name: [
-          {required: true, message: this.$t('please_enter_the_field_name'), trigger: 'blur'}
+          {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
         ],
         CompanyId: [
-          {required: true, message: this.$t('please_enter_the_field_name'), trigger: 'blur'}
+          {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
         ],
         ProvinceId: [
-          {required: true, message: this.$t('please_enter_the_field_name'), trigger: 'blur'}
+          {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
         ],
         CityId: [
-          {required: true, message: this.$t('please_enter_the_field_name'), trigger: 'blur'}
+          {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
         ],
         TimeZone: [
-          {required: true, message: this.$t('please_enter_the_field_name'), trigger: 'blur'}
+          {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
         ]
       },
       timeZones: timeZones(),
@@ -175,7 +175,7 @@ export default {
           this.dialogVisible = false
           this.$emit('handleQueryChange')
         } else {
-          this.$message.error(this.$t('参数不正确'))
+          this.$message.error(this.$t('incorrect_parameter'))
         }
       })
     },

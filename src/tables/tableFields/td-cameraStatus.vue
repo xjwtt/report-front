@@ -1,6 +1,6 @@
 <template>
   <el-tag size="medium" :type="show ===1?'success':'danger'">
-    {{ show ===1?$t('正常'):$t('断线') }}
+    {{ show ===1?$t('normal'):$t('offLine') }}
   </el-tag>
 </template>
 

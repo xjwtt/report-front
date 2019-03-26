@@ -13,7 +13,8 @@
 
       <el-button type="primary"
                  size="small"
-                 @click="onQuery">{{$t('query')}}</el-button>
+                 @click="onQuery">{{$t('query')}}
+      </el-button>
     </div>
     <div>
 
@@ -23,7 +24,8 @@
                       size="small">
         <el-radio-button v-for="(field,key) in fieldsOptions"
                          :key="key"
-                         :label="key">{{$t(field.displayI18Key)}}</el-radio-button>
+                         :label="key">{{$t(field.displayI18Key)}}
+        </el-radio-button>
       </el-radio-group>
       <chart :style="{width:'100%',height: chartOptions.height+'px'}"
              :autoResize="true"
@@ -41,7 +43,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import {mapActions} from 'vuex'
 import moment from 'moment'
 import fm from '@/lib/fieldsManager'
 import _ from 'underscore'
@@ -63,14 +65,16 @@ export default {
     ...mapActions('report', ['query']),
     async onQuery () {
       let result = await this.query({
-        st: this.dateRange[0],
-        et: this.dateRange[1],
-        dateFields: this.dateFields,
-        groupBy: [
-          { domain: 'Mall', period: 'All', timeFormatter: 'All' }
-        ]
+        'report': {
+          st: this.dateRange[0],
+          et: this.dateRange[1],
+          dateFields: this.dateFields,
+          groupBy: [
+            {domain: 'Mall', period: 'All', timeFormatter: 'All'}
+          ]
+        }
       })
-      this.data = result.Report[0]
+      this.data = result['report'][0]
     }
   },
   async mounted () {
