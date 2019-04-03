@@ -56,7 +56,7 @@ export default {
   actions: {
     async login (context, payload) {
       try {
-        await ajax.post('login.action?op=login', payload.data, {
+        await ajax.post('/user/login.action', payload.data, {
           skipInterceptors: true
         })
         return true
@@ -66,7 +66,7 @@ export default {
     },
     async logout (context) {
       try {
-        await ajax.post('login.action?op=logout')
+        await ajax.post('/user/logout.action')
       } catch (e) {
         return
       }

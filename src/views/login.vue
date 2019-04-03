@@ -5,14 +5,18 @@
       <el-form :model="loginForm"
                ref="loginForm"
                :rules="loginRules">
-        <el-form-item prop="userName">
-          <el-input v-model="loginForm.UserName"
-                    placeholder="请输入用户名"></el-input>
+        <el-form-item prop="CompanyName">
+          <el-input v-model="loginForm.CompanyName"
+                    placeholder="CompanyName"></el-input>
         </el-form-item>
-        <el-form-item prop="passWord">
+        <el-form-item prop="UserName">
+          <el-input v-model="loginForm.UserName"
+                    placeholder="UserName"></el-input>
+        </el-form-item>
+        <el-form-item prop="UserPass">
           <el-input type="password"
                     v-model="loginForm.UserPass"
-                    placeholder="请输入密码"
+                    placeholder="PassWorld"
                     @keyup.enter.native="submitForm('loginForm')"></el-input>
         </el-form-item>
         <el-form-item>
@@ -34,38 +38,32 @@ export default {
         UserPass: ''
       },
       loginRules: {
+        CompanyName: [
+          {required: true, message: 'CompanyName', trigger: 'blur'}
+        ],
         UserName: [
-          {required: true, message: '请输入用户名', trigger: 'blur'}
+          {required: true, message: 'UserName', trigger: 'blur'}
         ],
         UserPass: [
-          {required: true, message: '请输入密码', trigger: 'blur'}
+          {required: true, message: 'PassWorld', trigger: 'blur'}
         ]
       }
     }
   },
   methods: {
     async submitForm (formName) {
-      let loading = this.$loading({fullscreen: true})
-      if (await this.$store.dispatch({type: 'app/login', data: this.loginForm})) {
-        await this.$store.dispatch({type: 'app/getUserInfo', data: this.loginForm})
-        this.$router.replace('/')
-      }
-      loading.close()
-      // var that = this
-      // let params = this.loginForm
-      // this.$refs[formName].validate((valid) => {
-      //   if (valid) {
-      //     var that = this
-      //     login(this.loginForm).then(function (data) {
-      //       that.setUser().then(() => {
-      //         that.$router.push({path: '/briefs'})
-      //       })
-      //     }, function (data) {})
-      //   } else {
-      //     this.$message.error('请填写用户名和密码')
-      //     return false
-      //   }
-      // })
+      this.$refs[formName].validate(async (valid) => {
+        if (valid) {
+          let loading = this.$loading({fullscreen: true})
+          if (await this.$store.dispatch({type: 'app/login', data: this.loginForm})) {
+            await this.$store.dispatch({type: 'app/getUserInfo', data: this.loginForm})
+            this.$router.replace('/')
+          }
+          loading.close()
+        } else {
+          this.$message.error(this.$t('incorrect_parameter'))
+        }
+      })
     }
   }
 }
@@ -94,8 +92,8 @@ export default {
   }
 
   .loginForm {
-    width: 300px;
-    height: 200px;
+    width: 350px;
+    height: 300px;
     padding: 30px 30px 0 30px;
     margin-top: 50px;
     text-align: center;
