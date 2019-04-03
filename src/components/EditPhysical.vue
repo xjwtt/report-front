@@ -16,7 +16,7 @@
                           prop="Name">
               <el-input v-model.trim="modifyForm.Name"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('Mall')"
+            <el-form-item :label="$t('mall')"
                           prop="MallId">
               <el-select v-model.trim="modifyForm.MallId"
                          filterable

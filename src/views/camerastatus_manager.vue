@@ -48,13 +48,8 @@ export default {
       this.data = rep.list
     }
   },
-  watch: {
-    query: {
-      handler () {
-        this.handleQueryChange()
-      },
-      deep: true
-    }
+  mounted () {
+    this.handleQueryChange()
   }
 }
 </script>

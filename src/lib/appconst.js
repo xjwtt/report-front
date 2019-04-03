@@ -387,7 +387,7 @@ const timeIntervals = [
 
 const appconst = {
   defaultDateRange: [moment(), moment()],
-  defaultTimeInterval: timeIntervals[5],
+  defaultTimeInterval: timeIntervals[4],
 
   timeIntervals: timeIntervals
 }

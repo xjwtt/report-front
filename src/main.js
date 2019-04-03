@@ -24,6 +24,7 @@ import CompareMallSelect from './components/CompareMallSelect'
 import TheTable from './components/TheTable'
 import TrafficeTable from './components/TrafficeTable'
 import TrafficeTable02 from './components/TrafficeTable02'
+import TrafficeTalbeFast from './components/TrafficeTalbeFast'
 import ZoneSelector from './components/ZoneSelector'
 
 Vue.config.productionTip = false
@@ -43,6 +44,7 @@ Vue.component('compare-mall-select', CompareMallSelect)
 Vue.component('the-table', TheTable)
 Vue.component('traffice-table', TrafficeTable)
 Vue.component('traffice-table02', TrafficeTable02)
+Vue.component('traffice-table-fast', TrafficeTalbeFast)
 Vue.component('zone-selector', ZoneSelector)
 
 let asyncMain = async () => {

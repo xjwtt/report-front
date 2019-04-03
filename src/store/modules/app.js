@@ -1,8 +1,9 @@
 import ajax from '@/lib/ajax'
 import _ from 'underscore'
-import { addRouterFromMenus } from '@/router/index'
+import {addRouterFromMenus} from '@/router/index'
 import appconst from '@/lib/appconst'
 import i18n from '../../i18n'
+
 export default {
   namespaced: true,
   state: {
@@ -32,6 +33,7 @@ export default {
       state.selectedMall = payload.Malls[0]
       state.selectedMalls = payload.Malls
       state.menus = payload.Menus
+      state.showLogo = payload.ShowLogo
       state.isLogin = true
       i18n.locale = payload.Language
       addRouterFromMenus(payload.Menus)
@@ -58,7 +60,8 @@ export default {
           skipInterceptors: true
         })
         return true
-      } catch (e) {}
+      } catch (e) {
+      }
       return false
     },
     async logout (context) {
@@ -71,14 +74,15 @@ export default {
     },
     async getUserInfo (context) {
       try {
-        let result = await ajax.get('system/UserManager.action?op=userInfo', {
+        let result = await ajax.get('system/userInfo.action', {
           skipInterceptors: true
         })
         context.commit('setUserInfo', result)
         context.commit('widget/setUserWidgets', result.PageWidget, {
           root: true
         })
-      } catch (e) {}
+      } catch (e) {
+      }
     }
   }
 }

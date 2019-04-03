@@ -2,7 +2,7 @@
   <div class="report-page">
     <div class="report-page-card">
       <singel-mall-select></singel-mall-select>
-      <zone-selector :zone-types="zoneTyps" ref=zoneSelector></zone-selector>
+      <zone-selector :zone-types="zoneTypes" ref=zoneSelector></zone-selector>
       <interval-picker></interval-picker>
       <date-range-picker></date-range-picker>
       <el-button type="primary"
@@ -14,7 +14,7 @@
       <el-radio-group v-model="reportType"
                       style="vertical-align: middle;"
                       size="mini">
-        <el-radio-button :label='[1,"TimeLabel"]'>{{$t('time_group')}}</el-radio-button>
+        <el-radio-button :label='[1,"DateTime"]'>{{$t('time_group')}}</el-radio-button>
         <el-radio-button :label='[0,"DomainLabel"]'>{{$t('location_group')}}</el-radio-button>
       </el-radio-group>
       <el-radio-group v-model="chartType"
@@ -24,19 +24,19 @@
         <!-- <el-radio-button :label="'Exit'">离开客流</el-radio-button> -->
         <!-- <el-radio-button :label="'Stay'">滞留</el-radio-button> -->
       </el-radio-group>
-      <chart ref="showChart"
-             :options="options"
+      <chart :options="chartOption"
              style="width:100%"
              :autoResize="true"
-             manual-update="true"
              theme="light"></chart>
     </div>
     <div class="report-page-card">
-      <traffice-table02 :columnsInit=columnsInit
-                        :charTypes=charTypes
-                        :tableType=tableType
-                        :tableData=tableData>
-      </traffice-table02>
+      <traffice-table-fast :columnsInit=columnsInit
+                           :charTypes=charTypes
+                           :tableType=tableType
+                           :tableData=tableData
+                           :headerData=headerData
+                           :fixedHeader=fixedHeader>
+      </traffice-table-fast>
     </div>
   </div>
 </template>
@@ -47,12 +47,12 @@ import _ from 'underscore'
 
 export default {
   data: () => ({
-    zoneTyps: ['Entrance', 'Domain', 'Floor', 'Corridor'],
+    zoneTypes: ['Entrance', 'Domain', 'Floor', 'Corridor'],
     data: null,
-    reportType: [1, 'TimeLabel'],
+    reportType: [1, 'DateTime'],
     chartType: 'Enter',
     charTypes: ['Enter', 'Exit'],
-    options: {}
+    fixedHeader: ['WeatherName']
   }),
   methods: {
     ...mapActions('report', ['query']),
@@ -69,8 +69,34 @@ export default {
           PhyIds: this.$refs.zoneSelector.zoneIds
         }
       })
+    }
+  },
+  computed: {
+    columnsInit () {
+      return ['location']
     },
-    updateCharts () {
+    tableData () {
+      let dataArrayIndex = this.reportType[0]
+      let result = []
+      switch (dataArrayIndex) {
+        case 0:
+          result = this.data ? this.data['report'][dataArrayIndex] : []
+          break
+        case 1:
+          result = this.data ? this.data['report'][2] : []
+          break
+      }
+      Object.freeze(result)
+      return result
+    },
+    headerData () {
+      let dataArrayIndex = this.reportType[0]
+      return this.data ? this.data['report'][dataArrayIndex] : []
+    },
+    tableType () {
+      return this.reportType[1]
+    },
+    chartOption () {
       let dataType = this.$t('enter')
       let yAxisName = this.$t('man_time')
       let minName = this.$t('min')
@@ -85,94 +111,65 @@ export default {
       let yData = this.data ? _.map(this.data['report'][dataArrayIndex], ySelector) : null
 
       let result = {
-        'title': {
-          'text': ''
+        title: {
+          text: ''
         },
-        'tooltip': {
-          'trigger': 'axis'
+        tooltip: {
+          trigger: 'axis'
         },
-        'grid': {
-          'left': '3%',
-          'right': '4%',
-          'bottom': '3%',
-          'containLabel': true
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
         },
-        'toolbox': {
-          'feature': {
-            'saveAsImage': {}
+        toolbox: {
+          feature: {
+            saveAsImage: {}
           }
         },
-        'xAxis': {
-          'type': 'category',
-          'boundaryGap': true,
-          'data': xData,
-          'axisLabel': {
-            'rotate': 45
+        xAxis: {
+          type: 'category',
+          boundaryGap: true,
+          data: xData,
+          axisLabel: {
+            rotate: 45
           }
         },
-        'yAxis': [{
-          'type': 'value',
-          'name': yAxisName,
-          'axisLabel': {
-            'formatter': '{value} '
+        yAxis: [{
+          type: 'value',
+          name: yAxisName,
+          axisLabel: {
+            formatter: '{value} '
           }
         }],
-        'series': [{
-          'name': dataType,
-          'type': 'bar',
-          'stack': '',
-          'markPoint': {
-            'data': [{
-              'type': 'max',
-              'name': maxName
+        series: [{
+          name: dataType,
+          type: 'bar',
+          stack: '',
+          large: true,
+          silent: true,
+          markPoint: {
+            data: [{
+              type: 'max',
+              name: maxName
             }, {
-              'type': 'min',
-              'name': minName
+              type: 'min',
+              name: minName
             }]
           },
-          'markLine': {
-            'data': [{
-              'type': 'average',
-              'name': avgName
+          markLine: {
+            data: [{
+              type: 'average',
+              name: avgName
             }]
           },
-          'data': yData
+          data: yData
         }]
       }
       Object.freeze(result)
-      this.$refs.showChart.mergeOptions(result)
-    }
-  },
-  computed: {
-    columnsInit () {
-      return ['location']
-    },
-    tableData () {
-      let result = []
-      let dataArrayIndex = this.reportType[0]
-      switch (dataArrayIndex) {
-        case 0:
-          result = this.data ? this.data['report'][dataArrayIndex] : []
-          break
-        case 1:
-          result = this.data ? this.data['report'][2] : []
-          break
-      }
-      Object.freeze(result)
       return result
-    },
-    tableType () {
-      return this.reportType[1]
     }
-  },
-  async mounted () {
-    let watched = ['reportType', 'data']
-    watched.forEach(prop => {
-      this.$watch(prop, () => {
-        this.updateCharts()
-      }, {immediate: true})
-    })
-    this.onQuery()
   }
 }
 </script>

@@ -40,5 +40,7 @@ export const allRouters = {
   businesstime_manager: () => import('@/views/businesstime_manager'),
   businesstime_grid: () => import('@/views/businesstime_grid'),
   weather_manager: () => import('@/views/weather_manager'),
-  recover_manager: () => import('@/views/recover_manager')
+  recover_manager: () => import('@/views/recover_manager'),
+  historyflow_manager: () => import('@/views/historyflow_manager'),
+  copydata_manager: () => import('@/views/copydata_manager')
 }

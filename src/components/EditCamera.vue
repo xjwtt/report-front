@@ -14,7 +14,7 @@
                        ref=modifyForm
                        label-width="150px"
                        class="demo-modifyForm">
-                <el-form-item :label="$t('Mall')" prop="MallId">
+                <el-form-item :label="$t('mall')" prop="MallId">
                   <el-select v-model.trim="modifyForm.MallId"
                              filterable
                              placeholder="...">
@@ -78,7 +78,7 @@
                   fixed="right"
                   :label="$t('status')">
                   <template slot-scope="scope">
-                    <el-tag size="medium" :type="scope.row.Enabled ===1?'success':'danger'" >
+                    <el-tag size="medium" :type="scope.row.Enabled ===1?'success':'danger'">
                       {{ scope.row.Enabled ===1?$t('start_using'):$t('block_up') }}
                     </el-tag>
                   </template>
@@ -89,7 +89,8 @@
                   width="180">
                   <template slot-scope="scope">
                     <el-button @click="cameraZoneEdit(scope.row)" type="text" size="small">{{$t('edit')}}</el-button>
-                    <el-button @click="cameraZoneRemove(scope.row)" type="text" size="small">{{$t('delete')}}</el-button>
+                    <el-button @click="cameraZoneRemove(scope.row)" type="text" size="small">{{$t('delete')}}
+                    </el-button>
                   </template>
                 </el-table-column>
               </el-table>
@@ -120,12 +121,12 @@
         </el-form-item>
         <el-form-item :label="$t('zone_class')"
                       prop="ZoneClass">
-          <el-radio v-model="zoneForm.ZoneClass" label="Count">{{$t('客流(Count)')}}</el-radio>
-          <el-radio v-model="zoneForm.ZoneClass" label="Passby">{{$t('经过(Passby)')}}</el-radio>
-          <el-radio v-model="zoneForm.ZoneClass" label="Fitting">{{$t('试衣间(Fitting)')}}</el-radio>
-          <el-radio v-model="zoneForm.ZoneClass" label="Dwell">{{$t('服务(Dwell)')}}</el-radio>
-          <el-radio v-model="zoneForm.ZoneClass" label="Queue">{{$t('队列(Queue)')}}</el-radio>
-          <el-radio v-model="zoneForm.ZoneClass" label="Alarm">{{$t('警报(Alarm)')}}</el-radio>
+          <el-radio v-model="zoneForm.ZoneClass" label="Count">{{$t('zoneClass_Count')}}</el-radio>
+          <el-radio v-model="zoneForm.ZoneClass" label="Passby">{{$t('zoneClass_PassBy')}}</el-radio>
+          <el-radio v-model="zoneForm.ZoneClass" label="Fitting">{{$t('zoneClass_Fitting')}}</el-radio>
+          <el-radio v-model="zoneForm.ZoneClass" label="Dwell">{{$t('zoneClass_Dwell')}}</el-radio>
+          <el-radio v-model="zoneForm.ZoneClass" label="Queue">{{$t('zoneClass_Queue')}}</el-radio>
+          <el-radio v-model="zoneForm.ZoneClass" label="Alarm">{{$t('zoneClass_Alarm')}}</el-radio>
         </el-form-item>
         <el-form-item :label="$t('is_enabled')"
                       prop="Enabled">
@@ -139,17 +140,6 @@
                  @click="zoneSubmitForm('zoneForm')">{{$t('ok')}}</el-button>
       <el-button @click="cameraZoneDialogVisible = false">{{$t('cancel')}}</el-button>
     </span>
-    </el-dialog>
-    <el-dialog :title="$t('prompt')"
-               :visible.sync="delDialogVisible"
-               width="30%">
-      <span>{{$t('confirm_delete')}}{{waitToDel.length}}{{$t('items_delete')}}</span>
-      <span slot="footer"
-            class="dialog-footer">
-          <el-button @click="delDialogVisible = false">{{$t('cancel')}}</el-button>
-          <el-button type="primary"
-                     @click="sureDelete">{{$t('ok')}}</el-button>
-        </span>
     </el-dialog>
   </div>
 </template>
@@ -197,7 +187,7 @@ export default {
       zoneForm: cameraZoneDefaultForm(),
       zoneRules: {
         ZoneId: [
-          {required: true, message: this.$t('请输入区域码'), trigger: 'blur'}
+          {required: true, message: this.$t('must_input_zone'), trigger: 'blur'}
         ]
       },
       delDialogVisible: false,
@@ -226,7 +216,7 @@ export default {
             this.dialogVisible = false
             this.$emit('handleQueryChange')
           } else {
-            this.$message.error(this.$t('必须添加区域码'))
+            this.$message.error(this.$t('must_input_zone'))
           }
         } else {
           this.$message.error(this.$t('incorrect_parameter'))
@@ -282,7 +272,7 @@ export default {
             _.each(this.zoneTableData, function (it) {
               if (it.ZoneId === zoneForm.ZoneId) {
                 status = false
-                that.$message.error(that.$t('区域码不唯一'))
+                that.$message.error(that.$t('zone_nonuniqueness'))
               }
             })
             if (status) {

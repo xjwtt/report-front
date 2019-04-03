@@ -15,7 +15,8 @@
       <el-checkbox-group v-model="zoneIds">
         <el-checkbox v-for="zone in zones"
                      :label=zone.Id
-                     :key=zone.Id>{{zone.Name}}
+                     :key=zone.Id>
+          {{zone.Name}}
         </el-checkbox>
       </el-checkbox-group>
     </el-tab-pane>

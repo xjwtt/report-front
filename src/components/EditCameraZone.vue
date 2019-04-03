@@ -20,18 +20,18 @@
                           prop="DeviceId">
               <el-input v-model.number="modifyForm.DeviceId" readonly></el-input>
             </el-form-item>
-            <el-form-item :label="$t('区域码')"
+            <el-form-item :label="$t('zone')"
                           prop="ZoneId">
               <el-input v-model.number="modifyForm.ZoneId"></el-input>
             </el-form-item>
             <el-form-item :label="$t('zone_class')"
                           prop="ZoneClass">
-              <el-radio v-model="modifyForm.ZoneClass" label="Count">{{$t('客流(Count)')}}</el-radio>
-              <el-radio v-model="modifyForm.ZoneClass" label="Passby">{{$t('经过(Passby)')}}</el-radio>
-              <el-radio v-model="modifyForm.ZoneClass" label="Fitting">{{$t('试衣间(Fitting)')}}</el-radio>
-              <el-radio v-model="modifyForm.ZoneClass" label="Dwell">{{$t('服务(Dwell)')}}</el-radio>
-              <el-radio v-model="modifyForm.ZoneClass" label="Queue">{{$t('队列(Queue)')}}</el-radio>
-              <el-radio v-model="modifyForm.ZoneClass" label="Alarm">{{$t('警报(Alarm)')}}</el-radio>
+              <el-radio v-model="modifyForm.ZoneClass" label="Count">{{$t('zoneClass_Count')}}</el-radio>
+              <el-radio v-model="modifyForm.ZoneClass" label="Passby">{{$t('zoneClass_PassBy')}}</el-radio>
+              <el-radio v-model="modifyForm.ZoneClass" label="Fitting">{{$t('zoneClass_Fitting')}}</el-radio>
+              <el-radio v-model="modifyForm.ZoneClass" label="Dwell">{{$t('zoneClass_Dwell')}}</el-radio>
+              <el-radio v-model="modifyForm.ZoneClass" label="Queue">{{$t('zoneClass_Queue')}}</el-radio>
+              <el-radio v-model="modifyForm.ZoneClass" label="Alarm">{{$t('zoneClass_Alarm')}}</el-radio>
             </el-form-item>
             <el-form-item :label="$t('is_enabled')"
                           prop="Status">

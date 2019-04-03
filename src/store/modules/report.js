@@ -1,6 +1,10 @@
 import _ from 'underscore'
 import moment from 'moment'
 import ajax from '@/lib/ajax'
+import Vue from 'vue'
+import i18n from '@/i18n'
+
+const t = key => i18n.t(key)
 
 export default {
   namespaced: true,
@@ -26,6 +30,24 @@ export default {
             ? g.period
             : context.rootState.app.timeInterval.key
           /* 判断 period 如果 period */
+          let duration = moment.duration(moment(et).diff(moment(st)))
+          switch (period) {
+            case '5m':
+            case '10m':
+            case '15m':
+            case '30m':
+              if (duration.asDays() >= 1) {
+                Vue.prototype.$message.error(t('the_time_period_must_be_one_day'))
+                return null
+              }
+              break
+            case '60m':
+              if (duration.asDays() >= 7) {
+                Vue.prototype.$message.error(t('the_time_period_must_be_seven_day'))
+                return null
+              }
+              break
+          }
           let timeFormatter = g.timeFormatter
             ? g.timeFormatter
             : context.rootState.app.timeInterval.timeFormatter

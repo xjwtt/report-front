@@ -21,7 +21,8 @@
 <script>
 import fm from '@/lib/fieldsManager'
 import FileSaver from 'file-saver'
-import XLSX from 'xlsx'
+import _ from 'underscore'
+
 export default {
   props: {
     fields: {
@@ -37,14 +38,26 @@ export default {
   },
   methods: {
     exportExcel () {
-      /* generate workbook object from table */
-      var wb = XLSX.utils.table_to_book(document.querySelector('#table'))
-      /* get binary string as output */
-      var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'array' })
+      let tableHeader = []
+      let tableHeaderKey = []
+      let csvData = []
+      _.each(this.columns, function (value) {
+        tableHeader.push(value.label)
+        tableHeaderKey.push(value.prop)
+      })
+      csvData.push(tableHeader)
+      _.each(this.data, function (value) {
+        let d = []
+        _.each(tableHeaderKey, function (key) {
+          d.push(value[key])
+        })
+        csvData.push(d)
+      })
       try {
-        FileSaver.saveAs(new Blob([wbout], { type: 'application/octet-stream' }), 'exportExcel.xlsx')
-      } catch (e) { if (typeof console !== 'undefined') console.log(e, wbout) }
-      return wbout
+        FileSaver.saveAs(new Blob([csvData.join('\n')], {type: 'text/plain;charset=utf-8'}), 'storeReport.csv')
+      } catch (e) {
+        if (typeof console !== 'undefined') console.log(e)
+      }
     }
   },
   computed: {

@@ -69,7 +69,6 @@ export default {
       this.$nextTick(() => {
         this.$refs['modifyForm'].resetFields()
       })
-      debugger
       if (form.ParentId) {
         this.selectLocationById(form.ParentId)
       }

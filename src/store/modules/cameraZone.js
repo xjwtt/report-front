@@ -19,6 +19,9 @@ export default {
     },
     async selectCameraZoneCamera (context, payload) {
       return ajax.post('/business/selectCameraZoneCamera.action', payload.data)
+    },
+    async selectCameraZoneByMallIdZoneClass (context, payload) {
+      return ajax.post('/business/selectCameraZoneByMallId_ZoneClass.action', payload.data)
     }
   }
 }

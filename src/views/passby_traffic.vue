@@ -27,11 +27,13 @@
              theme="light"></chart>
     </div>
     <div class="report-page-card">
-      <traffice-table :columnsInit=columnsInit
-                      :charTypes=charTypes
-                      :tableType=tableType
-                      :tableData=tableData>
-      </traffice-table>
+      <traffice-table-fast :columnsInit=columnsInit
+                           :charTypes=charTypes
+                           :tableType=tableType
+                           :tableData=tableData
+                           :headerData=headerData
+                           :fixedHeader=fixedHeader>
+      </traffice-table-fast>
     </div>
   </div>
 </template>
@@ -47,7 +49,8 @@ export default {
       data: null,
       charTypes: ['Enter', 'Passby', 'EnteringRate'],
       zoneTypes: ['MallShop'],
-      reportType: [1, 'TimeLabel']
+      reportType: [1, 'TimeLabel'],
+      fixedHeader: []
     }
   },
   methods: {
@@ -55,7 +58,7 @@ export default {
     async onQuery () {
       this.data = await this.query({
         'report': {
-          dateFields: ['Enter', 'Passby', 'EnteringRate'],
+          dateFields: ['Passby', 'EnteringRate'],
           groupBy: [
             {domain: 'Zone', period: 'All', timeFormatter: 'All'},
             {domain: 'All'},
@@ -82,6 +85,10 @@ export default {
     },
     tableType () {
       return this.reportType[1]
+    },
+    headerData () {
+      let dataArrayIndex = this.reportType[0]
+      return this.data ? this.data['report'][dataArrayIndex] : []
     },
     chartOption () {
       let yAxisNameLeft = this.$t('man_time')
@@ -132,6 +139,7 @@ export default {
           name: passby,
           type: 'bar',
           barGap: '-50%',
+          large: true,
           silent: true,
           itemStyle: {
             normal: {
@@ -144,6 +152,8 @@ export default {
           /* z值小的图形会被z值大的图形覆盖 */
           z: 10,
           type: 'bar',
+          large: true,
+          silent: true,
           itemStyle: {
             normal: {
               color: '#61a0a8'
@@ -154,6 +164,7 @@ export default {
           name: enteringRate,
           z: 11,
           type: 'line',
+          silent: true,
           yAxisIndex: 1,
           itemStyle: {
             normal: {

@@ -18,6 +18,7 @@ import zonecamera from './modules/zonecamera'
 import businesstime from './modules/businesstime'
 import weather from './modules/weather'
 import recover from './modules/recover'
+import history from './modules/historyflow'
 
 Vue.use(Vuex)
 
@@ -49,7 +50,8 @@ const store = new Vuex.Store({
     zonecamera,
     businesstime,
     weather,
-    recover
+    recover,
+    history
   }
 })
 

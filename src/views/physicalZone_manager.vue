@@ -4,7 +4,7 @@
              style="flex:auto">
       <div slot="header"
            class="clearfix">
-        <span>{{$t('camera_manager')}}</span>
+        <span>{{$t('physicalZone_manager')}}</span>
       </div>
       <el-row :gutter="20">
         <el-col :span="20">

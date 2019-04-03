@@ -1,36 +1,36 @@
 <template>
   <div>
     <el-button @click="exportExcel">{{$t('export')}}</el-button>
-    <el-table id="trafficeTable"
-              :data="data"
-              stripe
-              border
-              style="width: 100%"
-              max-height="280">
-      <el-table-column v-for="column in columns"
-                       :key="column.Id"
-                       :prop="column.prop"
-                       :label="column.label"
-                       :sortable="true"
-                       :fixed="column.fixed">
-      </el-table-column>
-    </el-table>
-    <!--<bigdata-table-->
-    <!--ref="table"-->
-    <!--v-model="bigData"-->
-    <!--:fixed="true"-->
-    <!--:disabledHover="true"-->
-    <!--:stripe="true"-->
-    <!--:col-width="150"-->
-    <!--:header-height="80"-->
-    <!--:at-right-cell-posi="80"-->
-    <!--:at-left-cell-posi="80"-->
-    <!--:columns="columns"-->
-    <!--:fixed-col="2"-->
-    <!--:selectable="true"-->
-    <!--:paste="true"-->
-    <!--:disabled-hover="false"-->
-    <!--&gt;</bigdata-table>-->
+    <!--<el-table id="trafficeTable"-->
+              <!--:data="data"-->
+              <!--stripe-->
+              <!--border-->
+              <!--style="width: 100%"-->
+              <!--max-height="280">-->
+      <!--<el-table-column v-for="column in columns"-->
+                       <!--:key="column.Id"-->
+                       <!--:prop="column.prop"-->
+                       <!--:label="column.label"-->
+                       <!--:sortable="true"-->
+                       <!--:fixed="column.fixed">-->
+      <!--</el-table-column>-->
+    <!--</el-table>-->
+    <bigdata-table
+      ref="table"
+      v-model="bigData"
+      :fixed="true"
+      :disabledHover="true"
+      :stripe="true"
+      :col-width="150"
+      :header-height="80"
+      :at-right-cell-posi="80"
+      :at-left-cell-posi="80"
+      :columns="columns"
+      :fixed-col="2"
+      :selectable="true"
+      :paste="true"
+      :disabled-hover="false"
+    ></bigdata-table>
   </div>
 </template>
 
