@@ -65,6 +65,7 @@ export default {
   historyflow_manager: '客流历史数据',
   recover_manager: '数据汇总',
   copydata_manager: '复制数据',
+  task_manager: '任务管理',
 
   export: '导出',
   personalized_home_page: '个性化首页',

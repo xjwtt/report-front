@@ -11,6 +11,8 @@ import tdGetWeather from './tableFields/td-getWeather'
 import tdCameraStatus from './tableFields/td-cameraStatus'
 import tdMoveopt from './tableFields/td-moveopt'
 import tdReverse from './tableFields/td-reverse'
+import tdTaskStatus from './tableFields/td-taskStatus'
+import tdTaskOpt from './tableFields/td-taskOpt'
 
 Vue.use(Datatable)
 Vue.prototype.$i18nForDatatable = Vue.prototype.$t
@@ -25,3 +27,5 @@ Vue.component('td-getWeather', tdGetWeather)
 Vue.component('td-cameraStatus', tdCameraStatus)
 Vue.component('td-moveopt', tdMoveopt)
 Vue.component('td-reverse', tdReverse)
+Vue.component('td-taskStatus', tdTaskStatus)
+Vue.component('td-taskOpt', tdTaskOpt)

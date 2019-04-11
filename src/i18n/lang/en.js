@@ -64,6 +64,7 @@ export default {
   historyflow_manager: 'History Flow',
   recover_manager: 'Recover Manager',
   copydata_manager: 'CopyData Manager',
+  task_manager: 'Task Manager',
 
   export: 'Export',
 
