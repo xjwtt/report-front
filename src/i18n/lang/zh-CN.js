@@ -200,7 +200,7 @@ export default {
   than_yesterday: '比昨天',
   site_scope: '案场范围',
   selected: '已选中',
-  log_off: '退出登录',
+  log_out: '退出登录',
   modify_password: '修改密码',
   case_field: '个案场',
 

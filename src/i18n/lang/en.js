@@ -195,7 +195,7 @@ export default {
   than_yesterday: 'ThanYesterday',
   site_scope: 'Site Scope',
   selected: 'Selected ',
-  log_off: 'log off ',
+  log_out: 'LogOut ',
   modify_password: 'Modify Password',
   case_field: '',
   detailedLink: 'view the detailed data',

@@ -34,7 +34,7 @@
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="logout">{{$t('log_off')}}</el-dropdown-item>
+            <el-dropdown-item command="logout">{{$t('log_out')}}</el-dropdown-item>
             <el-dropdown-item command="modifyPassword">{{$t('modify_password')}}</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
