@@ -43,5 +43,6 @@ export const allRouters = {
   weather_manager: () => import('@/views/weather_manager'),
   recover_manager: () => import('@/views/recover_manager'),
   historyflow_manager: () => import('@/views/historyflow_manager'),
-  copydata_manager: () => import('@/views/copydata_manager')
+  copydata_manager: () => import('@/views/copydata_manager'),
+  task_manager: () => import('@/views/task_manager')
 }
