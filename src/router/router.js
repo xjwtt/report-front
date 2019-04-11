@@ -25,6 +25,7 @@ export const allRouters = {
   zone_traffic: () => import('@/views/zone_traffic'),
   passby_traffic: () => import('@/views/passby_traffic'),
   site_location_compare: () => import('@/views/site_location_compare'),
+  site_time_compare: () => import('@/views/site_time_compare'),
   // entrance_traffic: () => import('@/views/entrance_traffic')
   company_manager: () => import('@/views/company_manager'),
   menu_manager: () => import('@/views/menu_manager'),

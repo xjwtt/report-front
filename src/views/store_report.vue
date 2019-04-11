@@ -54,7 +54,7 @@ export default {
       selectedFieldIndex: 0,
       data: [],
       dateRange: [moment(), moment()],
-      dateFields: ['Enter', 'Exit', 'EnteringRate',
+      dateFields: ['Enter', 'EnteringRate',
         'Fitting', 'FittingRate',
         'ConvertRate', 'Sales', 'Receipts', 'Pieces', 'PricePerCustomer', 'PiecePerCustomer', 'PricePerReceipt', 'PiecePerReceipt', 'PricePerPiece',
         'Clerk', 'ClerkRatio', 'Acreage'

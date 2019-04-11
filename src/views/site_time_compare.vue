@@ -1,9 +1,16 @@
 <template>
   <div class="report-page">
     <div class="report-page-card">
-      <compare-mall-select ref="mallSelect"></compare-mall-select>
+      <singel-mall-select ref="mallSelect"></singel-mall-select>
       <interval-picker></interval-picker>
-      <date-range-picker></date-range-picker>
+      <el-row>
+        <el-col :span="6">
+          <date-range ref="dateRange"></date-range>
+        </el-col>
+        <el-col :span="6">
+          <date-range ref="compareDateRange" titleName="compare_date_range"></date-range>
+        </el-col>
+      </el-row>
       <el-button type="primary"
                  size="small"
                  @click="onQuery">{{$t('query')}}
@@ -30,14 +37,13 @@
 
     </div>
     <div class="report-page-card">
-      <traffice-table-fast :columnsInit=columnsInit
+      <traffice-table-compare-fast :columnsInit=columnsInit
                            :charTypes=charTypes
                            :tableType=tableType
                            :tableData=tableData
                            :compareData=compareData
-                           :headerData=headerData
                            :fixedHeader=fixedHeader>
-      </traffice-table-fast>
+      </traffice-table-compare-fast>
     </div>
   </div>
 </template>
@@ -45,11 +51,13 @@
 <script>
 import {mapActions} from 'vuex'
 import _ from 'underscore'
+import moment from 'moment'
 
 export default {
-  name: 'site_location_compare',
+  name: 'site_time_compare',
   data () {
     return {
+      zoneTypes: ['Entrance', 'Domain', 'Floor', 'Corridor'],
       data: null,
       reportType: [0, 'DateTime'],
       chartType: 'Enter',
@@ -59,26 +67,38 @@ export default {
   methods: {
     ...mapActions('report', ['query']),
     async onQuery () {
-      this.data = await this.query({
-        'report': {
-          dateFields: ['Enter', 'Exit', 'HighTemp', 'LowTemp', 'WeatherName'],
-          groupBy: [
-            {domain: 'Mall'}
-          ],
-          mallIds: [this.$refs.mallSelect.mallId],
-          startTime: '00:00:00',
-          endTime: '23:59:59'
-        },
-        'compare': {
-          dateFields: ['Enter', 'Exit', 'HighTemp', 'LowTemp', 'WeatherName'],
-          groupBy: [
-            {domain: 'Mall'}
-          ],
-          mallIds: [this.$refs.mallSelect.compareMallId],
-          startTime: '00:00:00',
-          endTime: '23:59:59'
-        }
-      })
+      let startDate = this.$refs.dateRange.dateRangeValue[0]
+      let endDate = this.$refs.dateRange.dateRangeValue[1]
+      let compareStartDate = this.$refs.compareDateRange.dateRangeValue[0]
+      let compareEndDate = this.$refs.compareDateRange.dateRangeValue[1]
+      let duration = moment.duration(moment(endDate).diff(startDate))
+      let compareDuration = moment.duration(moment(compareEndDate).diff(compareStartDate))
+      if (duration.asMinutes() === compareDuration.asMinutes()) {
+        this.data = await this.query({
+          'report': {
+            dateFields: ['Enter', 'Exit', 'HighTemp', 'LowTemp', 'WeatherName'],
+            groupBy: [
+              {domain: 'Mall'}
+              // {domain: 'Mall', period: 'All', timeFormatter: 'All'}
+            ],
+            mallIds: [this.$refs.mallSelect.mallId],
+            st: startDate,
+            et: endDate
+          },
+          'compare': {
+            dateFields: ['Enter', 'Exit', 'HighTemp', 'LowTemp', 'WeatherName'],
+            groupBy: [
+              {domain: 'Mall'}
+              // {domain: 'Mall', period: 'All', timeFormatter: 'All'}
+            ],
+            mallIds: [this.$refs.mallSelect.mallId],
+            st: compareStartDate,
+            et: compareEndDate
+          }
+        })
+      } else {
+        this.$message.error(this.$t('time_interval_must_be_the_same'))
+      }
     }
   },
   computed: {
@@ -174,9 +194,6 @@ export default {
         series: series
       }
     }
-  },
-  async mounted () {
-    this.onQuery()
   }
 }
 </script>

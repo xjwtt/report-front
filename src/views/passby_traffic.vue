@@ -14,7 +14,7 @@
       <el-radio-group v-model="reportType"
                       style="vertical-align: middle;"
                       size="mini">
-        <el-radio-button :label='[1,"TimeLabel"]'>{{$t('time_group')}}</el-radio-button>
+        <el-radio-button :label='[1,"DateTime"]'>{{$t('time_group')}}</el-radio-button>
         <el-radio-button :label='[0,"DomainLabel"]'>{{$t('location_group')}}</el-radio-button>
       </el-radio-group>
       <el-radio-group
@@ -24,7 +24,7 @@
       <chart style="width:100%"
              :autoResize="true"
              :options="chartOption"
-             theme="light"></chart>
+             theme="vintage"></chart>
     </div>
     <div class="report-page-card">
       <traffice-table-fast :columnsInit=columnsInit
@@ -49,8 +49,8 @@ export default {
       data: null,
       charTypes: ['Enter', 'Passby', 'EnteringRate'],
       zoneTypes: ['MallShop'],
-      reportType: [1, 'TimeLabel'],
-      fixedHeader: []
+      reportType: [1, 'DateTime'],
+      fixedHeader: ['WeatherName', 'Temp']
     }
   },
   methods: {
@@ -58,7 +58,7 @@ export default {
     async onQuery () {
       this.data = await this.query({
         'report': {
-          dateFields: ['Passby', 'EnteringRate'],
+          dateFields: ['Passby', 'EnteringRate', 'HighTemp', 'LowTemp', 'WeatherName'],
           groupBy: [
             {domain: 'Zone', period: 'All', timeFormatter: 'All'},
             {domain: 'All'},
@@ -113,6 +113,12 @@ export default {
         legend: {
           data: [enter, passby, enteringRate]
         },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
+        },
         toolbox: {
           feature: {
             saveAsImage: {}
@@ -120,7 +126,10 @@ export default {
         },
         xAxis: {
           type: 'category',
-          data: xData
+          data: xData,
+          axisLabel: {
+            rotate: 45
+          }
         },
         yAxis: [{
           type: 'value',
@@ -141,11 +150,6 @@ export default {
           barGap: '-50%',
           large: true,
           silent: true,
-          itemStyle: {
-            normal: {
-              color: '#d87c7c'
-            }
-          },
           data: yPassBy
         }, {
           name: enter,
@@ -154,11 +158,6 @@ export default {
           type: 'bar',
           large: true,
           silent: true,
-          itemStyle: {
-            normal: {
-              color: '#61a0a8'
-            }
-          },
           data: yEnter
         }, {
           name: enteringRate,

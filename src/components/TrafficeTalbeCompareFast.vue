@@ -2,22 +2,7 @@
   <div>
     <el-button @click="convertCSV">{{$t('export')}}</el-button>
     <div id="trafficeTable" class="vue-fast-table" ref="table" :class="scrollDirection">
-      <div class="table-head" :style="{marginLeft:leftFixedWidth}">
-        <div :style="{ transform: 'translateX(' + scrollLeft + 'px)'}"
-             v-for="(item, index) in tableHeader" :key="index">
-          <table :width="(tdWidth*item.data.length)+'px'" cellspacing="0" cellpadding="0">
-            <thead>
-            <tr>
-              <td v-for="(d_item, d_index) in item.data" :key="d_index"
-                  :style="{width:tdWidth+'px',height:tdHeight+'px'}">
-                {{d_item}}
-              </td>
-            </tr>
-            </thead>
-          </table>
-        </div>
-      </div>
-      <div class="table-body" :style="{marginLeft:leftFixedWidth,height:leftFixedHeight}" @scroll="tableScroll">
+      <div class="table-head" :style="{marginLeft:leftFixedWidth,height:leftFixedHeight}" @scroll="tableScroll">
         <div v-for="(item, index) in bodyData" :key="index">
           <table cellspacing="0" cellpadding="0"
                  v-for="(p_item, p_index) in item.data"
@@ -41,28 +26,17 @@
       </div>
       <div class="table-fix-cloumns" :style="{height:leftFixedHeight,'padding-top':tdHeight+'px'}">
         <div class="fix-left-top">
-          <table :width="leftFixedWidth" cellspacing="0" cellpadding="0">
-            <thead>
-            <tr>
-              <td v-for="(item,index) in leftFixed.header" :key="index"
-                  :style="{'width':(index===0?(tdWidth+60):tdWidth)+'px',height:tdHeight+'px'}">
-                {{item}}
-              </td>
-            </tr>
-            </thead>
-          </table>
-        </div>
-        <div class="fix-left-body" :style="{ transform: 'translateY(' + scrollTop + 'px)' }">
-          <table v-for="(data, index) in leftFixed.data" :key="index"
-                 :width="leftFixedWidth" cellspacing="0" cellpadding="0">
-            <thead>
-            <tr>
-              <td v-for="(item,d_index) in  data" :key="d_index"
-                  :style="{'width':(d_index===0?(tdWidth+60):tdWidth)+'px',height:tdHeight+'px'}">{{item}}
-              </td>
-            </tr>
-            </thead>
-          </table>
+          <div :style="{ transform: 'translateY(' + scrollTop + 'px)' }">
+            <table :width="leftFixedWidth" cellspacing="0" cellpadding="0">
+              <thead>
+              <tr v-for="(data, index) in leftFixed.data" :key="index">
+                <td v-for="(item,d_index) in  data" :key="d_index"
+                    :style="{'width':(d_index===0?(tdWidth+60):tdWidth)+'px',height:tdHeight+'px'}">{{item}}
+                </td>
+              </tr>
+              </thead>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -74,7 +48,7 @@ import _ from 'underscore'
 import FileSaver from 'file-saver'
 
 export default {
-  name: 'TrafficeTalbeFast',
+  name: 'TrafficeTalbeCompareFast',
   props: {
     columnsInit: {
       type: Array,
@@ -284,29 +258,6 @@ export default {
     }
   },
   computed: {
-    tableHeader () {
-      let num = this.separateNumber || 30
-      var result = []
-      let data = []
-      switch (this.tableType) {
-        case 'DateTime':
-        case 'TimeLabel':
-          let xSelector = (_) => _[this.tableType]
-          data = this.tableData ? _.map(this.headerData, xSelector) : []
-          break
-        case 'DomainLabel':
-          data = this.charTypes
-          break
-      }
-      _.each(data, function (item, index) {
-        let key = parseInt(index / num)
-        if (index % num === 0) {
-          result.push({separate: key, data: []})
-        }
-        result[key].data.push(item)
-      })
-      return result
-    },
     bodyData () {
       let result = this.computedBodyData(this.tableData)
       if (this.compareData) {
@@ -412,33 +363,16 @@ export default {
     left: 0;
   }
 
+  .table-fix-cloumns td {
+    text-align: center;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+
   .fix-left-top {
     position: absolute;
     top: 0;
     left: 0;
     z-index: 1;
   }
-
-  .fix-left-top td {
-    text-align: center;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-  }
-
-  .fix-left-body td {
-    text-align: center;
-    border-top: 1px solid #ccc;
-    border-left: 1px solid #ccc;
-    border-right: 1px solid #ccc;
-    box-sizing: border-box;
-  }
-
-  .fix-left-body table:first-child tr:first-child td {
-    border-top: none;
-  }
-
-  .fix-left-body table:last-child tr:last-child {
-    border-bottom: 1px solid #cccc;
-  }
-
 </style>
