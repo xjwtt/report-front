@@ -1,5 +1,5 @@
 <template>
-  <el-select v-model="dateStyle"
+  <el-select v-model="mallId"
              filterable
              placeholder="..."
              @change="setSelectMall">
@@ -15,7 +15,7 @@
 import { mapState, mapMutations } from 'vuex'
 export default {
   data: () => ({
-    dateStyle: null
+    mallId: ''
   }),
   methods: {
     ...mapMutations('app', ['setSelectMall'])
@@ -27,10 +27,10 @@ export default {
     })
   },
   created () {
-    this.dateStyle = this.selectedMall.Id
+    this.mallId = this.selectedMall.Id
   },
   activated () {
-    this.dateStyle = this.selectedMall.Id
+    this.mallId = this.selectedMall.Id
   }
 }
 </script>

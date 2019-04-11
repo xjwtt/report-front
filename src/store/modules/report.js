@@ -13,6 +13,7 @@ export default {
   actions: {
     async query (context, payloads) {
       let args = {}
+      let queryStatus = true
       for (let key in payloads) {
         let payload = payloads[key]
         let dateFields = payload.dateFields
@@ -36,17 +37,20 @@ export default {
             case '10m':
             case '15m':
             case '30m':
+            case '60m':
               if (duration.asDays() >= 1) {
                 Vue.prototype.$message.error(t('the_time_period_must_be_one_day'))
-                return null
+                queryStatus = false
+                return
               }
               break
-            case '60m':
-              if (duration.asDays() >= 7) {
-                Vue.prototype.$message.error(t('the_time_period_must_be_seven_day'))
-                return null
-              }
-              break
+            // case '60m':
+            //   if (duration.asDays() >= 7) {
+            //     Vue.prototype.$message.error(t('the_time_period_must_be_seven_day'))
+            //     queryStatus = false
+            //     return
+            //   }
+            //   break
           }
           let timeFormatter = g.timeFormatter
             ? g.timeFormatter
@@ -64,15 +68,23 @@ export default {
           : {MallIds: mallIds}
         st = moment(st).format('YYYY-MM-DD')
         et = moment(et).format('YYYY-MM-DD')
+        let startTime = payload.startTime ? payload.startTime : ''
+        let endTime = payload.endTime ? payload.endTime : ''
         args[key] = {
           DataFields: dateFields,
           StartDate: st,
           EndDate: et,
           Locations: location,
-          GroupBy: groupBy
+          GroupBy: groupBy,
+          StartTime: startTime,
+          EndTime: endTime
         }
       }
-      return ajax.post('report/GlobalReport.action', args)
+      if (queryStatus) {
+        return ajax.post('report/GlobalReport.action', args)
+      } else {
+        return null
+      }
     },
     async ConventTable (context, payload) {
       let fields = context.fields

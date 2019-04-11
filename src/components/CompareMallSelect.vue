@@ -47,8 +47,10 @@ export default {
   },
   created () {
     this.mallId = this.selectedMall.Id
+    this.compareMallId = this.selectedMall.Id
   },
   activated () {
+    this.mallId = this.selectedMall.Id
     this.compareMallId = this.selectedMall.Id
   }
 }

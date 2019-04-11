@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <span>{{ $t("time_interval") }}：</span>
+  <div class="intervalPicker">
+    <span>{{ $t('time_interval') }}：</span>
     <el-radio-group v-model="dateStyle"
                     style="vertical-align: middle;"
                     @change="this.setTimeInterval"
@@ -16,7 +16,8 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import {mapState, mapMutations} from 'vuex'
+
 export default {
   data: () => ({
     dateStyle: null
@@ -38,3 +39,8 @@ export default {
   }
 }
 </script>
+<style>
+  .intervalPicker {
+    margin-top: 5px;
+  }
+</style>

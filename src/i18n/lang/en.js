@@ -11,6 +11,7 @@ export default {
   traffic_report: ' Traffic Report',
   kpi_analysis: ' KPI Analysis',
   kpi_comparison: ' KPI Comparison',
+  traffic_comparison: ' Traffic Comparison',
   traffic_analysis: ' Traffic Analysis',
   site_traffic: ' Site Traffic',
   entrance_traffic: ' Entrance Traffic',
@@ -148,7 +149,7 @@ export default {
   AverageOccupied: 'AverageOccupied',
   weatherName: 'WeatherName',
   WeatherName: 'WeatherName',
-
+  Temp: 'Temp/PM2.5',
   Daily_Avg: 'Daily Avg',
   days: 'Days',
   to: 'To',
@@ -172,6 +173,7 @@ export default {
   year: 'Year',
 
   date_range: 'Date Range',
+  compare_date_range: 'Compare Date Range',
   total_traffic_chart: 'Total Traffic Chart',
   traffic_chart: 'Traffic Chart',
   total_traffic_table: 'Total Traffic Table',
@@ -252,6 +254,7 @@ export default {
   zone_nonuniqueness: 'Zone Nonuniqueness',
   the_time_period_must_be_one_day: 'The time period must be one day ',
   the_time_period_must_be_seven_day: 'The time period must be seven day ',
+  time_interval_must_be_the_same: 'Time interval must be the same',
 
   recover_data: 'Recover Data',
   reset_businesstime: 'Reset BusinessTime',

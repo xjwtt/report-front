@@ -11,6 +11,7 @@ export default {
   traffic_report: '客流查询',
   kpi_analysis: '运营KPI分析',
   kpi_comparison: '运营KPI对比',
+  traffic_comparison: '客流对比',
   traffic_analysis: '客流分析',
   site_traffic: '案场客流查询',
   entrance_traffic: '出入口客流查询',
@@ -27,8 +28,8 @@ export default {
   store_rank: '商铺运营排行榜',
   show_kpi: '展示效果KPI分析',
 
-  site_location_compare: '案场KPI地点对比',
-  site_time_compare: '案场KPI地点对比',
+  site_location_compare: '客流地点对比',
+  site_time_compare: '客流时间对比',
   store_location_compare: '商铺KPI地点对比',
   store_time_compare: '商铺KPI时间对比',
   area_location_compare: '区域KPI地点对比',
@@ -177,6 +178,7 @@ export default {
   year: '年',
 
   date_range: '日期范围',
+  compare_date_range: '对比日期',
   total_traffic_chart: '总出入客流分时图',
   traffic_chart: '客流分时图',
   total_traffic_table: '总出入客流分时表',
@@ -247,6 +249,7 @@ export default {
   acreage: '面积',
   weatherName: '天气类型',
   WeatherName: '天气类型',
+  Temp: '气温/PM2.5',
   highTemp: '最低气温',
   lowTemp: '最高气温',
   activityName: '活动节假日',
@@ -289,6 +292,7 @@ export default {
   zone_nonuniqueness: '区域码不唯一',
   the_time_period_must_be_one_day: '时间段必须在一天',
   the_time_period_must_be_seven_day: '时间段必须在七天',
+  time_interval_must_be_the_same: '时间间隔必须相同',
 
   recover_data: '汇总数据',
   reset_businesstime: '营业时间重置',

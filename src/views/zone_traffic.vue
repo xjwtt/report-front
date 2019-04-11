@@ -52,11 +52,12 @@ export default {
     reportType: [1, 'DateTime'],
     chartType: 'Enter',
     charTypes: ['Enter', 'Exit'],
-    fixedHeader: ['WeatherName']
+    fixedHeader: ['Picture', 'WeatherName', 'Temp']
   }),
   methods: {
     ...mapActions('report', ['query']),
     async onQuery () {
+      console.log(this.$refs.zoneSelector.zoneIds)
       this.data = await this.query({
         'report': {
           dateFields: ['Enter', 'Exit', 'Stay', 'HighTemp', 'LowTemp', 'WeatherName'],
@@ -170,6 +171,9 @@ export default {
       Object.freeze(result)
       return result
     }
+  },
+  async mounted () {
+    this.onQuery()
   }
 }
 </script>
