@@ -7,12 +7,12 @@
                :rules="loginRules">
         <el-form-item prop="userName">
           <el-input v-model="loginForm.UserName"
-                    placeholder="请输入用户名"></el-input>
+                    placeholder="UserName"></el-input>
         </el-form-item>
         <el-form-item prop="passWord">
           <el-input type="password"
                     v-model="loginForm.UserPass"
-                    placeholder="请输入密码"
+                    placeholder="password"
                     @keyup.enter.native="submitForm('loginForm')"></el-input>
         </el-form-item>
         <el-form-item>
