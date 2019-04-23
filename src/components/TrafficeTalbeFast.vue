@@ -253,6 +253,7 @@ export default {
                 case 'Enter':
                 case 'Exit':
                 case 'Passby':
+                case 'Stay':
                   let total = 0
                   let timeData = []
                   _.each(values, function (value) {
