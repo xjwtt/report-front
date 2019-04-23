@@ -19,8 +19,8 @@
                       style="vertical-align: middle;"
                       size="mini">
         <el-radio-button :label="'Enter'">{{$t('enter')}}</el-radio-button>
-        <!--<el-radio-button :label="'Exit'">离开客流</el-radio-button>-->
-        <!--<el-radio-button :label="'Stay'">滞留</el-radio-button>-->
+        <el-radio-button :label="'Exit'">离开客流</el-radio-button>
+        <el-radio-button :label="'Stay'">滞留</el-radio-button>
       </el-radio-group>
       <chart style="width:100%"
              :autoResize="true"
@@ -50,7 +50,7 @@ export default {
     reportType: [1, 'DateTime'],
     chartType: 'Enter',
     dateFields: ['Enter'],
-    charTypes: ['Enter', 'Exit'],
+    charTypes: ['Enter', 'Exit', 'Stay'],
     fixedHeader: []
   }),
   methods: {

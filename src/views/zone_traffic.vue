@@ -21,8 +21,8 @@
                       style="vertical-align: middle;"
                       size="mini">
         <el-radio-button :label="'Enter'">{{$t('enter')}}</el-radio-button>
-         <!--<el-radio-button :label="'Exit'">离开客流</el-radio-button>-->
-         <!--<el-radio-button :label="'Stay'">滞留</el-radio-button>-->
+        <el-radio-button :label="'Exit'">离开客流</el-radio-button>
+        <el-radio-button :label="'Stay'">滞留</el-radio-button>
       </el-radio-group>
       <chart :options="chartOption"
              style="width:100%"
@@ -51,7 +51,7 @@ export default {
     data: null,
     reportType: [1, 'DateTime'],
     chartType: 'Enter',
-    charTypes: ['Enter', 'Exit'],
+    charTypes: ['Enter', 'Exit', 'Stay'],
     fixedHeader: ['Picture', 'WeatherName', 'Temp']
   }),
   methods: {
