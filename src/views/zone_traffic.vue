@@ -44,6 +44,7 @@
 <script>
 import {mapActions} from 'vuex'
 import _ from 'underscore'
+import weekFun from '@/lib/weekFun'
 
 export default {
   data: () => ({
@@ -51,13 +52,14 @@ export default {
     data: null,
     reportType: [1, 'DateTime'],
     chartType: 'Enter',
-    charTypes: ['Enter', 'Exit', 'Stay'],
+    charTypes: ['Enter', 'Exit'],
     fixedHeader: ['Picture', 'WeatherName', 'Temp']
   }),
   methods: {
     ...mapActions('report', ['query']),
     async onQuery () {
       console.log(this.$refs.zoneSelector.zoneIds)
+      this.dateStyle = this.$refs.intervalPicker.dateStyle
       this.data = await this.query({
         'report': {
           dateFields: ['Enter', 'Exit', 'Stay', 'HighTemp', 'LowTemp', 'WeatherName'],
@@ -92,7 +94,14 @@ export default {
     },
     headerData () {
       let dataArrayIndex = this.reportType[0]
-      return this.data ? this.data['report'][dataArrayIndex] : []
+      let data = this.data ? this.data['report'][dataArrayIndex] : []
+      let type = this.reportType[1]
+      if (this.dateStyle === '1d' && type === 'DateTime') {
+        _.each(data, function (value) {
+          value[type] = weekFun.GetWeek(value[type], 'YYYY-MM-DD HH:mm:ss')
+        })
+      }
+      return data
     },
     tableType () {
       return this.reportType[1]

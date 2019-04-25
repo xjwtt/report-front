@@ -11,15 +11,16 @@ export default {
 </script>
 
 <style>
-html,
-body {
-  height: 100%;
-  margin: 0;
-}
-#app {
-  height: 100%;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #605f81;
-}
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+  }
+
+  #app {
+    height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #605f81;
+  }
 </style>

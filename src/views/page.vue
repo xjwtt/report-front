@@ -161,6 +161,7 @@ export default {
     padding: 10px;
     flex-direction: column;
   }
+
   .config-page > .title {
     display: flex;
     flex-flow: row-reverse;
@@ -174,5 +175,19 @@ export default {
   .logoImage {
     height: 40px;
     width: 120px
+  }
+
+  /** 日期选择 快捷键宽度 **/
+  .el-picker-panel [slot=sidebar], .el-picker-panel__sidebar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 126px;
+    border-right: 1px solid #e4e4e4;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding-top: 6px;
+    background-color: #fff;
+    overflow: auto;
   }
 </style>

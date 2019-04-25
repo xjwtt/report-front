@@ -3,7 +3,7 @@
     <div class="report-page-card">
       <singel-mall-select></singel-mall-select>
       <zone-selector :zoneTypes="zoneTypes" ref=zoneSelector></zone-selector>
-      <interval-picker></interval-picker>
+      <interval-picker ref=intervalPicker></interval-picker>
       <date-range-picker></date-range-picker>
       <el-button type="primary"
                  size="small"
@@ -41,6 +41,7 @@
 <script>
 import {mapActions} from 'vuex'
 import _ from 'underscore'
+import weekFun from '@/lib/weekFun'
 
 export default {
   name: 'passby_traffic',
@@ -50,12 +51,14 @@ export default {
       charTypes: ['Enter', 'Passby', 'EnteringRate'],
       zoneTypes: ['MallShop'],
       reportType: [1, 'DateTime'],
-      fixedHeader: ['WeatherName', 'Temp']
+      fixedHeader: ['WeatherName', 'Temp'],
+      dateStyle: null
     }
   },
   methods: {
     ...mapActions('report', ['query']),
     async onQuery () {
+      this.dateStyle = this.$refs.intervalPicker.dateStyle
       this.data = await this.query({
         'report': {
           dateFields: ['Passby', 'EnteringRate', 'HighTemp', 'LowTemp', 'WeatherName'],
@@ -88,7 +91,14 @@ export default {
     },
     headerData () {
       let dataArrayIndex = this.reportType[0]
-      return this.data ? this.data['report'][dataArrayIndex] : []
+      let data = this.data ? this.data['report'][dataArrayIndex] : []
+      let type = this.reportType[1]
+      if (this.dateStyle === '1d' && type === 'DateTime') {
+        _.each(data, function (value) {
+          value[type] = weekFun.GetWeek(value[type], 'YYYY-MM-DD HH:mm:ss')
+        })
+      }
+      return data
     },
     chartOption () {
       let yAxisNameLeft = this.$t('man_time')

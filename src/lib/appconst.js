@@ -1,5 +1,6 @@
 import moment from 'moment'
-import i18n from '../i18n'
+import i18n from '@/i18n'
+const t = key => i18n.t(key)
 
 const disabledDate = function (time) {
   return time.getTime() > Date.now()
@@ -11,7 +12,7 @@ const year = moment().format('YYYY')
 
 const shortcutsMin = [
   {
-    text: i18n.t('today'),
+    text: t('today'),
     onClick (picker) {
       picker.$emit('pick', [
         moment().subtract(0, 'days'),
@@ -20,7 +21,7 @@ const shortcutsMin = [
     }
   },
   {
-    text: i18n.t('yesterday'),
+    text: t('yesterday'),
     onClick (picker) {
       picker.$emit('pick', [
         moment().subtract(1, 'days'),
@@ -29,7 +30,7 @@ const shortcutsMin = [
     }
   },
   {
-    text: i18n.t('before_yesterday'),
+    text: t('before_yesterday'),
     onClick (picker) {
       picker.$emit('pick', [
         moment().subtract(2, 'days'),
@@ -38,13 +39,13 @@ const shortcutsMin = [
     }
   },
   {
-    text: i18n.t('this_week'),
+    text: t('this_week'),
     onClick (picker) {
       picker.$emit('pick', [moment().startOf('week').add(1, 'd'), moment().endOf('week')])
     }
   },
   {
-    text: i18n.t('last_week'),
+    text: t('last_week'),
     onClick (picker) {
       picker.$emit('pick', [
         moment().subtract(6 + week, 'days'),
@@ -53,7 +54,7 @@ const shortcutsMin = [
     }
   },
   {
-    text: i18n.t('last_week_today'),
+    text: t('last_week_today'),
     onClick (picker) {
       picker.$emit('pick', [
         moment().subtract(7, 'days'),
@@ -62,7 +63,7 @@ const shortcutsMin = [
     }
   },
   {
-    text: i18n.t('last_month_today'),
+    text: t('last_month_today'),
     onClick (picker) {
       picker.$emit('pick', [
         moment().subtract(1, 'months'),
@@ -71,7 +72,7 @@ const shortcutsMin = [
     }
   },
   {
-    text: i18n.t('last_year_today'),
+    text: t('last_year_today'),
     onClick (picker) {
       picker.$emit('pick', [
         moment().subtract(1, 'years'),
@@ -83,13 +84,13 @@ const shortcutsMin = [
 
 const shortcutsDay = [
   {
-    text: i18n.t('this_week'),
+    text: t('this_week'),
     onClick (picker) {
       picker.$emit('pick', [moment().startOf('week'), moment().endOf('week')])
     }
   },
   {
-    text: i18n.t('last_week'),
+    text: t('last_week'),
     onClick (picker) {
       picker.$emit('pick', [
         moment().subtract(6 + week, 'days'),
@@ -98,7 +99,7 @@ const shortcutsDay = [
     }
   },
   {
-    text: i18n.t('last_two_weeks'),
+    text: t('last_two_weeks'),
     onClick (picker) {
       picker.$emit('pick', [
         moment().subtract(14, 'days'),
@@ -107,7 +108,7 @@ const shortcutsDay = [
     }
   },
   {
-    text: i18n.t('last_three_weeks'),
+    text: t('last_three_weeks'),
     onClick (picker) {
       picker.$emit('pick', [
         moment().subtract(21, 'days'),
@@ -116,7 +117,7 @@ const shortcutsDay = [
     }
   },
   {
-    text: i18n.t('this_month'),
+    text: t('this_month'),
     onClick (picker) {
       picker.$emit('pick', [moment().startOf('month'), moment().endOf('month')])
     }
