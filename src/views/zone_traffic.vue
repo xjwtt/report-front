@@ -3,7 +3,7 @@
     <div class="report-page-card">
       <singel-mall-select></singel-mall-select>
       <zone-selector :zone-types="zoneTypes" ref=zoneSelector></zone-selector>
-      <interval-picker></interval-picker>
+      <interval-picker ref=intervalPicker></interval-picker>
       <date-range-picker></date-range-picker>
       <el-button type="primary"
                  size="small"
@@ -52,8 +52,9 @@ export default {
     data: null,
     reportType: [1, 'DateTime'],
     chartType: 'Enter',
-    charTypes: ['Enter', 'Exit'],
-    fixedHeader: ['Picture', 'WeatherName', 'Temp']
+    charTypes: ['Enter', 'Exit', 'Stay'],
+    fixedHeader: ['Picture', 'WeatherName', 'Temp'],
+    dateStyle: null
   }),
   methods: {
     ...mapActions('report', ['query']),

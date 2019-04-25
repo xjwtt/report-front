@@ -1,7 +1,7 @@
 <template>
   <div class="report-page">
     <div class="report-page-card">
-      <interval-picker></interval-picker>
+      <interval-picker ref=intervalPicker></interval-picker>
       <date-range-picker></date-range-picker>
       <el-button type="primary"
                  size="small"
@@ -52,7 +52,8 @@ export default {
     chartType: 'Enter',
     dateFields: ['Enter'],
     charTypes: ['Enter', 'Exit', 'Stay'],
-    fixedHeader: []
+    fixedHeader: [],
+    dateStyle: null
   }),
   methods: {
     ...mapActions('report', ['query']),
