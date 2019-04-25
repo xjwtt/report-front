@@ -1,8 +1,8 @@
 import ajax from '@/lib/ajax'
 import _ from 'underscore'
 import {addRouterFromMenus} from '@/router/index'
-import appconst from '@/lib/appconst'
 import i18n from '../../i18n'
+import appconst from '@/lib/appconst'
 
 export default {
   namespaced: true,

@@ -3,7 +3,7 @@
     <div class="report-page-card">
       <singel-mall-select></singel-mall-select>
       <zone-selector :zone-types="zoneTypes" ref=zoneSelector></zone-selector>
-      <interval-picker></interval-picker>
+      <interval-picker ref=intervalPicker></interval-picker>
       <date-range-picker></date-range-picker>
       <el-button type="primary"
                  size="small"
@@ -21,8 +21,8 @@
                       style="vertical-align: middle;"
                       size="mini">
         <el-radio-button :label="'Enter'">{{$t('enter')}}</el-radio-button>
-         <!--<el-radio-button :label="'Exit'">{{$t('exit')}}</el-radio-button>-->
-         <!--<el-radio-button :label="'Stay'">{{$t('stay')}}</el-radio-button>-->
+        <!--<el-radio-button :label="'Exit'">{{$t('exit')}}</el-radio-button>-->
+        <!--<el-radio-button :label="'Stay'">{{$t('stay')}}</el-radio-button>-->
       </el-radio-group>
       <chart :options="chartOption"
              style="width:100%"
@@ -44,6 +44,7 @@
 <script>
 import {mapActions} from 'vuex'
 import _ from 'underscore'
+import weekFun from '@/lib/weekFun'
 
 export default {
   data: () => ({
@@ -52,12 +53,14 @@ export default {
     reportType: [1, 'DateTime'],
     chartType: 'Enter',
     charTypes: ['Enter', 'Exit'],
-    fixedHeader: ['Picture', 'WeatherName', 'Temp']
+    fixedHeader: ['Picture', 'WeatherName', 'Temp'],
+    dateStyle: null
   }),
   methods: {
     ...mapActions('report', ['query']),
     async onQuery () {
       console.log(this.$refs.zoneSelector.zoneIds)
+      this.dateStyle = this.$refs.intervalPicker.dateStyle
       this.data = await this.query({
         'report': {
           dateFields: ['Enter', 'Exit', 'Stay', 'HighTemp', 'LowTemp', 'WeatherName'],
@@ -92,7 +95,14 @@ export default {
     },
     headerData () {
       let dataArrayIndex = this.reportType[0]
-      return this.data ? this.data['report'][dataArrayIndex] : []
+      let data = this.data ? this.data['report'][dataArrayIndex] : []
+      let type = this.reportType[1]
+      if (this.dateStyle === '1d' && type === 'DateTime') {
+        _.each(data, function (value) {
+          value[type] = weekFun.GetWeek(value[type], 'YYYY-MM-DD HH:mm:ss')
+        })
+      }
+      return data
     },
     tableType () {
       return this.reportType[1]
