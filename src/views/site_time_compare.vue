@@ -153,7 +153,7 @@ export default {
           let type = this.reportType[1]
           if (this.dateStyle === '1d' && type === 'DateTime') {
             xData = _.map(xData, function (value) {
-              return  weekFun.GetWeek(value, 'YYYY-MM-DD HH:mm:ss')
+              return weekFun.GetWeek(value, 'YYYY-MM-DD HH:mm:ss')
             })
           }
           series = [{name: this.$t('date_range'), type: 'bar', data: reportSeries}, {
