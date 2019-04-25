@@ -38,11 +38,11 @@
     </div>
     <div class="report-page-card">
       <traffice-table-compare-fast :columnsInit=columnsInit
-                           :charTypes=charTypes
-                           :tableType=tableType
-                           :tableData=tableData
-                           :compareData=compareData
-                           :fixedHeader=fixedHeader>
+                                   :charTypes=charTypes
+                                   :tableType=tableType
+                                   :tableData=tableData
+                                   :compareData=compareData
+                                   :fixedHeader=fixedHeader>
       </traffice-table-compare-fast>
     </div>
   </div>
@@ -125,22 +125,12 @@ export default {
     },
     chartOption () {
       let dataArrayIndex = this.reportType[0]
-      let legendData = []
 
       let reportData = this.data ? this.data['report'][dataArrayIndex] : []
-      if (reportData.length > 0) {
-        legendData.push(reportData[0]['DomainLabel'])
-      } else {
-        legendData.push('')
-      }
       let reportSeries = _.map(reportData, (_) => _[this.chartType])
       let compareData = this.data ? this.data['compare'][dataArrayIndex] : []
-      if (compareData.length > 0) {
-        legendData.push(compareData[0]['DomainLabel'] + ' ')
-      } else {
-        legendData.push('')
-      }
       let compareSeries = _.map(compareData, (_) => _[this.chartType])
+      let legendData = [this.$t('date_range'), this.$t('compare_date_range')]
       let series
       let xData
       switch (this.reportType[1]) {
@@ -150,8 +140,8 @@ export default {
           break
         default:
           xData = this.data ? _.map(this.data['report'][dataArrayIndex], (_) => _[this.reportType[1]]) : []
-          series = [{name: legendData[0], type: 'bar', data: reportSeries}, {
-            name: legendData[1],
+          series = [{name: this.$t('date_range'), type: 'bar', data: reportSeries}, {
+            name: this.$t('compare_date_range'),
             type: 'bar',
             stack: 'compare',
             data: compareSeries

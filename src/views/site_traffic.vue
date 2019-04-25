@@ -19,8 +19,8 @@
                       style="vertical-align: middle;"
                       size="mini">
         <el-radio-button :label="'Enter'">{{$t('enter')}}</el-radio-button>
-        <!--<el-radio-button :label="'Exit'">离开客流</el-radio-button>-->
-        <!--<el-radio-button :label="'Stay'">滞留</el-radio-button>-->
+        <!--<el-radio-button :label="'Exit'">{{$t('exit')}}</el-radio-button>-->
+        <!--<el-radio-button :label="'Stay'">{{$t('stay')}}</el-radio-button>-->
       </el-radio-group>
       <chart style="width:100%"
              :autoResize="true"
@@ -94,62 +94,61 @@ export default {
       let dataArrayIndex = this.reportType[0]
       let xSelector = (_) => _[this.reportType[1]]
       let ySelector = (_) => _[this.chartType]
-
       let xData = this.data ? _.map(this.data['report'][dataArrayIndex], xSelector) : []
       let yData = this.data ? _.map(this.data['report'][dataArrayIndex], ySelector) : []
       let result = {
-        'title': {
-          'text': ''
+        title: {
+          text: ''
         },
-        'tooltip': {
-          'trigger': 'axis'
+        tooltip: {
+          trigger: 'axis'
         },
-        'grid': {
-          'left': '3%',
-          'right': '4%',
-          'bottom': '3%',
-          'containLabel': true
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
         },
-        'toolbox': {
-          'feature': {
-            'saveAsImage': {}
+        toolbox: {
+          feature: {
+            saveAsImage: {}
           }
         },
-        'xAxis': {
-          'type': 'category',
-          'boundaryGap': true,
-          'data': xData,
-          'axisLabel': {
-            'rotate': 45
+        xAxis: {
+          type: 'category',
+          boundaryGap: true,
+          data: xData,
+          axisLabel: {
+            rotate: 45
           }
         },
-        'yAxis': [{
-          'type': 'value',
-          'name': yAxisName,
-          'axisLabel': {
-            'formatter': '{value} '
+        yAxis: [{
+          type: 'value',
+          name: yAxisName,
+          axisLabel: {
+            formatter: '{value} '
           }
         }],
-        'series': [{
-          'name': dataType,
-          'type': 'bar',
-          'stack': '',
-          'markPoint': {
-            'data': [{
-              'type': 'max',
-              'name': maxName
+        series: [{
+          name: dataType,
+          type: 'bar',
+          stack: '',
+          markPoint: {
+            data: [{
+              type: 'max',
+              name: maxName
             }, {
-              'type': 'min',
-              'name': minName
+              type: 'min',
+              name: minName
             }]
           },
-          'markLine': {
-            'data': [{
-              'type': 'average',
-              'name': avgName
+          markLine: {
+            data: [{
+              type: 'average',
+              name: avgName
             }]
           },
-          'data': yData
+          data: yData
         }]
       }
       Object.freeze(result)

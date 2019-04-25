@@ -38,6 +38,21 @@ const shortcutsMin = [
     }
   },
   {
+    text: i18n.t('this_week'),
+    onClick (picker) {
+      picker.$emit('pick', [moment().startOf('week').add(1, 'd'), moment().endOf('week')])
+    }
+  },
+  {
+    text: i18n.t('last_week'),
+    onClick (picker) {
+      picker.$emit('pick', [
+        moment().subtract(6 + week, 'days'),
+        moment().subtract(week, 'days')
+      ])
+    }
+  },
+  {
     text: i18n.t('last_week_today'),
     onClick (picker) {
       picker.$emit('pick', [
