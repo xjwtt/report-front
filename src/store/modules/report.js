@@ -37,20 +37,19 @@ export default {
             case '10m':
             case '15m':
             case '30m':
-            case '60m':
               if (duration.asDays() >= 1) {
                 Vue.prototype.$message.error(t('the_time_period_must_be_one_day'))
                 queryStatus = false
                 return
               }
               break
-            // case '60m':
-            //   if (duration.asDays() >= 7) {
-            //     Vue.prototype.$message.error(t('the_time_period_must_be_seven_day'))
-            //     queryStatus = false
-            //     return
-            //   }
-            //   break
+            case '60m':
+              if (duration.asDays() > 31) {
+                Vue.prototype.$message.error(t('the_time_period_must_be_seven_day'))
+                queryStatus = false
+                return
+              }
+              break
           }
           let timeFormatter = g.timeFormatter
             ? g.timeFormatter
