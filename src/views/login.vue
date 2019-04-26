@@ -55,7 +55,7 @@ export default {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
           let loading = this.$loading({fullscreen: true})
-          this.loginForm['loginType'] = 'Compnay'
+          this.loginForm['loginType'] = 'Company'
           if (await this.$store.dispatch({type: 'app/login', data: this.loginForm})) {
             await this.$store.dispatch({type: 'app/getUserInfo', data: this.loginForm})
             this.$router.replace('/')
