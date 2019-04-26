@@ -4,6 +4,7 @@ import {addRouterFromMenus} from '@/router/index'
 import i18n from '../../i18n'
 import appconst from '@/lib/appconst'
 
+const t = key => i18n.t(key)
 export default {
   namespaced: true,
   state: {
@@ -21,8 +22,8 @@ export default {
     selectedMall: null,
     selectedMalls: [],
 
-    timeInterval: appconst.defaultTimeInterval,
-    timeIntervals: appconst.timeIntervals,
+    timeInterval: null,
+    timeIntervals: null,
 
     dateRange: appconst.defaultDateRange
   },
@@ -37,6 +38,8 @@ export default {
       state.isLogin = true
       i18n.locale = payload.Language
       addRouterFromMenus(payload.Menus)
+      state.timeInterval = appconst.defaultTimeInterval(t)
+      state.timeIntervals = appconst.timeIntervals(t)
     },
     setTimeInterval (state, payload) {
       state.timeInterval = _.find(state.timeIntervals, __ => __.key === payload)

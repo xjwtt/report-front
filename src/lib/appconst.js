@@ -1,6 +1,5 @@
 import moment from 'moment'
-import i18n from '@/i18n'
-const t = key => i18n.t(key)
+import _ from 'underscore'
 
 const disabledDate = function (time) {
   return time.getTime() > Date.now()
@@ -12,7 +11,7 @@ const year = moment().format('YYYY')
 
 const shortcutsMin = [
   {
-    text: t('today'),
+    text: 'today',
     onClick (picker) {
       picker.$emit('pick', [
         moment().subtract(0, 'days'),
@@ -21,7 +20,7 @@ const shortcutsMin = [
     }
   },
   {
-    text: t('yesterday'),
+    text: 'yesterday',
     onClick (picker) {
       picker.$emit('pick', [
         moment().subtract(1, 'days'),
@@ -30,7 +29,7 @@ const shortcutsMin = [
     }
   },
   {
-    text: t('before_yesterday'),
+    text: 'before_yesterday',
     onClick (picker) {
       picker.$emit('pick', [
         moment().subtract(2, 'days'),
@@ -39,22 +38,7 @@ const shortcutsMin = [
     }
   },
   {
-    text: t('this_week'),
-    onClick (picker) {
-      picker.$emit('pick', [moment().startOf('week').add(1, 'd'), moment().endOf('week')])
-    }
-  },
-  {
-    text: t('last_week'),
-    onClick (picker) {
-      picker.$emit('pick', [
-        moment().subtract(6 + week, 'days'),
-        moment().subtract(week, 'days')
-      ])
-    }
-  },
-  {
-    text: t('last_week_today'),
+    text: 'last_week_today',
     onClick (picker) {
       picker.$emit('pick', [
         moment().subtract(7, 'days'),
@@ -63,7 +47,7 @@ const shortcutsMin = [
     }
   },
   {
-    text: t('last_month_today'),
+    text: 'last_month_today',
     onClick (picker) {
       picker.$emit('pick', [
         moment().subtract(1, 'months'),
@@ -72,7 +56,78 @@ const shortcutsMin = [
     }
   },
   {
-    text: t('last_year_today'),
+    text: 'last_year_today',
+    onClick (picker) {
+      picker.$emit('pick', [
+        moment().subtract(1, 'years'),
+        moment().subtract(1, 'years')
+      ])
+    }
+  }
+]
+const shortcuts60Min = [
+  {
+    text: 'this_week',
+    onClick (picker) {
+      picker.$emit('pick', [moment().startOf('week').add(1, 'd'), moment().endOf('week')])
+    }
+  },
+  {
+    text: 'last_week',
+    onClick (picker) {
+      picker.$emit('pick', [
+        moment().subtract(6 + week, 'days'),
+        moment().subtract(week, 'days')
+      ])
+    }
+  },
+  {
+    text: 'today',
+    onClick (picker) {
+      picker.$emit('pick', [
+        moment().subtract(0, 'days'),
+        moment().subtract(0, 'days')
+      ])
+    }
+  },
+  {
+    text: 'yesterday',
+    onClick (picker) {
+      picker.$emit('pick', [
+        moment().subtract(1, 'days'),
+        moment().subtract(1, 'days')
+      ])
+    }
+  },
+  {
+    text: 'before_yesterday',
+    onClick (picker) {
+      picker.$emit('pick', [
+        moment().subtract(2, 'days'),
+        moment().subtract(2, 'days')
+      ])
+    }
+  },
+  {
+    text: 'last_week_today',
+    onClick (picker) {
+      picker.$emit('pick', [
+        moment().subtract(7, 'days'),
+        moment().subtract(7, 'days')
+      ])
+    }
+  },
+  {
+    text: 'last_month_today',
+    onClick (picker) {
+      picker.$emit('pick', [
+        moment().subtract(1, 'months'),
+        moment().subtract(1, 'months')
+      ])
+    }
+  },
+  {
+    text: 'last_year_today',
     onClick (picker) {
       picker.$emit('pick', [
         moment().subtract(1, 'years'),
@@ -84,13 +139,13 @@ const shortcutsMin = [
 
 const shortcutsDay = [
   {
-    text: t('this_week'),
+    text: 'this_week',
     onClick (picker) {
       picker.$emit('pick', [moment().startOf('week'), moment().endOf('week')])
     }
   },
   {
-    text: t('last_week'),
+    text: 'last_week',
     onClick (picker) {
       picker.$emit('pick', [
         moment().subtract(6 + week, 'days'),
@@ -99,31 +154,13 @@ const shortcutsDay = [
     }
   },
   {
-    text: t('last_two_weeks'),
-    onClick (picker) {
-      picker.$emit('pick', [
-        moment().subtract(14, 'days'),
-        moment().subtract(0, 'days')
-      ])
-    }
-  },
-  {
-    text: t('last_three_weeks'),
-    onClick (picker) {
-      picker.$emit('pick', [
-        moment().subtract(21, 'days'),
-        moment().subtract(0, 'days')
-      ])
-    }
-  },
-  {
-    text: t('this_month'),
+    text: 'this_month',
     onClick (picker) {
       picker.$emit('pick', [moment().startOf('month'), moment().endOf('month')])
     }
   },
   {
-    text: '上月',
+    text: 'last_momnt',
     onClick (picker) {
       picker.$emit('pick', [
         moment()
@@ -136,7 +173,25 @@ const shortcutsDay = [
     }
   },
   {
-    text: '最近30天',
+    text: 'last_two_weeks',
+    onClick (picker) {
+      picker.$emit('pick', [
+        moment().subtract(14, 'days'),
+        moment().subtract(0, 'days')
+      ])
+    }
+  },
+  {
+    text: 'last_three_weeks',
+    onClick (picker) {
+      picker.$emit('pick', [
+        moment().subtract(21, 'days'),
+        moment().subtract(0, 'days')
+      ])
+    }
+  },
+  {
+    text: 'last_30_days',
     onClick (picker) {
       picker.$emit('pick', [
         moment().subtract(30, 'days'),
@@ -145,7 +200,7 @@ const shortcutsDay = [
     }
   },
   {
-    text: '最近60天',
+    text: 'last_60_days',
     onClick (picker) {
       picker.$emit('pick', [
         moment().subtract(60, 'days'),
@@ -157,7 +212,7 @@ const shortcutsDay = [
 
 const shortcutsWeek = [
   {
-    text: '最近2周',
+    text: 'last_two_weeks',
     onClick (picker) {
       picker.$emit('pick', [
         moment().subtract(14, 'days'),
@@ -166,7 +221,7 @@ const shortcutsWeek = [
     }
   },
   {
-    text: '最近3周',
+    text: 'last_three_weeks',
     onClick (picker) {
       picker.$emit('pick', [
         moment().subtract(21, 'days'),
@@ -175,7 +230,7 @@ const shortcutsWeek = [
     }
   },
   {
-    text: '最近4周',
+    text: 'last_four_weeks',
     onClick (picker) {
       picker.$emit('pick', [
         moment().subtract(28, 'days'),
@@ -184,52 +239,24 @@ const shortcutsWeek = [
     }
   },
   {
-    text: '最近5周',
+    text: 'last_five_weeks',
     onClick (picker) {
       picker.$emit('pick', [
         moment().subtract(35, 'days'),
         moment().subtract(0, 'days')
       ])
     }
-  },
-  {
-    text: '最近6周',
-    onClick (picker) {
-      picker.$emit('pick', [
-        moment().subtract(42, 'days'),
-        moment().subtract(0, 'days')
-      ])
-    }
-  },
-  {
-    text: '最近7周',
-    onClick (picker) {
-      picker.$emit('pick', [
-        moment().subtract(49, 'days'),
-        moment().subtract(0, 'days')
-      ])
-    }
-  },
-  {
-    text: '最近8周',
-    onClick (picker) {
-      picker.$emit('pick', [
-        moment().subtract(56, 'days'),
-        moment().subtract(0, 'days')
-      ])
-    }
   }
 ]
-
 const shortcutsMonth = [
   {
-    text: '今年',
+    text: 'this_year',
     onClick (picker) {
       picker.$emit('pick', [moment().startOf('years'), moment().endOf('years')])
     }
   },
   {
-    text: '去年',
+    text: 'last_year',
     onClick (picker) {
       picker.$emit('pick', [
         moment()
@@ -244,43 +271,18 @@ const shortcutsMonth = [
     }
   },
   {
-    text: '前年',
-    onClick (picker) {
-      picker.$emit('pick', [
-        moment()
-          .year(year - 2)
-          .month(0)
-          .date(1),
-        moment()
-          .year(year - 2)
-          .month(11)
-          .date(31)
-      ])
-    }
-  },
-  {
-    text: '最近半年',
+    text: 'last_half_year',
     onClick (picker) {
       picker.$emit('pick', [
         moment().subtract(6, 'months'),
         moment().subtract(0, 'months')
       ])
     }
-  },
-  {
-    text: '最近1年',
-    onClick (picker) {
-      picker.$emit('pick', [
-        moment().subtract(12, 'months'),
-        moment().subtract(0, 'months')
-      ])
-    }
   }
 ]
-
 const shortcutsYear = [
   {
-    text: '3年',
+    text: 'three_years',
     onClick (picker) {
       picker.$emit('pick', [
         moment().subtract(3, 'years'),
@@ -289,28 +291,10 @@ const shortcutsYear = [
     }
   },
   {
-    text: '5年',
+    text: 'five_years',
     onClick (picker) {
       picker.$emit('pick', [
         moment().subtract(5, 'years'),
-        moment().subtract(0, 'years')
-      ])
-    }
-  },
-  {
-    text: '8年',
-    onClick (picker) {
-      picker.$emit('pick', [
-        moment().subtract(8, 'years'),
-        moment().subtract(0, 'years')
-      ])
-    }
-  },
-  {
-    text: '10年',
-    onClick (picker) {
-      picker.$emit('pick', [
-        moment().subtract(10, 'years'),
         moment().subtract(0, 'years')
       ])
     }
@@ -360,7 +344,7 @@ const timeIntervals = [
     text: '60Min',
     pickerOptions: {
       disabledDate: disabledDate,
-      shortcuts: shortcutsMin
+      shortcuts: shortcuts60Min
     }
   },
   {
@@ -401,10 +385,24 @@ const timeIntervals = [
   }
 ]
 
+const getDefaultTimeInterval = function (t) {
+  let ti = timeIntervals[4]
+  _.each(ti.pickerOptions.shortcuts, function (value) {
+    value.text = t(value.text)
+  })
+  return ti
+}
+const getTimeIntervals = function (t) {
+  _.each(timeIntervals, function (v) {
+    _.each(v.pickerOptions.shortcuts, function (p) {
+      p.text = t(p.text)
+    })
+  })
+  return timeIntervals
+}
 const appconst = {
   defaultDateRange: [moment(), moment()],
-  defaultTimeInterval: timeIntervals[4],
-
-  timeIntervals: timeIntervals
+  defaultTimeInterval: getDefaultTimeInterval,
+  timeIntervals: getTimeIntervals
 }
 export default appconst

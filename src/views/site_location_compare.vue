@@ -2,7 +2,7 @@
   <div class="report-page">
     <div class="report-page-card">
       <compare-mall-select ref="mallSelect"></compare-mall-select>
-      <interval-picker ref=intervalPicker></interval-picker>
+      <interval-picker></interval-picker>
       <date-range-picker></date-range-picker>
       <el-button type="primary"
                  size="small"
@@ -45,7 +45,6 @@
 <script>
 import {mapActions} from 'vuex'
 import _ from 'underscore'
-import weekFun from '@/lib/weekFun'
 
 export default {
   name: 'site_location_compare',
@@ -54,14 +53,12 @@ export default {
       data: null,
       reportType: [0, 'DateTime'],
       chartType: 'Enter',
-      fixedHeader: ['WeatherName', 'Temp'],
-      dateStyle: null
+      fixedHeader: ['WeatherName', 'Temp']
     }
   },
   methods: {
     ...mapActions('report', ['query']),
     async onQuery () {
-      this.dateStyle = this.$refs.intervalPicker.dateStyle
       this.data = await this.query({
         'report': {
           dateFields: ['Enter', 'Exit', 'HighTemp', 'LowTemp', 'WeatherName'],
@@ -104,14 +101,7 @@ export default {
     },
     headerData () {
       let dataArrayIndex = this.reportType[0]
-      let data = this.data ? this.data['report'][dataArrayIndex] : []
-      let type = this.reportType[1]
-      if (this.dateStyle === '1d' && type === 'DateTime') {
-        _.each(data, function (value) {
-          value[type] = weekFun.GetWeek(value[type], 'YYYY-MM-DD HH:mm:ss')
-        })
-      }
-      return data
+      return this.data ? this.data['report'][dataArrayIndex] : []
     },
     chartOption () {
       let dataArrayIndex = this.reportType[0]

@@ -2,7 +2,7 @@
   <div class="report-page">
     <div class="report-page-card">
       <singel-mall-select ref="mallSelect"></singel-mall-select>
-      <interval-picker ref=intervalPicker></interval-picker>
+      <interval-picker></interval-picker>
       <el-row>
         <el-col :span="6">
           <date-range ref="dateRange"></date-range>
@@ -52,7 +52,6 @@
 import {mapActions} from 'vuex'
 import _ from 'underscore'
 import moment from 'moment'
-import weekFun from '@/lib/weekFun'
 
 export default {
   name: 'site_time_compare',
@@ -62,14 +61,12 @@ export default {
       data: null,
       reportType: [0, 'DateTime'],
       chartType: 'Enter',
-      fixedHeader: ['WeatherName', 'Temp'],
-      dateStyle: null
+      fixedHeader: ['WeatherName', 'Temp']
     }
   },
   methods: {
     ...mapActions('report', ['query']),
     async onQuery () {
-      this.dateStyle = this.$refs.intervalPicker.dateStyle
       let startDate = this.$refs.dateRange.dateRangeValue[0]
       let endDate = this.$refs.dateRange.dateRangeValue[1]
       let compareStartDate = this.$refs.compareDateRange.dateRangeValue[0]
@@ -120,14 +117,7 @@ export default {
     },
     compareData () {
       let dataArrayIndex = this.reportType[0]
-      let data = this.data ? this.data['compare'][dataArrayIndex] : []
-      let type = this.reportType[1]
-      if (this.dateStyle === '1d' && type === 'DateTime') {
-        _.each(data, function (value) {
-          value[type] = weekFun.GetWeek(value[type], 'YYYY-MM-DD HH:mm:ss')
-        })
-      }
-      return data
+      return this.data ? this.data['compare'][dataArrayIndex] : []
     },
     headerData () {
       let dataArrayIndex = this.reportType[0]
@@ -150,12 +140,6 @@ export default {
           break
         default:
           xData = this.data ? _.map(this.data['report'][dataArrayIndex], (_) => _[this.reportType[1]]) : []
-          let type = this.reportType[1]
-          if (this.dateStyle === '1d' && type === 'DateTime') {
-            xData = _.map(xData, function (value) {
-              return weekFun.GetWeek(value, 'YYYY-MM-DD HH:mm:ss')
-            })
-          }
           series = [{name: this.$t('date_range'), type: 'bar', data: reportSeries}, {
             name: this.$t('compare_date_range'),
             type: 'bar',
