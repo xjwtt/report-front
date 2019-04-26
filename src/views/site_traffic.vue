@@ -25,7 +25,7 @@
       <chart style="width:100%"
              :autoResize="true"
              :options="chartOption"
-             theme="light"></chart>
+             theme="vintage"></chart>
 
     </div>
     <div class="report-page-card">
@@ -43,7 +43,6 @@
 <script>
 import {mapActions} from 'vuex'
 import _ from 'underscore'
-import weekFun from '@/lib/weekFun'
 
 export default {
   data: () => ({
@@ -58,15 +57,14 @@ export default {
   methods: {
     ...mapActions('report', ['query']),
     async onQuery () {
-      this.dateStyle = this.$refs.intervalPicker.dateStyle
       this.data = await this.query({
         'report': {
           dateFields: this.dateFields,
           groupBy: [
             // {domain: 'Mall'},
             {domain: 'Mall', period: 'All', timeFormatter: 'All'},
-            {domain: 'All'}
-            // {domain: 'All', period: 'All', timeFormatter: 'All'}
+            {domain: 'All'},
+            {domain: 'Mall'}
           ]
         }
       })
@@ -82,102 +80,171 @@ export default {
     },
     headerData () {
       let dataArrayIndex = this.reportType[0]
-      let data = this.data ? this.data['report'][dataArrayIndex] : []
-      let type = this.reportType[1]
-      if (this.dateStyle === '1d' && type === 'DateTime') {
-        _.each(data, function (value) {
-          value[type] = weekFun.GetWeek(value[type], 'YYYY-MM-DD HH:mm:ss')
-        })
-      }
-      return data
+      return this.data ? this.data['report'][dataArrayIndex] : []
     },
     tableType () {
-      return this.reportType[1]
+      switch (this.reportType[1]) {
+        case 'DomainLabel_DateTime':
+          return 'DateTime'
+        default:
+          return this.reportType[1]
+      }
     },
     chartOption () {
-      let dataType = this.$t('enter')
+      let that = this
       let yAxisName = this.$t('man_time')
       let minName = this.$t('min')
       let maxName = this.$t('max')
       let avgName = this.$t('avg')
-
       let dataArrayIndex = this.reportType[0]
       let xSelector = (_) => _[this.reportType[1]]
-      let ySelector = (_) => _[this.chartType]
-      let xData = this.data ? _.map(this.data['report'][dataArrayIndex], xSelector) : []
-      let yData = this.data ? _.map(this.data['report'][dataArrayIndex], ySelector) : []
-      let result = {
-        title: {
-          text: ''
-        },
-        tooltip: {
-          trigger: 'axis'
-        },
-        grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '3%',
-          containLabel: true
-        },
-        toolbox: {
-          feature: {
-            saveAsImage: {}
-          }
-        },
-        xAxis: {
-          type: 'category',
-          boundaryGap: true,
-          data: xData,
-          axisLabel: {
-            rotate: 45
-          }
-        },
-        yAxis: [{
-          type: 'value',
-          name: yAxisName,
-          axisLabel: {
-            formatter: '{value} '
-          }
-        }],
-        series: [{
-          name: dataType,
-          type: 'bar',
-          stack: '',
-          markPoint: {
-            data: [{
-              type: 'max',
-              name: maxName
-            }, {
-              type: 'min',
-              name: minName
-            }]
-          },
-          markLine: {
-            data: [{
-              type: 'average',
-              name: avgName
-            }]
-          },
-          data: yData
-        }]
-      }
-      switch (dataType) {
-        case 'DomainLabel':
-          result.toolbox = {
-            show: true,
-            feature: {
-              dataZoom: {
-                yAxisIndex: 'none'
+      switch (this.reportType[1]) {
+        case 'DateTime':
+          let ySelector = (_) => _[this.chartType]
+          let xBar = this.data ? _.map(this.data['report'][dataArrayIndex], xSelector) : []
+          let yBar = this.data ? _.map(this.data['report'][dataArrayIndex], ySelector) : []
+
+          let bar = {
+            title: {
+              text: ''
+            },
+            tooltip: {
+              trigger: 'axis'
+            },
+            grid: {
+              left: '3%',
+              right: '4%',
+              bottom: '3%',
+              containLabel: true
+            },
+            toolbox: {
+              feature: {
+                saveAsImage: {}
+              }
+            },
+            xAxis: {
+              type: 'category',
+              boundaryGap: true,
+              data: xBar,
+              axisLabel: {
+                rotate: 45
+              }
+            },
+            yAxis: [{
+              type: 'value',
+              name: yAxisName,
+              axisLabel: {
+                formatter: '{value} '
+              }
+            }],
+            series: [{
+              name: that.chartType,
+              type: 'bar',
+              stack: '',
+              markPoint: {
+                data: [{
+                  type: 'max',
+                  name: maxName
+                }, {
+                  type: 'min',
+                  name: minName
+                }]
               },
-              dataView: {readOnly: false},
-              magicType: {type: ['line', 'bar']},
-              restore: {},
-              saveAsImage: {}
-            }
+              markLine: {
+                data: [{
+                  type: 'average',
+                  name: avgName
+                }]
+              },
+              data: yBar
+            }]
           }
+          Object.freeze(bar)
+          return bar
+        case 'DomainLabel_DateTime':
+          let groupByObj = _.groupBy(this.data['report'][dataArrayIndex], (_) => _['DomainLabel'])
+          let legendLine = _.map(groupByObj, (value, key) => {
+            return key
+          })
+          let xLine = legendLine.length > 0 ? _.map(groupByObj[legendLine[0]], (_) => _['DateTime']) : []
+          let seriesLine = legendLine.length > 0 ? _.map(groupByObj, (value, key) => {
+            let data = _.map(value, (_) => {
+              return _[that.chartType]
+            })
+            return {name: key, type: 'line', stack: that.chartType, data: data}
+          }) : []
+          let line = {
+            title: {
+              text: ''
+            },
+            tooltip: {
+              trigger: 'axis'
+            },
+            legend: {
+              data: legendLine
+            },
+            grid: {
+              left: '3%',
+              right: '4%',
+              bottom: '3%',
+              containLabel: true
+            },
+            toolbox: {
+              feature: {
+                saveAsImage: {}
+              }
+            },
+            xAxis: {
+              type: 'category',
+              boundaryGap: false,
+              data: xLine
+            },
+            yAxis: {
+              type: 'value'
+            },
+            series: seriesLine
+          }
+          Object.freeze(line)
+          return line
+        case 'DomainLabel':
+          let legendPie = this.data ? _.map(this.data['report'][dataArrayIndex], xSelector) : []
+          let pieSeriesData = this.data ? _.map(this.data['report'][dataArrayIndex], function (it) {
+            return {name: it[that.reportType[1]], value: it[that.chartType]}
+          }) : []
+          let pie = {
+            title: {
+              text: '',
+              x: 'center'
+            },
+            tooltip: {
+              trigger: 'item',
+              formatter: '{a} <br/>{b} : {c} ({d}%)'
+            },
+            legend: {
+              orient: 'vertical',
+              left: 'right',
+              data: legendPie
+            },
+            series: [
+              {
+                name: that.chartType,
+                type: 'pie',
+                radius: '80%',
+                center: ['50%', '50%'],
+                data: pieSeriesData,
+                itemStyle: {
+                  emphasis: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                  }
+                }
+              }
+            ]
+          }
+          Object.freeze(pie)
+          return pie
       }
-      Object.freeze(result)
-      return result
     }
   },
   async mounted () {

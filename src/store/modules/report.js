@@ -3,6 +3,7 @@ import moment from 'moment'
 import ajax from '@/lib/ajax'
 import Vue from 'vue'
 import i18n from '@/i18n'
+import weekFun from '@/lib/weekFun'
 
 const t = key => i18n.t(key)
 
@@ -80,7 +81,43 @@ export default {
         }
       }
       if (queryStatus) {
-        return ajax.post('report/GlobalReport.action', args)
+        let dateStyle = context.rootState.app.timeInterval.key
+        let data = await ajax.post('report/GlobalReport.action', args)
+        for (let key in data) {
+          for (let i = 0; i < data[key].length; i++) {
+            switch (dateStyle) {
+              case '1d':
+                _.each(data[key][i], function (value) {
+                  value['DateTime'] = weekFun.GetWeek(t, value['DateTime'], 'YYYY-MM-DD HH:mm:ss')
+                })
+                break
+              case '5m':
+              case '10m':
+              case '15m':
+              case '30m':
+                _.each(data[key][i], function (value) {
+                  value['DateTime'] = moment(value['DateTime'], 'YYYY-MM-DD HH:mm:ss').format('HH:mm')
+                })
+                break
+              case '60m':
+                _.each(data[key][i], function (value) {
+                  value['DateTime'] = moment(value['DateTime'], 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm')
+                })
+                break
+              case 'Month':
+                _.each(data[key][i], function (value) {
+                  value['DateTime'] = moment(value['DateTime'], 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM')
+                })
+                break
+              case 'Year':
+                _.each(data[key][i], function (value) {
+                  value['DateTime'] = moment(value['DateTime'], 'YYYY-MM-DD HH:mm:ss').format('YYYY')
+                })
+                break
+            }
+          }
+        }
+        return data
       } else {
         return null
       }
