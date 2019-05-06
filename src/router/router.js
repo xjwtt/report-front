@@ -45,5 +45,6 @@ export const allRouters = {
   historyflow_manager: () => import('@/views/historyflow_manager'),
   copydata_manager: () => import('@/views/copydata_manager'),
   task_manager: () => import('@/views/task_manager'),
-  peak_time: () => import('@/views/peak_time')
+  site_peak_time: () => import('@/views/site_peak_time'),
+  zone_peak_time: () => import('@/views/zone_peak_time')
 }

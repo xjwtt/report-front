@@ -387,18 +387,18 @@ const timeIntervals = [
 
 const hourlyWeeks = [
   {
-    key: '60m',
-    timeFormatter: 'yyyy-MM-dd HH',
-    text: 'Hour',
+    key: 'Hourly',
+    timeFormatter: 'HH',
+    text: 'Hourly',
     pickerOptions: {
       disabledDate: disabledDate,
       shortcuts: shortcuts60Min
     }
   },
   {
-    key: '1d',
-    timeFormatter: 'yyyy-MM-dd',
-    text: 'Week',
+    key: 'Weekday',
+    timeFormatter: 'Weekday',
+    text: 'WeekDay',
     pickerOptions: {
       disabledDate: disabledDate,
       shortcuts: shortcutsDay
