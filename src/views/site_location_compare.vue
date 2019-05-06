@@ -21,7 +21,7 @@
                       size="mini">
         <el-radio-button :label="'Enter'">{{$t('enter')}}</el-radio-button>
         <el-radio-button :label="'Exit'">{{$t('exit')}}</el-radio-button>
-        <!-- <el-radio-button :label="'Stay'">滞留</el-radio-button> -->
+         <el-radio-button :label="'Stay'">{{$t('stay')}}</el-radio-button>
       </el-radio-group>
       <chart style="width:100%"
              :autoResize="true"
