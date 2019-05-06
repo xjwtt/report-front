@@ -35,6 +35,8 @@ export default {
   area_location_compare: 'Area Location Compare',
   area_time_compare: 'Area Time Compare',
   area_traffic_location_compare: 'Area Traffic Compare',
+  site_peak_time: 'Site Peak Time',
+  zone_peak_time: 'Zone Peak Time',
   peak_time: 'Peak Time',
   peak_location: 'Peak Location',
   weather_analysis: 'Weather Analysis',

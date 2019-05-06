@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import app from './modules/app'
 import report from './modules/report'
+import hourlyweek from './modules/hourlyweek'
 import widget from './modules/widget'
 import zone from './modules/zone'
 import company from './modules/company'
@@ -36,6 +37,7 @@ const store = new Vuex.Store({
   modules: {
     app,
     report,
+    hourlyweek,
     widget,
     zone,
     company,

@@ -3,7 +3,7 @@
     <div class="report-page-card">
       <singel-mall-select></singel-mall-select>
       <zone-selector :zone-types="zoneTypes" ref=zoneSelector></zone-selector>
-      <interval-picker></interval-picker>
+      <interval-picker-hourlyweek></interval-picker-hourlyweek>
       <date-range-picker></date-range-picker>
       <el-button type="primary"
                  size="small"
@@ -14,20 +14,19 @@
       <el-radio-group v-model="reportType"
                       style="vertical-align: middle;"
                       size="mini">
-        <el-radio-button :label='[1,"DateTime"]'>{{$t('time_group')}}</el-radio-button>
-        <el-radio-button :label='[2,"DomainLabel_DateTime"]'>{{$t('location_time_group')}}</el-radio-button>
-        <el-radio-button :label='[0,"DomainLabel"]'>{{$t('location_group')}}</el-radio-button>
+        <el-radio-button :label='[0,"TimeLabel"]'>{{$t('time_group')}}</el-radio-button>
+        <el-radio-button :label='[1,"DomainLabel_TimeLabel"]'>{{$t('location_time_group')}}</el-radio-button>
       </el-radio-group>
       <el-radio-group v-model="chartType"
                       style="vertical-align: middle;"
                       size="mini">
         <el-radio-button :label="'Enter'">{{$t('enter')}}</el-radio-button>
         <el-radio-button :label="'Exit'">{{$t('exit')}}</el-radio-button>
-        <el-radio-button :label="'Stay'">{{$t('stay')}}</el-radio-button>
+        <!--<el-radio-button :label="'Stay'">{{$t('stay')}}</el-radio-button>-->
       </el-radio-group>
-      <chart :options="chartOption"
-             style="width:100%"
+      <chart style="width:100%"
              :autoResize="true"
+             :options="chartOption"
              theme="vintage"></chart>
     </div>
     <div class="report-page-card">
@@ -47,26 +46,24 @@ import {mapActions} from 'vuex'
 import _ from 'underscore'
 
 export default {
+  name: 'peak_time',
   data: () => ({
     zoneTypes: ['Entrance', 'Domain', 'Floor', 'Corridor'],
     data: null,
-    reportType: [1, 'DateTime'],
     chartType: 'Enter',
+    reportType: [0, 'TimeLabel'],
     charTypes: ['Enter', 'Exit'],
-    fixedHeader: ['Picture', 'WeatherName', 'Temp']
+    fixedHeader: []
   }),
   methods: {
-    ...mapActions('report', ['query']),
+    ...mapActions('hourlyweek', ['query']),
     async onQuery () {
-      console.log(this.$refs.zoneSelector.zoneIds)
       this.data = await this.query({
         'report': {
-          dateFields: ['Enter', 'Exit', 'Stay', 'HighTemp', 'LowTemp', 'WeatherName'],
+          dateFields: this.dateFields,
           groupBy: [
-            {domain: 'Zone', period: 'All', timeFormatter: 'All'},
             {domain: 'All'},
             {domain: 'Zone'}
-            // { domain: 'All', period: 'All', timeFormatter: 'All' }
           ],
           PhyIds: this.$refs.zoneSelector.zoneIds
         }
@@ -82,21 +79,12 @@ export default {
       return this.data ? this.data['report'][dataArrayIndex] : []
     },
     headerData () {
-      let dataArrayIndex = this.reportType[0]
-      switch (dataArrayIndex) {
-        case 1:
-        case 2:
-          dataArrayIndex = 1
-          break
-        default:
-          break
-      }
-      return this.data ? this.data['report'][dataArrayIndex] : []
+      return this.data ? this.data['report'][0] : []
     },
     tableType () {
       switch (this.reportType[1]) {
-        case 'DomainLabel_DateTime':
-          return 'DateTime'
+        case 'DomainLabel_TimeLabel':
+          return 'TimeLabel'
         default:
           return this.reportType[1]
       }
@@ -107,15 +95,13 @@ export default {
       let minName = this.$t('min')
       let maxName = this.$t('max')
       let avgName = this.$t('avg')
-
       let dataArrayIndex = this.reportType[0]
       let xSelector = (_) => _[this.reportType[1]]
-      switch (this.reportType[1]) {
-        case 'DateTime':
+      switch (that.reportType[1]) {
+        case 'TimeLabel':
           let ySelector = (_) => _[this.chartType]
-          let xData = this.data ? _.map(this.data['report'][dataArrayIndex], xSelector) : []
-          let yData = this.data ? _.map(this.data['report'][dataArrayIndex], ySelector) : []
-
+          let xBar = this.data ? _.map(this.data['report'][dataArrayIndex], xSelector) : []
+          let yBar = this.data ? _.map(this.data['report'][dataArrayIndex], ySelector) : []
           let bar = {
             title: {
               text: ''
@@ -137,7 +123,7 @@ export default {
             xAxis: {
               type: 'category',
               boundaryGap: true,
-              data: xData,
+              data: xBar,
               axisLabel: {
                 rotate: 45
               }
@@ -168,17 +154,17 @@ export default {
                   name: avgName
                 }]
               },
-              data: yData
+              data: yBar
             }]
           }
           Object.freeze(bar)
           return bar
-        case 'DomainLabel_DateTime':
+        case 'DomainLabel_TimeLabel':
           let groupByObj = _.groupBy(this.data['report'][dataArrayIndex], (_) => _['DomainLabel'])
           let legendLine = _.map(groupByObj, (value, key) => {
             return key
           })
-          let xLine = legendLine.length > 0 ? _.map(groupByObj[legendLine[0]], (_) => _['DateTime']) : []
+          let xLine = legendLine.length > 0 ? _.map(groupByObj[legendLine[0]], (_) => _['TimeLabel']) : []
           let seriesLine = legendLine.length > 0 ? _.map(groupByObj, (value, key) => {
             let data = _.map(value, (_) => {
               return _[that.chartType]
@@ -218,49 +204,12 @@ export default {
           }
           Object.freeze(line)
           return line
-        case 'DomainLabel':
-          let legendData = this.data ? _.map(this.data['report'][dataArrayIndex], xSelector) : []
-          let pieSeriesData = this.data ? _.map(this.data['report'][dataArrayIndex], function (it) {
-            return {name: it[that.reportType[1]], value: it[that.chartType]}
-          }) : []
-          let pie = {
-            title: {
-              text: '',
-              x: 'center'
-            },
-            tooltip: {
-              trigger: 'item',
-              formatter: '{a} <br/>{b} : {c} ({d}%)'
-            },
-            legend: {
-              orient: 'vertical',
-              left: 'right',
-              data: legendData
-            },
-            series: [
-              {
-                name: that.chartType,
-                type: 'pie',
-                radius: '80%',
-                center: ['50%', '50%'],
-                data: pieSeriesData,
-                itemStyle: {
-                  emphasis: {
-                    shadowBlur: 10,
-                    shadowOffsetX: 0,
-                    shadowColor: 'rgba(0, 0, 0, 0.5)'
-                  }
-                }
-              }
-            ]
-          }
-          Object.freeze(pie)
-          return pie
       }
     }
-  },
-  async mounted () {
-    this.onQuery()
   }
 }
 </script>
+
+<style scoped>
+
+</style>

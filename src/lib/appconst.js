@@ -385,6 +385,26 @@ const timeIntervals = [
   }
 ]
 
+const hourlyWeeks = [
+  {
+    key: 'Hourly',
+    timeFormatter: 'HH',
+    text: 'Hourly',
+    pickerOptions: {
+      disabledDate: disabledDate,
+      shortcuts: shortcuts60Min
+    }
+  },
+  {
+    key: 'Weekday',
+    timeFormatter: 'Weekday',
+    text: 'WeekDay',
+    pickerOptions: {
+      disabledDate: disabledDate,
+      shortcuts: shortcutsDay
+    }
+  }
+]
 const getDefaultTimeInterval = function (t) {
   let ti = timeIntervals[4]
   _.each(ti.pickerOptions.shortcuts, function (value) {
@@ -400,9 +420,26 @@ const getTimeIntervals = function (t) {
   })
   return timeIntervals
 }
+const getDefaultHourlyWeek = function (t) {
+  let hw = hourlyWeeks[0]
+  _.each(hw.pickerOptions.shortcuts, function (value) {
+    value.text = t(value.text)
+  })
+  return hw
+}
+const getHourlyWeeks = function (t) {
+  _.each(hourlyWeeks, function (v) {
+    _.each(v.pickerOptions.shortcuts, function (p) {
+      p.text = t(p.text)
+    })
+  })
+  return hourlyWeeks
+}
 const appconst = {
   defaultDateRange: [moment(), moment()],
   defaultTimeInterval: getDefaultTimeInterval,
-  timeIntervals: getTimeIntervals
+  timeIntervals: getTimeIntervals,
+  defaultHourlyWeek: getDefaultHourlyWeek,
+  hourlyWeeks: getHourlyWeeks
 }
 export default appconst

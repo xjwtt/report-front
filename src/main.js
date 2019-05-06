@@ -18,6 +18,7 @@ import store from './store'
 import './tables'
 
 import IntervalPicker from './components/IntervalPicker'
+import IntervalPickerHourlyweek from './components/IntervalPickerHourlyweek'
 import DateRangePicker from './components/DateRangePicker'
 import DateRange from './components/DateRange'
 import SingelMallSelect from './components/SingelMallSelect'
@@ -40,6 +41,7 @@ Vue.component(VTable.name, VTable)
 Vue.component(VPagination.name, VPagination)
 
 Vue.component('interval-picker', IntervalPicker)
+Vue.component('interval-picker-hourlyweek', IntervalPickerHourlyweek)
 Vue.component('date-range-picker', DateRangePicker)
 Vue.component('date-range', DateRange)
 Vue.component('singel-mall-select', SingelMallSelect)

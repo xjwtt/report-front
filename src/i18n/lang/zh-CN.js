@@ -35,6 +35,8 @@ export default {
   area_location_compare: '区域KPI地点对比',
   area_time_compare: '区域KPI时间对比',
   area_traffic_location_compare: '客流区域对比',
+  site_peak_time: '案场高低峰时间分析',
+  zone_peak_time: '区域高低峰时间分析',
   peak_time: '高低峰时间分析',
   peak_location: '区域高低峰分析',
   weather_analysis: '天气因素分析',

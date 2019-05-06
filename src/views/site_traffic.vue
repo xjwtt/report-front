@@ -81,6 +81,14 @@ export default {
     },
     headerData () {
       let dataArrayIndex = this.reportType[0]
+      switch (dataArrayIndex) {
+        case 1:
+        case 2:
+          dataArrayIndex = 1
+          break
+        default:
+          break
+      }
       return this.data ? this.data['report'][dataArrayIndex] : []
     },
     tableType () {
