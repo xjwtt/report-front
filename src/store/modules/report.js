@@ -88,7 +88,7 @@ export default {
             switch (dateStyle) {
               case '1d':
                 _.each(data[key][i], function (value) {
-                  value['DateTime'] = weekFun.GetWeek(t, value['DateTime'], 'YYYY-MM-DD HH:mm:ss')
+                  value['DateTime'] = weekFun.GetDateWeek(t, value['DateTime'], 'YYYY-MM-DD HH:mm:ss')
                 })
                 break
               case '5m':

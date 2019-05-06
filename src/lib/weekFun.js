@@ -1,7 +1,7 @@
 import moment from 'moment'
 
 const weeks = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-const getWeek = function (t, day, format) {
+const getDateWeek = function (t, day, format) {
   let m = null
   if (format) {
     m = moment(day, format)
@@ -10,6 +10,15 @@ const getWeek = function (t, day, format) {
   }
   return m.format('YYYY-MM-DD') + ' ' + t(weeks[m.weekday()])
 }
-const weekFun = {weeks: weeks, GetWeek: getWeek}
+const getWeek = function (t, day, format) {
+  let m = null
+  if (format) {
+    m = moment(day, format)
+  } else {
+    m = moment(day)
+  }
+  return t(weeks[m.weekday()])
+}
+const weekFun = {weeks: weeks, GetDateWeek: getDateWeek, GetWeek: getWeek}
 
 export default weekFun

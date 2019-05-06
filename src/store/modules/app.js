@@ -24,7 +24,8 @@ export default {
 
     timeInterval: null,
     timeIntervals: null,
-
+    hourlyWeek: null,
+    hourlyWeeks: null,
     dateRange: appconst.defaultDateRange
   },
   mutations: {
@@ -40,6 +41,11 @@ export default {
       addRouterFromMenus(payload.Menus)
       state.timeInterval = appconst.defaultTimeInterval(t)
       state.timeIntervals = appconst.timeIntervals(t)
+      state.hourlyWeek = appconst.defaultHourlyWeek(t)
+      state.hourlyWeeks = appconst.hourlyWeeks(t)
+    },
+    setHourlyWeek (state, payload) {
+      state.hourlyWeek = _.find(state.hourlyWeeks, __ => __.key === payload)
     },
     setTimeInterval (state, payload) {
       state.timeInterval = _.find(state.timeIntervals, __ => __.key === payload)
