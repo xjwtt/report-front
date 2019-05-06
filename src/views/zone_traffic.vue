@@ -52,7 +52,7 @@ export default {
     data: null,
     reportType: [1, 'DateTime'],
     chartType: 'Enter',
-    charTypes: ['Enter', 'Exit'],
+    charTypes: ['Enter', 'Exit', 'Stay'],
     fixedHeader: ['Picture', 'WeatherName', 'Temp']
   }),
   methods: {
