@@ -308,7 +308,7 @@ export default {
   must_input_zone: 'Must Input Zone',
   zone_nonuniqueness: 'Zone Nonuniqueness',
   the_time_period_must_be_one_day: 'The time period must be one day ',
-  the_time_period_must_be_seven_day: 'The time period must be seven day ',
+  the_time_period_must_be_31_day: 'The time period must be 31 day ',
   time_interval_must_be_the_same: 'Time interval must be the same',
 
   recover_data: 'Recover Data',

@@ -308,7 +308,7 @@ export default {
   must_input_zone: '请输入区域码',
   zone_nonuniqueness: '区域码不唯一',
   the_time_period_must_be_one_day: '时间段必须在一天',
-  the_time_period_must_be_seven_day: '时间段必须在七天',
+  the_time_period_must_be_31_day: '时间段必须在31天',
   time_interval_must_be_the_same: '时间间隔必须相同',
 
   recover_data: '汇总数据',

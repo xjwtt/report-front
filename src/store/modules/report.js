@@ -46,7 +46,7 @@ export default {
               break
             case '60m':
               if (duration.asDays() > 31) {
-                Vue.prototype.$message.error(t('the_time_period_must_be_seven_day'))
+                Vue.prototype.$message.error(t('the_time_period_must_be_31_day'))
                 queryStatus = false
                 return
               }
