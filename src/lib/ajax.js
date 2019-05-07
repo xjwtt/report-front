@@ -5,7 +5,7 @@ import { router } from '@/router/index'
 const t = key => i18n.t(key)
 
 const ajax = axios.create({
-  timeout: 1000
+  timeout: 10000
 })
 ajax.interceptors.request.use(
   function (config) {
