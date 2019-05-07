@@ -74,7 +74,6 @@ import _ from 'underscore'
 import FileSaver from 'file-saver'
 
 export default {
-  name: 'TrafficeTalbeFast',
   props: {
     columnsInit: {
       type: Array,

@@ -164,50 +164,6 @@ export default {
         case 'DateTime':
         case 'TimeLabel':
           let num = this.separateNumber || 30
-          // let separateTableData = []
-          // _.each(data, function (item, index) {
-          //   let key = parseInt(index / num)
-          //   if (index % num === 0) {
-          //     separateTableData.push({separate: key, data: []})
-          //   }
-          //   separateTableData[key].data.push(item)
-          // })
-          // _.each(separateTableData, function (data, key) {
-          //   let groupBy = that.groupByData(data.data)
-          //   let bodyData = {separate: key, data: []}
-          //   _.each(that.fixedHeader, function (fh) {
-          //     let w = []
-          //     switch (fh) {
-          //       case 'Temp':
-          //         _.each(Object.values(groupBy)[0], function (values) {
-          //           w.push(values['LowTemp'] + '~' + values['HighTemp'] + '℃/' + values['Pm25'])
-          //         })
-          //         break
-          //       case 'Picture':
-          //         _.each(Object.values(groupBy)[0], function (values) {
-          //           w.push('<img src="' + values['DayPictureUrl'] + '"/>&nbsp;&nbsp;<img src="' + values['NightPictureUrl'] + '"/>')
-          //         })
-          //         break
-          //       default:
-          //         _.each(Object.values(groupBy)[0], function (values) {
-          //           w.push(values[fh])
-          //         })
-          //         break
-          //     }
-          //     bodyData.data.push(w)
-          //   })
-          //   debugger
-          //   _.each(groupBy, function (d) {
-          //     _.each(that.charTypes, function (t) {
-          //       let timeData = []
-          //       _.each(d, function (value) {
-          //         timeData.push(value[t])
-          //       })
-          //       bodyData.data.push(timeData)
-          //     })
-          //   })
-          //   result.push(bodyData)
-          // })
           let groupBy_ = that.groupByData(data)
           _.each(groupBy_, function (value, key) {
             let separateData = []
