@@ -45,19 +45,20 @@
             <thead>
             <tr>
               <td v-for="(item,index) in leftFixed.header" :key="index"
-                  :style="{'width':tdWidth+'px',height:tdHeight+'px'}">
+                  :style="{'width':(index===0?(tdWidth+60):tdWidth)+'px',height:tdHeight+'px'}">
                 {{item}}
               </td>
             </tr>
             </thead>
           </table>
         </div>
-        <div :style="{ transform: 'translateY(' + scrollTop + 'px)' }">
-          <table :width="leftFixedWidth" cellspacing="0" cellpadding="0">
+        <div class="fix-left-body" :style="{ transform: 'translateY(' + scrollTop + 'px)' }">
+          <table v-for="(data, index) in leftFixed.data" :key="index"
+                 :width="leftFixedWidth" cellspacing="0" cellpadding="0">
             <thead>
-            <tr v-for="(data, index) in leftFixed.data" :key="index">
+            <tr>
               <td v-for="(item,d_index) in  data" :key="d_index"
-                  :style="{'width':tdWidth+'px',height:tdHeight+'px'}">{{item}}
+                  :style="{'width':(d_index===0?(tdWidth+60):tdWidth)+'px',height:tdHeight+'px'}">{{item}}
               </td>
             </tr>
             </thead>
@@ -73,7 +74,7 @@ import _ from 'underscore'
 import FileSaver from 'file-saver'
 
 export default {
-  name: 'TrafficeTalbeFast_bks',
+  name: 'TrafficeTalbeFast',
   props: {
     columnsInit: {
       type: Array,
@@ -90,6 +91,9 @@ export default {
     tableData: {
       type: Array
     },
+    compareData: {
+      type: Array
+    },
     headerData: {
       type: Array
     },
@@ -103,7 +107,7 @@ export default {
       scrollLeft: 0,
       scrollTop: 0,
       scrollDirection: '',
-      leftFixedWidth: '160px',
+      leftFixedWidth: '300px',
       leftFixedHeight: '70px',
       tdWidth: 160,
       tdHeight: 35,
@@ -153,52 +157,16 @@ export default {
         dataObject[domainLabel].push(value)
       })
       return dataObject
-    }
-  },
-  computed: {
-    domainLabelObject () {
-      let dataObject = {}
-      _.each(this.tableData, function (d) {
-        let domainLabel = d.DomainLabel
-        if (!dataObject[domainLabel]) {
-          dataObject[domainLabel] = []
-        }
-        dataObject[domainLabel].push(d)
-      })
-      return dataObject
     },
-    tableHeader () {
-      let num = this.separateNumber || 30
-      var result = []
-      let data = []
-      switch (this.tableType) {
-        case 'DateTime':
-        case 'TimeLabel':
-          let xSelector = (_) => _[this.tableType]
-          data = this.tableData ? _.map(this.headerData, xSelector) : []
-          break
-        case 'DomainLabel':
-          data = this.charTypes
-          break
-      }
-      _.each(data, function (item, index) {
-        let key = parseInt(index / num)
-        if (index % num === 0) {
-          result.push({separate: key, data: []})
-        }
-        result[key].data.push(item)
-      })
-      return result
-    },
-    bodyData () {
-      let that = this
+    computedBodyData (data) {
       let result = []
+      let that = this
       switch (that.tableType) {
         case 'DateTime':
         case 'TimeLabel':
           let num = this.separateNumber || 30
           let separateTableData = []
-          _.each(this.tableData, function (item, index) {
+          _.each(data, function (item, index) {
             let key = parseInt(index / num)
             if (index % num === 0) {
               separateTableData.push({separate: key, data: []})
@@ -243,7 +211,7 @@ export default {
           })
           break
         case 'DomainLabel':
-          let groupBy = that.groupByData(this.tableData)
+          let groupBy = that.groupByData(data)
           let bodyData = {separate: '0', data: []}
           _.each(groupBy, function (d) {
             let charTypesData = []
@@ -256,29 +224,28 @@ export default {
           })
           result.push(bodyData)
       }
-      return Object.freeze(result)
+      return result
     },
-    leftFixed () {
+    computedLeftFixed (data) {
       let that = this
-      let columns = this.columnsInit
-      switch (this.tableType) {
-        case 'DateTime':
-        case 'TimeLabel':
-          columns = columns.concat(['type', 'total'])
-          break
-      }
-      _.each(columns, function (value, index) {
-        columns[index] = that.$t(value)
+      let result = []
+      let domainLabelObject = {}
+      _.each(data, function (d) {
+        let domainLabel = d.DomainLabel
+        if (!domainLabelObject[domainLabel]) {
+          domainLabelObject[domainLabel] = []
+        }
+        domainLabelObject[domainLabel].push(d)
       })
-      let data = []
+
       switch (that.tableType) {
         case 'DateTime':
         case 'TimeLabel':
           _.each(that.fixedHeader, function (v) {
             let fixedData = ['', that.$t(v), '-']
-            data.push(fixedData)
+            result.push(fixedData)
           })
-          _.each(that.domainLabelObject, function (values, key) {
+          _.each(domainLabelObject, function (values, key) {
             let domainCount = []
             _.each(that.charTypes, function (t) {
               let charTypesData = [key, that.$t(t)]
@@ -286,6 +253,7 @@ export default {
                 case 'Enter':
                 case 'Exit':
                 case 'Passby':
+                case 'Stay':
                   let total = 0
                   let timeData = []
                   _.each(values, function (value) {
@@ -304,17 +272,75 @@ export default {
                   }
                   break
               }
-              data.push(charTypesData)
+              result.push(charTypesData)
             })
           })
           break
         case 'DomainLabel':
-          _.each(that.domainLabelObject, function (values, key) {
-            data.push([key])
+          _.each(domainLabelObject, function (values, key) {
+            result.push([key])
           })
       }
+      return result
+    }
+  },
+  computed: {
+    tableHeader () {
+      let num = this.separateNumber || 30
+      var result = []
+      let data = []
+      switch (this.tableType) {
+        case 'DateTime':
+        case 'TimeLabel':
+          let xSelector = (_) => _[this.tableType]
+          data = this.tableData ? _.map(this.headerData, xSelector) : []
+          break
+        case 'DomainLabel':
+          data = this.charTypes
+          break
+      }
+      _.each(data, function (item, index) {
+        let key = parseInt(index / num)
+        if (index % num === 0) {
+          result.push({separate: key, data: []})
+        }
+        result[key].data.push(item)
+      })
+      return result
+    },
+    bodyData () {
+      let result = this.computedBodyData(this.tableData)
+      if (this.compareData) {
+        let compare = this.computedBodyData(this.compareData)
+        _.each(result, function (value) {
+          _.each(compare, function (compare) {
+            if (value.separate === compare.separate) {
+              value.data = value.data.concat(compare.data)
+            }
+          })
+        })
+      }
+      return Object.freeze(result)
+    },
+    leftFixed () {
+      let that = this
+      let columns = this.columnsInit
+      switch (this.tableType) {
+        case 'DateTime':
+        case 'TimeLabel':
+          columns = columns.concat(['type', 'total'])
+          break
+      }
+      _.each(columns, function (value, index) {
+        columns[index] = that.$t(value)
+      })
+      let data = this.computedLeftFixed(this.tableData)
+      if (this.compareData) {
+        data = data.concat(this.computedLeftFixed(this.compareData))
+      }
+
       /* 计算左边固定表格的宽度 */
-      that.leftFixedWidth = columns.length * this.tdWidth + 'px'
+      that.leftFixedWidth = (columns.length * this.tdWidth + 60) + 'px'
       if (data.length > 0) {
         let h = (data.length + 1) * that.tdHeight
         if (h > 300) {
@@ -387,16 +413,33 @@ export default {
     left: 0;
   }
 
-  .table-fix-cloumns td {
-    text-align: center;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-  }
-
   .fix-left-top {
     position: absolute;
     top: 0;
     left: 0;
     z-index: 1;
   }
+
+  .fix-left-top td {
+    text-align: center;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+
+  .fix-left-body td {
+    text-align: center;
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+
+  .fix-left-body table:first-child tr:first-child td {
+    border-top: none;
+  }
+
+  .fix-left-body table:last-child tr:last-child {
+    border-bottom: 1px solid #cccc;
+  }
+
 </style>
