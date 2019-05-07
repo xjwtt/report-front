@@ -74,7 +74,6 @@ import _ from 'underscore'
 import FileSaver from 'file-saver'
 
 export default {
-  name: 'TrafficeTalbeFast',
   props: {
     columnsInit: {
       type: Array,
@@ -165,46 +164,93 @@ export default {
         case 'DateTime':
         case 'TimeLabel':
           let num = this.separateNumber || 30
-          let separateTableData = []
-          _.each(data, function (item, index) {
-            let key = parseInt(index / num)
-            if (index % num === 0) {
-              separateTableData.push({separate: key, data: []})
-            }
-            separateTableData[key].data.push(item)
-          })
-          _.each(separateTableData, function (data, key) {
-            let groupBy = that.groupByData(data.data)
-            let bodyData = {separate: key, data: []}
-            _.each(that.fixedHeader, function (fh) {
-              let w = []
-              switch (fh) {
-                case 'Temp':
-                  _.each(Object.values(groupBy)[0], function (values) {
-                    w.push(values['LowTemp'] + '~' + values['HighTemp'] + '℃/' + values['Pm25'])
-                  })
-                  break
-                case 'Picture':
-                  _.each(Object.values(groupBy)[0], function (values) {
-                    w.push('<img src="' + values['DayPictureUrl'] + '"/>&nbsp;&nbsp;<img src="' + values['NightPictureUrl'] + '"/>')
-                  })
-                  break
-                default:
-                  _.each(Object.values(groupBy)[0], function (values) {
-                    w.push(values[fh])
-                  })
-                  break
+          // let separateTableData = []
+          // _.each(data, function (item, index) {
+          //   let key = parseInt(index / num)
+          //   if (index % num === 0) {
+          //     separateTableData.push({separate: key, data: []})
+          //   }
+          //   separateTableData[key].data.push(item)
+          // })
+          // _.each(separateTableData, function (data, key) {
+          //   let groupBy = that.groupByData(data.data)
+          //   let bodyData = {separate: key, data: []}
+          //   _.each(that.fixedHeader, function (fh) {
+          //     let w = []
+          //     switch (fh) {
+          //       case 'Temp':
+          //         _.each(Object.values(groupBy)[0], function (values) {
+          //           w.push(values['LowTemp'] + '~' + values['HighTemp'] + '℃/' + values['Pm25'])
+          //         })
+          //         break
+          //       case 'Picture':
+          //         _.each(Object.values(groupBy)[0], function (values) {
+          //           w.push('<img src="' + values['DayPictureUrl'] + '"/>&nbsp;&nbsp;<img src="' + values['NightPictureUrl'] + '"/>')
+          //         })
+          //         break
+          //       default:
+          //         _.each(Object.values(groupBy)[0], function (values) {
+          //           w.push(values[fh])
+          //         })
+          //         break
+          //     }
+          //     bodyData.data.push(w)
+          //   })
+          //   debugger
+          //   _.each(groupBy, function (d) {
+          //     _.each(that.charTypes, function (t) {
+          //       let timeData = []
+          //       _.each(d, function (value) {
+          //         timeData.push(value[t])
+          //       })
+          //       bodyData.data.push(timeData)
+          //     })
+          //   })
+          //   result.push(bodyData)
+          // })
+          let groupBy_ = that.groupByData(data)
+          _.each(groupBy_, function (value, key) {
+            let separateData = []
+            _.each(value, function (item, index) {
+              let key = parseInt(index / num)
+              if (index % num === 0) {
+                separateData.push({separate: key, data: []})
               }
-
-              bodyData.data.push(w)
+              separateData[key].data.push(item)
             })
-            _.each(groupBy, function (d) {
+            groupBy_[key] = separateData
+          })
+          _.each(that.tableHeader, function (value, key) {
+            let bodyData = {separate: key, data: []}
+            _.each(groupBy_, function (items, itemKey) {
+              let data = items[key].data
+              _.each(that.fixedHeader, function (fh) {
+                let w = []
+                switch (fh) {
+                  case 'Temp':
+                    _.each(data, function (v) {
+                      w.push(v['LowTemp'] + '~' + v['HighTemp'] + '℃/' + v['Pm25'])
+                    })
+                    break
+                  case 'Picture':
+                    _.each(data, function (v) {
+                      w.push('<img src="' + v['DayPictureUrl'] + '"/>&nbsp;&nbsp;<img src="' + v['NightPictureUrl'] + '"/>')
+                    })
+                    break
+                  default:
+                    _.each(data, function (v) {
+                      w.push(v[fh])
+                    })
+                    break
+                }
+                bodyData.data.push(w)
+              })
               _.each(that.charTypes, function (t) {
-                let timeData = []
-                _.each(d, function (value) {
-                  timeData.push(value[t])
+                let w = []
+                _.each(data, function (v) {
+                  w.push(v[t])
                 })
-                bodyData.data.push(timeData)
+                bodyData.data.push(w)
               })
             })
             result.push(bodyData)
@@ -320,6 +366,7 @@ export default {
           })
         })
       }
+      console.log(result)
       return Object.freeze(result)
     },
     leftFixed () {
