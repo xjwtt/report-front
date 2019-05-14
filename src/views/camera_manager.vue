@@ -66,7 +66,7 @@ export default {
       {title: 'mall_name', field: 'MallName', thComp: 'th-filter', sortable: true},
       {title: 'deviceId', field: 'DeviceId', thComp: 'th-filter', sortable: true},
       {title: 'Position', field: 'Position'},
-      {title: 'zone_count', field: 'ZoneCount', sortable: true},
+      {title: 'ZoneCount', field: 'ZoneCount', sortable: true},
       {title: 'IpAddress', field: 'IpAddress', sortable: true},
       {title: 'MacAddress', field: 'MacAddress'},
       {title: 'SerialNumber', field: 'SerialNumber'},

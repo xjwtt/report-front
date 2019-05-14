@@ -19,6 +19,8 @@
 </template>
 
 <script>
+import Vue from 'vue'
+
 export default {
   name: 'camerastatus_manager',
   data: () => ({
@@ -39,7 +41,10 @@ export default {
     data: [],
     total: 0,
     query: {},
-    selection: []
+    selection: [],
+    xprops: {
+      eventbus: new Vue()
+    }
   }),
   methods: {
     async handleQueryChange () {
@@ -48,8 +53,13 @@ export default {
       this.data = rep.list
     }
   },
-  mounted () {
-    this.handleQueryChange()
+  watch: {
+    query: {
+      handler () {
+        this.handleQueryChange()
+      },
+      deep: true
+    }
   }
 }
 </script>
