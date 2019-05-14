@@ -178,29 +178,28 @@ export default {
           })
           _.each(that.tableHeader, function (value, key) {
             let bodyData = {separate: key, data: []}
-            _.each(groupBy_, function (items, itemKey) {
-              let data = items[key].data
+            if (groupBy_) {
+              let firstData = groupBy_[Object.keys(groupBy_)[0]][key].data
               _.each(that.fixedHeader, function (fh) {
                 let w = []
-                switch (fh) {
-                  case 'Temp':
-                    _.each(data, function (v) {
+                _.each(firstData, function (v) {
+                  switch (fh) {
+                    case 'Temp':
                       w.push(v['LowTemp'] + '~' + v['HighTemp'] + '℃/' + v['Pm25'])
-                    })
-                    break
-                  case 'Picture':
-                    _.each(data, function (v) {
+                      break
+                    case 'Picture':
                       w.push('<img src="' + v['DayPictureUrl'] + '"/>&nbsp;&nbsp;<img src="' + v['NightPictureUrl'] + '"/>')
-                    })
-                    break
-                  default:
-                    _.each(data, function (v) {
+                      break
+                    default:
                       w.push(v[fh])
-                    })
-                    break
-                }
+                      break
+                  }
+                })
                 bodyData.data.push(w)
               })
+            }
+            _.each(groupBy_, function (items, itemKey) {
+              let data = items[key].data
               _.each(that.charTypes, function (t) {
                 let w = []
                 _.each(data, function (v) {
