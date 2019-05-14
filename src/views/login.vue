@@ -5,14 +5,14 @@
       <el-form :model="loginForm"
                ref="loginForm"
                :rules="loginRules">
-        <el-form-item prop="userName">
+        <el-form-item prop="UserName">
           <el-input v-model="loginForm.UserName"
                     placeholder="UserName"></el-input>
         </el-form-item>
-        <el-form-item prop="passWord">
-          <el-input type="password"
+        <el-form-item prop="UserPass">
+          <el-input type="UserPass"
                     v-model="loginForm.UserPass"
-                    placeholder="password"
+                    placeholder="UserPass"
                     @keyup.enter.native="submitForm('loginForm')"></el-input>
         </el-form-item>
         <el-form-item>
