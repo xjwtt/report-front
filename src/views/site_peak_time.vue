@@ -165,7 +165,7 @@ export default {
             let data = _.map(value, (_) => {
               return _[that.chartType]
             })
-            return {name: key, type: 'line', stack: that.chartType, data: data}
+            return {name: key, type: 'line', data: data}
           }) : []
           let line = {
             title: {
