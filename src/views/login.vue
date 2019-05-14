@@ -10,7 +10,7 @@
                     placeholder="UserName"></el-input>
         </el-form-item>
         <el-form-item prop="UserPass">
-          <el-input type="UserPass"
+          <el-input type="password"
                     v-model="loginForm.UserPass"
                     placeholder="UserPass"
                     @keyup.enter.native="submitForm('loginForm')"></el-input>
@@ -35,10 +35,10 @@ export default {
       },
       loginRules: {
         UserName: [
-          {required: true, message: '请输入用户名', trigger: 'blur'}
+          {required: true, message: 'UserName', trigger: 'blur'}
         ],
         UserPass: [
-          {required: true, message: '请输入密码', trigger: 'blur'}
+          {required: true, message: 'PassWorld', trigger: 'blur'}
         ]
       }
     }
