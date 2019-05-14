@@ -248,13 +248,13 @@ export default {
           })
           _.each(domainLabelObject, function (values, key) {
             let domainCount = []
+            // charTypes 必须有顺序
             _.each(that.charTypes, function (t) {
               let charTypesData = [key, that.$t(t)]
               switch (t) {
                 case 'Enter':
                 case 'Exit':
                 case 'Passby':
-                case 'Stay':
                   let total = 0
                   let timeData = []
                   _.each(values, function (value) {
@@ -263,6 +263,13 @@ export default {
                   })
                   domainCount.push(total)
                   charTypesData.push(total)
+                  break
+                case 'Stay':
+                  if (domainCount.length >= 2) {
+                    charTypesData.push(domainCount[0] - domainCount[1])
+                  } else {
+                    charTypesData.push(0)
+                  }
                   break
                 case 'EnteringRate':
                   if (domainCount.length >= 2) {
