@@ -8,7 +8,8 @@ const i18n = new VueI18n({
   locale: 'en',
   messages: {
     'zh': require('./lang/zh-CN').default,
-    'en': require('./lang/en').default
+    'en': require('./lang/en').default,
+    'ja': require('./lang/Ja').default
   }
 })
 

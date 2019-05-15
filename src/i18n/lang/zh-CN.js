@@ -35,6 +35,8 @@ export default {
   area_location_compare: '区域KPI地点对比',
   area_time_compare: '区域KPI时间对比',
   area_traffic_location_compare: '客流区域对比',
+  site_grand_total: '案场累计分析',
+  zone_grand_total: '区域累计分析',
   site_peak_time: '案场高低峰时间分析',
   zone_peak_time: '区域高低峰时间分析',
   peak_time: '高低峰时间分析',
@@ -84,7 +86,6 @@ export default {
   time_passenger_flow_today: '今日分时客流',
   'Enter&EnteringRate': '客流量&入店率',
 
-  iretailer_business_analysis: '艾瑞特商业分析',
   saved: '保存成功',
   success: '成功',
   failed: '失败',
