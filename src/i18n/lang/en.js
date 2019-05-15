@@ -35,6 +35,8 @@ export default {
   area_location_compare: 'Area Location Compare',
   area_time_compare: 'Area Time Compare',
   area_traffic_location_compare: 'Area Traffic Compare',
+  site_grand_total: 'Site Grand Total',
+  zone_grand_total: 'Zone Grand Total',
   site_peak_time: 'Site Peak Time',
   zone_peak_time: 'Zone Peak Time',
   peak_time: 'Peak Time',
@@ -84,7 +86,6 @@ export default {
   time_passenger_flow_today: 'Time Passenger Flow Today',
   'Enter&EnteringRate': 'Enter&EnteringRate',
 
-  iretailer_business_analysis: 'Iretailer Business Analysis',
   saved: 'Saved',
   success: 'Success',
   failed: 'Faild',
