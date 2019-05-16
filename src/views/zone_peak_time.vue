@@ -173,6 +173,9 @@ export default {
       Object.freeze(option)
       return option
     }
+  },
+  async mounted () {
+    this.onQuery()
   }
 }
 </script>
