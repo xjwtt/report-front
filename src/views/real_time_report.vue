@@ -3,11 +3,11 @@
        onselectstart="return false">
     <div class="header">
       <div>
-        <span class="title">{{this.$t("real_time_report") }}</span>
+        <span class="title">{{this.$t('real_time_report') }}</span>
       </div>
       <div class="right">
         <div v-show="!editMode">
-          <span>{{$t("selection_date")}}： </span>
+          <span>{{$t('selection_date')}}： </span>
           <el-date-picker v-model="dateValue"
                           type="daterange"
                           align="right"
@@ -18,14 +18,15 @@
                           :picker-options="pickerOptions">
           </el-date-picker>
           <el-button class="button"
-                     @click="editMode=true">{{this.$t("personalized_home_page")}}</el-button>
+                     @click="editMode=true">{{this.$t('personalized_home_page')}}
+          </el-button>
         </div>
         <div class="button"
              v-show="editMode">
-          <el-button @click="addWidget">{{$t("add_plugin-in")}}</el-button>
-          <el-button @click="resetWidget">{{$t("restore_default")}}</el-button>
-          <el-button @click="saveWidget">{{$t("save_layout")}}</el-button>
-          <el-button @click="recoveryWidget">{{$t("return")}}</el-button>
+          <el-button @click="addWidget">{{$t('add_plugin-in')}}</el-button>
+          <el-button @click="resetWidget">{{$t('restore_default')}}</el-button>
+          <el-button @click="saveWidget">{{$t('save_layout')}}</el-button>
+          <el-button @click="recoveryWidget">{{$t('return')}}</el-button>
         </div>
       </div>
     </div>
@@ -54,7 +55,7 @@
                           :showHideButton="editMode"
                           :upDateTime="dateValue"
                           :selectMalls="selectedMalls"
-                          v-on:delete-widget="userWidgets.splice(index, 1);" />
+                          v-on:delete-widget="userWidgets.splice(index, 1);"/>
 
         </grid-item>
       </grid-layout>
@@ -64,9 +65,10 @@
 
 <script>
 import Moment from 'moment'
-import { mapState } from 'vuex'
+import {mapState} from 'vuex'
 import DynamicWidget from '@/components/DynamicWidget'
-import { GridLayout, GridItem } from 'vue-grid-layout'
+import {GridLayout, GridItem} from 'vue-grid-layout'
+
 export default {
   data () {
     return {
@@ -96,19 +98,19 @@ export default {
   },
   methods: {
     async addWidget () {
-      let unUsedWidget = await this.$store.dispatch({ type: 'widget/getUnUsedWidget' })
+      let unUsedWidget = await this.$store.dispatch({type: 'widget/getUnUsedWidget'})
       console.log(unUsedWidget)
     },
     async saveWidget () {
-      await this.$store.dispatch({ type: 'widget/saveUserWidget' })
-      await this.$store.dispatch({ type: 'widget/getUserWidget' })
+      await this.$store.dispatch({type: 'widget/saveUserWidget'})
+      await this.$store.dispatch({type: 'widget/getUserWidget'})
       this.editMode = false
     },
     async resetWidget () {
-      await this.$store.dispatch({ type: 'widget/resetUserWidget' })
+      await this.$store.dispatch({type: 'widget/resetUserWidget'})
     },
     async recoveryWidget () {
-      await this.$store.dispatch({ type: 'widget/getUserWidget' })
+      await this.$store.dispatch({type: 'widget/getUserWidget'})
       this.editMode = false
     }
   },
@@ -129,31 +131,31 @@ export default {
 </script>
 
 <style scoped>
-.context-page {
-  display: flex;
-  flex-direction: column;
-}
+  .context-page {
+    display: flex;
+    flex-direction: column;
+  }
 
-.context-page > .header {
-  flex:0 0 auto;
-  padding: 10px;
-  border-bottom: 1px solid #eee;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
+  .context-page > .header {
+    flex: 0 0 auto;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-.context-page > .header .title {
-  font-size: 24px;
-}
+  .context-page > .header .title {
+    font-size: 24px;
+  }
 
-.context-page > .header .right {
-  display: flex;
-  flex-direction: row;
-}
+  .context-page > .header .right {
+    display: flex;
+    flex-direction: row;
+  }
 
-.context-page > .header .button {
-  margin-left: 10px;
-}
+  .context-page > .header .button {
+    margin-left: 10px;
+  }
 </style>

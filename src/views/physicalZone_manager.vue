@@ -173,7 +173,6 @@ export default {
         type: 'zonecamera/getPhysicalByCamera',
         data: {MallId: mallId, SearchId: searchId, Enable: 1}
       })
-      console.log(rep.All)
       this.alreadyData = rep.Search
       this.isnotData = rep.All
     },

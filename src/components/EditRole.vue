@@ -126,8 +126,7 @@ export default {
             return rm
           })
           this.modifyForm['RoleMenu'] = roleMenu
-          let rep = await this.$store.dispatch({type: 'role/saveOrUpdateRole', data: this.modifyForm})
-          console.log(rep)
+          await this.$store.dispatch({type: 'role/saveOrUpdateRole', data: this.modifyForm})
           this.dialogVisible = false
           this.$emit('handleQueryChange')
         } else {

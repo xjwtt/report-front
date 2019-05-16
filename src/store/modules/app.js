@@ -26,6 +26,7 @@ export default {
     timeIntervals: null,
     hourlyWeek: null,
     hourlyWeeks: null,
+    weekMonthPickerOptions: null,
     dateRange: appconst.defaultDateRange
   },
   mutations: {
@@ -43,6 +44,7 @@ export default {
       state.timeIntervals = appconst.timeIntervals(t)
       state.hourlyWeek = appconst.defaultHourlyWeek(t)
       state.hourlyWeeks = appconst.hourlyWeeks(t)
+      state.weekMonthPickerOptions = appconst.weekMonthPickerOptions(t)
     },
     setHourlyWeek (state, payload) {
       state.hourlyWeek = _.find(state.hourlyWeeks, __ => __.key === payload)

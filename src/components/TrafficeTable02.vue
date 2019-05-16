@@ -220,10 +220,8 @@ export default {
     }
   },
   mounted () {
-    console.log(this.$refs)
     this.$refs.a1.style.width = '100%'
     this.$refs.a1.filters = {}
-    console.log(this.$refs)
     this.$refs.a1.attributes.editable = false
     this.$refs.a1.attributes.columnHeaderClickBehavior = 'none'
     this.$refs.a1.attributes.showColumnSelector = false

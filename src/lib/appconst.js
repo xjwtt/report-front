@@ -69,7 +69,7 @@ const shortcuts60Min = [
   {
     text: 'this_week',
     onClick (picker) {
-      picker.$emit('pick', [moment().startOf('week').add(1, 'd'), moment().endOf('week')])
+      picker.$emit('pick', [moment().startOf('week').add(1, 'd'), moment().endOf('week').add(1, 'd')])
     }
   },
   {
@@ -141,7 +141,7 @@ const shortcutsDay = [
   {
     text: 'this_week',
     onClick (picker) {
-      picker.$emit('pick', [moment().startOf('week'), moment().endOf('week')])
+      picker.$emit('pick', [moment().startOf('week'), moment().endOf('week').add(1, 'd')])
     }
   },
   {
@@ -167,8 +167,7 @@ const shortcutsDay = [
           .month(mouth - 2)
           .date(1),
         moment()
-          .month(mouth - 2)
-          .date(31)
+          .month(mouth - 2).endOf('month')
       ])
     }
   },
@@ -296,6 +295,42 @@ const shortcutsYear = [
       picker.$emit('pick', [
         moment().subtract(5, 'years'),
         moment().subtract(0, 'years')
+      ])
+    }
+  }
+]
+
+const weekMonths = [
+  {
+    text: 'this_week',
+    onClick (picker) {
+      picker.$emit('pick', [moment().startOf('week').add(1, 'd'), moment().endOf('week').add(1, 'd')])
+    }
+  },
+  {
+    text: 'last_week',
+    onClick (picker) {
+      picker.$emit('pick', [
+        moment().subtract(6 + week, 'days'),
+        moment().subtract(week, 'days')
+      ])
+    }
+  },
+  {
+    text: 'this_month',
+    onClick (picker) {
+      picker.$emit('pick', [moment().startOf('month'), moment().endOf('month')])
+    }
+  },
+  {
+    text: 'last_momnt',
+    onClick (picker) {
+      picker.$emit('pick', [
+        moment()
+          .month(mouth - 2)
+          .date(1),
+        moment()
+          .month(mouth - 2).endOf('month')
       ])
     }
   }
@@ -435,11 +470,20 @@ const getHourlyWeeks = function (t) {
   })
   return hourlyWeeks
 }
+const getWeekMonth = function (t) {
+  _.each(weekMonths, function (v) {
+    v.text = t(v.text)
+  })
+  return {
+    shortcuts: weekMonths
+  }
+}
 const appconst = {
   defaultDateRange: [moment(), moment()],
   defaultTimeInterval: getDefaultTimeInterval,
   timeIntervals: getTimeIntervals,
   defaultHourlyWeek: getDefaultHourlyWeek,
-  hourlyWeeks: getHourlyWeeks
+  hourlyWeeks: getHourlyWeeks,
+  weekMonthPickerOptions: getWeekMonth
 }
 export default appconst

@@ -26,8 +26,7 @@
       </el-radio-group>
       <chart style="width:100%"
              :autoResize="true"
-             :options="chartOption"
-             theme="vintage"></chart>
+             :options="chartOption"></chart>
     </div>
     <div class="report-page-card">
       <traffice-table-fast :columnsInit=columnsInit
@@ -44,6 +43,7 @@
 <script>
 import {mapActions} from 'vuex'
 import _ from 'underscore'
+import theme from '../lib/theme'
 
 export default {
   data: () => ({
@@ -94,6 +94,7 @@ export default {
       let minName = this.$t('min')
       let maxName = this.$t('max')
       let avgName = this.$t('avg')
+      let chartTypName = that.$t(that.chartType)
       let dataArrayIndex = this.reportType[0]
       let xSelector = (_) => _[this.reportType[1]]
       switch (that.reportType[1]) {
@@ -102,6 +103,7 @@ export default {
           let xBar = this.data ? _.map(this.data['report'][dataArrayIndex], xSelector) : []
           let yBar = this.data ? _.map(this.data['report'][dataArrayIndex], ySelector) : []
           let bar = {
+            color: theme.color,
             title: {
               text: ''
             },
@@ -135,7 +137,7 @@ export default {
               }
             }],
             series: [{
-              name: that.chartType,
+              name: chartTypName,
               type: 'bar',
               stack: '',
               markPoint: {
@@ -171,6 +173,7 @@ export default {
             return {name: key, type: 'line', data: data}
           }) : []
           let line = {
+            color: theme.color,
             title: {
               text: ''
             },
