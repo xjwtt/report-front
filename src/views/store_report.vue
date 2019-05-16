@@ -30,8 +30,7 @@
       <chart :style="{width:'100%',height: chartOptions.height+'px'}"
              :autoResize="true"
              :options="chartOptions"
-             :height="chartOptions.height"
-             theme="light"></chart>
+             :height="chartOptions.height"></chart>
     </div>
 
     <div class="report-page-card">
@@ -90,6 +89,7 @@ export default {
       const ydata = _.map(sortData, value => value.DomainLabel)
       const xdata = _.map(sortData, value => value[this.dateFields[this.selectedFieldIndex]])
       const option = {
+        color: ['#3398DB'],
         height: this.data.length * 90 + titleHeight + 15,
         title: {
           text: `${this.$t(selectedField.displayI18Key)} ${this.$t('chart')}`,

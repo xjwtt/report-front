@@ -25,8 +25,7 @@
       </el-radio-group>
       <chart style="width:100%"
              :autoResize="true"
-             :options="chartOption"
-             theme="vintage"></chart>
+             :options="chartOption"></chart>
 
     </div>
     <div class="report-page-card">
@@ -45,6 +44,7 @@
 <script>
 import {mapActions} from 'vuex'
 import _ from 'underscore'
+import theme from '../lib/theme'
 
 export default {
   name: 'site_location_compare',
@@ -140,6 +140,7 @@ export default {
       }
       let yAxisNameLeft = this.$t('man_time')
       return {
+        color: theme.color,
         tooltip: {
           trigger: 'axis'
         },

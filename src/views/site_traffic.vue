@@ -25,8 +25,7 @@
       </el-radio-group>
       <chart style="width:100%"
              :autoResize="true"
-             :options="chartOption"
-             theme="vintage"></chart>
+             :options="chartOption"></chart>
 
     </div>
     <div class="report-page-card">
@@ -44,13 +43,14 @@
 <script>
 import {mapActions} from 'vuex'
 import _ from 'underscore'
+import theme from '../lib/theme'
 
 export default {
   data: () => ({
     data: null,
     reportType: [1, 'DateTime'],
     chartType: 'Enter',
-    dateFields: ['Enter'],
+    dateFields: ['Enter', 'Exit', 'Stay'],
     charTypes: ['Enter', 'Exit'],
     fixedHeader: []
   }),
@@ -104,6 +104,7 @@ export default {
       let minName = this.$t('min')
       let maxName = this.$t('max')
       let avgName = this.$t('avg')
+      let chartTypName = that.$t(that.chartType)
       let dataArrayIndex = this.reportType[0]
       let xSelector = (_) => _[this.reportType[1]]
       switch (this.reportType[1]) {
@@ -111,8 +112,8 @@ export default {
           let ySelector = (_) => _[this.chartType]
           let xBar = this.data ? _.map(this.data['report'][dataArrayIndex], xSelector) : []
           let yBar = this.data ? _.map(this.data['report'][dataArrayIndex], ySelector) : []
-
           let bar = {
+            color: theme.color,
             title: {
               text: ''
             },
@@ -146,7 +147,7 @@ export default {
               }
             }],
             series: [{
-              name: that.chartType,
+              name: chartTypName,
               type: 'bar',
               stack: '',
               markPoint: {
@@ -182,6 +183,7 @@ export default {
             return {name: key, type: 'line', data: data}
           }) : []
           let line = {
+            color: theme.color,
             title: {
               text: ''
             },
@@ -220,13 +222,14 @@ export default {
             return {name: it[that.reportType[1]], value: it[that.chartType]}
           }) : []
           let pie = {
+            color: theme.color,
             title: {
               text: '',
               x: 'center'
             },
             tooltip: {
               trigger: 'item',
-              formatter: '{a} <br/>{b} : {c} ({d}%)'
+              formatter: '{b}<br/>{a} : {c} ({d}%)'
             },
             legend: {
               orient: 'vertical',
@@ -235,7 +238,7 @@ export default {
             },
             series: [
               {
-                name: that.chartType,
+                name: chartTypName,
                 type: 'pie',
                 radius: '80%',
                 center: ['50%', '50%'],

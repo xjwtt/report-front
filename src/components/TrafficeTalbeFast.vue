@@ -328,7 +328,6 @@ export default {
           })
         })
       }
-      console.log(result)
       return Object.freeze(result)
     },
     leftFixed () {

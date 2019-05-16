@@ -23,8 +23,7 @@
       </el-radio-group>
       <chart style="width:100%"
              :autoResize="true"
-             :options="chartOption"
-             theme="vintage"></chart>
+             :options="chartOption"></chart>
     </div>
     <div class="report-page-card">
       <traffice-table-fast :columnsInit=columnsInit
@@ -41,6 +40,7 @@
 <script>
 import {mapActions} from 'vuex'
 import _ from 'underscore'
+import theme from '../lib/theme'
 
 export default {
   name: 'passby_traffic',
@@ -107,6 +107,7 @@ export default {
       let yEnteringRate = this.data ? _.map(this.data['report'][dataArrayIndex], (it) => it.EnteringRate) : []
 
       return {
+        color: theme.color,
         tooltip: {
           trigger: 'axis'
         },
