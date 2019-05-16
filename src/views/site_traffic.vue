@@ -43,6 +43,7 @@
 <script>
 import {mapActions} from 'vuex'
 import _ from 'underscore'
+import theme from '../lib/theme'
 
 export default {
   data: () => ({
