@@ -118,6 +118,9 @@ export default {
             return days[p.data[0]] + ' ' + hours[p.data[1]] + '<br/>' + p.seriesName + ' : ' + p.data[2]
           }
         },
+        textStyle: {
+          color: '#000000'
+        },
         animation: false,
         grid: {
           height: '75%',
@@ -145,10 +148,9 @@ export default {
           left: 'center',
           inRange: {
             color: [
-              '#c1e9e6',
-              '#74add1',
-              '#4575b4',
-              '#313695'
+              '#FFFFCC',
+              '#99CC33',
+              '#CC9900'
             ]
           }
         },
