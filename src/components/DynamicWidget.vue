@@ -104,7 +104,6 @@ export default {
       }
 
       // try {
-      //   debugger
       //   var queryArgs = this.queryArgsFn(dates, moment)
       //   if (!queryArgs.StartDate) {
       //     queryArgs.StartDate = moment(dates[0]).format('YYYY-MM-DD')

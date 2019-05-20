@@ -188,7 +188,14 @@ export default {
                       w.push(v['LowTemp'] + '~' + v['HighTemp'] + '℃/' + v['Pm25'])
                       break
                     case 'Picture':
-                      w.push('<img src="' + v['DayPictureUrl'] + '"/>&nbsp;&nbsp;<img src="' + v['NightPictureUrl'] + '"/>')
+                      let p = ''
+                      if (v['DayPictureUrl']) {
+                        p += '<img src="' + v['DayPictureUrl'] + '"/>'
+                      }
+                      if (v['NightPictureUrl']) {
+                        p += '&nbsp;&nbsp;<img src="' + v['NightPictureUrl'] + '"/>'
+                      }
+                      w.push(p)
                       break
                     default:
                       w.push(v[fh])
