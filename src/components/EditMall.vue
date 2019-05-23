@@ -166,6 +166,9 @@ export default {
       })
       this.selectCompany()
       this.parentIdLocation('-', 'province')
+      if (!form.DistrictId) {
+        form.DistrictId = ''
+      }
       this.modifyForm = form ? Object.assign({}, form) : defaultForm()
     },
     async submitForm (formName) {
@@ -213,7 +216,7 @@ export default {
     },
     'modifyForm.CityId': {
       handler: function (newValue, OldValue) {
-        this.parentIdLocation(this.modifyForm.CityId, 'district')
+        this.parentIdLocation(newValue, 'district')
       },
       deep: true
     }
