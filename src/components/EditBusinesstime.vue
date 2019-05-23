@@ -61,8 +61,8 @@
                 v-model="modifyForm.StartTime"
                 :picker-options="{
                     start: '00:00',
-                    step: '00:30',
-                    end: '23:30'
+                    step: '00:01',
+                    end: '23:59'
                   }"
                 placeholder="Selete Time">
               </el-time-select>
@@ -73,8 +73,8 @@
                 v-model="modifyForm.EndTime"
                 :picker-options="{
                     start: '00:00',
-                    step: '00:30',
-                    end: '23:30'
+                    step: '00:01',
+                    end: '23:59'
                   }"
                 placeholder="Selete Time">
               </el-time-select>

@@ -110,7 +110,6 @@ export default {
       days = _.map(days, function (v) {
         return moment(v).format('MM-DD')
       })
-      debugger
       let option = {
         tooltip: {
           position: 'top',
