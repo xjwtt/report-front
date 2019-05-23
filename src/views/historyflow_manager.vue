@@ -284,7 +284,8 @@ export default {
                 break
             }
             _.each(rep, function (v) {
-              let time = moment(v.time)
+              let t = v.time.slice(0, v.time.indexOf('+'))
+              let time = moment(t)
               v.date = time.format('YYYY-MM-DD')
               v.hour = time.format('HH')
               v.minute = time.format('mm')
