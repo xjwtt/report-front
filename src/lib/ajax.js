@@ -1,7 +1,8 @@
 import axios from 'axios'
 import Vue from 'vue'
 import i18n from '@/i18n'
-import { router } from '@/router/index'
+import {router} from '@/router/index'
+
 const t = key => i18n.t(key)
 
 const ajax = axios.create({
@@ -10,7 +11,7 @@ const ajax = axios.create({
 ajax.interceptors.request.use(
   function (config) {
     if (!config.skipInterceptors) {
-      config.loading = Vue.prototype.$loading({ fullscreen: true })
+      config.loading = Vue.prototype.$loading({fullscreen: true})
     }
     return config
   },
@@ -30,7 +31,7 @@ ajax.interceptors.response.use(
     } else {
       if (code === 1009) {
         if (router.app && router.app.$route.name !== 'login') {
-          Vue.prototype.$alert(t(respon.data.msg), t('error'), {
+          Vue.prototype.$alert(t(respon.data.showText), t('error'), {
             confirmButtonText: t('go_to_login'),
             callback: action => {
               location.reload()
@@ -40,7 +41,7 @@ ajax.interceptors.response.use(
       } else {
         Vue.prototype.$notify({
           title: 'error',
-          message: t(respon.data.msg)
+          message: t(respon.data.showText)
         })
       }
       return Promise.reject(respon)

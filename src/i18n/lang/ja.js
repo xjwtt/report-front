@@ -318,5 +318,12 @@ export default {
   source_mall: 'ソース店舗',
   Target_mall: 'ターゲット店舗',
   incorrect_parameter: '不正確なパラメータ',
-  please_fill_in_the_value: '値の入力'
+  please_fill_in_the_value: '値の入力',
+
+  go_to_login: 'Please go to login',
+  deviceid_can_not_be_repeated: 'DeviceId Can not be repeated',
+  associated_with_physical_regions: 'Associated with physical regions',
+  have_children_menu: 'Have children menu',
+  have_children_location: 'Have children location',
+  have_children_user: 'Have children user'
 }

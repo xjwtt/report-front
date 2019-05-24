@@ -54,9 +54,21 @@ export default {
       this.selectMallsValue = _.map(rep, _ => _.Id)
     },
     async submitForm () {
+      let mallIds = []
+      // 检查
+      let mallMap = _.groupBy(this.malls, function (m) {
+        return m.Id
+      })
+      // 有的案场换了公司
+      _.each(this.selectMallsValue, function (it) {
+        let malls = mallMap[it]
+        if (malls) {
+          mallIds.push(it)
+        }
+      })
       await this.$store.dispatch({
         type: 'businesstime/businessTimeSaveMalls',
-        data: {Id: this.businessTimeId, mallIds: this.selectMallsValue}
+        data: {Id: this.businessTimeId, mallIds: mallIds}
       })
       this.dialogVisible = false
       this.$emit('handleQueryChange')

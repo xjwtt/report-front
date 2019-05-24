@@ -318,5 +318,12 @@ export default {
   source_mall: 'Source Mall',
   Target_mall: 'Target Mall',
   incorrect_parameter: 'Incorrect Parameter',
-  please_fill_in_the_value: 'Please Fill In The Value '
+  please_fill_in_the_value: 'Please Fill In The Value ',
+
+  go_to_login: 'Please go to login',
+  deviceid_can_not_be_repeated: 'DeviceId Can not be repeated',
+  associated_with_physical_regions: 'Associated with physical regions',
+  have_children_menu: 'Have children menu',
+  have_children_location: 'Have children location',
+  have_children_user: 'Have children user'
 }

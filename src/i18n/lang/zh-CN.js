@@ -318,5 +318,12 @@ export default {
   source_mall: '源案场',
   Target_mall: '目标案场',
   incorrect_parameter: '参数不正确',
-  please_fill_in_the_value: '请填写值'
+  please_fill_in_the_value: '请填写值',
+
+  go_to_login: '去登录',
+  deviceid_can_not_be_repeated: '设备码不能重复',
+  associated_with_physical_regions: '与物理区域有关联',
+  have_children_menu: '有子菜单',
+  have_children_location: '有子地点',
+  have_children_user: '有子用户'
 }

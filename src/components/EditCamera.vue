@@ -105,6 +105,17 @@
       <el-button @click="dialogVisible = false">{{$t('cancel')}}</el-button>
     </span>
     </el-dialog>
+    <el-dialog :title="$t('prompt')"
+               :visible.sync="delDialogVisible"
+               width="30%">
+      <span>{{$t('confirm_delete')}} Zone : {{delCameraZone.ZoneId}} ?</span>
+      <span slot="footer"
+            class="dialog-footer">
+          <el-button @click="delDialogVisible = false">{{$t('cancel')}}</el-button>
+          <el-button type="primary"
+                     @click="sureDelete">{{$t('ok')}}</el-button>
+        </span>
+    </el-dialog>
     <el-dialog :title="$t('camera_zone')"
                v-if="cameraZoneDialogVisible"
                :visible.sync="cameraZoneDialogVisible"
