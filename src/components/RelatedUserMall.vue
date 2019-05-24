@@ -32,7 +32,7 @@ export default {
       dialogVisible: false,
       malls: [],
       userId: '',
-      selectMallsValue: null,
+      selectMallsValue: [],
       filterMethod (query, item) {
         return item.Name.indexOf(query) > -1
       }
@@ -54,9 +54,21 @@ export default {
       this.selectMallsValue = _.map(rep, _ => _.Id)
     },
     async submitForm () {
+      let mallIds = []
+      // 检查
+      let mallMap = _.groupBy(this.malls, function (m) {
+        return m.Id
+      })
+      // 有的案场换了公司
+      _.each(this.selectMallsValue, function (it) {
+        let malls = mallMap[it]
+        if (malls) {
+          mallIds.push(it)
+        }
+      })
       await this.$store.dispatch({
         type: 'user/saveMalls',
-        data: {Id: this.userId, mallIds: this.selectMallsValue}
+        data: {Id: this.userId, mallIds: mallIds}
       })
       this.dialogVisible = false
       this.$emit('handleQueryChange')
