@@ -83,6 +83,10 @@
                           prop="OperationAcreage">
               <el-input v-model.trim="modifyForm.OperationAcreage"></el-input>
             </el-form-item>
+            <el-form-item :label="$t('MallCode')"
+                          prop="MallCode">
+              <el-input v-model.trim="modifyForm.MallCode"></el-input>
+            </el-form-item>
             <el-form-item :label="$t('Ranked')"
                           prop="Ranked">
               <el-input-number v-model.trim="modifyForm.Ranked"></el-input-number>
@@ -119,6 +123,7 @@ const defaultForm = () => {
     ClerkNumber: 0,
     OperationAcreage: 0,
     Ranked: 0,
+    MallCode: '',
     Enabled: 1
   }
 }
@@ -166,7 +171,7 @@ export default {
       })
       this.selectCompany()
       this.parentIdLocation('-', 'province')
-      if (!form.DistrictId) {
+      if (form && !form.DistrictId) {
         form.DistrictId = ''
       }
       this.modifyForm = form ? Object.assign({}, form) : defaultForm()
