@@ -6,6 +6,10 @@
            class="clearfix">
         <span>{{$t('mall_manager')}}</span>
       </div>
+      <template>
+        <el-radio v-model="query.Enabled" :label="1">{{$t('start_using')}}</el-radio>
+        <el-radio v-model="query.Enabled" :label="-1">{{$t('block_up')}}</el-radio>
+      </template>
       <datatable v-bind="$data">
         <slot>
           <div class="pull-right"
@@ -71,7 +75,7 @@ export default {
     ],
     data: [],
     total: 0,
-    query: {},
+    query: {Enabled: 1},
     selection: [],
     xprops: {
       eventbus: new Vue()
@@ -111,7 +115,7 @@ export default {
   },
   watch: {
     query: {
-      handler () {
+      handler (newValue, oldValue) {
         this.handleQueryChange()
       },
       deep: true
