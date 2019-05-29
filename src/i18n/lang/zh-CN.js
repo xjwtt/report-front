@@ -325,5 +325,6 @@ export default {
   associated_with_physical_regions: '与物理区域有关联',
   have_children_menu: '有子菜单',
   have_children_location: '有子地点',
-  have_children_user: '有子用户'
+  have_children_user: '有子用户',
+  user_name_or_password_error: '用户名或密码错误！'
 }

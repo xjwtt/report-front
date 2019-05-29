@@ -325,5 +325,6 @@ export default {
   associated_with_physical_regions: 'Associated with physical regions',
   have_children_menu: 'Have children menu',
   have_children_location: 'Have children location',
-  have_children_user: 'Have children user'
+  have_children_user: 'Have children user',
+  user_name_or_password_error: 'User name or password error!'
 }
