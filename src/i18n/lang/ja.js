@@ -326,5 +326,6 @@ export default {
   have_children_menu: 'Have children menu',
   have_children_location: 'Have children location',
   have_children_user: 'Have children user',
-  user_name_or_password_error: 'User name or password error!'
+  user_name_or_password_error: 'User name or password error!',
+  mallname_already_exists: 'MallName Already Exists!'
 }

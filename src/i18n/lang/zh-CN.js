@@ -326,5 +326,6 @@ export default {
   have_children_menu: '有子菜单',
   have_children_location: '有子地点',
   have_children_user: '有子用户',
-  user_name_or_password_error: '用户名或密码错误！'
+  user_name_or_password_error: '用户名或密码错误！',
+  mallname_already_exists: '案场名称已经存在！'
 }
