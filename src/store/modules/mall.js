@@ -8,6 +8,9 @@ export default {
     async userMall (context, payload) {
       return ajax.post('/business/userMall.action', payload.data)
     },
+    async sendRegularlyMall (context, payload) {
+      return ajax.post('/business/sendRegularlyMall.action', payload.data)
+    },
     async businessTimeMall (context, payload) {
       return ajax.post('/business/businessTimeMall.action', payload.data)
     },

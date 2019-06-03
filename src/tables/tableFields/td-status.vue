@@ -1,21 +1,12 @@
 <template>
-  <span>{{$t(show)}}</span>
+  <el-tag size="medium" :type="this.value ===1? 'success':'danger'">
+    {{ value ===1?$t('start_using'):$t('block_up') }}
+  </el-tag>
 </template>
 
 <script>
 export default {
-  props: ['value'],
-  computed: {
-    show () {
-      switch (this.value) {
-        case 1:
-          return this.$t('start_using')
-        case -1:
-          return this.$t('block_up')
-      }
-    }
-  }
-
+  props: ['value']
 }
 </script>
 

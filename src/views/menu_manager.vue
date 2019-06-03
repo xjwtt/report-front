@@ -130,6 +130,7 @@ export default {
     },
     async userMenuTree () {
       let rep = await this.$store.dispatch({type: 'menu/userMenuTree'})
+      this.converI18n(rep)
       this.menuTree = rep
     },
     async handleQueryChange (parentId) {
@@ -137,6 +138,15 @@ export default {
       let rep = await this.$store.dispatch({type: 'menu/gridMenu', data: this.query})
       this.total = rep.total
       this.data = rep.list
+    },
+    converI18n (menuTree) {
+      let that = this
+      _.map(menuTree, function (item) {
+        item.Name = that.$t(item.Name)
+        if (item.children) {
+          that.converI18n(item.children)
+        }
+      })
     }
   },
   watch: {

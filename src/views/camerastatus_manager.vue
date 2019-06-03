@@ -6,6 +6,10 @@
            class="clearfix">
         <span>{{$t('camerastatus_manager')}}</span>
       </div>
+      <template>
+        <el-radio v-model="query.CameraStatus" :label="'正常'">{{$t('normal')}}</el-radio>
+        <el-radio v-model="query.CameraStatus" :label="'断线'">{{$t('offLine')}}</el-radio>
+      </template>
       <datatable v-bind="$data">
         <slot>
           <div class="pull-right"
@@ -40,7 +44,7 @@ export default {
     ],
     data: [],
     total: 0,
-    query: {},
+    query: {CameraStatus: '正常'},
     selection: [],
     xprops: {
       eventbus: new Vue()

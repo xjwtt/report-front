@@ -1,5 +1,6 @@
 export default {
   ...require('element-ui/lib/locale/lang/en').default,
+  smart_retail: 'Smart Retail',
   retail_intelligence: ' Retail Intelligence',
   real_time_report: ' Real Time Report',
   store_report: 'Store Report',
@@ -69,6 +70,7 @@ export default {
   historyflow_manager: 'History Flow',
   recover_manager: 'Recover Manager',
   copydata_manager: 'CopyData Manager',
+  send_data_regularly: 'Send Data Regularly',
   task_manager: 'Task Manager',
 
   export: 'Export',
@@ -319,6 +321,8 @@ export default {
   Target_mall: 'Target Mall',
   incorrect_parameter: 'Incorrect Parameter',
   please_fill_in_the_value: 'Please Fill In The Value ',
+  basics_config: 'Basics Config',
+  server_config: 'Server Config',
 
   go_to_login: 'Please go to login',
   deviceid_can_not_be_repeated: 'DeviceId Can not be repeated',
@@ -326,5 +330,6 @@ export default {
   have_children_menu: 'Have children menu',
   have_children_location: 'Have children location',
   have_children_user: 'Have children user',
-  user_name_or_password_error: 'User name or password error!'
+  user_name_or_password_error: 'User name or password error!',
+  mallname_already_exists: 'MallName Already Exists!'
 }

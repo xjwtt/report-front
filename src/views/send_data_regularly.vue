@@ -4,7 +4,7 @@
              style="flex:auto">
       <div slot="header"
            class="clearfix">
-        <span>{{$t('camera_manager')}}</span>
+        <span>{{$t('send_data_regularly')}}</span>
       </div>
       <template>
         <el-radio v-model="query.Enabled" :label="1">{{$t('start_using')}}</el-radio>
@@ -33,7 +33,9 @@
           </div>
         </slot>
       </datatable>
-      <edit-camera ref=editDialog @handleQueryChange="handleQueryChange"></edit-camera>
+      <edit-send-regularly ref=editDialog @handleQueryChange="handleQueryChange"></edit-send-regularly>
+      <related-send-regularly-mall ref=relatedSendRegularlyMall
+                                   @handleQueryChange="handleQueryChange"></related-send-regularly-mall>
       <el-dialog :title="$t('prompt')"
                  :visible.sync="delDialogVisible"
                  width="30%">
@@ -46,34 +48,30 @@
         </span>
       </el-dialog>
     </el-card>
-
   </div>
 </template>
 
 <script>
 import Vue from 'vue'
-import EditCamera from '@/components/EditCamera'
 import _ from 'underscore'
+import EditSendRegularly from '@/components/EditSendRegularly'
+import RelatedSendRegularlyMall from '@/components/RelatedSendRegularlyMall'
 
 export default {
-  name: 'camera_manager',
   data: () => ({
     // table
     supportBackup: true,
     tblClass: 'table-bordered',
     tblStyle: 'color: #666',
     columns: [
-      {title: 'mall_name', field: 'MallName', thComp: 'th-filter', sortable: true},
-      {title: 'deviceId', field: 'DeviceId', thComp: 'th-filter', sortable: true},
-      {title: 'Position', field: 'Position'},
-      {title: 'ZoneCount', field: 'ZoneCount', sortable: true},
-      {title: 'IpAddress', field: 'IpAddress', sortable: true},
-      {title: 'MacAddress', field: 'MacAddress'},
-      {title: 'SerialNumber', field: 'SerialNumber'},
-      {title: 'LastDataTime', field: 'LastDataTime', sortable: true},
-      {title: 'UpdateTime', field: 'UpdateTime', sortable: true},
-      {title: 'Enabled', field: 'Enabled', tdComp: 'td-status'},
-      {title: 'Operation', tdComp: 'td-opt', visible: true}
+      {title: 'company_name', field: 'CompanyName', thComp: 'th-filter', sortable: true},
+      {title: 'cron_type', field: 'CronType', sortable: true},
+      {title: 'description', field: 'Description'},
+      {title: 'mall_number', field: 'MallNumber'},
+      {title: 'last_send_time', field: 'LastSendTime'},
+      {title: 'last_send_status', field: 'LastSendStatus', tdComp: 'td-sendStatus'},
+      {title: 'enabled', field: 'Enabled', tdComp: 'td-status'},
+      {title: 'Operation', tdComp: 'td-sendRegularlyOpt', visible: true}
     ],
     data: [],
     total: 0,
@@ -82,14 +80,15 @@ export default {
     xprops: {
       eventbus: new Vue()
     },
-
     delDialogVisible: false,
+
     waitToDel: []
   }),
   mounted () {
     this.xprops.eventbus
-      .$on('EDIT', this.$refs.editDialog.show)
       .$on('DELETE', this.del)
+      .$on('EDIT', this.$refs.editDialog.show)
+      .$on('RelatedSendRegularlyMall', this.$refs.relatedSendRegularlyMall.show)
   },
   methods: {
     newOne () {
@@ -105,12 +104,12 @@ export default {
       this.delDialogVisible = true
     },
     async sureDelete () {
-      await this.$store.dispatch({type: 'camera/deleteCamera', data: this.waitToDel})
+      await this.$store.dispatch({type: 'senddataregularly/delSendRegularly', data: this.waitToDel})
       this.delDialogVisible = false
       this.handleQueryChange()
     },
     async handleQueryChange () {
-      let rep = await this.$store.dispatch({type: 'camera/userCameraGrid', data: this.query})
+      let rep = await this.$store.dispatch({type: 'senddataregularly/gridSendRegularly', data: this.query})
       this.total = rep.total
       this.data = rep.list
     }
@@ -124,7 +123,8 @@ export default {
     }
   },
   components: {
-    EditCamera
+    EditSendRegularly,
+    RelatedSendRegularlyMall
   }
 }
 </script>

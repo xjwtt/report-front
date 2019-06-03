@@ -1,5 +1,6 @@
 export default {
   ...require('element-ui/lib/locale/lang/zh-CN').default,
+  smart_retail: '智慧零售',
   retail_intelligence: '智能商业云平台',
   real_time_report: '实时简报',
   store_report: '综合简报',
@@ -69,6 +70,7 @@ export default {
   historyflow_manager: '客流历史数据',
   recover_manager: '数据汇总',
   copydata_manager: '复制数据',
+  send_data_regularly: '定时数据发送',
   task_manager: '任务管理',
 
   export: '导出',
@@ -319,6 +321,8 @@ export default {
   Target_mall: '目标案场',
   incorrect_parameter: '参数不正确',
   please_fill_in_the_value: '请填写值',
+  basics_config: '基础配置',
+  server_config: '服务配置',
 
   go_to_login: '去登录',
   deviceid_can_not_be_repeated: '设备码不能重复',
@@ -326,5 +330,6 @@ export default {
   have_children_menu: '有子菜单',
   have_children_location: '有子地点',
   have_children_user: '有子用户',
-  user_name_or_password_error: '用户名或密码错误！'
+  user_name_or_password_error: '用户名或密码错误！',
+  mallname_already_exists: '案场名称已经存在！'
 }

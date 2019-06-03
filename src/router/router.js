@@ -48,5 +48,6 @@ export const allRouters = {
   site_grand_total: () => import('@/views/site_grand_total'),
   zone_grand_total: () => import('@/views/zone_grand_total'),
   site_peak_time: () => import('@/views/site_peak_time'),
-  zone_peak_time: () => import('@/views/zone_peak_time')
+  zone_peak_time: () => import('@/views/zone_peak_time'),
+  send_data_regularly: () => import('@/views/send_data_regularly')
 }
