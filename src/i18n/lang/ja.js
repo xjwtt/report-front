@@ -1,5 +1,6 @@
 export default {
   ...require('element-ui/lib/locale/lang/ja').default,
+  smart_retail: 'Smart Retail',
   retail_intelligence: 'リテールインテリジェンス',
   real_time_report: 'リアルタイム集計',
   store_report: '店舗集計',
@@ -69,6 +70,7 @@ export default {
   historyflow_manager: '履歴',
   recover_manager: 'データの復元',
   copydata_manager: 'データのコピー',
+  send_data_regularly: 'Send Data Regularly',
   task_manager: 'タスク管理',
 
   export: '出力する',
@@ -319,6 +321,8 @@ export default {
   Target_mall: 'ターゲット店舗',
   incorrect_parameter: '不正確なパラメータ',
   please_fill_in_the_value: '値の入力',
+  basics_config: 'Basics Config',
+  server_config: 'Server Config',
 
   go_to_login: 'Please go to login',
   deviceid_can_not_be_repeated: 'DeviceId Can not be repeated',

@@ -13,6 +13,8 @@ import tdMoveopt from './tableFields/td-moveopt'
 import tdReverse from './tableFields/td-reverse'
 import tdTaskStatus from './tableFields/td-taskStatus'
 import tdTaskOpt from './tableFields/td-taskOpt'
+import tdSendRegularlyOpt from './tableFields/td-sendRegularlyOpt'
+import tdSendStatus from './tableFields/td-sendStatus'
 
 Vue.use(Datatable)
 Vue.prototype.$i18nForDatatable = Vue.prototype.$t
@@ -29,3 +31,5 @@ Vue.component('td-moveopt', tdMoveopt)
 Vue.component('td-reverse', tdReverse)
 Vue.component('td-taskStatus', tdTaskStatus)
 Vue.component('td-taskOpt', tdTaskOpt)
+Vue.component('td-sendRegularlyOpt', tdSendRegularlyOpt)
+Vue.component('td-sendStatus', tdSendStatus)

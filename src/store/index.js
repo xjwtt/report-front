@@ -21,6 +21,7 @@ import weather from './modules/weather'
 import recover from './modules/recover'
 import history from './modules/historyflow'
 import task from './modules/task'
+import senddataregularly from './modules/senddataregularly'
 
 Vue.use(Vuex)
 
@@ -55,7 +56,8 @@ const store = new Vuex.Store({
     weather,
     recover,
     history,
-    task
+    task,
+    senddataregularly
   }
 })
 
