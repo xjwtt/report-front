@@ -40,7 +40,7 @@ export default {
       {title: 'IpAddress', field: 'IpAddress', sortable: true},
       {title: 'LastDataTime', field: 'LastDataTime', sortable: true},
       {title: 'UpdateTime', field: 'UpdateTime', sortable: true},
-      {title: 'Status', field: 'UpdateTime', sortable: true, tdComp: 'td-cameraStatus'}
+      {title: 'Status', field: 'CameraStatus', sortable: true, tdComp: 'td-cameraStatus'}
     ],
     data: [],
     total: 0,
