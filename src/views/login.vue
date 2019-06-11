@@ -7,7 +7,7 @@
                :rules="loginRules">
         <el-form-item prop="CompanyName">
           <el-input v-model="loginForm.CompanyName"
-                    placeholder="CompanyName"></el-input>
+                    :placeholder="$t('company_name')"></el-input>
         </el-form-item>
         <el-form-item prop="UserName">
           <el-input v-model="loginForm.UserName"
@@ -39,7 +39,7 @@ export default {
       },
       loginRules: {
         CompanyName: [
-          {required: true, message: 'CompanyName', trigger: 'blur'}
+          {required: true, message: this.$t('company_name'), trigger: 'blur'}
         ],
         UserName: [
           {required: true, message: this.$t('user_name'), trigger: 'blur'}
@@ -93,8 +93,8 @@ export default {
   }
 
   .loginForm {
-    width: 300px;
-    height: 200px;
+    width: 350px;
+    height: 300px;
     padding: 30px 30px 0 30px;
     margin-top: 50px;
     text-align: center;
