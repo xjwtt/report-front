@@ -7,17 +7,17 @@
                :rules="loginRules">
         <el-form-item prop="UserName">
           <el-input v-model="loginForm.UserName"
-                    placeholder="UserName"></el-input>
+                    :placeholder="$t('user_name')"></el-input>
         </el-form-item>
         <el-form-item prop="UserPass">
           <el-input type="password"
                     v-model="loginForm.UserPass"
-                    placeholder="UserPass"
+                    :placeholder="$t('user_pass')"
                     @keyup.enter.native="submitForm('loginForm')"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary"
-                     @click="submitForm('loginForm')">Login
+                     @click="submitForm('loginForm')">{{$t('login')}}
           </el-button>
         </el-form-item>
       </el-form>
@@ -35,10 +35,10 @@ export default {
       },
       loginRules: {
         UserName: [
-          {required: true, message: 'UserName', trigger: 'blur'}
+          {required: true, message: this.$t('user_name'), trigger: 'blur'}
         ],
         UserPass: [
-          {required: true, message: 'PassWorld', trigger: 'blur'}
+          {required: true, message: this.$t('user_pass'), trigger: 'blur'}
         ]
       }
     }
@@ -51,21 +51,6 @@ export default {
         this.$router.replace('/')
       }
       loading.close()
-      // var that = this
-      // let params = this.loginForm
-      // this.$refs[formName].validate((valid) => {
-      //   if (valid) {
-      //     var that = this
-      //     login(this.loginForm).then(function (data) {
-      //       that.setUser().then(() => {
-      //         that.$router.push({path: '/briefs'})
-      //       })
-      //     }, function (data) {})
-      //   } else {
-      //     this.$message.error('请填写用户名和密码')
-      //     return false
-      //   }
-      // })
     }
   }
 }

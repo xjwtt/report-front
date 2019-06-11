@@ -324,6 +324,10 @@ export default {
   basics_config: '基础配置',
   server_config: '服务配置',
 
+  user_name: '用户名',
+  user_pass: '密码',
+  login: '登录',
+
   go_to_login: '去登录',
   deviceid_can_not_be_repeated: '设备码不能重复',
   associated_with_physical_regions: '与物理区域有关联',
