@@ -11,17 +11,17 @@
         </el-form-item>
         <el-form-item prop="UserName">
           <el-input v-model="loginForm.UserName"
-                    placeholder="UserName"></el-input>
+                    :placeholder="$t('user_name')"></el-input>
         </el-form-item>
         <el-form-item prop="UserPass">
           <el-input type="password"
                     v-model="loginForm.UserPass"
-                    placeholder="PassWorld"
+                    :placeholder="$t('user_pass')"
                     @keyup.enter.native="submitForm('loginForm')"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary"
-                     @click="submitForm('loginForm')">Login
+                     @click="submitForm('loginForm')">{{$t('login')}}
           </el-button>
         </el-form-item>
       </el-form>
@@ -42,10 +42,10 @@ export default {
           {required: true, message: 'CompanyName', trigger: 'blur'}
         ],
         UserName: [
-          {required: true, message: 'UserName', trigger: 'blur'}
+          {required: true, message: this.$t('user_name'), trigger: 'blur'}
         ],
         UserPass: [
-          {required: true, message: 'PassWorld', trigger: 'blur'}
+          {required: true, message: this.$t('user_pass'), trigger: 'blur'}
         ]
       }
     }
@@ -93,8 +93,8 @@ export default {
   }
 
   .loginForm {
-    width: 350px;
-    height: 300px;
+    width: 300px;
+    height: 200px;
     padding: 30px 30px 0 30px;
     margin-top: 50px;
     text-align: center;

@@ -3,9 +3,15 @@ import VueI18n from 'vue-i18n'
 import ElementLocale from 'element-ui/lib/locale'
 
 //  Setup vue-i18n
+
+let jsLanguage = (navigator.language || navigator.browserLanguage).toLowerCase()
+let defaultLanguage = jsLanguage
+if (jsLanguage.indexOf('-') > 0) {
+  defaultLanguage = jsLanguage.substr(0, jsLanguage.indexOf('-'))
+}
 Vue.use(VueI18n)
 const i18n = new VueI18n({
-  locale: 'en',
+  locale: defaultLanguage,
   messages: {
     'zh': require('./lang/zh-CN').default,
     'en': require('./lang/en').default,

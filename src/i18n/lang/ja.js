@@ -324,6 +324,10 @@ export default {
   basics_config: 'Basics Config',
   server_config: 'Server Config',
 
+  user_name: 'UserName',
+  user_pass: 'PassWord',
+  login: 'Login',
+
   go_to_login: 'Please go to login',
   deviceid_can_not_be_repeated: 'DeviceId Can not be repeated',
   associated_with_physical_regions: 'Associated with physical regions',
