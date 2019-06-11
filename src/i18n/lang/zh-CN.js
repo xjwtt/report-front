@@ -327,6 +327,10 @@ export default {
   user_name: '用户名',
   user_pass: '密码',
   login: '登录',
+  will_quit_system: '将退出系统，继续吗？',
+  old_password: '原密码',
+  user_password: '密码',
+  user_conpassword: '确认密码',
 
   go_to_login: '去登录',
   deviceid_can_not_be_repeated: '设备码不能重复',
@@ -335,5 +339,7 @@ export default {
   have_children_location: '有子地点',
   have_children_user: '有子用户',
   user_name_or_password_error: '用户名或密码错误！',
-  mallname_already_exists: '案场名称已经存在！'
+  mallname_already_exists: '案场名称已经存在！',
+  the_old_password_is_incorrect: '旧密码不正确',
+  unknown_exception_please_contact_administrator: '未知错误，请联系管理员！'
 }
