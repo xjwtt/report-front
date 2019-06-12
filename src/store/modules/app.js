@@ -38,7 +38,9 @@ export default {
       state.menus = payload.Menus
       state.showLogo = payload.ShowLogo
       state.isLogin = true
-      i18n.locale = payload.Language
+      if (payload.Language !== 'auto') {
+        i18n.locale = payload.Language
+      }
       addRouterFromMenus(payload.Menus)
       state.timeInterval = appconst.defaultTimeInterval(t)
       state.timeIntervals = appconst.timeIntervals(t)

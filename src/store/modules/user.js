@@ -20,6 +20,9 @@ export default {
     async resetPassword (context, payload) {
       return ajax.post('/system/resetPassword.action', payload.data)
     },
+    async changePassword (context, payload) {
+      return ajax.post('/system/changePassword.action', payload.data)
+    },
     async selectUserByParentId (context, payload) {
       return ajax.post('/system/selectUserByParentId.action', payload.data)
     },

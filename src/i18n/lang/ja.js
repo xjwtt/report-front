@@ -327,6 +327,10 @@ export default {
   user_name: 'UserName',
   user_pass: 'PassWord',
   login: 'Login',
+  will_quit_system: 'Will quit the system ,continue?',
+  old_password: 'Old Password',
+  user_password: 'Password',
+  user_conpassword: 'Confirm Password',
 
   go_to_login: 'Please go to login',
   deviceid_can_not_be_repeated: 'DeviceId Can not be repeated',
@@ -335,5 +339,7 @@ export default {
   have_children_location: 'Have children location',
   have_children_user: 'Have children user',
   user_name_or_password_error: 'User name or password error!',
-  mallname_already_exists: 'MallName Already Exists!'
+  mallname_already_exists: 'MallName Already Exists!',
+  the_old_password_is_incorrect: 'The Old Password Is Incorrect!',
+  unknown_exception_please_contact_administrator: 'Unknown exception, please contact administrator!'
 }

@@ -9,6 +9,11 @@ let defaultLanguage = jsLanguage
 if (jsLanguage.indexOf('-') > 0) {
   defaultLanguage = jsLanguage.substr(0, jsLanguage.indexOf('-'))
 }
+const allLanguage = {'zh': 1, 'en': 1, 'ja': 1}
+// 如果默认没有语言就选择 en
+if (!allLanguage[defaultLanguage]) {
+  defaultLanguage = 'en'
+}
 Vue.use(VueI18n)
 const i18n = new VueI18n({
   locale: defaultLanguage,

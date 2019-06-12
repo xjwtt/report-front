@@ -41,7 +41,8 @@ ajax.interceptors.response.use(
       } else {
         Vue.prototype.$notify({
           title: 'error',
-          message: t(respon.data.showText)
+          message: t(respon.data.showText),
+          type: 'error'
         })
       }
       return Promise.reject(respon)
@@ -53,7 +54,8 @@ ajax.interceptors.response.use(
     }
     Vue.prototype.$notify({
       title: error.response.status,
-      message: error.response.statusText
+      message: error.response.statusText,
+      type: 'error'
     })
   }
 )
