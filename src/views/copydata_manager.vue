@@ -47,7 +47,7 @@
                                  placeholder="...">
                         <el-option v-for="item in sourceCameraZone"
                                    :key="item.Id"
-                                   :label="item.DeviceId+'#'+item.ZoneId"
+                                   :label="item.DeviceId+'#'+item.Zone"
                                    :value="item.Id">
                         </el-option>
                       </el-select>
@@ -114,7 +114,7 @@
                                  placeholder="...">
                         <el-option v-for="item in targetCameraZone"
                                    :key="item.Id"
-                                   :label="item.DeviceId+'#'+item.ZoneId"
+                                   :label="item.DeviceId+'#'+item.Zone"
                                    :value="item.Id">
                         </el-option>
                       </el-select>

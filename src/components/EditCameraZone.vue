@@ -21,8 +21,8 @@
               <el-input v-model.number="modifyForm.DeviceId" readonly></el-input>
             </el-form-item>
             <el-form-item :label="$t('zone')"
-                          prop="ZoneId">
-              <el-input v-model.number="modifyForm.ZoneId"></el-input>
+                          prop="Zone">
+              <el-input v-model.number="modifyForm.Zone"></el-input>
             </el-form-item>
             <el-form-item :label="$t('zone_class')"
                           prop="ZoneClass">
