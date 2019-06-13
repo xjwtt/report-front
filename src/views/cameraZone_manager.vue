@@ -99,7 +99,7 @@ export default {
     async handleQueryChange () {
       let rep = await this.$store.dispatch({type: 'cameraZone/gridCameraZoneMd', data: this.query})
       _.each(rep.list, function (it) {
-        it.DeviceIdZone = it.DeviceId + '#' + it.ZoneId
+        it.DeviceIdZone = it.DeviceId + '#' + it.Zone
       })
       this.total = rep.total
       this.data = rep.list
