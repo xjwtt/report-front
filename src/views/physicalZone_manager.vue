@@ -95,7 +95,7 @@ export default {
       activeName: 'already',
       query: {},
       physicalColums: [
-        {title: 'DeviceId#ZoneId', field: 'Name'},
+        {title: 'DeviceId#Zone', field: 'Name'},
         {title: 'ZoneClass', field: 'ZoneClass'},
         {title: 'Reverse', field: 'Reverse', tdComp: 'td-reverse'},
         {title: 'Operation', tdComp: 'td-moveopt', visible: true}
@@ -130,7 +130,7 @@ export default {
     async selectCameraZone (mallId) {
       let rep = await this.$store.dispatch({type: 'cameraZone/selectCameraZoneCamera', data: {MallId: mallId}})
       _.each(rep, function (it) {
-        it.Name = it.DeviceId + '#' + it.ZoneId
+        it.Name = it.DeviceId + '#' + it.Zone
       })
       this.cameraZones = rep
     },
@@ -160,10 +160,10 @@ export default {
         data: {MallId: mallId, SearchId: searchId}
       })
       _.each(rep.Search, function (it) {
-        it.Name = it.DeviceId + '#' + it.ZoneId
+        it.Name = it.DeviceId + '#' + it.Zone
       })
       _.each(rep.All, function (it) {
-        it.Name = it.DeviceId + '#' + it.ZoneId
+        it.Name = it.DeviceId + '#' + it.Zone
       })
       this.alreadyData = rep.Search
       this.isnotData = rep.All
