@@ -67,7 +67,7 @@
                 border
                 style="width: 100%">
                 <el-table-column
-                  prop="ZoneId"
+                  prop="Zone"
                   :label="$t('Zone')">
                 </el-table-column>
                 <el-table-column
@@ -108,7 +108,7 @@
     <el-dialog :title="$t('prompt')"
                :visible.sync="delDialogVisible"
                width="30%">
-      <span>{{$t('confirm_delete')}} Zone : {{delCameraZone.ZoneId}} ?</span>
+      <span>{{$t('confirm_delete')}} Zone : {{delCameraZone.Zone}} ?</span>
       <span slot="footer"
             class="dialog-footer">
           <el-button @click="delDialogVisible = false">{{$t('cancel')}}</el-button>
@@ -127,8 +127,8 @@
                label-width="100px"
                class="demo-zoneForm">
         <el-form-item :label="$t('zone')"
-                      prop="ZoneId">
-          <el-input v-model.number="zoneForm.ZoneId"></el-input>
+                      prop="Zone">
+          <el-input v-model.trim="zoneForm.Zone"></el-input>
         </el-form-item>
         <el-form-item :label="$t('zone_class')"
                       prop="ZoneClass">
@@ -172,7 +172,7 @@ const defaultForm = () => {
 }
 const cameraZoneDefaultForm = () => {
   return {
-    ZoneId: 0,
+    Zone: '0',
     ZoneClass: 'Count',
     Enabled: 1
   }
@@ -197,7 +197,7 @@ export default {
       cameraZoneDialogVisible: false,
       zoneForm: cameraZoneDefaultForm(),
       zoneRules: {
-        ZoneId: [
+        Zone: [
           {required: true, message: this.$t('must_input_zone'), trigger: 'blur'}
         ]
       },
@@ -263,7 +263,7 @@ export default {
         return it.Index !== row.Index
       })
       this.zoneTableData = _.sortBy(this.zoneTableData, function (it) {
-        return it.ZoneId
+        return it.Zone
       })
       _.each(this.zoneTableData, function (it, index) {
         it.Index = index
@@ -281,7 +281,7 @@ export default {
             this.cameraZoneDialogVisible = false
           } else {
             _.each(this.zoneTableData, function (it) {
-              if (it.ZoneId === zoneForm.ZoneId) {
+              if (it.Zone === zoneForm.Zone) {
                 status = false
                 that.$message.error(that.$t('zone_nonuniqueness'))
               }
@@ -294,7 +294,7 @@ export default {
             }
           }
           this.zoneTableData = _.sortBy(this.zoneTableData, function (it) {
-            return it.ZoneId
+            return it.Zone
           })
         } else {
           this.$message.error(this.$t('incorrect_parameter'))
