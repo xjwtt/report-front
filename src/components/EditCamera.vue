@@ -293,8 +293,12 @@ export default {
               this.cameraZoneDialogVisible = false
             }
           }
-          this.zoneTableData = _.sortBy(this.zoneTableData, function (it) {
+          let temp = _.sortBy(this.zoneTableData, function (it) {
             return it.Zone
+          })
+          this.zoneTableData = _.map(temp, function (v, i) {
+            v.Index = i
+            return v
           })
         } else {
           this.$message.error(this.$t('incorrect_parameter'))
