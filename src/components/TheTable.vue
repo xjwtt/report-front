@@ -3,13 +3,15 @@
     <el-button @click="exportExcel">{{$t('export')}}</el-button>
     <el-table id="table"
               :data="data"
-              :default-sort=sort
+              :max-height="maxHeight"
               stripe
               border
               style="width: 100%">
-      <el-table-column v-for="column in columns"
+      <el-table-column v-for="column in fields"
+                       :width="column.width?column.width:120"
                        :key="column.Id"
                        :prop="column.prop"
+                       :fixed="column.fixed"
                        :label="column.label"
                        :sortable="column.sortable"
                        :formatter="column.formatter">
@@ -19,7 +21,6 @@
 </template>
 
 <script>
-import fm from '@/lib/fieldsManager'
 import FileSaver from 'file-saver'
 import _ from 'underscore'
 
@@ -34,6 +35,14 @@ export default {
     },
     defaultSort: {
       type: Object
+    },
+    maxHeight: {
+      type: Number,
+      required: true
+    },
+    excelName: {
+      type: String,
+      required: true
     }
   },
   methods: {
@@ -41,7 +50,7 @@ export default {
       let tableHeader = []
       let tableHeaderKey = []
       let csvData = []
-      _.each(this.columns, function (value) {
+      _.each(this.fields, function (value) {
         tableHeader.push(value.label)
         tableHeaderKey.push(value.prop)
       })
@@ -54,43 +63,9 @@ export default {
         csvData.push(d)
       })
       try {
-        FileSaver.saveAs(new Blob([csvData.join('\n')], {type: 'text/plain;charset=utf-8'}), 'storeReport.csv')
+        FileSaver.saveAs(new Blob([csvData.join('\n')], {type: 'text/plain;charset=utf-8'}), this.excelName + '.csv')
       } catch (e) {
         if (typeof console !== 'undefined') console.log(e)
-      }
-    }
-  },
-  computed: {
-    columns () {
-      let locale = this.$i18n.locale
-      let columns = [{
-        prop: 'DomainLabel',
-        label: this.$t('store'),
-        sortable: false,
-        formatter: (row, col) => row['DomainLabel']
-      }]
-      for (let index = 0; index < this.fields.length; index++) {
-        let fieldName = this.fields[index]
-        let field = fm[fieldName]
-        if (field) {
-          columns.push({
-            prop: fieldName,
-            label: this.$t(field.displayI18Key),
-            sortable: field.sortable ? field.sortable : false,
-            formatter: (row, col) => field.tableDisplayFunc ? field.tableDisplayFunc(row[fieldName], locale) : row[fieldName]
-          })
-        }
-      }
-      return columns
-    },
-    sort () {
-      if (this.defaultSort && this.defaultSort.prop && this.defaultSort.order && fm[this.defaultSort.prop]) {
-        return {
-          prop: this.defaultSort.prop,
-          order: this.defaultSort.order
-        }
-      } else {
-        return null
       }
     }
   }

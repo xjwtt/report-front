@@ -120,6 +120,11 @@ export default {
         textStyle: {
           color: '#000000'
         },
+        toolbox: {
+          feature: {
+            saveAsImage: {}
+          }
+        },
         animation: false,
         grid: {
           height: '75%',
@@ -130,6 +135,9 @@ export default {
           data: days,
           splitArea: {
             show: true
+          },
+          axisLabel: {
+            rotate: 45
           }
         },
         yAxis: {

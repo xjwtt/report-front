@@ -225,6 +225,7 @@ export default {
   log_out: 'ログアウト',
   modify_password: 'パスワードを変更する',
   case_field: 'case_field',
+  types_of_analysis: 'Types Of Analysis',
 
   detailedLink: '詳細のデータを見る',
   plase_login_in: 'ログインしてください',
@@ -272,12 +273,14 @@ export default {
   Temp: '気温/PM2.5',
   highTemp: 'highTemp',
   lowTemp: 'lowTemp',
+  pm25: 'PM2.5',
   activityName: 'activityName',
   company_name: 'company_name',
   is_enabled: 'is_enabled',
   // please_fill_in_the_value: '请输入案场名称',
   start_using: 'start_using',
   block_up: 'block_up',
+  daily_average: 'DailyAverage',
 
   ThanLastWeek: '先週より',
   ThanLastMonth: '昨日より',

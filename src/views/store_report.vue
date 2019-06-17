@@ -32,11 +32,11 @@
              :options="chartOptions"
              :height="chartOptions.height"></chart>
     </div>
-
     <div class="report-page-card">
-      <the-table :fields=dateFields
-                 :data=data
-                 :defaultSort="{prop: 'Enter', order: 'descending'}"></the-table>
+      <the-table :fields=columnsFields
+                 :data=columnsData
+                 :maxHeight="500"
+                 :excel-name="'Store_Report'"></the-table>
     </div>
   </div>
 </template>
@@ -80,6 +80,37 @@ export default {
     await this.onQuery()
   },
   computed: {
+    columnsData () {
+      return _.sortBy(this.data, function (v) {
+        return v.Enter
+      }).reverse()
+    },
+    columnsFields () {
+      let locale = this.$i18n.locale
+      let columns = [{
+        width: 200,
+        prop: 'DomainLabel',
+        fixed: true,
+        label: this.$t('store'),
+        sortable: false,
+        formatter: (row, col) => row['DomainLabel']
+      }]
+      for (let index = 0; index < this.dateFields.length; index++) {
+        let fieldName = this.dateFields[index]
+        let field = fm[fieldName]
+        if (field) {
+          columns.push({
+            width: 120,
+            prop: fieldName,
+            fixed: false,
+            label: this.$t(field.displayI18Key),
+            sortable: field.sortable ? field.sortable : false,
+            formatter: (row, col) => field.tableDisplayFunc ? field.tableDisplayFunc(row[fieldName], locale) : row[fieldName]
+          })
+        }
+      }
+      return columns
+    },
     chartOptions () {
       const titleHeight = 35
       const selectedFieldKey = this.dateFields[this.selectedFieldIndex]
