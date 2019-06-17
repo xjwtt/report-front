@@ -59,11 +59,35 @@
 
         </grid-item>
       </grid-layout>
+      <el-dialog
+        v-if="addDialogVisible"
+        :visible.sync="addDialogVisible"
+        :close-on-click-modal="false"
+        width="40%">
+        <template>
+          <el-row :gutter="20">
+            <el-col :span="14">
+              <el-tree :data="addTree"
+                       :props="defaultProps"
+                       show-checkbox
+                       node-key="Id"
+                       ref="addTree"></el-tree>
+            </el-col>
+          </el-row>
+        </template>
+        <span slot="footer"
+              class="dialog-footer">
+          <el-button type="primary"
+                     @click="saveAddWidget()">{{$t('ok')}}</el-button>
+          <el-button @click="addDialogVisible = false">{{$t('cancel')}}</el-button>
+        </span>
+      </el-dialog>
     </div>
   </div>
 </template>
 
 <script>
+import _ from 'underscore'
 import Moment from 'moment'
 import {mapState} from 'vuex'
 import DynamicWidget from '@/components/DynamicWidget'
@@ -93,13 +117,33 @@ export default {
             picker.$emit('pick', [start, end])
           }
         }]
-      }
+      },
+      addDialogVisible: false,
+      defaultProps: {
+        children: 'children',
+        label: 'Title'
+      },
+      addTree: []
     }
   },
   methods: {
     async addWidget () {
       let unUsedWidget = await this.$store.dispatch({type: 'widget/getUnUsedWidget'})
-      console.log(unUsedWidget)
+      this.addTree = unUsedWidget
+      this.addDialogVisible = true
+    },
+    saveAddWidget () {
+      let selectWidget = this.$refs.addTree.getCheckedNodes(false, true)
+      let maxY = _.max(this.userWidgets, el => el.y)
+      selectWidget.forEach(el => {
+        el.i = el.Id.toString()
+        el.w = el.minW
+        el.h = el.minH
+        el.x = 0
+        el.y = maxY.y + maxY.h
+        this.userWidgets.push(el)
+      })
+      this.addDialogVisible = false
     },
     async saveWidget () {
       await this.$store.dispatch({type: 'widget/saveUserWidget'})
