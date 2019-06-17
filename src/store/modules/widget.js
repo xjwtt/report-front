@@ -34,8 +34,6 @@ export default {
       let res = await ajax.post('system/SelectPageWidgetManager.action', {
         Mobile: -1
       })
-
-      console.log(res)
       context.commit('setUserWidgets', res)
     },
     async getUserWidget (context) {
