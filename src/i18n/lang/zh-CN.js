@@ -345,6 +345,17 @@ export default {
   MallShop: '商铺',
   Shelf: '展区',
 
+  male: '男',
+  female: '女',
+  genderage: '性别年龄',
+  newoldcustomer: '新老顾客',
+  newcustomer: '新顾客',
+  oldcustomer: '老顾客',
+  customer: '顾客',
+  gender_ratio: '性别比例',
+  age_ratio: '年龄比例',
+  new_old_customer_ratio: '新老顾客比例',
+
   go_to_login: '去登录',
   deviceid_can_not_be_repeated: '设备码不能重复',
   associated_with_physical_regions: '与物理区域有关联',
