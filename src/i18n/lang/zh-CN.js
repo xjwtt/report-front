@@ -44,6 +44,8 @@ export default {
   peak_location: '区域高低峰分析',
   weather_analysis: '天气因素分析',
   event_analysis: '活动节假日分析',
+  face_analysis: '人脸数据分析',
+  zone_face_analysis: '区域人脸分析',
 
   system_setting: '系统设置',
   area_setting: '场地设置',
@@ -72,6 +74,7 @@ export default {
   copydata_manager: '复制数据',
   send_data_regularly: '定时数据发送',
   task_manager: '任务管理',
+  category_manager: '类别管理',
 
   export: '导出',
   personalized_home_page: '个性化首页',
@@ -335,12 +338,20 @@ export default {
   user_password: '密码',
   user_conpassword: '确认密码',
 
+  Entrance: '主出入口',
+  Corridor: '通道',
+  Floor: '楼层',
+  Domain: '区域',
+  MallShop: '商铺',
+  Shelf: '展区',
+
   go_to_login: '去登录',
   deviceid_can_not_be_repeated: '设备码不能重复',
   associated_with_physical_regions: '与物理区域有关联',
   have_children_menu: '有子菜单',
   have_children_location: '有子地点',
   have_children_user: '有子用户',
+  have_children_category: '有子类型',
   user_name_or_password_error: '用户名或密码错误！',
   mallname_already_exists: '案场名称已经存在！',
   the_old_password_is_incorrect: '旧密码不正确',

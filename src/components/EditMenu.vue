@@ -12,27 +12,27 @@
                    ref=modifyForm
                    label-width="150px"
                    class="demo-modifyForm">
-            <el-form-item :label="$t('menu_parentName')"
+            <el-form-item :label="$t('parentName')"
                           prop="ParentName">
-              <el-input v-model.trim="parentName" :disabled="true"></el-input>
+              <el-input :value="this.$t(parentName)" :disabled="true"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('menu_name')"
+            <el-form-item :label="$t('name')"
                           prop="Name">
               <el-input v-model.trim="modifyForm.Name"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('menu_pageUrl')"
+            <el-form-item :label="$t('pageUrl')"
                           prop="PageUrl">
               <el-input v-model.trim="modifyForm.PageUrl"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('menu_Ranked')"
+            <el-form-item :label="$t('ranked')"
                           prop="Ranked">
-              <el-input v-model.trim="modifyForm.Ranked"></el-input>
+              <el-input-number v-model.trim="modifyForm.Ranked"></el-input-number>
             </el-form-item>
-            <el-form-item :label="$t('menu_description')"
+            <el-form-item :label="$t('description')"
                           prop="Description">
               <el-input v-model.trim="modifyForm.Description"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('menu_enabled')"
+            <el-form-item :label="$t('enabled')"
                           prop="Visible">
               <el-radio v-model="modifyForm.Visible" :label="1">{{$t('menu_show')}}</el-radio>
               <el-radio v-model="modifyForm.Visible" :label="-1">{{$t('menu_hide')}}</el-radio>
@@ -84,7 +84,7 @@ export default {
         this.$refs['modifyForm'].resetFields()
       })
       if (form.ParentId) {
-        this.selecMenutById(form.ParentId)
+        this.selectMenutById(form.ParentId)
       }
       this.modifyForm = form ? Object.assign({}, form) : defaultForm()
     },
@@ -100,8 +100,8 @@ export default {
         }
       })
     },
-    async selecMenutById (id) {
-      let rep = await this.$store.dispatch({type: 'menu/selecMenutById', data: {id: id}})
+    async selectMenutById (id) {
+      let rep = await this.$store.dispatch({type: 'menu/selectMenutById', data: {id: id}})
       this.parentName = rep.Name
     }
   }
