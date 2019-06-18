@@ -4,11 +4,11 @@
              style="flex:auto">
       <div slot="header"
            class="clearfix">
-        <span>{{$t('menu_manager')}}</span>
+        <span>{{$t('category_manager')}}</span>
       </div>
       <el-row :gutter="20">
         <el-col :span="6">
-          <el-tree :data="menuTree" :props="defaultProps" @node-click="handleNodeClick"
+          <el-tree :data="categroyTree" :props="defaultProps" @node-click="handleNodeClick"
                    node-key="Id"
                    :default-expanded-keys="defaultExpandedKeys"
                    :check-on-click-node="true"></el-tree>
@@ -33,14 +33,13 @@
                      :class="'fa-trash'"></i>
                   <span>{{selection.length}}</span>
                 </button>
-
               </div>
             </slot>
           </datatable>
         </el-col>
       </el-row>
-
-      <edit-menus ref=editDialog @handleQueryChange="handleQueryChange" @userMenuTree="userMenuTree"></edit-menus>
+      <edit-category ref="editDialog" @handleQueryChange="handleQueryChange"
+                     @categoryTree="categoryTree"></edit-category>
       <el-dialog :title="$t('prompt')"
                  :visible.sync="delDialogVisible"
                  width="30%">
@@ -53,17 +52,16 @@
         </span>
       </el-dialog>
     </el-card>
-
   </div>
 </template>
 
 <script>
+import EditCategory from '@/components/EditCategory'
 import Vue from 'vue'
-import EditMenus from '@/components/EditMenu'
 import _ from 'underscore'
 
 export default {
-  name: 'menu_manager',
+  name: 'category_manager',
   data: () => ({
     // table
     supportBackup: true,
@@ -71,10 +69,10 @@ export default {
     tblStyle: 'color: #666',
     columns: [
       {title: 'Name', field: 'Name', sortable: true},
-      {title: '描述', field: 'Description'},
-      {title: '访问地址', field: 'PageUrl'},
-      {title: '图标', field: 'ImageUrl'},
-      {title: '次序', field: 'Ranked', sortable: true},
+      {title: 'KeyName', field: 'KeyName'},
+      {title: 'Data', field: 'Data'},
+      {title: 'Ranked', field: 'Ranked', sortable: true},
+      {title: 'Description', field: 'Description', sortable: true},
       {title: 'Status', field: 'Visible', sortable: true, tdComp: 'td-status'},
       {title: 'Operation', tdComp: 'td-opt', visible: true}
     ],
@@ -90,7 +88,7 @@ export default {
     waitToDel: [],
     // Tree
     handleId: '-',
-    menuTree: [],
+    categroyTree: [],
     defaultProps: {
       children: 'children',
       label: 'Name'
@@ -104,7 +102,6 @@ export default {
   },
   methods: {
     handleNodeClick (data) {
-      // console.log(data)
       this.handleId = data.Id
       this.defaultExpandedKeys[0] = data.Id
       this.handleQueryChange()
@@ -123,25 +120,25 @@ export default {
       this.delDialogVisible = true
     },
     async sureDelete () {
-      await this.$store.dispatch({type: 'menu/deleteMenu', data: this.waitToDel})
+      await this.$store.dispatch({type: 'category/deleteCategory', data: this.waitToDel})
       this.delDialogVisible = false
       this.handleQueryChange()
-      this.userMenuTree()
+      this.categoryTree()
     },
-    async userMenuTree () {
-      let rep = await this.$store.dispatch({type: 'menu/userMenuTree'})
+    async categoryTree () {
+      let rep = await this.$store.dispatch({type: 'category/categoryTree'})
       this.converI18n(rep)
-      this.menuTree = rep
+      this.categroyTree = rep
     },
     async handleQueryChange () {
       this.query['parentId'] = this.handleId
-      let rep = await this.$store.dispatch({type: 'menu/gridMenu', data: this.query})
+      let rep = await this.$store.dispatch({type: 'category/gridCategory', data: this.query})
       this.total = rep.total
       this.data = rep.list
     },
-    converI18n (menuTree) {
+    converI18n (tree) {
       let that = this
-      _.map(menuTree, function (item) {
+      _.map(tree, function (item) {
         item.Name = that.$t(item.Name)
         if (item.children) {
           that.converI18n(item.children)
@@ -152,14 +149,14 @@ export default {
   watch: {
     query: {
       handler () {
-        this.userMenuTree()
+        this.categoryTree()
         this.handleQueryChange()
       },
       deep: true
     }
   },
   components: {
-    EditMenus
+    EditCategory
   }
 }
 </script>

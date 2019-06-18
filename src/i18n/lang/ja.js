@@ -44,6 +44,8 @@ export default {
   peak_location: 'ピーク地点',
   weather_analysis: '天気の分析',
   event_analysis: 'イベント分析',
+  face_analysis: 'face_analysis',
+  zone_face_analysis: 'zone_face_analysis',
 
   system_setting: 'システム設定',
   area_setting: 'エリア設定',
@@ -72,6 +74,7 @@ export default {
   copydata_manager: 'データのコピー',
   send_data_regularly: 'Send Data Regularly',
   task_manager: 'タスク管理',
+  category_manager: 'Categroy Manager',
 
   export: '出力する',
   personalized_home_page: 'カスタマイズする',
@@ -335,12 +338,20 @@ export default {
   user_password: 'Password',
   user_conpassword: 'Confirm Password',
 
+  Entrance: 'Entrance',
+  Corridor: 'Corridor',
+  Floor: 'Floor',
+  Domain: 'Domain',
+  MallShop: 'MallShop',
+  Shelf: 'Shelf',
+
   go_to_login: 'Please go to login',
   deviceid_can_not_be_repeated: 'DeviceId Can not be repeated',
   associated_with_physical_regions: 'Associated with physical regions',
   have_children_menu: 'Have children menu',
   have_children_location: 'Have children location',
   have_children_user: 'Have children user',
+  have_children_category: 'Have children category',
   user_name_or_password_error: 'User name or password error!',
   mallname_already_exists: 'MallName Already Exists!',
   the_old_password_is_incorrect: 'The Old Password Is Incorrect!',

@@ -14,8 +14,8 @@ export default {
     async deleteMenu (context, payload) {
       return ajax.post('/system/deleteMenu.action', payload.data)
     },
-    async selecMenutById (context, payload) {
-      return ajax.post('/system/selecMenutById.action', payload.data)
+    async selectMenutById (context, payload) {
+      return ajax.post('/system/selectMenutById.action', payload.data)
     },
     async saveOrUpdateMenu (context, payload) {
       return ajax.post('/system/saveOrUpdateMenu.action', payload.data)

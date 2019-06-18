@@ -37,7 +37,7 @@ export default {
       context.commit('setUserWidgets', res)
     },
     async getUserWidget (context) {
-      let res = await ajax.post('system/UserManager.action?op=getUserWidget')
+      let res = await ajax.post('system/getUserWidget.action')
       context.commit('setUserWidgets', res)
     },
     async saveUserWidget (context) {
@@ -51,7 +51,7 @@ export default {
           Options: {}
         }
       })
-      await ajax.post('/system/UserManager.action?op=saveUserWidget', {
+      await ajax.post('/system/saveUserWidget.action', {
         PageWidgets: res
       })
     },
@@ -64,7 +64,7 @@ export default {
       })
     },
     async addEditWidget (context, payload) {
-      return ajax.post('system/PageWidgetManager.action?op=save', payload.data)
+      return ajax.post('system/SavePageWidget.action', payload.data)
     }
   }
 }

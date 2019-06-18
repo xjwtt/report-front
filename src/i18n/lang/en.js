@@ -44,6 +44,8 @@ export default {
   peak_location: 'Peak Location',
   weather_analysis: 'Weather Analysis',
   event_analysis: 'Event Analysis',
+  face_analysis: 'Face Analysis',
+  zone_face_analysis: 'Zone Face Analysis',
 
   system_setting: 'System Setting',
   area_setting: 'Area Setting',
@@ -72,6 +74,7 @@ export default {
   copydata_manager: 'CopyData Manager',
   send_data_regularly: 'Send Data Regularly',
   task_manager: 'Task Manager',
+  category_manager: 'Categroy Manager',
 
   export: 'Export',
   personalized_home_page: 'Personalized',
@@ -335,12 +338,20 @@ export default {
   user_password: 'Password',
   user_conpassword: 'Confirm Password',
 
+  Entrance: 'Entrance',
+  Corridor: 'Corridor',
+  Floor: 'Floor',
+  Domain: 'Domain',
+  MallShop: 'MallShop',
+  Shelf: 'Shelf',
+
   go_to_login: 'Please go to login',
   deviceid_can_not_be_repeated: 'DeviceId Can not be repeated',
   associated_with_physical_regions: 'Associated with physical regions',
   have_children_menu: 'Have children menu',
   have_children_location: 'Have children location',
   have_children_user: 'Have children user',
+  have_children_category: 'Have children category',
   user_name_or_password_error: 'User name or password error!',
   mallname_already_exists: 'MallName Already Exists!',
   the_old_password_is_incorrect: 'The Old Password Is Incorrect!',
