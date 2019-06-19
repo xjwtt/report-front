@@ -251,7 +251,7 @@ export default {
   no_data: '没有数据',
   number_of_query_results: '查询结果数：',
   confirm_update_data: '确认修改数据？',
-  only_1_minute_data_can_be_modified: '只有 1 mintue的数据可以修改',
+  only_1_minute_data_can_be_modified: '只有 1 分钟的数据可以修改',
 
   enter: '进入客流',
   exit: '离开客流',
@@ -297,6 +297,11 @@ export default {
   today_time_flow: '今日分时客流',
   persons: '人',
   today_flow: '今日客流',
+  sales_volume: '销售额',
+  convert_rate: '转化率',
+  stay_persons: '停留人数',
+  price_perpiece: '件单价',
+  collecting_power: '集客力',
 
   save: '保存',
   associated: '已关联',
