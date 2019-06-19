@@ -121,7 +121,7 @@ export default {
       addDialogVisible: false,
       defaultProps: {
         children: 'children',
-        label: 'Title'
+        label: 'Name'
       },
       addTree: []
     }
@@ -129,6 +129,9 @@ export default {
   methods: {
     async addWidget () {
       let unUsedWidget = await this.$store.dispatch({type: 'widget/getUnUsedWidget'})
+      unUsedWidget.forEach(el => {
+        el.Name = this.$t(el.Title)
+      })
       this.addTree = unUsedWidget
       this.addDialogVisible = true
     },
