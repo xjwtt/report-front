@@ -181,6 +181,32 @@ const countColums = () => {
     }
   ]
 }
+
+const dwellColums = () => {
+  return [
+    {field: 'date', title: 'Date', width: 100, titleAlign: 'center', columnAlign: 'center', isResize: true},
+    {field: 'hour', title: 'Hour', width: 100, titleAlign: 'center', columnAlign: 'center', isResize: true},
+    {field: 'minute', title: 'Minute', width: 100, titleAlign: 'center', columnAlign: 'center', isResize: true},
+    {
+      field: 'numberServed',
+      title: 'NumberServed',
+      width: 100,
+      titleAlign: 'center',
+      columnAlign: 'center',
+      isEdit: true,
+      isResize: true
+    },
+    {
+      field: 'secondsOccupied',
+      title: 'SecondsOccupied',
+      width: 100,
+      titleAlign: 'center',
+      columnAlign: 'center',
+      isEdit: true,
+      isResize: true
+    }
+  ]
+}
 const modifyForm = () => {
   return {
     MallId: '',
@@ -281,6 +307,9 @@ export default {
               case 'Count':
               case 'PassBy':
                 this.columns = countColums()
+                break
+              case 'Dwell':
+                this.columns = dwellColums()
                 break
             }
             _.each(rep, function (v) {

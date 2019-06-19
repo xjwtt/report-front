@@ -3,6 +3,7 @@ import _ from 'underscore'
 import {addRouterFromMenus} from '@/router/index'
 import i18n from '../../i18n'
 import appconst from '@/lib/appconst'
+import language from '@/lib/language'
 
 const t = key => i18n.t(key)
 export default {
@@ -11,6 +12,9 @@ export default {
     isLogin: false,
     UserID: null,
     userName: null,
+    language: null,
+    email: null,
+    telephone: null,
     malls: [],
     menus: [],
 
@@ -32,14 +36,19 @@ export default {
   mutations: {
     setUserInfo (state, payload) {
       state.userName = payload.Name
+      state.email = payload.Email
+      state.telephone = payload.Telephone
       state.malls = payload.Malls
       state.selectedMall = payload.Malls[0]
       state.selectedMalls = payload.Malls
       state.menus = payload.Menus
       state.showLogo = payload.ShowLogo
       state.isLogin = true
+      state.language = payload.Language
       if (payload.Language !== 'auto') {
         i18n.locale = payload.Language
+      } else {
+        i18n.locale = language.defaultLanguage
       }
       addRouterFromMenus(payload.Menus)
       state.timeInterval = appconst.defaultTimeInterval(t)

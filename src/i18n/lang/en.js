@@ -319,6 +319,10 @@ export default {
   the_time_period_must_be_one_day: 'The time period must be one day ',
   the_time_period_must_be_31_day: 'The time period must be 31 day ',
   time_interval_must_be_the_same: 'Time interval must be the same',
+  language: 'Language',
+  user_email: 'Email',
+  user_telephone: 'Telephone',
+  user_setting: 'User Setting',
 
   recover_data: 'Recover Data',
   reset_businesstime: 'Reset BusinessTime',

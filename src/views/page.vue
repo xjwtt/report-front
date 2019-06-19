@@ -33,8 +33,9 @@
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="logout">{{$t('log_out')}}</el-dropdown-item>
+            <el-dropdown-item command="userSetting">{{$t('user_setting')}}</el-dropdown-item>
             <el-dropdown-item command="modifyPassword">{{$t('modify_password')}}</el-dropdown-item>
+            <el-dropdown-item command="logout">{{$t('log_out')}}</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </div>
@@ -49,8 +50,44 @@
                      @click="sureLogOut">{{$t('ok')}}</el-button>
         </span>
       </el-dialog>
-      <el-dialog :title="$t('prompt')"
-                 :visible.sync="passDialogVisible">
+      <el-dialog :visible.sync="settingDialogVisible">
+        <template>
+          <el-row :gutter="20">
+            <el-col :span="14">
+              <el-form :model="settingModifyForm"
+                       ref=settingModifyForm
+                       label-width="150px"
+                       class="demo-modifyForm">
+                <el-form-item :label="$t('language')"
+                              prop="Language">
+                  <el-select v-model.trim="settingModifyForm.Language">
+                    <el-option v-for="item in languageTypes"
+                               :key="item.Id"
+                               :label="item.Name"
+                               :value="item.KeyName">
+                    </el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item :label="$t('user_email')"
+                              prop="Email">
+                  <el-input v-model.trim="settingModifyForm.Email"></el-input>
+                </el-form-item>
+                <el-form-item :label="$t('user_telephone')"
+                              prop="Telephone">
+                  <el-input v-model.trim="settingModifyForm.Telephone"></el-input>
+                </el-form-item>
+              </el-form>
+            </el-col>
+          </el-row>
+        </template>
+        <span slot="footer"
+              class="dialog-footer">
+          <el-button @click="passDialogVisible = false">{{$t('cancel')}}</el-button>
+          <el-button type="primary"
+                     @click="sureUserSetting('settingModifyForm')">{{$t('ok')}}</el-button>
+        </span>
+      </el-dialog>
+      <el-dialog :visible.sync="passDialogVisible">
         <template>
           <el-row :gutter="20">
             <el-col :span="14">
@@ -115,6 +152,9 @@ export default {
       logOutDialogVisible: false,
       passDialogVisible: false,
       passModifyForm: defulatPassModifyForm(),
+      settingDialogVisible: false,
+      settingModifyForm: {Language: 'auto', Email: '', Telephone: ''},
+      languageTypes: [],
       filterMethod (query, item) {
         return item.Name.indexOf(query) > -1
       },
@@ -138,6 +178,14 @@ export default {
         case 'logout':
           this.logOutDialogVisible = true
           break
+        case 'userSetting':
+          this.selectCategoryByKeyName()
+          let appState = this.$store.state.app
+          this.settingModifyForm.Language = appState.language
+          this.settingModifyForm.Email = appState.email
+          this.settingModifyForm.Telephone = appState.telephone
+          this.settingDialogVisible = true
+          break
         case 'modifyPassword':
           this.passDialogVisible = true
           break
@@ -149,6 +197,16 @@ export default {
     async sureLogOut () {
       await this.$store.dispatch({
         type: 'app/logout'
+      })
+    },
+    sureUserSetting (formName) {
+      this.$refs[formName].validate(async (valid) => {
+        if (valid) {
+          await this.$store.dispatch({type: 'user/userSetting', data: this.settingModifyForm})
+          this.settingDialogVisible = false
+          await this.$store.dispatch({type: 'app/getUserInfo', data: this.loginForm})
+          this.$message.success(this.$t('success'))
+        }
       })
     },
     sureChangePwd (formName) {
@@ -166,6 +224,10 @@ export default {
           }
         }
       })
+    },
+    async selectCategoryByKeyName () {
+      let rep = await this.$store.dispatch({type: 'category/selectCategoryByKeyName', data: {KeyName: 'LanguageType'}})
+      this.languageTypes = rep
     }
   },
   computed: {

@@ -319,6 +319,10 @@ export default {
   the_time_period_must_be_one_day: '期間は1日であること',
   the_time_period_must_be_31_day: '期間は31日であること',
   time_interval_must_be_the_same: '時間間隔は同じであること',
+  language: 'Language',
+  user_email: 'Email',
+  user_telephone: 'Telephone',
+  user_setting: 'User Setting',
 
   recover_data: 'データを復元する',
   reset_businesstime: 'Business Timeをリセットする',

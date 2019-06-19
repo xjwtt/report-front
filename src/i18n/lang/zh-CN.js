@@ -319,6 +319,10 @@ export default {
   the_time_period_must_be_one_day: '时间段必须在一天',
   the_time_period_must_be_31_day: '时间段必须在31天',
   time_interval_must_be_the_same: '时间间隔必须相同',
+  language: '语言',
+  user_email: '邮箱',
+  user_telephone: '手机号',
+  user_setting: '用户设置',
 
   recover_data: '汇总数据',
   reset_businesstime: '营业时间重置',

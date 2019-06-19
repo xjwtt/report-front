@@ -1,14 +1,16 @@
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
 import ElementLocale from 'element-ui/lib/locale'
+import language from '@/lib/language'
 
 //  Setup vue-i18n
 
-let jsLanguage = (navigator.language || navigator.browserLanguage).toLowerCase()
-let defaultLanguage = jsLanguage
-if (jsLanguage.indexOf('-') > 0) {
-  defaultLanguage = jsLanguage.substr(0, jsLanguage.indexOf('-'))
-}
+// let jsLanguage = (navigator.language || navigator.browserLanguage).toLowerCase()
+// let defaultLanguage = jsLanguage
+// if (jsLanguage.indexOf('-') > 0) {
+//   defaultLanguage = jsLanguage.substr(0, jsLanguage.indexOf('-'))
+// }
+let defaultLanguage = language.defaultLanguage
 const allLanguage = {'zh': 1, 'en': 1, 'ja': 1}
 // 如果默认没有语言就选择 en
 if (!allLanguage[defaultLanguage]) {
