@@ -296,7 +296,12 @@ export default {
   total_flow: 'Total Flow',
   today_time_flow: 'Today Time Flow',
   persons: '人',
-  today_flow: '今日客流',
+  today_flow: 'Today Flow',
+  sales_volume: 'Sales Volume',
+  convert_rate: 'Convert Rate',
+  stay_persons: 'Stay Persons',
+  price_perpiece: 'Price Perpiece',
+  collecting_power: 'Collecting Power',
 
   save: '保存する',
   associated: '関連する',
