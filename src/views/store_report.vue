@@ -121,7 +121,7 @@ export default {
       const xdata = _.map(sortData, value => value[this.dateFields[this.selectedFieldIndex]])
       const option = {
         color: ['#3398DB'],
-        height: this.data.length * 90 + titleHeight + 15,
+        height: this.data.length * 45 + titleHeight + 15,
         title: {
           text: `${this.$t(selectedField.displayI18Key)} ${this.$t('chart')}`,
           x: 'center',
@@ -137,7 +137,7 @@ export default {
           top: titleHeight,
           left: '3%',
           right: '3%',
-          height: this.data.length * 90,
+          height: this.data.length * 45,
           containLabel: true
         },
         xAxis: {
