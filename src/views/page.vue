@@ -20,7 +20,7 @@
                        @change="selectedMallsChange"
                        :data="malls"
                        :props="{ key: 'Id', label: 'Name', disable: false }"
-                       :titles="[$t('未选中'),$t('已选中')]">
+                       :titles="[$t('unchecked'),$t('selected')]">
 
           </el-transfer>
 

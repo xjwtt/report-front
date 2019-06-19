@@ -225,6 +225,7 @@ export default {
   than_yesterday: '昨日より',
   site_scope: 'サイトスコープ',
   selected: '選択した',
+  unchecked: '選択されていません',
   log_out: 'ログアウト',
   modify_password: 'パスワードを変更する',
   case_field: 'case_field',
@@ -292,6 +293,10 @@ export default {
   max: '最大',
   avg: '平均',
   percent: '％',
+  total_flow: 'Total Flow',
+  today_time_flow: 'Today Time Flow',
+  persons: '人',
+  today_flow: '今日客流',
 
   save: '保存する',
   associated: '関連する',

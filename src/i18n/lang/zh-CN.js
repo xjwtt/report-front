@@ -225,6 +225,7 @@ export default {
   than_yesterday: '比昨天',
   site_scope: '案场范围',
   selected: '已选中',
+  unchecked: '未选中',
   log_out: '退出登录',
   modify_password: '修改密码',
   case_field: '个案场',
@@ -292,6 +293,10 @@ export default {
   max: '最大值',
   avg: '平均值',
   percent: '百分比',
+  total_flow: '总客流',
+  today_time_flow: '今日分时客流',
+  persons: '人',
+  today_flow: '今日客流',
 
   save: '保存',
   associated: '已关联',
