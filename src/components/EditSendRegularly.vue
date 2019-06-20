@@ -14,7 +14,7 @@
                        ref=modifyForm
                        label-width="150px"
                        class="demo-modifyForm">
-                <el-form-item :label="$t('user_company')"
+                <el-form-item :label="$t('company_name')"
                               prop="CompanyId">
                   <el-select v-model.trim="modifyForm.CompanyId" filterable :placeholder="$t('please_select')">
                     <el-option v-for="item in companys"
@@ -24,7 +24,7 @@
                     </el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item :label="$t('cron_type')"
+                <el-form-item :label="$t('Cron')"
                               prop="CronType">
                   <el-select v-model.trim="modifyForm.CronType">
                     <el-option v-for="item in CronTypes"
@@ -53,7 +53,7 @@
                    ref=modifyForm
                    label-width="150px"
                    class="demo-modifyForm">
-            <el-form-item :label="$t('server_type')"
+            <el-form-item :label="$t('type')"
                           prop="ServerType">
               <el-select v-model.trim="serverConfig.ServerType" filterable :placeholder="$t('please_select')">
                 <el-option v-for="item in ServerTypes"
@@ -63,16 +63,16 @@
                 </el-option>
               </el-select>
             </el-form-item>
-            <el-form-item :label="$t('ipaddress')"
+            <el-form-item label="Ip"
                           prop="IpAddress">
               <el-input v-model.trim="serverConfig.IpAddress"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('port')"
+            <el-form-item label="Port"
                           prop="Port">
               <el-input v-model.trim="serverConfig.Port"></el-input>
             </el-form-item>
             <el-form-item v-if="serverConfig.ServerType == 'HTTP'"
-                          :label="$t('path')"
+                          label="Path"
                           prop="Path">
               <el-input v-model.trim="serverConfig.Path"></el-input>
             </el-form-item>

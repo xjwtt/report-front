@@ -34,13 +34,13 @@ export default {
     tblStyle: 'color: #666',
     columns: [
       {title: 'mall_name', field: 'MallName', thComp: 'th-filter', sortable: true},
-      {title: 'deviceId', field: 'DeviceId', thComp: 'th-filter', sortable: true},
-      {title: 'Position', field: 'Position'},
-      {title: 'ZoneCount', field: 'ZoneCount', sortable: true},
-      {title: 'IpAddress', field: 'IpAddress', sortable: true},
-      {title: 'LastDataTime', field: 'LastDataTime', sortable: true},
-      {title: 'UpdateTime', field: 'UpdateTime', sortable: true},
-      {title: 'Status', field: 'CameraStatus', sortable: true, tdComp: 'td-cameraStatus'}
+      {title: 'device_id', field: 'DeviceId', thComp: 'th-filter', sortable: true},
+      {title: 'position', field: 'Position'},
+      {title: 'zone_count', field: 'ZoneCount', sortable: true},
+      {title: 'Ip', field: 'IpAddress', sortable: true},
+      {title: 'last_data_time', field: 'LastDataTime', sortable: true},
+      {title: 'update_time', field: 'UpdateTime', sortable: true},
+      {title: 'status', field: 'CameraStatus', tdComp: 'td-cameraStatus'}
     ],
     data: [],
     total: 0,

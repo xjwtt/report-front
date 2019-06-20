@@ -6,13 +6,13 @@
              width="70%">
     <template>
       <el-row :gutter="20">
-        <el-col :span="14">
+        <el-col :span="18">
           <el-form :model="modifyForm"
                    :rules="rules"
                    ref=modifyForm
-                   label-width="100px"
+                   label-width="120px"
                    class="demo-modifyForm">
-            <el-form-item :label="$t('Company')" prop="CompanyId">
+            <el-form-item :label="$t('company_name')" prop="CompanyId">
               <el-select v-model.trim="modifyForm.CompanyId"
                          filterable
                          placeholder="...">
@@ -23,7 +23,7 @@
                 </el-option>
               </el-select>
             </el-form-item>
-            <el-form-item :label="$t('business_type')"
+            <el-form-item :label="$t('time_type_name')"
                           prop="TimeType">
               <el-select v-model.trim="modifyForm.TimeType" filterable :placeholder="$t('please_select')">
                 <el-option v-for="type in businessTimeTypes"
@@ -52,7 +52,7 @@
             <el-form-item :label="$t('weekdays')"
                           prop="Weekday">
               <el-checkbox-group v-model="modifyForm.Weekday">
-                <el-checkbox v-for="d in weekDayList" :label="d" :key="d">{{d}}</el-checkbox>
+                <el-checkbox v-for="d in weekDayList" :label="d" :key="d">{{$t(d)}}</el-checkbox>
               </el-checkbox-group>
             </el-form-item>
             <el-form-item :label="$t('start_time')"
@@ -79,7 +79,7 @@
                 placeholder="Selete Time">
               </el-time-select>
             </el-form-item>
-            <el-form-item :label="$t('Description')"
+            <el-form-item :label="$t('description')"
                           prop="Description">
               <el-input v-model.trim="modifyForm.Description"></el-input>
             </el-form-item>

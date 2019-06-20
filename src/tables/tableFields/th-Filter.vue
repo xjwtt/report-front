@@ -14,7 +14,7 @@
                ref="input"
                v-model="keyword"
                @keydown.enter="search"
-               :placeholder="`Search ${field}...`">
+               :placeholder="`...`">
         <span class="input-group-btn">
           <button class="btn btn-default fa fa-search"
                   @click="search"></button>

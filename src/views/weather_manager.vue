@@ -34,13 +34,13 @@ export default {
     tblClass: 'table-bordered',
     tblStyle: 'color: #666',
     columns: [
-      {title: 'CityName', field: 'CityName', thComp: 'th-filter', sortable: true},
-      {title: 'Date', field: 'Date', thComp: 'th-filter', sortable: true},
-      {title: 'WeatherName', field: 'WeatherName'},
-      {title: 'HighTemp', field: 'HighTemp'},
-      {title: 'LowTemp', field: 'LowTemp'},
-      {title: 'PM25', field: 'PM25'},
-      {title: 'Wind', field: 'Wind'}
+      {title: 'city', field: 'CityName', thComp: 'th-filter', sortable: true},
+      {title: 'date', field: 'Date', thComp: 'th-filter', sortable: true},
+      {title: 'weatherName', field: 'WeatherName'},
+      {title: 'highTemp', field: 'HighTemp'},
+      {title: 'lowTemp', field: 'LowTemp'},
+      {title: 'pm25', field: 'PM25'},
+      {title: 'wind', field: 'Wind'}
     ],
     data: [],
     total: 0,

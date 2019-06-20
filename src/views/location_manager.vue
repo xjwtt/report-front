@@ -70,10 +70,10 @@ export default {
     tblClass: 'table-bordered',
     tblStyle: 'color: #666',
     columns: [
-      {title: 'Name', field: 'Name', sortable: true},
-      {title: 'GetWeather', field: 'GetWeather', tdComp: 'td-getWeather'},
-      {title: 'Ranked', field: 'Ranked', sortable: true},
-      {title: 'Operation', tdComp: 'td-opt', visible: true}
+      {title: 'name', field: 'Name', sortable: true},
+      {title: 'get_weather', field: 'GetWeather', tdComp: 'td-getWeather'},
+      {title: 'ranked', field: 'Ranked', sortable: true},
+      {title: 'operation', tdComp: 'td-opt', visible: true}
     ],
     data: [],
     total: 0,
@@ -127,6 +127,7 @@ export default {
     },
     async loadLocationTree () {
       let rep = await this.$store.dispatch({type: 'location/locationTree'})
+      rep[0].Name = this.$t(rep[0].Name)
       this.locationTree = rep
     },
     async handleQueryChange (parentId) {

@@ -7,13 +7,13 @@
         <span>{{$t('menu_manager')}}</span>
       </div>
       <el-row :gutter="20">
-        <el-col :span="6">
+        <el-col :span="4">
           <el-tree :data="menuTree" :props="defaultProps" @node-click="handleNodeClick"
                    node-key="Id"
                    :default-expanded-keys="defaultExpandedKeys"
                    :check-on-click-node="true"></el-tree>
         </el-col>
-        <el-col :span="16">
+        <el-col :span="18">
           <datatable v-bind="$data">
             <slot>
               <div class="pull-right"
@@ -70,13 +70,14 @@ export default {
     tblClass: 'table-bordered',
     tblStyle: 'color: #666',
     columns: [
-      {title: 'Name', field: 'Name', sortable: true},
-      {title: '描述', field: 'Description'},
-      {title: '访问地址', field: 'PageUrl'},
-      {title: '图标', field: 'ImageUrl'},
-      {title: '次序', field: 'Ranked', sortable: true},
-      {title: 'Status', field: 'Visible', sortable: true, tdComp: 'td-status'},
-      {title: 'Operation', tdComp: 'td-opt', visible: true}
+      {title: 'I18Key', field: 'Name', sortable: true},
+      {title: 'name', field: 'Name', tdComp: 'td-i18n'},
+      {title: 'page_url', field: 'PageUrl'},
+      {title: 'image_url', field: 'ImageUrl'},
+      {title: 'description', field: 'Description'},
+      {title: 'ranked', field: 'Ranked', sortable: true},
+      {title: 'status', field: 'Visible', sortable: true, tdComp: 'td-status'},
+      {title: 'operation', tdComp: 'td-opt', visible: true}
     ],
     data: [],
     total: 0,

@@ -12,7 +12,7 @@
                    ref=modifyForm
                    label-width="150px"
                    class="demo-modifyForm">
-            <el-form-item :label="$t('parentName')"
+            <el-form-item :label="$t('parent_name')"
                           prop="ParentName">
               <el-input :value="$t(parentName)" :disabled="true"></el-input>
             </el-form-item>
@@ -20,7 +20,7 @@
                           prop="Name">
               <el-input v-model.trim="modifyForm.Name"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('keyName')"
+            <el-form-item :label="$t('key_name')"
                           prop="Name">
               <el-input v-model.trim="modifyForm.KeyName"></el-input>
             </el-form-item>
@@ -36,10 +36,10 @@
                           prop="Description">
               <el-input v-model.trim="modifyForm.Description"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('enabled')"
+            <el-form-item :label="$t('is_enabled')"
                           prop="Visible">
-              <el-radio v-model="modifyForm.Visible" :label="1">{{$t('menu_show')}}</el-radio>
-              <el-radio v-model="modifyForm.Visible" :label="-1">{{$t('menu_hide')}}</el-radio>
+              <el-radio v-model="modifyForm.Visible" :label="1">{{$t('start_using')}}</el-radio>
+              <el-radio v-model="modifyForm.Visible" :label="-1">{{$t('block_up')}}</el-radio>
             </el-form-item>
           </el-form>
         </el-col>

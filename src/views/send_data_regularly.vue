@@ -65,13 +65,13 @@ export default {
     tblStyle: 'color: #666',
     columns: [
       {title: 'company_name', field: 'CompanyName', thComp: 'th-filter', sortable: true},
-      {title: 'cron_type', field: 'CronType', sortable: true},
+      {title: 'Cron', field: 'CronType', sortable: true},
       {title: 'description', field: 'Description'},
       {title: 'mall_number', field: 'MallNumber'},
       {title: 'last_send_time', field: 'LastSendTime'},
       {title: 'last_send_status', field: 'LastSendStatus', tdComp: 'td-sendStatus'},
-      {title: 'enabled', field: 'Enabled', tdComp: 'td-status'},
-      {title: 'Operation', tdComp: 'td-sendRegularlyOpt', visible: true}
+      {title: 'is_enabled', field: 'Enabled', tdComp: 'td-status'},
+      {title: 'operation', tdComp: 'td-sendRegularlyOpt', visible: true}
     ],
     data: [],
     total: 0,

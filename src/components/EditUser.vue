@@ -16,7 +16,7 @@
                           prop="UserCode">
               <el-input v-model.trim="modifyForm.UserCode"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('user_company')"
+            <el-form-item :label="$t('company_name')"
                           prop="CompanyId">
               <el-select v-model.trim="modifyForm.CompanyId" filterable :placeholder="$t('please_select')">
                 <el-option v-for="company in companys"
@@ -30,7 +30,7 @@
                           prop="Name">
               <el-input v-model.trim="modifyForm.Name"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('user_role')"
+            <el-form-item :label="$t('role_name')"
                           prop="RoleId">
               <el-select v-model.trim="modifyForm.RoleId" filterable :placeholder="$t('please_select')">
                 <el-option v-for="role in roles"
@@ -113,7 +113,7 @@ export default {
           {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
         ],
         RoleId: [
-          {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
+          {required: true, message: ``, trigger: 'blur'}
         ],
         UserPwd: [
           {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}

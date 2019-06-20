@@ -82,7 +82,7 @@ export default {
       {title: 'mall_number', field: 'MallNumber'},
       {title: 'language', field: 'Language'},
       {title: 'is_lock', field: 'IsLock', sortable: true, tdComp: 'td-lock'},
-      {title: 'Operation', tdComp: 'td-userOpt', visible: true}
+      {title: 'operation', tdComp: 'td-userOpt', visible: true}
     ],
     data: [],
     total: 0,

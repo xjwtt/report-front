@@ -6,7 +6,7 @@
                :close-on-click-modal="false"
                width="70%">
       <el-tabs v-model="activeName">
-        <el-tab-pane :label="$t('camera')" name="device">
+        <el-tab-pane :label="$t('flow_device')" name="device">
           <el-row :gutter="20">
             <el-col :span="14">
               <el-form :model="modifyForm"
@@ -33,15 +33,15 @@
                               prop="DeviceName">
                   <el-input v-model.trim="modifyForm.DeviceName"></el-input>
                 </el-form-item>
-                <el-form-item :label="$t('Position')"
+                <el-form-item :label="$t('position')"
                               prop="Position">
                   <el-input v-model.trim="modifyForm.Position"></el-input>
                 </el-form-item>
-                <el-form-item :label="$t('Ip_address')"
+                <el-form-item :label="$t('IP')"
                               prop="IpAddress">
                   <el-input v-model.trim="modifyForm.IpAddress"></el-input>
                 </el-form-item>
-                <el-form-item :label="$t('SerialNumber')"
+                <el-form-item :label="$t('serial_number')"
                               prop="SerialNumber">
                   <el-input v-model.trim="modifyForm.SerialNumber"></el-input>
                 </el-form-item>
@@ -68,7 +68,7 @@
                 style="width: 100%">
                 <el-table-column
                   prop="Zone"
-                  :label="$t('Zone')">
+                  :label="$t('zone_code')">
                 </el-table-column>
                 <el-table-column
                   prop="ZoneClass"
@@ -126,7 +126,7 @@
                ref=zoneForm
                label-width="100px"
                class="demo-zoneForm">
-        <el-form-item :label="$t('zone')"
+        <el-form-item :label="$t('zone_code')"
                       prop="Zone">
           <el-input v-model.trim="zoneForm.Zone"></el-input>
         </el-form-item>

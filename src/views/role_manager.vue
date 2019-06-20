@@ -59,10 +59,10 @@ export default {
     tblClass: 'table-bordered',
     tblStyle: 'color: #666',
     columns: [
-      {title: 'CompanyName', field: 'CompanyName', thComp: 'th-filter', sortable: true},
-      {title: 'Role_name', field: 'Name', thComp: 'th-filter', sortable: true},
-      {title: 'Description', field: 'Description'},
-      {title: 'Operation', tdComp: 'td-opt', visible: true}
+      {title: 'company_name', field: 'CompanyName', thComp: 'th-filter', sortable: true},
+      {title: 'role_name', field: 'Name', thComp: 'th-filter', sortable: true},
+      {title: 'description', field: 'Description'},
+      {title: 'operation', tdComp: 'td-opt', visible: true}
     ],
     data: [],
     total: 0,
