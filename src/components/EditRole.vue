@@ -12,7 +12,7 @@
                    ref=modifyForm
                    label-width="150px"
                    class="demo-modifyForm">
-            <el-form-item :label="$t('Company')" prop="CompanyId">
+            <el-form-item :label="$t('company_name')" prop="CompanyId">
               <el-select v-model.trim="modifyForm.CompanyId"
                          filterable
                          placeholder="...">
@@ -27,7 +27,7 @@
                           prop="Name">
               <el-input v-model.trim="modifyForm.Name"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('role_description')"
+            <el-form-item :label="$t('description')"
                           prop="Description">
               <el-input v-model.trim="modifyForm.Description"></el-input>
             </el-form-item>
@@ -93,10 +93,20 @@ export default {
     },
     async roleMenu (roleId) {
       let rep = await this.$store.dispatch({type: 'role/roleMenu', data: {Id: roleId}})
+      this.converI18n(rep.menuTree)
       this.menuTree = rep.menuTree
       this.menuSelect = _.map(rep.menuSelect, function (it) {
         if (it.TreeShow === 1) {
           return it.MenuId
+        }
+      })
+    },
+    converI18n (menuTree) {
+      let that = this
+      _.map(menuTree, function (item) {
+        item.Name = that.$t(item.Name)
+        if (item.children) {
+          that.converI18n(item.children)
         }
       })
     },

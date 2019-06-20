@@ -58,11 +58,11 @@ export default {
     tblStyle: 'color: #666',
     columns: [
       // { title: 'ID', field: 'Id', sortable: true },
-      {title: 'CompanyName', field: 'CompanyName', sortable: true},
+      {title: 'company_name', field: 'CompanyName', sortable: true},
       {title: 'I18Key', field: 'Title', thComp: 'th-filter'},
-      {title: 'Name', field: 'Title', tdComp: 'td-i18n'},
-      {title: 'Ranked', field: 'Ranked', thComp: 'th-filter', sortable: true},
-      {title: 'Operation', tdComp: 'td-opt', visible: true}
+      {title: 'name', field: 'Title', tdComp: 'td-i18n'},
+      {title: 'ranked', field: 'Ranked', thComp: 'th-filter', sortable: true},
+      {title: 'operation', tdComp: 'td-opt', visible: true}
     ],
     data: [],
     total: 0,

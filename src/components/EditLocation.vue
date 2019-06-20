@@ -12,19 +12,19 @@
                    ref=modifyForm
                    label-width="150px"
                    class="demo-modifyForm">
-            <el-form-item :label="$t('location_parentName')"
+            <el-form-item :label="$t('parent_name')"
                           prop="ParentName">
               <el-input v-model.trim="parentName" :disabled="true"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('location_name')"
+            <el-form-item :label="$t('name')"
                           prop="Name">
               <el-input v-model.trim="modifyForm.Name"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('location_ranked')"
+            <el-form-item :label="$t('ranked')"
                           prop="Rank">
               <el-input-number v-model.trim="modifyForm.Ranked"></el-input-number>
             </el-form-item>
-            <el-form-item :label="$t('location_getWeather')"
+            <el-form-item :label="$t('get_weather')"
                           prop="GetWeather">
               <el-radio v-model="modifyForm.GetWeather" :label="1">{{$t('acquire')}}</el-radio>
               <el-radio v-model="modifyForm.GetWeather" :label="-1">{{$t('not_acquire')}}</el-radio>

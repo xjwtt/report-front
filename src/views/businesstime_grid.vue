@@ -28,14 +28,14 @@ export default {
     tblClass: 'table-bordered',
     tblStyle: 'color: #666',
     columns: [
-      {title: 'MallName', field: 'MallName', thComp: 'th-filter', sortable: true},
-      {title: 'TimeTypeName', field: 'TimeTypeName', sortable: true},
-      {title: 'StartDate', field: 'StartDate', sortable: true},
-      {title: 'StartTime', field: 'StartTime', sortable: true},
-      {title: 'EndDate', field: 'EndDate', sortable: true},
-      {title: 'EndTime', field: 'EndTime', sortable: true},
-      {title: 'Weekdays', field: 'Weekdays'},
-      {title: 'Description', field: 'BusinessDescription'}
+      {title: 'mall_name', field: 'MallName', thComp: 'th-filter', sortable: true},
+      {title: 'time_type_name', field: 'TimeTypeName', sortable: true},
+      {title: 'start_date', field: 'StartDate', sortable: true},
+      {title: 'start_time', field: 'StartTime', sortable: true},
+      {title: 'end_date', field: 'EndDate', sortable: true},
+      {title: 'end_time', field: 'EndTime', sortable: true},
+      {title: 'weekdays', field: 'Weekdays'},
+      {title: 'description', field: 'BusinessDescription'}
     ],
     data: [],
     total: 0,

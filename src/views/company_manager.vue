@@ -60,8 +60,8 @@ export default {
     tblStyle: 'color: #666',
     columns: [
       {title: 'company_name', field: 'Name', thComp: 'th-filter', sortable: true},
-      {title: 'Status', field: 'Status', sortable: true, tdComp: 'td-status'},
-      {title: 'Operation', tdComp: 'td-opt', visible: true}
+      {title: 'status', field: 'Status', sortable: true, tdComp: 'td-status'},
+      {title: 'operation', tdComp: 'td-opt', visible: true}
     ],
     data: [],
     total: 0,

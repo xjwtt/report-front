@@ -14,68 +14,67 @@
                    class="demo-modifyForm">
             <el-tabs v-model="activeName">
 
-              <el-tab-pane name="基本配置"
-                           label="基本配置">
-                <el-form-item label="插件名称"
+              <el-tab-pane name="BasicConfig"
+                           :label="$t('basic_config')">
+                <el-form-item :label="$t('plug_name')"
                               prop="Title">
                   <el-input v-model.trim="modifyForm.Title"></el-input>
                 </el-form-item>
-                <el-form-item label="详情链接"
+                <el-form-item :label="$t('detail_link')"
                               prop="DetailLink"
                               class="insertHtml">
                   <el-input type="textarea"
                             v-model="modifyForm.DetailLink"></el-input>
                 </el-form-item>
-                <el-form-item label="最小宽度"
+                <el-form-item :label="$t('min_width')"
                               prop="minW">
                   <el-input v-model="modifyForm.minW"
                             placeholder="X"></el-input>
                 </el-form-item>
-                <el-form-item label="最小高度"
+                <el-form-item :label="$t('min_height')"
                               prop="minH">
                   <el-input v-model="modifyForm.minH"
                             placeholder="Y"></el-input>
                 </el-form-item>
 
-                <el-form-item label="是否手动刷新"
+                <el-form-item :label="$t('manual_refresh')"
                               prop="ReflashButton">
                   <el-switch v-model="modifyForm.ReflashButton"
-                             active-text="是"
-                             inactive-text="否">
+                             :active-text="$t('yes')"
+                             :inactive-text="$t('not')">
                   </el-switch>
                 </el-form-item>
-                <el-form-item label="自动刷新时间"
+                <el-form-item :label="$t('refresh_interval')"
                               prop="ReflashInterval">
                   <el-input v-model.trim="modifyForm.ReflashInterval"></el-input>
                 </el-form-item>
-                <el-form-item label="排序"
+                <el-form-item :label="$t('ranked')"
                               prop="Ranked">
                   <el-input-number v-model="modifyForm.Ranked"
                                    placeholder="Y"></el-input-number>
                 </el-form-item>
               </el-tab-pane>
-              <el-tab-pane name="默认显示"
-                           label="默认显示">
-                <codemirror v-if="activeName==='默认显示'"
+              <el-tab-pane name="DefalutDisplay"
+                           :label="$t('default_display')">
+                <codemirror v-if="activeName==='DefalutDisplay'"
                             v-model="modifyForm.DefaultDisplayData"
                             :options="{mode:'javascript',lineNumbers: true}"></codemirror>
               </el-tab-pane>
-              <el-tab-pane name="显示模板"
-                           label="显示模板">
-                <codemirror v-if="activeName==='显示模板'"
+              <el-tab-pane name="DisplayTemplate"
+                           :label="$t('display_template')">
+                <codemirror v-if="activeName==='DisplayTemplate'"
                             v-model="modifyForm.Code"
                             :options="{mode:'htmlembedded',lineNumbers: true}"></codemirror>
               </el-tab-pane>
-              <el-tab-pane name="请求参数"
-                           label="请求参数">
-                <codemirror v-if="activeName==='请求参数'"
+              <el-tab-pane name="RequestParam"
+                           :label="$t('request_param')">
+                <codemirror v-if="activeName==='RequestParam'"
                             v-model="modifyForm.QueryArgs"
                             :options="{mode:'javascript',lineNumbers: true}"></codemirror>
               </el-tab-pane>
-              <el-tab-pane name="数据处理"
-                           label="数据处理">
-                <codemirror v-if="activeName==='数据处理'"
-                            name="数据处理"
+              <el-tab-pane name="DataProcessing"
+                           :label="data_processing">
+                <codemirror v-if="activeName==='DataProcessing'"
                             v-model="modifyForm.ResultProcessor"
                             :options="{mode:'javascript',lineNumbers: true}"></codemirror>
               </el-tab-pane>
@@ -84,8 +83,8 @@
         </el-col>
         <el-col :span="8">
           <custom-widget style="width:300px;height:500px"
-                        v-bind="modifyForm"
-                        layoutMode></custom-widget>
+                         v-bind="modifyForm"
+                         layoutMode></custom-widget>
         </el-col>
       </el-row>
     </template>
@@ -107,11 +106,11 @@ require('codemirror/mode/javascript/javascript')
 
 let validateSize = (rule, value, callback) => {
   if (value === '' || value === null) {
-    return callback(new Error('请输入尺寸'))
+    return callback(new Error(this.$t('please_enter_the_dimensions')))
   } else if (value === '0') {
-    return callback(new Error('尺寸必须是大于0'))
+    return callback(new Error(this.$t('size_must_be_greater_than_0')))
   } else if (!/^([0-9]+)$/.test(value)) {
-    return callback(new Error('请输入合法字符'))
+    return callback(new Error(this.$t('please_enter_legitimate_characters')))
   } else {
     callback()
   }
@@ -136,29 +135,41 @@ export default {
   data () {
     return {
       dialogVisible: false,
-      activeName: '基本配置',
+      activeName: 'BasicConfig',
       modifyForm: defaultForm(),
       rules: {
         Title: [
-          {required: true, message: '请输入插件名称', trigger: 'blur'}
+          {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
         ],
         Code: [
-          {required: true, message: '请填入代码', trigger: 'blur'}
+          {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
         ],
         DefaultDisplayData: [
-          {required: true, message: '请配置默认显示数据', trigger: 'blur'}
+          {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
         ],
         QueryArgs: [
-          {required: true, message: '请配置参数', trigger: 'blur'}
+          {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
         ],
         minH: [
-          {validator: validateSize, required: true, type: 'number', trigger: 'blur'}
+          {
+            validator: validateSize,
+            required: true,
+            type: 'number',
+            message: this.$t('please_fill_in_the_value'),
+            trigger: 'blur'
+          }
         ],
         minW: [
-          {validator: validateSize, required: true, type: 'number', trigger: 'blur'}
+          {
+            validator: validateSize,
+            required: true,
+            type: 'number',
+            message: this.$t('please_fill_in_the_value'),
+            trigger: 'blur'
+          }
         ],
         Ranked: [
-          {required: true, type: 'number', trigger: 'blur'}
+          {required: true, type: 'number', message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
         ]
       }
     }
@@ -170,7 +181,8 @@ export default {
         this.$refs['modifyForm'].resetFields()
       })
       this.modifyForm = form ? Object.assign({}, form) : defaultForm()
-    },
+    }
+    ,
     async submitForm (formName) {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
@@ -182,11 +194,13 @@ export default {
         }
       })
     }
-  },
+  }
+  ,
   components: {
     customWidget,
     codemirror
-  },
+  }
+  ,
   mounted () {
   }
 }

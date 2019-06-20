@@ -66,12 +66,12 @@ export default {
       {title: 'mall_name', field: 'Name', thComp: 'th-filter', sortable: true},
       {title: 'timezone', field: 'TimeZone', thComp: 'th-filter', sortable: true},
       {title: 'location', field: 'MallLocation', thComp: 'th-filter', sortable: true},
-      {title: 'MallCode', field: 'MallCode', thComp: 'th-filter', sortable: true},
-      {title: 'ClerkNumber', field: 'ClerkNumber', sortable: true},
-      {title: 'OperationAcreage', field: 'OperationAcreage', sortable: true},
-      {title: 'Ranked', field: 'Ranked', sortable: true},
-      {title: 'Enabled', field: 'Enabled', sortable: true, tdComp: 'td-status'},
-      {title: 'Operation', tdComp: 'td-opt', visible: true}
+      {title: 'mall_code', field: 'MallCode', thComp: 'th-filter', sortable: true},
+      {title: 'clerk_number', field: 'ClerkNumber', sortable: true},
+      {title: 'operation_acreage', field: 'OperationAcreage', sortable: true},
+      {title: 'ranked', field: 'Ranked', sortable: true},
+      {title: 'enabled', field: 'Enabled', sortable: true, tdComp: 'td-status'},
+      {title: 'operation', tdComp: 'td-opt', visible: true}
     ],
     data: [],
     total: 0,

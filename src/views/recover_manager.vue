@@ -13,12 +13,12 @@
                        label-width="150px"
                        class="demo-modifyForm">
                 <el-col>
-                  <el-form-item :label="$t('Time')"
+                  <el-form-item :label="$t('date_range')"
                                 prop="date">
                     <el-date-picker
                       v-model="recover.date"
                       type="daterange"
-                      :range-separator="$t('to')"
+                      :range-separator="'-'"
                       :start-placeholder="$t('start_date')"
                       :end-placeholder="$t('end_date')">
                     </el-date-picker>
@@ -61,12 +61,12 @@
                        label-width="150px"
                        class="demo-modifyForm">
                 <el-col>
-                  <el-form-item :label="$t('Time')"
+                  <el-form-item :label="$t('date_range')"
                                 prop="date">
                     <el-date-picker
                       v-model="businessTime.date"
                       type="daterange"
-                      :range-separator="$t('to')"
+                      :range-separator="'-'"
                       :start-placeholder="$t('start_date')"
                       :end-placeholder="$t('end_date')">
                     </el-date-picker>

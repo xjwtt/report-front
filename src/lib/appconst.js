@@ -160,7 +160,7 @@ const shortcutsDay = [
     }
   },
   {
-    text: 'last_momnt',
+    text: 'last_month',
     onClick (picker) {
       picker.$emit('pick', [
         moment()
@@ -323,7 +323,7 @@ const weekMonths = [
     }
   },
   {
-    text: 'last_momnt',
+    text: 'last_month',
     onClick (picker) {
       picker.$emit('pick', [
         moment()

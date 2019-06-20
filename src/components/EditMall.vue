@@ -16,7 +16,7 @@
                           prop="Name">
               <el-input v-model.trim="modifyForm.Name"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('Company')" prop="CompanyId">
+            <el-form-item :label="$t('company_name')" prop="CompanyId">
               <el-select v-model.trim="modifyForm.CompanyId"
                          filterable
                          placeholder="...">
@@ -27,7 +27,7 @@
                 </el-option>
               </el-select>
             </el-form-item>
-            <el-form-item :label="$t('ProvinceId')" prop="ProvinceId">
+            <el-form-item :label="$t('province')" prop="ProvinceId">
               <el-select v-model.trim="modifyForm.ProvinceId"
                          filterable
                          placeholder="...">
@@ -39,7 +39,7 @@
                 </el-option>
               </el-select>
             </el-form-item>
-            <el-form-item :label="$t('CityId')" prop="CityId">
+            <el-form-item :label="$t('city')" prop="CityId">
               <el-select v-model.trim="modifyForm.CityId"
                          filterable
                          placeholder="...">
@@ -51,7 +51,7 @@
                 </el-option>
               </el-select>
             </el-form-item>
-            <el-form-item :label="$t('DistrictId')" prop="DistrictId">
+            <el-form-item :label="$t('district')" prop="DistrictId">
               <el-select v-model.trim="modifyForm.DistrictId"
                          filterable
                          placeholder="...">
@@ -63,7 +63,7 @@
                 </el-option>
               </el-select>
             </el-form-item>
-            <el-form-item :label="$t('TimeZone')" prop="TimeZone">
+            <el-form-item :label="$t('timezone')" prop="TimeZone">
               <el-select v-model.trim="modifyForm.TimeZone"
                          filterable
                          placeholder="...">
@@ -75,19 +75,19 @@
                 </el-option>
               </el-select>
             </el-form-item>
-            <el-form-item :label="$t('ClerkNumber')"
+            <el-form-item :label="$t('clerk_number')"
                           prop="ClerkNumber">
               <el-input v-model.trim="modifyForm.ClerkNumber"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('OperationAcreage')"
+            <el-form-item :label="$t('operation_acreage')"
                           prop="OperationAcreage">
               <el-input v-model.trim="modifyForm.OperationAcreage"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('MallCode')"
+            <el-form-item :label="$t('mall_code')"
                           prop="MallCode">
               <el-input v-model.trim="modifyForm.MallCode"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('Ranked')"
+            <el-form-item :label="$t('ranked')"
                           prop="Ranked">
               <el-input-number v-model.trim="modifyForm.Ranked"></el-input-number>
             </el-form-item>

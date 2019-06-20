@@ -40,7 +40,7 @@
                 </el-option>
               </el-select>
             </el-form-item>
-            <el-form-item :label="$t('Ranked')"
+            <el-form-item :label="$t('ranked')"
                           prop="Ranked">
               <el-input-number v-model="modifyForm.Ranked"></el-input-number>
             </el-form-item>

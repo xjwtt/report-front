@@ -20,7 +20,7 @@
                           prop="DeviceId">
               <el-input v-model.number="modifyForm.DeviceId" readonly></el-input>
             </el-form-item>
-            <el-form-item :label="$t('zone')"
+            <el-form-item :label="$t('zone_code')"
                           prop="Zone">
               <el-input v-model.number="modifyForm.Zone"></el-input>
             </el-form-item>

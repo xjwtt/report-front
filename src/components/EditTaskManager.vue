@@ -14,19 +14,19 @@
                    class="demo-modifyForm">
             <el-tabs v-model="activeName">
               <el-tab-pane label="base" name="base">
-                <el-form-item :label="$t('jobGroup')" prop="jobGroup">
+                <el-form-item :label="$t('job_group')" prop="jobGroup">
                   <el-input v-model.trim="modifyForm.jobGroup"></el-input>
                 </el-form-item>
-                <el-form-item :label="$t('jobName')" prop="jobName">
+                <el-form-item :label="$t('job_name')" prop="jobName">
                   <el-input v-model.trim="modifyForm.jobName"></el-input>
                 </el-form-item>
-                <el-form-item :label="$t('methodName')" prop="methodName">
+                <el-form-item :label="$t('method_name')" prop="methodName">
                   <el-input v-model.trim="modifyForm.methodName"></el-input>
                 </el-form-item>
-                <el-form-item :label="$t('cron')" prop="cron">
+                <el-form-item :label="$t('Cron')" prop="cron">
                   <el-input v-model.trim="modifyForm.cron"></el-input>
                 </el-form-item>
-                <el-form-item :label="$t('springId')" prop="springId">
+                <el-form-item :label="$t('SpringId')" prop="springId">
                   <el-input v-model.trim="modifyForm.springId"></el-input>
                 </el-form-item>
                 <el-form-item :label="$t('description')" prop="description">
@@ -34,9 +34,9 @@
                 </el-form-item>
                 <el-form-item :label="$t('status')"
                               prop="status">
-                  <el-radio v-model="modifyForm.status" :label="1">{{$t('NORMAL')}}</el-radio>
-                  <el-radio v-model="modifyForm.status" :label="0">{{$t('PAUSE')}}</el-radio>
-                  <el-radio v-model="modifyForm.status" :label="-1">{{$t('DELETE')}}</el-radio>
+                  <el-radio v-model="modifyForm.status" :label="1">{{$t('normal')}}</el-radio>
+                  <el-radio v-model="modifyForm.status" :label="0">{{$t('pause')}}</el-radio>
+                  <el-radio v-model="modifyForm.status" :label="-1">{{$t('delete')}}</el-radio>
                 </el-form-item>
               </el-tab-pane>
               <el-tab-pane label="otherMessage" name="otherMessage">

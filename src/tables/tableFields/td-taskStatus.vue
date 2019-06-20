@@ -11,11 +11,11 @@ export default {
     show () {
       switch (this.value) {
         case 1:
-          return 'NORMAL'
+          return this.$t('normal')
         case 0:
-          return 'PAUSE'
+          return this.$t('pause')
         case -1:
-          return 'DELETE'
+          return this.$t('delete')
       }
     },
     type () {

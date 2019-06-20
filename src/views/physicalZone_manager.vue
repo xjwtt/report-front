@@ -18,7 +18,7 @@
                        :value="item.Id">
             </el-option>
           </el-select>
-          <span>{{$t('physicalZone_name')}}:</span>
+          <span>{{$t('physical_name')}}:</span>
           <el-select v-model.trim="modifyForm.PhysicalZoneId"
                      filterable
                      placeholder="...">
@@ -28,7 +28,7 @@
                        :value="item.Id">
             </el-option>
           </el-select>
-          <span>{{$t('cameraZone_name')}}:</span>
+          <span>{{$t('camera_zone_name')}}:</span>
           <el-select v-model.trim="modifyForm.CameraZoneId"
                      filterable
                      placeholder="...">
@@ -95,16 +95,16 @@ export default {
       activeName: 'already',
       query: {},
       physicalColums: [
-        {title: 'DeviceId#Zone', field: 'Name'},
-        {title: 'ZoneClass', field: 'ZoneClass'},
-        {title: 'Reverse', field: 'Reverse', tdComp: 'td-reverse'},
-        {title: 'Operation', tdComp: 'td-moveopt', visible: true}
+        {title: 'device#zone', field: 'Name'},
+        {title: 'zone_class', field: 'ZoneClass'},
+        {title: 'direction', field: 'Reverse', tdComp: 'td-reverse'},
+        {title: 'operation', tdComp: 'td-moveopt', visible: true}
       ],
       cameraZoneColums: [
-        {title: 'Name', field: 'Name'},
-        {title: 'ZoneTypeName', field: 'ZoneTypeName'},
-        {title: 'Reverse', field: 'Reverse', tdComp: 'td-reverse'},
-        {title: 'Operation', tdComp: 'td-moveopt', visible: true}
+        {title: 'name', field: 'Name'},
+        {title: 'zone_type_name', field: 'ZoneTypeName', tdComp: 'td-i18n'},
+        {title: 'direction', field: 'Reverse', tdComp: 'td-reverse'},
+        {title: 'operation', tdComp: 'td-moveopt', visible: true}
       ],
       alreadyColumns: [],
       alreadyData: [],

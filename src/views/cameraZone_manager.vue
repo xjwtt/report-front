@@ -56,11 +56,12 @@ export default {
     tblClass: 'table-bordered',
     tblStyle: 'color: #666',
     columns: [
-      {title: 'MallName', field: 'MallName', thComp: 'th-filter', sortable: true},
-      {title: 'camera_zone', field: 'DeviceIdZone'},
-      {title: 'ZoneClass', field: 'ZoneClass', thComp: 'th-filter', sortable: true},
-      {title: 'Enabled', field: 'Enabled', sortable: true, tdComp: 'td-status'},
-      {title: 'Operation', tdComp: 'td-opt', visible: true}
+      {title: 'mall_name', field: 'MallName', thComp: 'th-filter', sortable: true},
+      {title: 'device#zone', field: 'DeviceIdZone'},
+      {title: 'I18Key', field: 'ZoneClass', thComp: 'th-filter', sortable: true},
+      {title: 'zone_class', field: 'ZoneClass', tdComp: 'td-i18n'},
+      {title: 'enabled', field: 'Enabled', sortable: true, tdComp: 'td-status'},
+      {title: 'operation', tdComp: 'td-opt', visible: true}
     ],
     data: [],
     total: 0,
