@@ -181,8 +181,7 @@ export default {
         this.$refs['modifyForm'].resetFields()
       })
       this.modifyForm = form ? Object.assign({}, form) : defaultForm()
-    }
-    ,
+    },
     async submitForm (formName) {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
@@ -194,13 +193,11 @@ export default {
         }
       })
     }
-  }
-  ,
+  },
   components: {
     customWidget,
     codemirror
-  }
-  ,
+  },
   mounted () {
   }
 }
