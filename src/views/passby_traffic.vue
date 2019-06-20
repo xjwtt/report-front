@@ -49,8 +49,7 @@ export default {
       data: null,
       charTypes: ['Enter', 'Passby', 'EnteringRate'],
       zoneTypes: ['MallShop'],
-      reportType: [1, 'DateTime'],
-      fixedHeader: ['WeatherName', 'Temp']
+      reportType: [1, 'DateTime']
     }
   },
   methods: {
@@ -71,6 +70,15 @@ export default {
     }
   },
   computed: {
+    fixedHeader () {
+      let timeInterval = this.$store.state.app.timeInterval.key
+      switch (timeInterval) {
+        case '1d':
+          return ['WeatherName', 'Temp']
+        default:
+          return []
+      }
+    },
     columnsInit () {
       return ['location']
     },

@@ -225,7 +225,7 @@ export default {
   than_yesterday: '昨日より',
   site_scope: 'サイトスコープ',
   selected: '選択した',
-  unchecked: '選択されていません',
+  unchecked: '未確認の',
   log_out: 'ログアウト',
   modify_password: 'パスワードを変更する',
   case_field: '事件現場',

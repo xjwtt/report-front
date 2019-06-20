@@ -60,8 +60,7 @@ export default {
       zoneTypes: ['Entrance', 'Domain', 'Floor', 'Corridor'],
       data: null,
       reportType: [0, 'DateTime'],
-      chartType: 'Enter',
-      fixedHeader: ['WeatherName', 'Temp']
+      chartType: 'Enter'
     }
   },
   methods: {
@@ -102,6 +101,15 @@ export default {
     }
   },
   computed: {
+    fixedHeader () {
+      let timeInterval = this.$store.state.app.timeInterval.key
+      switch (timeInterval) {
+        case '1d':
+          return ['WeatherName', 'Temp']
+        default:
+          return []
+      }
+    },
     columnsInit () {
       return ['location']
     },

@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import Vue from 'vue'
+
 export default {
   name: 'camerastatus_manager',
   data: () => ({
@@ -43,7 +45,10 @@ export default {
     data: [],
     total: 0,
     query: {CameraStatus: '正常'},
-    selection: []
+    selection: [],
+    xprops: {
+      eventbus: new Vue()
+    }
   }),
   methods: {
     async handleQueryChange () {
