@@ -68,7 +68,7 @@
                     <el-form-item :label="$t('start_time')" prop="SourceStartTime">
                       <el-time-select
                         v-model="copyDataForm.SourceStartTime"
-                        :range-separator="$t('to')"
+                        range-separator="-"
                         :picker-options="{
                             start: '00:00',
                             step: '00:05',
@@ -82,7 +82,7 @@
                     <el-form-item :label="$t('end_time')" prop="SourceEndTime">
                       <el-time-select
                         v-model="copyDataForm.SourceEndTime"
-                        :range-separator="$t('to')"
+                        range-separator="-"
                         :picker-options="{
                             start: '00:00',
                             step: '00:05',

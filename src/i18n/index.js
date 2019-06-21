@@ -11,7 +11,7 @@ import language from '@/lib/language'
 //   defaultLanguage = jsLanguage.substr(0, jsLanguage.indexOf('-'))
 // }
 let defaultLanguage = language.defaultLanguage
-const allLanguage = {'zh': 1, 'en': 1, 'ja': 1}
+const allLanguage = {'zh-cn': 1, 'en': 1, 'ja': 1}
 // 如果默认没有语言就选择 en
 if (!allLanguage[defaultLanguage]) {
   defaultLanguage = 'en'
@@ -20,7 +20,7 @@ Vue.use(VueI18n)
 const i18n = new VueI18n({
   locale: defaultLanguage,
   messages: {
-    'zh': require('./lang/zh-CN').default,
+    'zh-cn': require('./lang/zh-cn').default,
     'en': require('./lang/en').default,
     'ja': require('./lang/Ja').default
   }

@@ -29,7 +29,7 @@ export default {
     tblStyle: 'color: #666',
     columns: [
       {title: 'mall_name', field: 'MallName', thComp: 'th-filter', sortable: true},
-      {title: 'time_type_name', field: 'TimeTypeName', sortable: true},
+      {title: 'time_type_name', field: 'TimeTypeName', sortable: true, tdComp: 'td-i18n'},
       {title: 'start_date', field: 'StartDate', sortable: true},
       {title: 'start_time', field: 'StartTime', sortable: true},
       {title: 'end_date', field: 'EndDate', sortable: true},

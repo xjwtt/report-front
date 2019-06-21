@@ -7,13 +7,13 @@
         <span>{{$t('category_manager')}}</span>
       </div>
       <el-row :gutter="20">
-        <el-col :span="6">
+        <el-col :span="4">
           <el-tree :data="categroyTree" :props="defaultProps" @node-click="handleNodeClick"
                    node-key="Id"
                    :default-expanded-keys="defaultExpandedKeys"
                    :check-on-click-node="true"></el-tree>
         </el-col>
-        <el-col :span="16">
+        <el-col :span="18">
           <datatable v-bind="$data">
             <slot>
               <div class="pull-right"

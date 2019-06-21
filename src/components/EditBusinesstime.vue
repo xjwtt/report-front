@@ -201,6 +201,9 @@ export default {
         type: 'category/selectCategoryByKeyName',
         data: {KeyName: 'BusinessTimeType'}
       })
+      rep.forEach((v) => {
+        v.Name = this.$t(v.Name)
+      })
       this.businessTimeTypes = rep
     }
   },

@@ -16,7 +16,7 @@
                           prop="ParentName">
               <el-input :value="$t(parentName)" :disabled="true"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('name')"
+            <el-form-item :label="$t('I18Key')"
                           prop="Name">
               <el-input v-model.trim="modifyForm.Name"></el-input>
             </el-form-item>

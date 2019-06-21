@@ -80,7 +80,7 @@ export default {
       {title: 'role_name', field: 'RoleName', thComp: 'th-filter', sortable: true},
       {title: 'user_email', field: 'Email'},
       {title: 'mall_number', field: 'MallNumber'},
-      {title: 'language', field: 'Language'},
+      {title: 'language', field: 'Language', tdComp: 'td-i18n'},
       {title: 'is_lock', field: 'IsLock', sortable: true, tdComp: 'td-lock'},
       {title: 'operation', tdComp: 'td-userOpt', visible: true}
     ],

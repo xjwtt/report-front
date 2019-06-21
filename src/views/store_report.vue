@@ -5,7 +5,7 @@
                       type="daterange"
                       align="right"
                       unlink-panels
-                      :range-separator="$t('to')"
+                      range-separator="-"
                       :start-placeholder="$t('start_date')"
                       :end-placeholder="$t('end_date')"
                       :picker-options="pickerOptions">
