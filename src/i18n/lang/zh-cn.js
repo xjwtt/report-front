@@ -446,5 +446,19 @@ export default {
   method_name: '方法名',
   pause: '暂停',
   last_send_time: '最后发送时间',
-  last_send_status: '最后发送状态'
+  last_send_status: '最后发送状态',
+
+  zone_types: '物理区域类型',
+  language_type: '语言类型',
+  activity_holidays_type: '活动节假日类型',
+  business_time_type: '营业时间类型',
+  chinese_festivals: '中国节日',
+  weatern_festivals: '西方节日',
+  create_festivals: '创造节日',
+  special_type: '特殊类型',
+  ordinary_type: '普通类型',
+  auto: '自动',
+  'zh-cn': '简体中文',
+  en: '英语',
+  ja: '日语'
 }

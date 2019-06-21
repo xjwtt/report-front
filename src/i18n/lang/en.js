@@ -446,5 +446,19 @@ export default {
   method_name: 'MethodName',
   pause: 'Pause',
   last_send_time: 'LastSendTime',
-  last_send_status: 'LastSendStatus'
+  last_send_status: 'LastSendStatus',
+
+  zone_types: 'ZoneTypes',
+  language_type: 'LanguageType',
+  activity_holidays_type: 'ActivityHolidaysType',
+  business_time_type: 'BusinessTimeType',
+  chinese_festivals: 'ChineseFestivals',
+  weatern_festivals: 'WeaternFestivals',
+  create_festivals: 'CreateFestivals',
+  special_type: 'SpecialType',
+  ordinary_type: 'OrdinaryType',
+  auto: 'Auto',
+  'zh-cn': 'SimplifiedChinese',
+  en: 'English',
+  ja: 'Japanese'
 }

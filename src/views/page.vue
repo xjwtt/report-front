@@ -227,6 +227,9 @@ export default {
     },
     async selectCategoryByKeyName () {
       let rep = await this.$store.dispatch({type: 'category/selectCategoryByKeyName', data: {KeyName: 'LanguageType'}})
+      _.each(rep, (v) => {
+        v.Name = this.$t(v.Name)
+      })
       this.languageTypes = rep
     }
   },

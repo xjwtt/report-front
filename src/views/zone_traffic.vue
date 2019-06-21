@@ -52,13 +52,11 @@ export default {
     data: null,
     reportType: [1, 'DateTime'],
     chartType: 'Enter',
-    charTypes: ['Enter', 'Exit', 'Stay'],
-    fixedHeader: ['Picture', 'WeatherName', 'Temp']
+    charTypes: ['Enter', 'Exit']
   }),
   methods: {
     ...mapActions('report', ['query']),
     async onQuery () {
-      console.log(this.$refs.zoneSelector.zoneIds)
       this.data = await this.query({
         'report': {
           dateFields: ['Enter', 'Exit', 'Stay', 'HighTemp', 'LowTemp', 'WeatherName'],
@@ -74,6 +72,15 @@ export default {
     }
   },
   computed: {
+    fixedHeader () {
+      let timeInterval = this.$store.state.app.timeInterval.key
+      switch (timeInterval) {
+        case '1d':
+          return ['Picture', 'WeatherName', 'Temp']
+        default:
+          return []
+      }
+    },
     columnsInit () {
       return ['location']
     },
