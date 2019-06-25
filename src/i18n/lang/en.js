@@ -46,6 +46,7 @@ export default {
   event_analysis: 'Event Analysis',
   face_analysis: 'Face Analysis',
   zone_face_analysis: 'Zone Face Analysis',
+  show_case_analysis: 'Show Case Analysis',
 
   system_setting: 'System Setting',
   area_setting: 'Area Setting',
@@ -258,6 +259,13 @@ export default {
   stay: 'Stay',
   passby: 'Passby',
   enteringRate: 'EnteringRate',
+  entranceCount: 'EntranceFlow',
+  passCount: 'ShowcaseFlow',
+  stayCount: 'AttractFlow',
+  secondsCount: 'TotalStay',
+  displayRate: 'DisplayRate',
+  attractionRate: 'AttractionRate',
+  averageStay: 'AverageStay',
   fitting: 'Fitting',
   fittingRate: 'FittingRate',
   convertRate: 'ConvertRate',
@@ -381,6 +389,10 @@ export default {
   mallname_already_exists: 'MallName Already Exists!',
   the_old_password_is_incorrect: 'The Old Password Is Incorrect!',
   unknown_exception_please_contact_administrator: 'Unknown exception, please contact administrator!',
+
+  show_case_strength: 'Show Case Strength',
+  show_case_strength_table: 'Show Case Strength Table',
+  location_of_show_case: 'LocationOfShowCase',
 
   user_code: 'Login Name',
   role_name: 'RoleName',

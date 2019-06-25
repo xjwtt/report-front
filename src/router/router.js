@@ -50,6 +50,7 @@ export const allRouters = {
   site_peak_time: () => import('@/views/site_peak_time'),
   zone_peak_time: () => import('@/views/zone_peak_time'),
   weather_analysis: () => import('@/views/weather_analysis'),
+  show_case_analysis: () => import('@/views/show_case_analysis'),
   send_data_regularly: () => import('@/views/send_data_regularly'),
   zone_face_analysis: () => import('@/views/zone_face_analysis'),
   category_manager: () => import('@/views/category_manager')

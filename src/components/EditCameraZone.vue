@@ -6,7 +6,7 @@
              width="70%">
     <template>
       <el-row :gutter="20">
-        <el-col :span="14">
+        <el-col :span="18">
           <el-form :model="modifyForm"
                    :rules="rules"
                    ref=modifyForm

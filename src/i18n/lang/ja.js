@@ -46,6 +46,7 @@ export default {
   event_analysis: 'イベント分析',
   face_analysis: '顔認識分析',
   zone_face_analysis: 'ゾーン顔認識分析',
+  show_case_analysis: 'ショーケース分析',
 
   system_setting: 'システム設定',
   area_setting: 'エリア設定',
@@ -258,6 +259,13 @@ export default {
   stay: '滞留',
   passby: '通行人数',
   enteringRate: '入店率',
+  entranceCount: '出入口人数',
+  passCount: 'ショーケース人数',
+  stayCount: '吸引人数',
+  secondsCount: '合計滞在する',
+  displayRate: '表示率',
+  attractionRate: '吸引率',
+  averageStay: '平均滞在する',
   fitting: '試着',
   fittingRate: '試着率',
   convertRate: '変換率',
@@ -381,6 +389,10 @@ export default {
   mallname_already_exists: 'モール名はすでに存在します！',
   the_old_password_is_incorrect: '古いパスワードが間違っている！',
   unknown_exception_please_contact_administrator: '不明な例外は、管理者に連絡してください！',
+
+  show_case_strength: 'ショーケースの強さ',
+  show_case_strength_table: 'ショーケースの強さ分析表',
+  location_of_show_case: 'ショーケースの位置',
 
   user_code: 'ログイン名',
   role_name: 'キャラクター名',

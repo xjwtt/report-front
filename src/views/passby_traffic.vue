@@ -174,11 +174,6 @@ export default {
           type: 'line',
           silent: true,
           yAxisIndex: 1,
-          itemStyle: {
-            normal: {
-              color: '#724e58'
-            }
-          },
           data: yEnteringRate,
           markPoint: {
             data: [{
