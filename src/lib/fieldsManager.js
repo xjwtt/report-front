@@ -44,6 +44,63 @@ const fieldsManager = {
       return value + '%'
     }
   },
+  // ---------------------------
+  EntranceCount: {
+    displayI18Key: 'entranceCount',
+    unitI18Key: 'visitors',
+    sortable: true,
+    tableDisplayFunc: function (value, locale) {
+      return value
+    }
+  },
+  PassCount: {
+    displayI18Key: 'passCount',
+    unitI18Key: 'visitors',
+    sortable: true,
+    tableDisplayFunc: function (value, locale) {
+      return value
+    }
+  },
+  StayCount: {
+    displayI18Key: 'stayCount',
+    unitI18Key: 'visitors',
+    sortable: true,
+    tableDisplayFunc: function (value, locale) {
+      return value
+    }
+  },
+  SecondsCount: {
+    displayI18Key: 'secondsCount',
+    unitI18Key: 'visitors',
+    sortable: true,
+    tableDisplayFunc: function (value, locale) {
+      return value
+    }
+  },
+  DisplayRate: {
+    displayI18Key: 'displayRate',
+    unitI18Key: 'visitors',
+    sortable: true,
+    tableDisplayFunc: function (value, locale) {
+      return value + '%'
+    }
+  },
+  AttractionRate: {
+    displayI18Key: 'attractionRate',
+    unitI18Key: 'visitors',
+    sortable: true,
+    tableDisplayFunc: function (value, locale) {
+      return value + '%'
+    }
+  },
+  AverageStay: {
+    displayI18Key: 'averageStay',
+    unitI18Key: 'visitors',
+    sortable: true,
+    tableDisplayFunc: function (value, locale) {
+      return value + '(s)'
+    }
+  },
   // -------------------------------
   Fitting: {
     displayI18Key: 'fitting',

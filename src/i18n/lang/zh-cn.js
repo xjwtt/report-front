@@ -46,6 +46,7 @@ export default {
   event_analysis: '活动节假日分析',
   face_analysis: '人脸数据分析',
   zone_face_analysis: '区域人脸分析',
+  show_case_analysis: '展示效果分析',
 
   system_setting: '系统设置',
   area_setting: '场地设置',
@@ -258,6 +259,13 @@ export default {
   stay: '停留',
   passby: '经过客流',
   enteringRate: '入店率',
+  entranceCount: '总客流',
+  passCount: '展柜客流',
+  stayCount: '吸引人数',
+  secondsCount: '总停留时长',
+  displayRate: '展示率',
+  attractionRate: '吸引率',
+  averageStay: '平均停留时长',
   fitting: '试衣人数',
   fittingRate: '试衣率',
   convertRate: '转化率',
@@ -381,6 +389,10 @@ export default {
   mallname_already_exists: '案场名称已经存在！',
   the_old_password_is_incorrect: '旧密码不正确',
   unknown_exception_please_contact_administrator: '未知错误，请联系管理员！',
+
+  show_case_strength: '展柜展示强度',
+  show_case_strength_table: '展柜展示强度分析表',
+  location_of_show_case: '展柜位置',
 
   user_code: '登录名',
   role_name: '角色名',
