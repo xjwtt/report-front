@@ -60,8 +60,9 @@ export default {
       let urls = result.split('.')
       if (urls.length > 0) {
         let company = await this.$store.dispatch({type: 'app/loginOtherMsg', SecondaryDomain: urls[0]})
-        if (company.BackgroundImg && company.BackgroundImg.index('data:') >= 0) {
+        if (company.BackgroundImg && company.BackgroundImg.indexOf('data:') >= 0) {
           this.loginStyle.background = 'url(' + company.BackgroundImg + ') no-repeat'
+          this.loginStyle['background-size'] = '100% 100%'
         }
       }
     }
