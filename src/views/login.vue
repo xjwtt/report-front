@@ -79,7 +79,7 @@ export default {
           if (company.Name) {
             this.loginForm.CompanyName = company.Name
           }
-          if (company.BackgroundImg && company.BackgroundImg.index('data:') >= 0) {
+          if (company.BackgroundImg && company.BackgroundImg.indexOf('data:') >= 0) {
             this.loginStyle.background = 'url(' + company.BackgroundImg + ') no-repeat'
           }
         }
