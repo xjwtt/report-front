@@ -19,6 +19,12 @@
             <el-form-item label="Logo" prop="ShowLogo">
               <el-input v-model.trim="modifyForm.ShowLogo"></el-input>
             </el-form-item>
+            <el-form-item :label="$t('secondary_domain')" prop="SecondaryDomain">
+              <el-input v-model.trim="modifyForm.SecondaryDomain"></el-input>
+            </el-form-item>
+            <el-form-item :label="$t('background_image')" prop="BackgroundImg">
+              <el-input v-model.trim="modifyForm.BackgroundImg"></el-input>
+            </el-form-item>
             <el-form-item :label="$t('is_enabled')"
                           prop="Status">
               <el-radio v-model="modifyForm.Status" :label="1">{{$t('start_using')}}</el-radio>
@@ -39,7 +45,7 @@
 
 <script>
 const defaultForm = () => {
-  return {Name: '', Status: 1}
+  return {Name: '', Status: 1, BackgroundImg: '', SecondaryDomain: ''}
 }
 export default {
   name: 'EditCompany',

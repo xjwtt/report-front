@@ -1,5 +1,5 @@
 <template>
-  <div class="login">
+  <div class="login" :style="loginStyle">
     <!--<div class="logo"></div>-->
     <div class="loginForm">
       <el-form :model="loginForm"
