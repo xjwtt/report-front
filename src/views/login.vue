@@ -34,6 +34,7 @@ export default {
   data () {
     return {
       loginForm: {
+        CompanyName: '',
         UserName: '',
         UserPass: ''
       },
@@ -66,12 +67,6 @@ export default {
           this.$message.error(this.$t('incorrect_parameter'))
         }
       })
-      let loading = this.$loading({fullscreen: true})
-      if (await this.$store.dispatch({type: 'app/login', data: this.loginForm})) {
-        await this.$store.dispatch({type: 'app/getUserInfo', data: this.loginForm})
-        this.$router.replace('/')
-      }
-      loading.close()
     },
     async loginOtherMsg () {
       let href = window.location.href
@@ -79,9 +74,14 @@ export default {
       let result = temp.substr(0, temp.indexOf('/'))
       let urls = result.split('.')
       if (urls.length > 0) {
-        let company = await this.$store.dispatch({type: 'app/loginOtherMsg', name: 'iretailer'})
-        if (company.BackgroundImg && company.BackgroundImg.index('data:') >= 0) {
-          this.loginStyle.background = 'url(' + company.BackgroundImg + ') no-repeat'
+        let company = await this.$store.dispatch({type: 'app/loginOtherMsg', name: urls[0]})
+        if (company) {
+          if (company.Name) {
+            this.loginForm.CompanyName = company.Name
+          }
+          if (company.BackgroundImg && company.BackgroundImg.index('data:') >= 0) {
+            this.loginStyle.background = 'url(' + company.BackgroundImg + ') no-repeat'
+          }
         }
       }
     }
