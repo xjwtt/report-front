@@ -81,6 +81,7 @@ export default {
           }
           if (company.BackgroundImg && company.BackgroundImg.indexOf('data:') >= 0) {
             this.loginStyle.background = 'url(' + company.BackgroundImg + ') no-repeat'
+            this.loginStyle['background-size'] = '100% 100%'
           }
         }
       }
