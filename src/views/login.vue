@@ -74,7 +74,7 @@ export default {
       let result = temp.substr(0, temp.indexOf('/'))
       let urls = result.split('.')
       if (urls.length > 0) {
-        let company = await this.$store.dispatch({type: 'app/loginOtherMsg', name: urls[0]})
+        let company = await this.$store.dispatch({type: 'app/loginOtherMsg', SecondaryDomain: urls[0]})
         if (company) {
           if (company.Name) {
             this.loginForm.CompanyName = company.Name
