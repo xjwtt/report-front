@@ -288,6 +288,8 @@ export default {
   pm25: 'PM2.5',
   activityName: '活动节假日',
   company_name: '公司名称',
+  secondary_domain: '二级域名',
+  background_image: '背景图片',
   is_enabled: '是否启用',
   start_using: '启用',
   block_up: '停用',

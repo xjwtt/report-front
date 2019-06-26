@@ -288,6 +288,8 @@ export default {
   pm25: 'PM2.5',
   activityName: 'アクティブ休日',
   company_name: '会社名',
+  secondary_domain: '二級ドメイン名',
+  background_image: '背景画像',
   is_enabled: '有効性',
   start_using: '有効化',
   block_up: '無効化',

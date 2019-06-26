@@ -59,7 +59,7 @@ export default {
       let result = temp.substr(0, temp.indexOf('/'))
       let urls = result.split('.')
       if (urls.length > 0) {
-        let company = await this.$store.dispatch({type: 'app/loginOtherMsg', name: 'iretailer'})
+        let company = await this.$store.dispatch({type: 'app/loginOtherMsg', SecondaryDomain: urls[0]})
         if (company.BackgroundImg && company.BackgroundImg.index('data:') >= 0) {
           this.loginStyle.background = 'url(' + company.BackgroundImg + ') no-repeat'
         }

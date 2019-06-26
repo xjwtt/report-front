@@ -288,6 +288,8 @@ export default {
   pm25: 'PM2.5',
   activityName: 'ActivityName',
   company_name: 'CompanyName',
+  secondary_domain: 'SecondaryDomain',
+  background_image: 'Background Image',
   is_enabled: 'is_enabled',
   start_using: 'start_using',
   block_up: 'block_up',
