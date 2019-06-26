@@ -1,5 +1,5 @@
 <template>
-  <div class="login">
+  <div class="login" :style="loginStyle">
     <!--<div class="logo"></div>-->
     <div class="loginForm">
       <el-form :model="loginForm"
@@ -40,7 +40,8 @@ export default {
         UserPass: [
           {required: true, message: this.$t('user_pass'), trigger: 'blur'}
         ]
-      }
+      },
+      loginStyle: {}
     }
   },
   methods: {
@@ -51,7 +52,22 @@ export default {
         this.$router.replace('/')
       }
       loading.close()
+    },
+    async loginOtherMsg () {
+      let href = window.location.href
+      let temp = href.substr(href.indexOf('//') + 2)
+      let result = temp.substr(0, temp.indexOf('/'))
+      let urls = result.split('.')
+      if (urls.length > 0) {
+        let company = await this.$store.dispatch({type: 'app/loginOtherMsg', name: 'iretailer'})
+        if (company.BackgroundImg && company.BackgroundImg.index('data:') >= 0) {
+          this.loginStyle.background = 'url(' + company.BackgroundImg + ') no-repeat'
+        }
+      }
     }
+  },
+  async created () {
+    await this.loginOtherMsg()
   }
 }
 </script>

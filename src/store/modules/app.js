@@ -105,6 +105,9 @@ export default {
         })
       } catch (e) {
       }
+    },
+    async loginOtherMsg (context, payload) {
+      return ajax.post('loginOtherMsg.action', payload)
     }
   }
 }
