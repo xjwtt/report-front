@@ -63,12 +63,13 @@ export default {
       queryArgsFn: null,
       resultProcessorFn: null,
 
-      timer: null
+      timer: null,
+      isActive: false
     }
   },
   methods: {
     async queryData (isSetTimer) {
-      if (this.error || this.layoutMode || !this.queryArgsFn) {
+      if (!this.isActive || this.error || this.layoutMode || !this.queryArgsFn) {
         return
       }
       this.loading = true
@@ -211,9 +212,11 @@ export default {
     // this.queryData(true)
   },
   activated () {
+    this.isActive = true
     this.queryData(true)
   },
   deactivated () {
+    this.isActive = false
     clearInterval(this.timer)
   },
   mounted () {

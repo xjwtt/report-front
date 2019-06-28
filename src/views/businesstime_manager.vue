@@ -63,14 +63,14 @@ export default {
     tblStyle: 'color: #666',
     columns: [
       {title: 'company_name', field: 'CompanyName', thComp: 'th-filter', sortable: true},
-      {title: 'time_type_name', field: 'TimeTypeName', sortable: true, tdComp: 'td-i18n'},
-      {title: 'start_date', field: 'StartDate', sortable: true},
-      {title: 'start_time', field: 'StartTime', sortable: true},
-      {title: 'end_date', field: 'EndDate', sortable: true},
-      {title: 'end_time', field: 'EndTime', sortable: true},
-      {title: 'weekdays', field: 'Weekdays'},
-      {title: 'description', field: 'Description'},
-      {title: 'operation', tdComp: 'td-businesstimeOpt', visible: true}
+      {title: 'time_type_name', field: 'TimeTypeName', thComp: 'th-i18n', sortable: true, tdComp: 'td-i18n'},
+      {title: 'start_date', field: 'StartDate', thComp: 'th-i18n', sortable: true},
+      {title: 'start_time', field: 'StartTime', thComp: 'th-i18n', sortable: true},
+      {title: 'end_date', field: 'EndDate', thComp: 'th-i18n', sortable: true},
+      {title: 'end_time', field: 'EndTime', thComp: 'th-i18n', sortable: true},
+      {title: 'weekdays', field: 'Weekdays', thComp: 'th-i18n', tdComp: 'td-weekdays'},
+      {title: 'description', field: 'Description', thComp: 'th-i18n'},
+      {title: 'operation', tdComp: 'td-businesstimeOpt', thComp: 'th-i18n', visible: true}
     ],
     data: [],
     total: 0,

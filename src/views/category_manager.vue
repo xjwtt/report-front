@@ -69,13 +69,13 @@ export default {
     tblStyle: 'color: #666',
     columns: [
       {title: 'I18Key', field: 'Name', sortable: true},
-      {title: 'name', field: 'Name', tdComp: 'td-i18n'},
-      {title: 'key_name', field: 'KeyName'},
-      {title: 'data', field: 'Data'},
-      {title: 'ranked', field: 'Ranked', sortable: true},
-      {title: 'description', field: 'Description', sortable: true},
-      {title: 'status', field: 'Visible', sortable: true, tdComp: 'td-status'},
-      {title: 'operation', tdComp: 'td-opt', visible: true}
+      {title: 'name', thComp: 'th-i18n', field: 'Name', tdComp: 'td-i18n'},
+      {title: 'key_name', thComp: 'th-i18n', field: 'KeyName'},
+      {title: 'data', thComp: 'th-i18n', field: 'Data'},
+      {title: 'ranked', thComp: 'th-i18n', field: 'Ranked', sortable: true},
+      {title: 'description', thComp: 'th-i18n', field: 'Description', sortable: true},
+      {title: 'status', thComp: 'th-i18n', field: 'Visible', sortable: true, tdComp: 'td-status'},
+      {title: 'operation', thComp: 'th-i18n', tdComp: 'td-opt', visible: true}
     ],
     data: [],
     total: 0,
