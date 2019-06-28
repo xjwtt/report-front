@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Datatable from 'vue2-datatable-component'
 import tdI18n from './tableFields/td-i18n'
+import thI18n from './tableFields/th-i18n'
 import thFilter from './tableFields/th-Filter'
 import tdOpt from './tableFields/td-Opt'
 import tdStatus from './tableFields/td-status'
@@ -15,10 +16,12 @@ import tdTaskStatus from './tableFields/td-taskStatus'
 import tdTaskOpt from './tableFields/td-taskOpt'
 import tdSendRegularlyOpt from './tableFields/td-sendRegularlyOpt'
 import tdSendStatus from './tableFields/td-sendStatus'
+import tdWeekdays from './tableFields/td-weekdays'
 
 Vue.use(Datatable)
 Vue.prototype.$i18nForDatatable = Vue.prototype.$t
 Vue.component('td-i18n', tdI18n)
+Vue.component('th-i18n', thI18n)
 Vue.component('th-filter', thFilter)
 Vue.component('td-opt', tdOpt)
 Vue.component('td-status', tdStatus)
@@ -33,3 +36,4 @@ Vue.component('td-taskStatus', tdTaskStatus)
 Vue.component('td-taskOpt', tdTaskOpt)
 Vue.component('td-sendRegularlyOpt', tdSendRegularlyOpt)
 Vue.component('td-sendStatus', tdSendStatus)
+Vue.component('td-weekdays', tdWeekdays)

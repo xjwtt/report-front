@@ -78,11 +78,11 @@ export default {
       {title: 'user_code', field: 'UserCode', thComp: 'th-filter', sortable: true},
       {title: 'user_name', field: 'Name', thComp: 'th-filter', sortable: true},
       {title: 'role_name', field: 'RoleName', thComp: 'th-filter', sortable: true},
-      {title: 'user_email', field: 'Email'},
-      {title: 'mall_number', field: 'MallNumber'},
-      {title: 'language', field: 'Language', tdComp: 'td-i18n'},
-      {title: 'is_lock', field: 'IsLock', sortable: true, tdComp: 'td-lock'},
-      {title: 'operation', tdComp: 'td-userOpt', visible: true}
+      {title: 'mall_number', field: 'MallNumber', thComp: 'th-i18n'},
+      {title: 'language', field: 'Language', thComp: 'th-i18n', tdComp: 'td-i18n'},
+      {title: 'user_email', field: 'Email', thComp: 'th-i18n'},
+      {title: 'is_lock', field: 'IsLock', sortable: true, thComp: 'th-i18n', tdComp: 'td-lock'},
+      {title: 'operation', tdComp: 'td-userOpt', thComp: 'th-i18n', visible: true}
     ],
     data: [],
     total: 0,

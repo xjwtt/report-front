@@ -36,11 +36,11 @@ export default {
     columns: [
       {title: 'city', field: 'CityName', thComp: 'th-filter', sortable: true},
       {title: 'date', field: 'Date', thComp: 'th-filter', sortable: true},
-      {title: 'weatherName', field: 'WeatherName'},
-      {title: 'highTemp', field: 'HighTemp'},
-      {title: 'lowTemp', field: 'LowTemp'},
-      {title: 'pm25', field: 'PM25'},
-      {title: 'wind', field: 'Wind'}
+      {title: 'weatherName', field: 'WeatherName', thComp: 'th-i18n'},
+      {title: 'highTemp', field: 'HighTemp', thComp: 'th-i18n'},
+      {title: 'lowTemp', field: 'LowTemp', thComp: 'th-i18n'},
+      {title: 'pm25', field: 'PM25', thComp: 'th-i18n'},
+      {title: 'wind', field: 'Wind', thComp: 'th-i18n'}
     ],
     data: [],
     total: 0,

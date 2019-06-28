@@ -61,8 +61,8 @@ export default {
     columns: [
       {title: 'company_name', field: 'CompanyName', thComp: 'th-filter', sortable: true},
       {title: 'role_name', field: 'Name', thComp: 'th-filter', sortable: true},
-      {title: 'description', field: 'Description'},
-      {title: 'operation', tdComp: 'td-opt', visible: true}
+      {title: 'description', field: 'Description', thComp: 'th-i18n'},
+      {title: 'operation', thComp: 'th-i18n', tdComp: 'td-opt', visible: true}
     ],
     data: [],
     total: 0,

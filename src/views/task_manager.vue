@@ -60,13 +60,13 @@ export default {
     tblStyle: 'color: #666',
     columns: [
       {title: 'job_group', field: 'jobGroup', thComp: 'th-filter', sortable: true},
-      {title: 'job_name', field: 'jobName', sortable: true},
-      {title: 'method_name', field: 'methodName'},
-      {title: 'Cron', field: 'cron'},
-      {title: 'description', field: 'description'},
-      {title: 'SpringId', field: 'springId'},
-      {title: 'status', field: 'status', sortable: true, tdComp: 'td-taskStatus'},
-      {title: 'operation', tdComp: 'td-taskOpt', visible: true}
+      {title: 'job_name', field: 'jobName', thComp: 'th-i18n', sortable: true},
+      {title: 'method_name', field: 'methodName', thComp: 'th-i18n'},
+      {title: 'Cron', field: 'cron', thComp: 'th-i18n'},
+      {title: 'description', field: 'description', thComp: 'th-i18n'},
+      {title: 'SpringId', field: 'springId', thComp: 'th-i18n'},
+      {title: 'status', field: 'status', thComp: 'th-i18n', sortable: true, tdComp: 'td-taskStatus'},
+      {title: 'operation', tdComp: 'td-taskOpt', thComp: 'th-i18n', visible: true}
     ],
     data: [],
     total: 0,

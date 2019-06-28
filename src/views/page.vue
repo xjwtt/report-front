@@ -8,8 +8,8 @@
         <nav-menu :menus="menus"></nav-menu>
       </div>
       <div>
-        <span class="site-region"
-              @click="SiteRegionShow=!SiteRegionShow">{{selectedMalls.length}}/{{malls.length}}{{$t('sites')}}
+        <span style="color:#acacac"
+              @click="SiteRegionShow=!SiteRegionShow">{{selectedMalls.length}}/{{malls.length}} {{$t('site')}}
           <i :class="{'el-icon-arrow-down': !SiteRegionShow, 'el-icon-arrow-up': SiteRegionShow }"></i>
         </span>
         <el-dialog :visible.sync="SiteRegionShow">
@@ -28,7 +28,7 @@
         <el-dropdown class="user"
                      trigger="click"
                      @command="handleCommand">
-          <span class="el-dropdown-link">
+          <span class="el-dropdown-link" style="color:#acacac">
             {{userName}}
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
@@ -82,7 +82,7 @@
         </template>
         <span slot="footer"
               class="dialog-footer">
-          <el-button @click="passDialogVisible = false">{{$t('cancel')}}</el-button>
+          <el-button @click="settingDialogVisible = false">{{$t('cancel')}}</el-button>
           <el-button type="primary"
                      @click="sureUserSetting('settingModifyForm')">{{$t('ok')}}</el-button>
         </span>

@@ -70,10 +70,10 @@ export default {
     tblClass: 'table-bordered',
     tblStyle: 'color: #666',
     columns: [
-      {title: 'name', field: 'Name', sortable: true},
-      {title: 'get_weather', field: 'GetWeather', tdComp: 'td-getWeather'},
-      {title: 'ranked', field: 'Ranked', sortable: true},
-      {title: 'operation', tdComp: 'td-opt', visible: true}
+      {title: 'name', thComp: 'th-i18n', field: 'Name', sortable: true},
+      {title: 'get_weather', thComp: 'th-i18n', field: 'GetWeather', tdComp: 'td-getWeather'},
+      {title: 'ranked', thComp: 'th-i18n', field: 'Ranked', sortable: true},
+      {title: 'operation', thComp: 'th-i18n', tdComp: 'td-opt', visible: true}
     ],
     data: [],
     total: 0,

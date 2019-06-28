@@ -95,16 +95,16 @@ export default {
       activeName: 'already',
       query: {},
       physicalColums: [
-        {title: 'device#zone', field: 'Name'},
-        {title: 'zone_class', field: 'ZoneClass'},
-        {title: 'direction', field: 'Reverse', tdComp: 'td-reverse'},
-        {title: 'operation', tdComp: 'td-moveopt', visible: true}
+        {title: 'device#zone', field: 'Name', thComp: 'th-i18n'},
+        {title: 'zone_class', field: 'ZoneClass', thComp: 'th-i18n'},
+        {title: 'direction', field: 'Reverse', thComp: 'th-i18n', tdComp: 'td-reverse'},
+        {title: 'operation', tdComp: 'td-moveopt', thComp: 'th-i18n', visible: true}
       ],
       cameraZoneColums: [
-        {title: 'name', field: 'Name'},
-        {title: 'zone_type_name', field: 'ZoneTypeName', tdComp: 'td-i18n'},
-        {title: 'direction', field: 'Reverse', tdComp: 'td-reverse'},
-        {title: 'operation', tdComp: 'td-moveopt', visible: true}
+        {title: 'name', field: 'Name', thComp: 'th-i18n'},
+        {title: 'zone_type_name', field: 'ZoneTypeName', thComp: 'th-i18n', tdComp: 'td-i18n'},
+        {title: 'direction', field: 'Reverse', thComp: 'th-i18n', tdComp: 'td-reverse'},
+        {title: 'operation', tdComp: 'td-moveopt', thComp: 'th-i18n', visible: true}
       ],
       alreadyColumns: [],
       alreadyData: [],

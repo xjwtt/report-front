@@ -35,12 +35,12 @@ export default {
     columns: [
       {title: 'mall_name', field: 'MallName', thComp: 'th-filter', sortable: true},
       {title: 'device_id', field: 'DeviceId', thComp: 'th-filter', sortable: true},
-      {title: 'position', field: 'Position'},
-      {title: 'zone_count', field: 'ZoneCount', sortable: true},
-      {title: 'Ip', field: 'IpAddress', sortable: true},
-      {title: 'last_data_time', field: 'LastDataTime', sortable: true},
-      {title: 'update_time', field: 'UpdateTime', sortable: true},
-      {title: 'status', field: 'CameraStatus', tdComp: 'td-cameraStatus'}
+      {title: 'position', field: 'Position', thComp: 'th-i18n'},
+      {title: 'zone_count', field: 'ZoneCount', thComp: 'th-i18n', sortable: true},
+      {title: 'IP', field: 'IpAddress', thComp: 'th-i18n', sortable: true},
+      {title: 'last_data_time', field: 'LastDataTime', thComp: 'th-i18n', sortable: true},
+      {title: 'update_time', field: 'UpdateTime', thComp: 'th-i18n', sortable: true},
+      {title: 'status', field: 'CameraStatus', thComp: 'th-i18n', tdComp: 'td-cameraStatus'}
     ],
     data: [],
     total: 0,
