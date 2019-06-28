@@ -8,7 +8,7 @@
         <nav-menu :menus="menus"></nav-menu>
       </div>
       <div>
-        <span style="color:#dcdcdc"
+        <span style="color:#acacac"
               @click="SiteRegionShow=!SiteRegionShow">{{selectedMalls.length}}/{{malls.length}} {{$t('site')}}
           <i :class="{'el-icon-arrow-down': !SiteRegionShow, 'el-icon-arrow-up': SiteRegionShow }"></i>
         </span>
@@ -28,7 +28,7 @@
         <el-dropdown class="user"
                      trigger="click"
                      @command="handleCommand">
-          <span class="el-dropdown-link" style="color:#dcdcdc">
+          <span class="el-dropdown-link" style="color:#acacac">
             {{userName}}
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
