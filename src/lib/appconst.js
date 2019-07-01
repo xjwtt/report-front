@@ -172,24 +172,6 @@ const shortcutsDay = [
     }
   },
   {
-    text: 'last_two_weeks',
-    onClick (picker) {
-      picker.$emit('pick', [
-        moment().subtract(14, 'days'),
-        moment().subtract(0, 'days')
-      ])
-    }
-  },
-  {
-    text: 'last_three_weeks',
-    onClick (picker) {
-      picker.$emit('pick', [
-        moment().subtract(21, 'days'),
-        moment().subtract(0, 'days')
-      ])
-    }
-  },
-  {
     text: 'last_30_days',
     onClick (picker) {
       picker.$emit('pick', [
@@ -211,10 +193,18 @@ const shortcutsDay = [
 
 const shortcutsWeek = [
   {
+    text: 'this_week',
+    onClick (picker) {
+      let end = moment().subtract(0, 'days')
+      let start = moment().startOf('week')
+      picker.$emit('pick', [start, end])
+    }
+  },
+  {
     text: 'last_two_weeks',
     onClick (picker) {
       picker.$emit('pick', [
-        moment().subtract(14, 'days'),
+        moment().startOf('week').subtract(1, 'week'),
         moment().subtract(0, 'days')
       ])
     }
@@ -223,7 +213,7 @@ const shortcutsWeek = [
     text: 'last_three_weeks',
     onClick (picker) {
       picker.$emit('pick', [
-        moment().subtract(21, 'days'),
+        moment().startOf('week').subtract(2, 'week'),
         moment().subtract(0, 'days')
       ])
     }
@@ -232,7 +222,7 @@ const shortcutsWeek = [
     text: 'last_four_weeks',
     onClick (picker) {
       picker.$emit('pick', [
-        moment().subtract(28, 'days'),
+        moment().startOf('week').subtract(3, 'week'),
         moment().subtract(0, 'days')
       ])
     }
@@ -241,7 +231,7 @@ const shortcutsWeek = [
     text: 'last_five_weeks',
     onClick (picker) {
       picker.$emit('pick', [
-        moment().subtract(35, 'days'),
+        moment().startOf('week').subtract(4, 'week'),
         moment().subtract(0, 'days')
       ])
     }
@@ -392,8 +382,8 @@ const timeIntervals = [
     }
   },
   {
-    key: '7d',
-    timeFormatter: 'yyyy-MM-dd',
+    key: 'Week',
+    timeFormatter: 'Week',
     text: 'Week',
     pickerOptions: {
       disabledDate: disabledDate,

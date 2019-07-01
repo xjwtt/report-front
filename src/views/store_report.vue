@@ -180,21 +180,21 @@ export default {
             picker.$emit('pick', [start, start])
           }
         }, {
-          text: this.$t('week'),
+          text: this.$t('this_week'),
           onClick (picker) {
             let end = moment().subtract(0, 'days')
             let start = moment().startOf('week')
             picker.$emit('pick', [start, end])
           }
         }, {
-          text: this.$t('month'),
+          text: this.$t('this_month'),
           onClick (picker) {
             let end = moment().subtract(0, 'days')
             let start = moment().startOf('month')
             picker.$emit('pick', [start, end])
           }
         }, {
-          text: this.$t('year'),
+          text: this.$t('this_year'),
           onClick (picker) {
             let end = moment().subtract(0, 'days')
             let start = moment().startOf('year')

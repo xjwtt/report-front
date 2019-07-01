@@ -86,6 +86,7 @@ export default {
         for (let key in data) {
           for (let i = 0; i < data[key].length; i++) {
             switch (dateStyle) {
+              case 'Week':
               case '1d':
                 _.each(data[key][i], function (value) {
                   value['DateTime'] = weekFun.GetDateWeek(t, value['DateTime'], 'YYYY-MM-DD HH:mm:ss')

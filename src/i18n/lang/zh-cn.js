@@ -233,7 +233,7 @@ export default {
   types_of_analysis: '分析类型',
 
   detailedLink: '查看详细数据',
-  plase_login_in: 'Pleas Login First',
+  plase_login_in: '请去登录',
 
   store: '案场',
   mall: '案场',

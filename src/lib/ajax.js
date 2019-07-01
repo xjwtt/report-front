@@ -31,7 +31,7 @@ ajax.interceptors.response.use(
     } else {
       if (code === 1009) {
         if (router.app && router.app.$route.name !== 'login') {
-          Vue.prototype.$alert(t(respon.data.showText), t('error'), {
+          Vue.prototype.$alert(t(respon.data.showText), '', {
             confirmButtonText: t('go_to_login'),
             callback: action => {
               location.reload()
