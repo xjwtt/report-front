@@ -193,6 +193,9 @@ export default {
         series: series
       }
     }
+  },
+  async mounted () {
+    this.onQuery()
   }
 }
 </script>

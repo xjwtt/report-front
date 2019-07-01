@@ -57,9 +57,13 @@ export default {
   methods: {
     ...mapActions('hourlyweek', ['query']),
     async onQuery () {
+      // let zoneIds = []
+      // this.$nextTick(() => {
+      //   zoneIds = this.$refs.zoneSelector.zoneIds
+      // })
       this.data = await this.query({
         'report': {
-          dateFields: this.dateFields,
+          dateFields: ['Enter', 'Exit', 'Stay'],
           groupBy: [
             {domain: 'All'},
             {domain: 'Zone'}

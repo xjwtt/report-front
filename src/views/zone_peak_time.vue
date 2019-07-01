@@ -52,6 +52,10 @@ export default {
   methods: {
     ...mapActions('report', ['query']),
     async onQuery () {
+      // let zoneIds = []
+      // this.$nextTick(() => {
+      //   zoneIds = this.$refs.zoneSelector.zoneIds
+      // })
       this.data = await this.query({
         'report': {
           st: this.dateRangeValue[0],
