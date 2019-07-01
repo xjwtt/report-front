@@ -56,7 +56,7 @@ export default {
     async onQuery () {
       this.data = await this.query({
         'report': {
-          dateFields: this.dateFields,
+          dateFields: ['Enter', 'Exit', 'Stay'],
           groupBy: [
             {domain: 'All'},
             {domain: 'Mall'}

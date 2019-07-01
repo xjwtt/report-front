@@ -57,6 +57,10 @@ export default {
   methods: {
     ...mapActions('report', ['query']),
     async onQuery () {
+      // let zoneIds = []
+      // this.$nextTick(() => {
+      //   zoneIds = this.$refs.zoneSelector.zoneIds
+      // })
       this.data = await this.query({
         'report': {
           dateFields: ['Enter', 'Exit', 'Stay', 'HighTemp', 'LowTemp', 'WeatherName'],
