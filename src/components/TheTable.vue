@@ -40,7 +40,7 @@ export default {
       type: Number,
       required: true
     },
-    excelName: {
+    exportName: {
       type: String,
       required: true
     }
@@ -63,7 +63,7 @@ export default {
         csvData.push(d)
       })
       try {
-        FileSaver.saveAs(new Blob([csvData.join('\n')], {type: 'text/plain;charset=utf-8'}), this.excelName + '.csv')
+        FileSaver.saveAs(new Blob([csvData.join('\n')], {type: 'text/plain;charset=utf-8'}), this.exportName + '.csv')
       } catch (e) {
         if (typeof console !== 'undefined') console.log(e)
       }

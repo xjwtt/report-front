@@ -69,12 +69,13 @@ export default {
     compareData: {
       type: Array
     },
-    headerData: {
-      type: Array
-    },
     fixedHeader: {
       type: Array,
       required: true
+    },
+    exportName: {
+      type: String,
+      default: 'report'
     }
   },
   data () {
@@ -93,11 +94,6 @@ export default {
     convertCSV () {
       let bodyData = this.bodyData
       let csvData = []
-      let headerData = [].concat(this.leftFixed['header'])
-      _.each(this.tableHeader, function (value) {
-        headerData = headerData.concat(value.data)
-      })
-      csvData.push(headerData.join())
       _.each(this.leftFixed.data, function (value, index) {
         let bodyD = [].concat(value)
         _.each(bodyData, function (bd) {
@@ -106,7 +102,7 @@ export default {
         csvData.push(bodyD.join())
       })
       try {
-        FileSaver.saveAs(new Blob([csvData.join('\n')], {type: 'text/plain;charset=utf-8'}), 'site_traffic.csv')
+        FileSaver.saveAs(new Blob([csvData.join('\n')], {type: 'text/plain;charset=utf-8'}), this.exportName + '.csv')
       } catch (e) {
         if (typeof console !== 'undefined') console.log(e, csvData)
       }
@@ -294,7 +290,7 @@ export default {
       let data = [columns]
       data = data.concat(this.computedLeftFixed(this.tableData))
       if (this.compareData) {
-        data.push(columns)
+        data.push(['', '', '-'])
         data = data.concat(this.computedLeftFixed(this.compareData))
       }
       /* 计算左边固定表格的宽度 */

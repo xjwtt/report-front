@@ -35,7 +35,8 @@
                            :tableData=tableData
                            :compareData=compareData
                            :headerData=headerData
-                           :fixedHeader=fixedHeader>
+                           :fixedHeader=fixedHeader
+                           :export-name="'site_location_compare'">
       </traffice-table-fast>
     </div>
   </div>

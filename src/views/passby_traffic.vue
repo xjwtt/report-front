@@ -31,7 +31,8 @@
                            :tableType=tableType
                            :tableData=tableData
                            :headerData=headerData
-                           :fixedHeader=fixedHeader>
+                           :fixedHeader=fixedHeader
+                           :export-name="'passby_traffic'">
       </traffice-table-fast>
     </div>
   </div>

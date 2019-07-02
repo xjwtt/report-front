@@ -63,7 +63,8 @@
                                    :tableType=tableType
                                    :tableData=tableData
                                    :compareData=compareData
-                                   :fixedHeader=fixedHeader>
+                                   :fixedHeader=fixedHeader
+                                   :export-name="site_time_compare">
       </traffice-table-compare-fast>
     </div>
   </div>
