@@ -73,7 +73,7 @@
                             :options="{mode:'javascript',lineNumbers: true}"></codemirror>
               </el-tab-pane>
               <el-tab-pane name="DataProcessing"
-                           :label="data_processing">
+                           :label="$t('data_processing')">
                 <codemirror v-if="activeName==='DataProcessing'"
                             v-model="modifyForm.ResultProcessor"
                             :options="{mode:'javascript',lineNumbers: true}"></codemirror>
