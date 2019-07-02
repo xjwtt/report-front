@@ -5,10 +5,32 @@
       <interval-picker></interval-picker>
       <el-row>
         <el-col :span="6">
-          <date-range ref="dateRange"></date-range>
+          <div>
+            <span>{{ $t('date_range') }}：</span>
+            <el-date-picker v-model="dateRangeValue"
+                            type="daterange"
+                            :placeholder="$t('selection_date')"
+                            :range-separator="' - '"
+                            :editable="false"
+                            :clearable="false"
+                            style="width:220px;"
+                            size="small">
+            </el-date-picker>
+          </div>
         </el-col>
         <el-col :span="6">
-          <date-range ref="compareDateRange" titleName="compare_date_range"></date-range>
+          <div>
+            <span>{{ $t('compare_date_range') }}：</span>
+            <el-date-picker v-model="compareDateRangeValue"
+                            type="daterange"
+                            :placeholder="$t('selection_date')"
+                            :range-separator="' - '"
+                            :editable="false"
+                            :clearable="false"
+                            style="width:220px;"
+                            size="small">
+            </el-date-picker>
+          </div>
         </el-col>
       </el-row>
       <el-button type="primary"
@@ -57,47 +79,12 @@ export default {
   name: 'site_time_compare',
   data () {
     return {
+      dateRangeValue: [],
+      compareDateRangeValue: [],
       zoneTypes: ['Entrance', 'Domain', 'Floor', 'Corridor'],
       data: null,
       reportType: [0, 'DateTime'],
       chartType: 'Enter'
-    }
-  },
-  methods: {
-    ...mapActions('report', ['query']),
-    async onQuery () {
-      let startDate = this.$refs.dateRange.dateRangeValue[0]
-      let endDate = this.$refs.dateRange.dateRangeValue[1]
-      let compareStartDate = this.$refs.compareDateRange.dateRangeValue[0]
-      let compareEndDate = this.$refs.compareDateRange.dateRangeValue[1]
-      let duration = moment.duration(moment(endDate).diff(startDate))
-      let compareDuration = moment.duration(moment(compareEndDate).diff(compareStartDate))
-      if (duration.asMinutes() === compareDuration.asMinutes()) {
-        this.data = await this.query({
-          'report': {
-            dateFields: ['Enter', 'Exit', 'HighTemp', 'LowTemp', 'WeatherName'],
-            groupBy: [
-              {domain: 'Mall'}
-              // {domain: 'Mall', period: 'All', timeFormatter: 'All'}
-            ],
-            mallIds: [this.$refs.mallSelect.mallId],
-            st: startDate,
-            et: endDate
-          },
-          'compare': {
-            dateFields: ['Enter', 'Exit', 'HighTemp', 'LowTemp', 'WeatherName'],
-            groupBy: [
-              {domain: 'Mall'}
-              // {domain: 'Mall', period: 'All', timeFormatter: 'All'}
-            ],
-            mallIds: [this.$refs.mallSelect.mallId],
-            st: compareStartDate,
-            et: compareEndDate
-          }
-        })
-      } else {
-        this.$message.error(this.$t('time_interval_must_be_the_same'))
-      }
     }
   },
   computed: {
@@ -147,7 +134,12 @@ export default {
           series = []
           break
         default:
-          xData = this.data ? _.map(this.data['report'][dataArrayIndex], (_) => _[this.reportType[1]]) : []
+          xData = []
+          let datas = this.data ? _.map(this.data['report'][dataArrayIndex], (_) => _[this.reportType[1]]) : []
+          let compareDatas = this.data ? _.map(this.data['compare'][dataArrayIndex], (_) => _[this.reportType[1]]) : []
+          for (let i = 0, len = datas.length; i < len; i++) {
+            xData.push(datas[i] + '/' + compareDatas[i])
+          }
           series = [{name: this.$t('date_range'), type: 'bar', data: reportSeries}, {
             name: this.$t('compare_date_range'),
             type: 'bar',
@@ -166,7 +158,7 @@ export default {
           data: legendData
         },
         grid: {
-          left: '3%',
+          left: '8%',
           right: '4%',
           bottom: '3%',
           containLabel: true
@@ -176,13 +168,15 @@ export default {
             saveAsImage: {}
           }
         },
-        xAxis: {
-          type: 'category',
-          data: xData,
-          axisLabel: {
-            rotate: 45
+        xAxis: [
+          {
+            type: 'category',
+            data: xData,
+            axisLabel: {
+              rotate: 45
+            }
           }
-        },
+        ],
         yAxis: [{
           type: 'value',
           name: yAxisNameLeft,
@@ -194,7 +188,51 @@ export default {
       }
     }
   },
+  methods: {
+    ...mapActions('report', ['query']),
+    async onQuery () {
+      let startDate = this.dateRangeValue[0]
+      let endDate = this.dateRangeValue[1]
+      let compareStartDate = this.compareDateRangeValue[0]
+      let compareEndDate = this.compareDateRangeValue[1]
+      let duration = moment.duration(moment(endDate).diff(startDate))
+      let compareDuration = moment.duration(moment(compareEndDate).diff(compareStartDate))
+      console.log('------------' + duration.asDays())
+      console.log('------------' + compareDuration.asDays())
+      if (duration.asDays() === compareDuration.asDays()) {
+        this.data = await this.query({
+          'report': {
+            dateFields: ['Enter', 'Exit', 'HighTemp', 'LowTemp', 'WeatherName'],
+            groupBy: [
+              {domain: 'Mall'}
+              // {domain: 'Mall', period: 'All', timeFormatter: 'All'}
+            ],
+            mallIds: [this.$refs.mallSelect.mallId],
+            st: startDate,
+            et: endDate
+          },
+          'compare': {
+            dateFields: ['Enter', 'Exit', 'HighTemp', 'LowTemp', 'WeatherName'],
+            groupBy: [
+              {domain: 'Mall'}
+              // {domain: 'Mall', period: 'All', timeFormatter: 'All'}
+            ],
+            mallIds: [this.$refs.mallSelect.mallId],
+            st: compareStartDate,
+            et: compareEndDate
+          }
+        })
+      } else {
+        this.$message.error(this.$t('time_interval_must_be_the_same'))
+      }
+    }
+  },
   async mounted () {
+    let temp = moment()
+    let d = temp.subtract(1, 'days')
+    this.dateRangeValue = [d, d]
+    let cd = temp.subtract(2, 'days')
+    this.compareDateRangeValue = [cd, cd]
     this.onQuery()
   }
 }
