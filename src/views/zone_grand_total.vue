@@ -34,7 +34,8 @@
                            :tableType=tableType
                            :tableData=tableData
                            :headerData=headerData
-                           :fixedHeader=fixedHeader>
+                           :fixedHeader=fixedHeader
+                           :export-name="'zone_grand_total'">
       </traffice-table-fast>
     </div>
   </div>

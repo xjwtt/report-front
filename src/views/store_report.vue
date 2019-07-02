@@ -36,7 +36,7 @@
       <the-table :fields=columnsFields
                  :data=columnsData
                  :maxHeight="500"
-                 :excel-name="'Store_Report'"></the-table>
+                 :export-name="'store_report'"></the-table>
     </div>
   </div>
 </template>

@@ -34,7 +34,8 @@
                            :tableType=tableType
                            :tableData=tableData
                            :headerData=headerData
-                           :fixedHeader=fixedHeader>
+                           :fixedHeader=fixedHeader
+                           :export-name="'site_traffic'">
       </traffice-table-fast>
     </div>
   </div>

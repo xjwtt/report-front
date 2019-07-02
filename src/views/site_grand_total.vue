@@ -32,7 +32,8 @@
                            :tableType=tableType
                            :tableData=tableData
                            :headerData=headerData
-                           :fixedHeader=fixedHeader>
+                           :fixedHeader=fixedHeader
+                           :export-name="'site_grand_total'">
       </traffice-table-fast>
     </div>
   </div>

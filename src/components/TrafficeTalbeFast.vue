@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-button @click="convertCSV">{{$t('export')}}</el-button>
-    <div  class="vue-fast-table"  :class="scrollDirection">
+    <div class="vue-fast-table" :class="scrollDirection">
       <div class="table-head" :style="{marginLeft:leftFixedWidth}">
         <div :style="{ transform: 'translateX(' + scrollLeft + 'px)'}"
              v-for="(item, index) in tableHeader" :key="index">
@@ -99,6 +99,10 @@ export default {
     fixedHeader: {
       type: Array,
       required: true
+    },
+    exportName: {
+      type: String,
+      default: 'report'
     }
   },
   data () {
@@ -201,7 +205,7 @@ export default {
         csvData.push(bodyD.join())
       })
       try {
-        FileSaver.saveAs(new Blob([csvData.join('\n')], {type: 'text/plain;charset=utf-8'}), 'site_traffic.csv')
+        FileSaver.saveAs(new Blob([csvData.join('\n')], {type: 'text/plain;charset=utf-8'}), this.exportName + '.csv')
       } catch (e) {
         if (typeof console !== 'undefined') console.log(e, csvData)
       }

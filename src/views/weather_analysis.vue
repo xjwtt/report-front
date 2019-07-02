@@ -48,7 +48,7 @@
       <the-table :fields=columnsFields
                  :data=columnsData
                  :maxHeight="240"
-                 :excel-name="'WeatherAnalysis'"></the-table>
+                 :export-name="'weather_analysis'"></the-table>
     </div>
   </div>
 </template>
