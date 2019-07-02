@@ -1,8 +1,8 @@
 <template>
   <div>
     <el-button @click="convertCSV">{{$t('export')}}</el-button>
-    <div id="trafficeTable" class="vue-fast-table" ref="table" :class="scrollDirection">
-      <div class="table-head" :style="{marginLeft:leftFixedWidth,height:leftFixedHeight}" @scroll="tableScroll">
+    <div class="vue-fast-table" :class="scrollDirection">
+      <div class="table-body" :style="{marginLeft:leftFixedWidth,height:leftFixedHeight}" @scroll="tableScroll">
         <div v-for="(item, index) in bodyData" :key="index">
           <table cellspacing="0" cellpadding="0"
                  v-for="(p_item, p_index) in item.data"
@@ -31,7 +31,8 @@
               <thead>
               <tr v-for="(data, index) in leftFixed.data" :key="index">
                 <td v-for="(item,d_index) in  data" :key="d_index"
-                    :style="{'width':(d_index===0?(tdWidth+60):tdWidth)+'px',height:tdHeight+'px'}">{{item}}
+                    :style="{'width':(d_index===0?(tdWidth+60):tdWidth)+'px',height:tdHeight+'px'}">
+                  {{item}}
                 </td>
               </tr>
               </thead>
@@ -150,6 +151,12 @@ export default {
           _.each(separateTableData, function (data, key) {
             let groupBy = that.groupByData(data.data)
             let bodyData = {separate: key, data: []}
+            // 时间
+            let w = []
+            _.each(Object.values(groupBy)[0], function (values) {
+              w.push(values['DateTime'])
+            })
+            bodyData.data.push(w)
             _.each(that.fixedHeader, function (fh) {
               let w = []
               switch (fh) {
@@ -284,17 +291,18 @@ export default {
       _.each(columns, function (value, index) {
         columns[index] = that.$t(value)
       })
-      let data = this.computedLeftFixed(this.tableData)
+      let data = [columns]
+      data = data.concat(this.computedLeftFixed(this.tableData))
       if (this.compareData) {
+        data.push(columns)
         data = data.concat(this.computedLeftFixed(this.compareData))
       }
-
       /* 计算左边固定表格的宽度 */
       that.leftFixedWidth = (columns.length * this.tdWidth + 60) + 'px'
       if (data.length > 0) {
         let h = (data.length + 1) * that.tdHeight
-        if (h > 300) {
-          that.leftFixedHeight = '300px'
+        if (h > 340) {
+          that.leftFixedHeight = '340px'
         } else {
           that.leftFixedHeight = h + 'px'
         }
@@ -349,9 +357,9 @@ export default {
     box-sizing: border-box;
   }
 
-  .table-body table:first-child tr:first-child td {
-    border-top: none;
-  }
+  /*.table-body table:first-child tr:first-child td {*/
+  /*  border-top: none;*/
+  /*}*/
 
   .table-body table:last-child tr:last-child {
     border-bottom: 1px solid #cccc;
@@ -363,16 +371,32 @@ export default {
     left: 0;
   }
 
-  .table-fix-cloumns td {
-    text-align: center;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-  }
-
   .fix-left-top {
     position: absolute;
     top: 0;
     left: 0;
     z-index: 1;
+  }
+
+  .fix-left-top td {
+    text-align: center;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+
+  .fix-left-body td {
+    text-align: center;
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+
+  .fix-left-body table:first-child tr:first-child td {
+    border-top: none;
+  }
+
+  .fix-left-body table:last-child tr:last-child {
+    border-bottom: 1px solid #cccc;
   }
 </style>

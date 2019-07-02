@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-button @click="convertCSV">{{$t('export')}}</el-button>
-    <div id="trafficeTable" class="vue-fast-table" ref="table" :class="scrollDirection">
+    <div  class="vue-fast-table"  :class="scrollDirection">
       <div class="table-head" :style="{marginLeft:leftFixedWidth}">
         <div :style="{ transform: 'translateX(' + scrollLeft + 'px)'}"
              v-for="(item, index) in tableHeader" :key="index">
@@ -111,6 +111,77 @@ export default {
       tdWidth: 160,
       tdHeight: 35,
       separateNumber: 30
+    }
+  },
+  computed: {
+    tableHeader () {
+      let num = this.separateNumber || 30
+      var result = []
+      let data = []
+      switch (this.tableType) {
+        case 'DateTime':
+        case 'TimeLabel':
+          let xSelector = (_) => _[this.tableType]
+          data = this.tableData ? _.map(this.headerData, xSelector) : []
+          break
+        case 'DomainLabel':
+          data = this.charTypes
+          break
+      }
+      _.each(data, function (item, index) {
+        let key = parseInt(index / num)
+        if (index % num === 0) {
+          result.push({separate: key, data: []})
+        }
+        result[key].data.push(item)
+      })
+      return result
+    },
+    bodyData () {
+      let result = this.computedBodyData(this.tableData)
+      if (this.compareData) {
+        let compare = this.computedBodyData(this.compareData)
+        _.each(result, function (value) {
+          _.each(compare, function (compare) {
+            if (value.separate === compare.separate) {
+              value.data = value.data.concat(compare.data)
+            }
+          })
+        })
+      }
+      return Object.freeze(result)
+    },
+    leftFixed () {
+      let that = this
+      let columns = this.columnsInit
+      switch (this.tableType) {
+        case 'DateTime':
+        case 'TimeLabel':
+          columns = columns.concat(['type', 'total'])
+          break
+      }
+      _.each(columns, function (value, index) {
+        columns[index] = that.$t(value)
+      })
+      let data = this.computedLeftFixed(this.tableData)
+      if (this.compareData) {
+        data = data.concat(this.computedLeftFixed(this.compareData))
+      }
+
+      /* 计算左边固定表格的宽度 */
+      that.leftFixedWidth = (columns.length * this.tdWidth + 60) + 'px'
+      if (data.length > 0) {
+        let h = (data.length + 1) * that.tdHeight
+        if (h > 300) {
+          that.leftFixedHeight = '300px'
+        } else {
+          that.leftFixedHeight = h + 'px'
+        }
+      }
+      return {
+        'header': columns,
+        'data': data
+      }
     }
   },
   methods: {
@@ -297,77 +368,6 @@ export default {
           })
       }
       return result
-    }
-  },
-  computed: {
-    tableHeader () {
-      let num = this.separateNumber || 30
-      var result = []
-      let data = []
-      switch (this.tableType) {
-        case 'DateTime':
-        case 'TimeLabel':
-          let xSelector = (_) => _[this.tableType]
-          data = this.tableData ? _.map(this.headerData, xSelector) : []
-          break
-        case 'DomainLabel':
-          data = this.charTypes
-          break
-      }
-      _.each(data, function (item, index) {
-        let key = parseInt(index / num)
-        if (index % num === 0) {
-          result.push({separate: key, data: []})
-        }
-        result[key].data.push(item)
-      })
-      return result
-    },
-    bodyData () {
-      let result = this.computedBodyData(this.tableData)
-      if (this.compareData) {
-        let compare = this.computedBodyData(this.compareData)
-        _.each(result, function (value) {
-          _.each(compare, function (compare) {
-            if (value.separate === compare.separate) {
-              value.data = value.data.concat(compare.data)
-            }
-          })
-        })
-      }
-      return Object.freeze(result)
-    },
-    leftFixed () {
-      let that = this
-      let columns = this.columnsInit
-      switch (this.tableType) {
-        case 'DateTime':
-        case 'TimeLabel':
-          columns = columns.concat(['type', 'total'])
-          break
-      }
-      _.each(columns, function (value, index) {
-        columns[index] = that.$t(value)
-      })
-      let data = this.computedLeftFixed(this.tableData)
-      if (this.compareData) {
-        data = data.concat(this.computedLeftFixed(this.compareData))
-      }
-
-      /* 计算左边固定表格的宽度 */
-      that.leftFixedWidth = (columns.length * this.tdWidth + 60) + 'px'
-      if (data.length > 0) {
-        let h = (data.length + 1) * that.tdHeight
-        if (h > 300) {
-          that.leftFixedHeight = '300px'
-        } else {
-          that.leftFixedHeight = h + 'px'
-        }
-      }
-      return {
-        'header': columns,
-        'data': data
-      }
     }
   }
 }
