@@ -62,7 +62,7 @@ export default {
           et: this.dateRangeValue[1],
           dateFields: this.dateFields,
           groupBy: [
-            {domain: 'Zone', period: '60m', timeFormatter: 'yyyy-MM-dd HH:mm'}
+            {domain: 'All', period: '60m', timeFormatter: 'yyyy-MM-dd HH:mm'}
           ],
           PhyIds: this.$refs.zoneSelector.zoneIds
         }
