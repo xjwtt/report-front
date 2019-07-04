@@ -198,8 +198,6 @@ export default {
       let compareEndDate = this.compareDateRangeValue[1]
       let duration = moment.duration(moment(endDate).diff(startDate))
       let compareDuration = moment.duration(moment(compareEndDate).diff(compareStartDate))
-      console.log('------------' + duration.asDays())
-      console.log('------------' + compareDuration.asDays())
       if (duration.asDays() === compareDuration.asDays()) {
         this.data = await this.query({
           'report': {

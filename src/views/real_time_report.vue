@@ -62,17 +62,17 @@
       <el-dialog
         v-if="addDialogVisible"
         :visible.sync="addDialogVisible"
-        :close-on-click-modal="false"
-        width="40%">
+        width="800px">
         <template>
-          <el-row :gutter="20">
-            <el-col :span="14">
-              <el-tree :data="addTree"
-                       :props="defaultProps"
-                       show-checkbox
-                       node-key="Id"
-                       ref="addTree"></el-tree>
-            </el-col>
+          <el-row :gutter="24">
+            <div v-for="(items,index) in unUsedWidget" :key="index">
+              <el-col :span="8" v-for="item in items " :key="item.Id">
+                <div>
+                  <el-checkbox v-model="item.Checked" :label="item.Name" size="medium"></el-checkbox>
+                  <i class="el-icon-zoom-in" @click="showWidget(item)"></i>
+                </div>
+              </el-col>
+            </div>
           </el-row>
         </template>
         <span slot="footer"
@@ -81,6 +81,14 @@
                      @click="saveAddWidget()">{{$t('ok')}}</el-button>
           <el-button @click="addDialogVisible = false">{{$t('cancel')}}</el-button>
         </span>
+      </el-dialog>
+      <el-dialog
+        v-if="showDialogVisible"
+        :visible.sync="showDialogVisible"
+        width="450px">
+        <dynamic-widget style="width:300px;height:500px;margin: auto"
+                        v-bind="showForm"
+                        layoutMode></dynamic-widget>
       </el-dialog>
     </div>
   </div>
@@ -123,28 +131,41 @@ export default {
         children: 'children',
         label: 'Name'
       },
-      addTree: []
+      unUsedWidget: [],
+      showDialogVisible: false,
+      showForm: null
     }
   },
   methods: {
+    showWidget (item) {
+      this.showForm = item
+      this.showDialogVisible = true
+    },
     async addWidget () {
       let unUsedWidget = await this.$store.dispatch({type: 'widget/getUnUsedWidget'})
       unUsedWidget.forEach(el => {
         el.Name = this.$t(el.Title)
+        el.Checked = false
       })
-      this.addTree = unUsedWidget
+      this.unUsedWidget = []
+      for (let i = 0, len = unUsedWidget.length; i < len; i += 3) {
+        this.unUsedWidget.push(unUsedWidget.slice(i, i + 3))
+      }
       this.addDialogVisible = true
     },
     saveAddWidget () {
-      let selectWidget = this.$refs.addTree.getCheckedNodes(false, true)
       let maxY = _.max(this.userWidgets, el => el.y)
-      selectWidget.forEach(el => {
-        el.i = el.Id.toString()
-        el.w = el.minW
-        el.h = el.minH
-        el.x = 0
-        el.y = maxY.y + maxY.h
-        this.userWidgets.push(el)
+      _.each(this.unUsedWidget, (items) => {
+        _.each(items, (el) => {
+          if (el.Checked) {
+            el.i = el.Id.toString()
+            el.w = el.minW
+            el.h = el.minH
+            el.x = 0
+            el.y = maxY.y + maxY.h
+            this.userWidgets.push(el)
+          }
+        })
       })
       this.addDialogVisible = false
     },
