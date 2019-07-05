@@ -2,7 +2,7 @@
   <div class="report-page">
     <div class="report-page-card">
       <singel-mall-select></singel-mall-select>
-      <zone-selector :zoneTypes="zoneTypes" ref=zoneSelector></zone-selector>
+      <zone-selector @executeQuery='executeQuery' :zoneTypes="zoneTypes" ref=zoneSelector></zone-selector>
       <interval-picker></interval-picker>
       <date-range-picker></date-range-picker>
       <el-button type="primary"
@@ -56,10 +56,10 @@ export default {
   methods: {
     ...mapActions('report', ['query']),
     async onQuery () {
-      // let zoneIds = []
-      // this.$nextTick(() => {
-      //   zoneIds = this.$refs.zoneSelector.zoneIds
-      // })
+      let phyIds = this.$refs.zoneSelector.zoneIds
+      this.executeQuery(phyIds)
+    },
+    async executeQuery (phyIds) {
       this.data = await this.query({
         'report': {
           dateFields: ['Passby', 'EnteringRate', 'HighTemp', 'LowTemp', 'WeatherName'],
@@ -69,7 +69,7 @@ export default {
             {domain: 'Zone'}
             // { domain: 'All', period: 'All', timeFormatter: 'All' }
           ],
-          PhyIds: this.$refs.zoneSelector.zoneIds
+          PhyIds: phyIds
         }
       })
     }
@@ -192,9 +192,6 @@ export default {
         }]
       }
     }
-  },
-  async mounted () {
-    this.onQuery()
   }
 }
 </script>

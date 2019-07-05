@@ -254,7 +254,7 @@ export default {
           _.each(that.tableHeader, function (value, key) {
             let bodyData = {separate: key, data: []}
             if (groupBy_) {
-              let firstData = groupBy_[Object.keys(groupBy_)[0]][key].data
+              let firstData = Object.keys(groupBy_).length > 0 ? groupBy_[Object.keys(groupBy_)[0]][key].data : []
               _.each(that.fixedHeader, function (fh) {
                 let w = []
                 _.each(firstData, function (v) {

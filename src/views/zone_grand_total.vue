@@ -2,7 +2,7 @@
   <div class="report-page">
     <div class="report-page-card">
       <singel-mall-select></singel-mall-select>
-      <zone-selector :zone-types="zoneTypes" ref=zoneSelector></zone-selector>
+      <zone-selector @executeQuery='executeQuery' :zone-types="zoneTypes" ref=zoneSelector></zone-selector>
       <interval-picker-hourlyweek></interval-picker-hourlyweek>
       <date-range-picker></date-range-picker>
       <el-button type="primary"
@@ -48,7 +48,7 @@ import theme from '../lib/theme'
 
 export default {
   data: () => ({
-    zoneTypes: ['Entrance', 'Domain', 'Floor', 'Corridor'],
+    zoneTypes: ['Entrance', 'Corridor', 'Floor', 'Domain'],
     data: null,
     chartType: 'Enter',
     reportType: [0, 'TimeLabel'],
@@ -58,10 +58,10 @@ export default {
   methods: {
     ...mapActions('hourlyweek', ['query']),
     async onQuery () {
-      // let zoneIds = []
-      // this.$nextTick(() => {
-      //   zoneIds = this.$refs.zoneSelector.zoneIds
-      // })
+      let phyIds = this.$refs.zoneSelector.zoneIds
+      this.executeQuery(phyIds)
+    },
+    async executeQuery (phyIds) {
       this.data = await this.query({
         'report': {
           dateFields: ['Enter', 'Exit', 'Stay'],
@@ -69,7 +69,7 @@ export default {
             {domain: 'All'},
             {domain: 'Zone'}
           ],
-          PhyIds: this.$refs.zoneSelector.zoneIds
+          PhyIds: phyIds
         }
       })
     }
@@ -213,9 +213,6 @@ export default {
           return line
       }
     }
-  },
-  async mounted () {
-    this.onQuery()
   }
 }
 </script>

@@ -82,7 +82,7 @@ export default {
     return {
       dateRangeValue: [],
       compareDateRangeValue: [],
-      zoneTypes: ['Entrance', 'Domain', 'Floor', 'Corridor'],
+      zoneTypes: ['Entrance', 'Corridor', 'Floor', 'Domain'],
       data: null,
       reportType: [0, 'DateTime'],
       chartType: 'Enter'
