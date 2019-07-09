@@ -89,7 +89,7 @@ const defaultForm = () => {
     ParentId: '',
     RoleId: '',
     UserPwd: '',
-    Language: 'zh',
+    Language: 'zh-cn',
     Telephone: '',
     Email: ''
   }
