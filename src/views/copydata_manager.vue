@@ -253,8 +253,14 @@ export default {
       })
     }
   },
-  mounted () {
+  activated () {
     this.selectCompanyMall()
+    if (this.copyDataForm.SourceMallId !== '') {
+      this.selectCameraZoneByMallIdZoneClass(this.copyDataForm.SourceMallId, this.copyDataForm.ZoneClass, 'source')
+    }
+    if (this.copyDataForm.TargetMallId !== '') {
+      this.selectCameraZoneByMallIdZoneClass(this.copyDataForm.TargetMallId, this.copyDataForm.TargetMallId, 'target')
+    }
   },
   watch: {
     'copyDataForm.SourceMallId': {

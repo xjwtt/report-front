@@ -330,8 +330,11 @@ export default {
       })
     }
   },
-  mounted () {
+  activated () {
     this.selectCompanyMall()
+    if (this.modifyForm.MallId !== '') {
+      this.selectCameraZoneByMallIdZoneClass(this.modifyForm.MallId, this.modifyForm.ZoneClass)
+    }
   },
   watch: {
     'modifyForm.MallId': {
