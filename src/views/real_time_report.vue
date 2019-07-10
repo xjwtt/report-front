@@ -62,18 +62,28 @@
       <el-dialog
         v-if="addDialogVisible"
         :visible.sync="addDialogVisible"
-        width="800px">
+        width="80%">
         <template>
-          <el-row :gutter="24">
-            <div v-for="(items,index) in unUsedWidget" :key="index">
-              <el-col :span="8" v-for="item in items " :key="item.Id">
-                <div>
-                  <el-checkbox v-model="item.Checked" :label="item.Name" size="medium"></el-checkbox>
-                  <i class="el-icon-zoom-in" @click="showWidget(item)"></i>
-                </div>
-              </el-col>
-            </div>
-          </el-row>
+          <div class="box">
+            <el-row :gutter="24">
+              <div v-for="(items,index) in unUsedWidget" :key="index">
+                <el-col :span="6" v-for="item in items " :key="item.Id">
+                  <div>
+                    <label class="checkbox checkboxStyle">
+                      <input v-model="item.Checked" type="checkbox">
+                      <i class="fa fa-check-circle"></i>
+                      <div class="text">
+                        {{item.Name}}
+                      </div>
+                      <div class="iZoom">
+                        <i class="fa fa-search-plus" @click="showWidget(item)"></i>
+                      </div>
+                    </label>
+                  </div>
+                </el-col>
+              </div>
+            </el-row>
+          </div>
         </template>
         <span slot="footer"
               class="dialog-footer">
@@ -148,8 +158,8 @@ export default {
         el.Checked = false
       })
       this.unUsedWidget = []
-      for (let i = 0, len = unUsedWidget.length; i < len; i += 3) {
-        this.unUsedWidget.push(unUsedWidget.slice(i, i + 3))
+      for (let i = 0, len = unUsedWidget.length; i < len; i += 4) {
+        this.unUsedWidget.push(unUsedWidget.slice(i, i + 4))
       }
       this.addDialogVisible = true
     },
@@ -226,4 +236,5 @@ export default {
   .context-page > .header .button {
     margin-left: 10px;
   }
+
 </style>

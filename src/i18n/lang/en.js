@@ -497,5 +497,8 @@ export default {
   auto: 'Auto',
   'zh-cn': 'SimplifiedChinese',
   en: 'English',
-  ja: 'Japanese'
+  ja: 'Japanese',
+
+  hava_to_choose_a_site: 'Hava to choose a site',
+  starttime_is_greater_than_endtime: 'StartTime Is Greater Than EndTime'
 }

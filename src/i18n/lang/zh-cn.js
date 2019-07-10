@@ -497,5 +497,8 @@ export default {
   auto: '自动',
   'zh-cn': '简体中文',
   en: '英语',
-  ja: '日语'
+  ja: '日语',
+
+  hava_to_choose_a_site: '必须选择一个案场',
+  starttime_is_greater_than_endtime: '开始时间比结束时间大'
 }

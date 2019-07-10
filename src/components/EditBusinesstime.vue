@@ -174,13 +174,13 @@ export default {
           let startDate = moment(this.modifyForm.StartDate)
           let endDate = moment(this.modifyForm.EndDate)
           if (startDate.isAfter(endDate)) {
-            this.$message.error('StartDate is greater than EndDate')
+            this.$message.error(this.$t('starttime_is_greater_than_endtime'))
             return
           }
           let startTime = moment(this.modifyForm.StartTime, 'HH:mm')
           let endTime = moment(this.modifyForm.EndTime, 'HH:mm')
           if (startTime.isAfter(endTime)) {
-            this.$message.error('StartTime is greater than EndTime')
+            this.$message.error(this.$t('starttime_is_greater_than_endtime'))
             return
           }
           this.modifyForm.StartDate = startDate.format('YYYY-MM-DD')

@@ -12,18 +12,78 @@
               @click="SiteRegionShow=!SiteRegionShow">{{selectedMalls.length}}/{{malls.length}} {{$t('site')}}
           <i :class="{'el-icon-arrow-down': !SiteRegionShow, 'el-icon-arrow-up': SiteRegionShow }"></i>
         </span>
-        <el-dialog :visible.sync="SiteRegionShow">
-          <el-transfer filterable
-                       :filter-method="filterMethod"
-                       filter-placeholder="..."
-                       v-model="selectMallsValue"
-                       @change="selectedMallsChange"
-                       :data="malls"
-                       :props="{ key: 'Id', label: 'Name', disable: false }"
-                       :titles="[$t('unchecked'),$t('selected')]">
+        <el-dialog
+          v-if="SiteRegionShow"
+          :visible.sync="SiteRegionShow"
+          :show-close="false"
+          width="80%"
+          height="600px">
+          <!--          <el-transfer filterable-->
+          <!--                       :filter-method="filterMethod"-->
+          <!--                       filter-placeholder="..."-->
+          <!--                       v-model="selectMallsValue"-->
+          <!--                       @change="selectedMallsChange"-->
+          <!--                       :data="malls"-->
+          <!--                       :props="{ key: 'Id', label: 'Name', disable: false }"-->
+          <!--                       :titles="[$t('unchecked'),$t('selected')]">-->
 
-          </el-transfer>
-
+          <!--          </el-transfer>-->
+          <el-card>
+            <div slot="header" class="clearfix">
+              <el-col :gutter="24">
+                <el-col :span="4">
+                  <div class="input-group input-group-sm">
+                    <input type="search"
+                           class="form-control"
+                           ref="input"
+                           v-model="keyword"
+                           @keydown.enter="search"
+                           :placeholder="`...`">
+                    <span class="input-group-btn">
+                          <button class="btn btn-default fa fa-search"
+                                  @click="search"></button>
+                      </span>
+                  </div>
+                </el-col>
+                <el-col :span="10">
+                  <div style="margin-left: 20px;margin-top: -5px;">
+                    <label class="checkbox">
+                      <input v-model="AllChecked" type="checkbox" @click="AllCheckedOrNot">
+                      <i class="fa fa-check-circle"></i>
+                      <div class="text">
+                        全部选择
+                      </div>
+                    </label>
+                  </div>
+                </el-col>
+                <el-col :span="10">
+                  <div style="width: 100%;text-align: right">
+                    <el-button type="primary"
+                               @click="selectedMallsChange()">{{$t('ok')}}
+                    </el-button>
+                    <el-button @click="SiteRegionShow = false">{{$t('cancel')}}</el-button>
+                  </div>
+                </el-col>
+              </el-col>
+            </div>
+            <div class="box">
+              <el-row :gutter="24">
+                <div v-for="(items,index) in groupMalls" :key="index">
+                  <el-col :span="6" v-for="item in items " :key="item.Id">
+                    <div>
+                      <label class="checkbox checkboxStyle">
+                        <input v-model="item.Checked" type="checkbox">
+                        <i class="fa fa-check-circle"></i>
+                        <div class="text">
+                          {{item.Name}}
+                        </div>
+                      </label>
+                    </div>
+                  </el-col>
+                </div>
+              </el-row>
+            </div>
+          </el-card>
         </el-dialog>
         <el-dropdown class="user"
                      trigger="click"
@@ -155,6 +215,9 @@ export default {
       settingDialogVisible: false,
       settingModifyForm: {Language: 'auto', Email: '', Telephone: ''},
       languageTypes: [],
+      groupMalls: [],
+      AllChecked: false,
+      keyword: null,
       filterMethod (query, item) {
         return item.Name.indexOf(query) > -1
       },
@@ -192,7 +255,20 @@ export default {
       }
     },
     selectedMallsChange () {
-      this.setSelectMalls(this.selectMallsValue)
+      let selected = []
+      _.each(this.groupMalls, function (g) {
+        _.each(g, function (v) {
+          if (v.Checked) {
+            selected.push(v.Id)
+          }
+        })
+      })
+      if (selected.length === 0) {
+        this.$message.error(this.$t('hava_to_choose_a_site'))
+      } else {
+        this.setSelectMalls(selected)
+        this.SiteRegionShow = false
+      }
     },
     async sureLogOut () {
       await this.$store.dispatch({
@@ -231,6 +307,47 @@ export default {
         v.Name = this.$t(v.Name)
       })
       this.languageTypes = rep
+    },
+    search () {
+      console.log(this.keyword)
+    },
+    AllCheckedOrNot () {
+      let checked = this.AllChecked
+      _.each(this.groupMalls, function (g) {
+        _.each(g, function (v) {
+          v.Checked = !checked
+        })
+      })
+    },
+    computedAllChecked () {
+      let allLen = 0
+      let checkedLen = 0
+      _.each(this.groupMalls, function (g) {
+        _.each(g, function (v) {
+          allLen += 1
+          if (v.Checked) {
+            checkedLen += 1
+          }
+        })
+      })
+      this.AllChecked = allLen === checkedLen
+    },
+    computedGroupMalls () {
+      let that = this
+      let selectMallsValue = _.map(this.selectedMalls, _ => _.Id)
+      let mapSelectedMalls = _.object(selectMallsValue, selectMallsValue)
+      _.each(that.malls, function (v) {
+        let selected = mapSelectedMalls[v.Id]
+        if (selected) {
+          that.$set(v, 'Checked', true)
+        } else {
+          that.$set(v, 'Checked', false)
+        }
+      })
+      that.groupMalls = []
+      for (let i = 0, len = that.malls.length; i < len; i += 4) {
+        that.groupMalls.push(that.malls.slice(i, i + 4))
+      }
     }
   },
   computed: {
@@ -245,11 +362,19 @@ export default {
   components: {
     NavMenu
   },
-  created () {
-    this.selectMallsValue = _.map(this.selectedMalls, _ => _.Id)
-  },
-  activated () {
-    this.selectMallsValue = _.map(this.selectedMalls, _ => _.Id)
+  watch: {
+    groupMalls: {
+      handler () {
+        this.computedAllChecked()
+      },
+      deep: true
+    },
+    SiteRegionShow: {
+      handler () {
+        this.computedGroupMalls()
+      },
+      deep: true
+    }
   }
 }
 </script>
@@ -340,5 +465,44 @@ export default {
     padding-top: 6px;
     background-color: #fff;
     overflow: auto;
+  }
+
+  .box {
+    max-height: 350px;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .checkboxStyle {
+    line-height: 40px;
+    padding: 8px 4px 8px 24px;
+    border: 1px solid #eee;
+  }
+
+  .checkbox input[type=checkbox] {
+    display: none;
+  }
+
+  .checkbox .fa {
+    margin-right: 10px;
+    font-size: 24px;
+    line-height: 1;
+    color: #cdcdcd;
+    vertical-align: middle;
+  }
+
+  .checkbox input[type=checkbox]:checked + .fa {
+    color: #689AE4;
+  }
+
+  .checkbox .text {
+    display: inline-block;
+    width: 120px;
+    vertical-align: middle;
+    -moz-user-select: none;
+  }
+
+  .checkbox .iZoom {
+    float: right;
   }
 </style>
