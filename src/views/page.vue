@@ -67,21 +67,19 @@
               </el-col>
             </div>
             <div class="box">
-              <el-row :gutter="24">
-                <div v-for="(items,index) in groupMalls" :key="index">
-                  <el-col :span="6" v-for="item in items " :key="item.Id">
-                    <div>
-                      <label class="checkbox checkboxStyle">
-                        <input v-model="item.Checked" type="checkbox">
-                        <i class="fa fa-check-circle"></i>
-                        <div class="text">
-                          {{item.Name}}
-                        </div>
-                      </label>
-                    </div>
-                  </el-col>
-                </div>
-              </el-row>
+              <div v-for="(item,index) in malls" :key="index">
+                <el-col :span="5" style="margin-left: 3%">
+                  <div>
+                    <label class="checkbox checkboxStyle">
+                      <input v-model="item.Checked" type="checkbox">
+                      <i class="fa fa-check-circle"></i>
+                      <div class="text">
+                        {{item.Name}}
+                      </div>
+                    </label>
+                  </div>
+                </el-col>
+              </div>
             </div>
           </el-card>
         </el-dialog>
@@ -256,12 +254,10 @@ export default {
     },
     selectedMallsChange () {
       let selected = []
-      _.each(this.groupMalls, function (g) {
-        _.each(g, function (v) {
-          if (v.Checked) {
-            selected.push(v.Id)
-          }
-        })
+      _.each(this.malls, function (v) {
+        if (v.Checked) {
+          selected.push(v.Id)
+        }
       })
       if (selected.length === 0) {
         this.$message.error(this.$t('hava_to_choose_a_site'))
@@ -320,19 +316,15 @@ export default {
       })
     },
     computedAllChecked () {
-      let allLen = 0
       let checkedLen = 0
-      _.each(this.groupMalls, function (g) {
-        _.each(g, function (v) {
-          allLen += 1
-          if (v.Checked) {
-            checkedLen += 1
-          }
-        })
+      _.each(this.malls, function (v) {
+        if (v.Checked) {
+          checkedLen += 1
+        }
       })
-      this.AllChecked = allLen === checkedLen
+      this.AllChecked = (this.malls.length === checkedLen)
     },
-    computedGroupMalls () {
+    computedMalls () {
       let that = this
       let selectMallsValue = _.map(this.selectedMalls, _ => _.Id)
       let mapSelectedMalls = _.object(selectMallsValue, selectMallsValue)
@@ -344,10 +336,10 @@ export default {
           that.$set(v, 'Checked', false)
         }
       })
-      that.groupMalls = []
-      for (let i = 0, len = that.malls.length; i < len; i += 4) {
-        that.groupMalls.push(that.malls.slice(i, i + 4))
-      }
+      // that.groupMalls = []
+      // for (let i = 0, len = that.malls.length; i < len; i += 4) {
+      //   that.groupMalls.push(that.malls.slice(i, i + 4))
+      // }
     }
   },
   computed: {
@@ -363,7 +355,7 @@ export default {
     NavMenu
   },
   watch: {
-    groupMalls: {
+    malls: {
       handler () {
         this.computedAllChecked()
       },
@@ -371,7 +363,7 @@ export default {
     },
     SiteRegionShow: {
       handler () {
-        this.computedGroupMalls()
+        this.computedMalls()
       },
       deep: true
     }
@@ -468,7 +460,7 @@ export default {
   }
 
   .box {
-    max-height: 350px;
+    max-height: 450px;
     overflow-x: hidden;
     overflow-y: auto;
   }
