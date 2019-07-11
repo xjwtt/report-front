@@ -138,6 +138,7 @@ export default {
   funnel: 'Funnel',
   site_name: 'Site Name',
   site: 'Site',
+  all_election: 'AllElection',
   select_site: 'Select Site',
   select_entrance: 'Select Entrance',
   select_aisle: 'Select Aisle',

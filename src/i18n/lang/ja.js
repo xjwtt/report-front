@@ -138,6 +138,7 @@ export default {
   funnel: 'ファネル',
   site_name: '店舗名',
   site: '店舗',
+  all_election: 'すべて選択',
   select_site: '選択店舗',
   select_entrance: '入り口を選択する',
   select_aisle: '通路を選択する',
