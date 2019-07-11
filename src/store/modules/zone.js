@@ -1,6 +1,7 @@
 // import _ from 'underscore'
 // import moment from 'moment'
 import ajax from '@/lib/ajax'
+
 export default {
   namespaced: true,
   state: {},

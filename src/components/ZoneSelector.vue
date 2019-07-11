@@ -39,16 +39,7 @@ export default {
       activeType: null,
       groupedZones: {},
       zoneSelected: {},
-      zoneIds: []
-    }
-  },
-  methods: {
-    calculateMutitype (val) {
-      this.zoneIds = val[this.activeType] ? val[this.activeType] : []
-    },
-    changeZone () {
-      // console.log(this.groupedZones)
-      this.zoneIds = this.groupedZones ? _.map(this.groupedZones[this.activeType], _ => _.Id) : []
+      zoneIds: null
     }
   },
   computed: {
@@ -70,6 +61,15 @@ export default {
       selectedMall: state => state.selectedMall
     })
   },
+  methods: {
+    calculateMutitype (val) {
+      this.zoneIds = val[this.activeType] ? val[this.activeType] : []
+    },
+    changeZone () {
+      // console.log(this.groupedZones)
+      this.zoneIds = this.groupedZones ? _.map(this.groupedZones[this.activeType], _ => _.Id) : []
+    }
+  },
   watch: {
     zoneSelected: {
       handler (newVal) {
@@ -83,14 +83,25 @@ export default {
     },
     selectedMall: {
       async handler (newValue) {
-        let result = await this.$store.dispatch({
-          type: 'zone/selectPZZTByMallIdZoneTypeEnable',
-          data: {MallIds: [newValue.Id], ZoneTypes: this.zoneTypes}
-        })
-        this.groupedZones = _.groupBy(result, _ => _.ZoneTypeName)
+        // let result = await this.$store.dispatch({
+        //   type: 'zone/selectPZZTByMallIdZoneTypeEnable',
+        //   data: {MallIds: [newValue.Id], ZoneTypes: this.zoneTypes}
+        // })
+        // this.groupedZones = _.groupBy(result, _ => _.ZoneTypeName)
+        this.groupedZones = {}
+        let tempMap = _.groupBy(newValue.PhysicalZones, (v) => v.ZoneTypeName)
+        for (let i = 0, len = this.zoneTypes.length; i < len; i++) {
+          let key = this.zoneTypes[i]
+          let temp = tempMap[key]
+          if (temp) {
+            this.groupedZones[key] = temp
+          }
+        }
         this.activeType = this.groupedZones.hasOwnProperty(this.activeType) ? this.activeType : Object.keys(this.groupedZones)[0]
         this.zoneSelected = {}
-        this.$set(this.zoneSelected, this.activeType, _.map(this.groupedZones[this.activeType], _ => _.Id))
+        let value = _.map(this.groupedZones[this.activeType], _ => _.Id)
+        this.$set(this.zoneSelected, this.activeType, value)
+        this.$emit('executeQuery', value)
       },
       immediate: true
     }

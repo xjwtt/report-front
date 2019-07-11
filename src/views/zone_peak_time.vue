@@ -2,7 +2,7 @@
   <div class="report-page">
     <div class="report-page-card">
       <singel-mall-select></singel-mall-select>
-      <zone-selector :zone-types="zoneTypes" ref=zoneSelector></zone-selector>
+      <zone-selector @executeQuery='executeQuery' :zone-types="zoneTypes" ref=zoneSelector></zone-selector>
       <div>
         <span>{{ $t('date_range') }}：</span>
         <el-date-picker v-model="dateRangeValue"
@@ -43,7 +43,7 @@ import _ from 'underscore'
 
 export default {
   data: () => ({
-    zoneTypes: ['Entrance', 'Domain', 'Floor', 'Corridor'],
+    zoneTypes: ['Entrance', 'Corridor', 'Floor', 'Domain'],
     data: null,
     dateRangeValue: [moment().subtract(7, 'days'), moment().subtract(1, 'days')],
     chartType: 'Enter',
@@ -52,10 +52,10 @@ export default {
   methods: {
     ...mapActions('report', ['query']),
     async onQuery () {
-      // let zoneIds = []
-      // this.$nextTick(() => {
-      //   zoneIds = this.$refs.zoneSelector.zoneIds
-      // })
+      let phyIds = this.$refs.zoneSelector.zoneIds
+      this.executeQuery(phyIds)
+    },
+    async executeQuery (phyIds) {
       this.data = await this.query({
         'report': {
           st: this.dateRangeValue[0],
@@ -64,7 +64,7 @@ export default {
           groupBy: [
             {domain: 'All', period: '60m', timeFormatter: 'yyyy-MM-dd HH:mm'}
           ],
-          PhyIds: this.$refs.zoneSelector.zoneIds
+          PhyIds: phyIds
         }
       })
     }
@@ -186,9 +186,6 @@ export default {
       Object.freeze(option)
       return option
     }
-  },
-  async mounted () {
-    this.onQuery()
   }
 }
 </script>

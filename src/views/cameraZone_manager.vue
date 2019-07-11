@@ -65,7 +65,7 @@ export default {
     ],
     data: [],
     total: 0,
-    query: {Enabled: 1},
+    query: {'time_': 0, Enabled: 1},
     selection: [],
     xprops: {
       eventbus: new Vue()
@@ -108,11 +108,17 @@ export default {
   },
   watch: {
     query: {
-      handler () {
-        this.handleQueryChange()
+      handler (nValue) {
+        if (nValue.time_ !== 0) {
+          this.handleQueryChange()
+        }
       },
       deep: true
     }
+  },
+  activated () {
+    // time_保证每次进入页面都会获取最新数据 防止数据修改页面没有拿到最新数据
+    this.query['time_'] = (new Date()).getTime()
   },
   components: {
     EditCameraZone

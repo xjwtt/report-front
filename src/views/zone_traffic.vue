@@ -2,7 +2,7 @@
   <div class="report-page">
     <div class="report-page-card">
       <singel-mall-select></singel-mall-select>
-      <zone-selector :zone-types="zoneTypes" ref=zoneSelector></zone-selector>
+      <zone-selector @executeQuery='executeQuery' :zone-types="zoneTypes" ref=zoneSelector></zone-selector>
       <interval-picker></interval-picker>
       <date-range-picker></date-range-picker>
       <el-button type="primary"
@@ -49,7 +49,8 @@ import theme from '../lib/theme'
 
 export default {
   data: () => ({
-    zoneTypes: ['Entrance', 'Domain', 'Floor', 'Corridor'],
+    // 此处要按顺序写，关系到页面中展示的顺序
+    zoneTypes: ['Entrance', 'Corridor', 'Floor', 'Domain'],
     data: null,
     reportType: [1, 'DateTime'],
     chartType: 'Enter',
@@ -58,10 +59,10 @@ export default {
   methods: {
     ...mapActions('report', ['query']),
     async onQuery () {
-      // let zoneIds = []
-      // this.$nextTick(() => {
-      //   zoneIds = this.$refs.zoneSelector.zoneIds
-      // })
+      let phyIds = this.$refs.zoneSelector.zoneIds
+      this.executeQuery(phyIds)
+    },
+    async executeQuery (phyIds) {
       this.data = await this.query({
         'report': {
           dateFields: ['Enter', 'Exit', 'Stay', 'HighTemp', 'LowTemp', 'WeatherName'],
@@ -71,7 +72,7 @@ export default {
             {domain: 'Zone'}
             // { domain: 'All', period: 'All', timeFormatter: 'All' }
           ],
-          PhyIds: this.$refs.zoneSelector.zoneIds
+          PhyIds: phyIds
         }
       })
     }
@@ -273,9 +274,6 @@ export default {
           return pie
       }
     }
-  },
-  async mounted () {
-    this.onQuery()
   }
 }
 </script>

@@ -8,7 +8,6 @@ import ECharts from 'vue-echarts'
 
 import 'vue-easytable/libs/themes-base/index.css'
 import {VTable, VPagination} from 'vue-easytable'
-import 'canvas-datagrid'
 
 import App from './App'
 import {router} from './router/index'
@@ -24,7 +23,6 @@ import SingelMallSelect from './components/SingelMallSelect'
 import CompareMallSelect from './components/CompareMallSelect'
 import TheTable from './components/TheTable'
 import TrafficeTable from './components/TrafficeTable'
-import TrafficeTableCanvas from './components/TrafficeTableCanvas'
 import TrafficeTalbeFast from './components/TrafficeTalbeFast'
 import TrafficeTalbeFastBks from './components/TrafficeTalbeFast_bks'
 import TrafficeTalbeCompareFast from './components/TrafficeTalbeCompareFast'
@@ -35,7 +33,6 @@ Vue.config.productionTip = false
 Vue.use(ElementUI)
 
 Vue.component('chart', ECharts)
-Vue.config.ignoredElements = ['canvas-datagrid']
 
 Vue.component(VTable.name, VTable)
 Vue.component(VPagination.name, VPagination)
@@ -48,7 +45,6 @@ Vue.component('singel-mall-select', SingelMallSelect)
 Vue.component('compare-mall-select', CompareMallSelect)
 Vue.component('the-table', TheTable)
 Vue.component('traffice-table', TrafficeTable)
-Vue.component('traffice-table-canvas', TrafficeTableCanvas)
 Vue.component('traffice-table-fast', TrafficeTalbeFast)
 Vue.component('traffice-table-fast-bks', TrafficeTalbeFastBks)
 Vue.component('traffice-table-compare-fast', TrafficeTalbeCompareFast)

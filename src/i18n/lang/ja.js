@@ -138,6 +138,7 @@ export default {
   funnel: 'ファネル',
   site_name: '店舗名',
   site: '店舗',
+  all_election: 'すべて選択',
   select_site: '選択店舗',
   select_entrance: '入り口を選択する',
   select_aisle: '通路を選択する',
@@ -497,5 +498,8 @@ export default {
   auto: '自動',
   'zh-cn': '簡体字中国語',
   en: '英語',
-  ja: '日本語'
+  ja: '日本語',
+
+  hava_to_choose_a_site: '一つのフィールドを選択しなければなりません',
+  starttime_is_greater_than_endtime: '開始時間は終了時間より大きいです'
 }

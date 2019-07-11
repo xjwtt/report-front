@@ -138,6 +138,7 @@ export default {
   funnel: 'Funnel',
   site_name: 'Site Name',
   site: 'Site',
+  all_election: 'AllElection',
   select_site: 'Select Site',
   select_entrance: 'Select Entrance',
   select_aisle: 'Select Aisle',
@@ -497,5 +498,8 @@ export default {
   auto: 'Auto',
   'zh-cn': 'SimplifiedChinese',
   en: 'English',
-  ja: 'Japanese'
+  ja: 'Japanese',
+
+  hava_to_choose_a_site: 'Hava to choose a site',
+  starttime_is_greater_than_endtime: 'StartTime Is Greater Than EndTime'
 }

@@ -174,7 +174,6 @@ export default {
     async submitForm (formName) {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
-          console.log(JSON.stringify(this.serverConfig))
           this.modifyForm.ConfigureMessage = JSON.stringify(this.serverConfig)
           await this.$store.dispatch({type: 'senddataregularly/saveOrUpdateSendRegularly', data: this.modifyForm})
           this.dialogVisible = false

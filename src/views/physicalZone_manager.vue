@@ -205,7 +205,6 @@ export default {
     }
   },
   mounted () {
-    this.selectCompanyMall()
     this.xprops.eventbus
       .$on('MOVE', this.move)
       .$on('REVERSE', this.reverse)
@@ -245,6 +244,13 @@ export default {
         },
         deep: true
       }
+  },
+  activated () {
+    this.selectCompanyMall()
+    if (this.modifyForm.MallId !== '') {
+      this.selectPhysicalZone(this.modifyForm.MallId)
+      this.selectCameraZone(this.modifyForm.MallId)
+    }
   }
 }
 </script>

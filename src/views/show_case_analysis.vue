@@ -39,7 +39,7 @@
       <the-table :fields=columnsFields
                  :data=columnsData
                  :max-height="300"
-                 :excel-name="'showCase_table'"></the-table>
+                 :export-name="'showCase_table'"></the-table>
     </div>
   </div>
 </template>
@@ -231,10 +231,20 @@ export default {
   watch: {
     selectedMall: {
       async handler (newValue) {
-        let result = await this.$store.dispatch({
-          type: 'zone/selectPZZTByMallIdZoneTypeEnable',
-          data: {MallIds: [newValue.Id], ZoneTypes: this.zoneTypes}
-        })
+        // let result = await this.$store.dispatch({
+        //   type: 'zone/selectPZZTByMallIdZoneTypeEnable',
+        //   data: {MallIds: [newValue.Id], ZoneTypes: this.zoneTypes}
+        // })
+        let tempMap = _.groupBy(newValue.PhysicalZones, (v) => v.ZoneTypeName)
+        let result = []
+        for (let i = 0, len = this.zoneTypes.length; i < len; i++) {
+          let key = this.zoneTypes[i]
+          let temp = tempMap[key]
+          if (temp) {
+            result = temp
+          }
+        }
+        this.selectZone = ''
         this.allZones = []
         this.zoneIds = []
         _.each(result, (v) => {
@@ -243,6 +253,11 @@ export default {
         })
         if (this.allZones.length > 0) {
           this.selectZone = this.allZones[0].Name
+        }
+        if (this.zoneIds.length > 0) {
+          this.onQuery()
+        } else {
+          this.data = []
         }
       },
       immediate: true
