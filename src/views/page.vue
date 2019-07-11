@@ -265,6 +265,7 @@ export default {
       } else {
         this.setSelectMalls(selected)
         this.SiteRegionShow = false
+        this.keyword = ''
       }
     },
     async sureLogOut () {
@@ -338,20 +339,6 @@ export default {
         }
       })
       this.AllChecked = (this.malls.length === checkedLen)
-    },
-    computedMalls () {
-      let that = this
-      that.showMalls = this.malls
-      let selectMallsValue = _.map(this.selectedMalls, _ => _.Id)
-      let mapSelectedMalls = _.object(selectMallsValue, selectMallsValue)
-      _.each(that.showMalls, function (v) {
-        let selected = mapSelectedMalls[v.Id]
-        if (selected) {
-          that.$set(v, 'Checked', true)
-        } else {
-          that.$set(v, 'Checked', false)
-        }
-      })
     }
   },
   computed: {
@@ -373,19 +360,26 @@ export default {
       },
       deep: true
     },
-    SiteRegionShow: {
-      handler () {
-        this.keyword = ''
-        this.computedMalls()
-      },
-      deep: true
-    },
     keyword: {
       handler () {
         this.search()
       },
       deep: true
     }
+  },
+  mounted () {
+    let that = this
+    that.showMalls = this.malls
+    let selectMallsValue = _.map(this.selectedMalls, _ => _.Id)
+    let mapSelectedMalls = _.object(selectMallsValue, selectMallsValue)
+    _.each(that.showMalls, function (v) {
+      let selected = mapSelectedMalls[v.Id]
+      if (selected) {
+        that.$set(v, 'Checked', true)
+      } else {
+        that.$set(v, 'Checked', false)
+      }
+    })
   }
 }
 </script>
@@ -479,7 +473,7 @@ export default {
   }
 
   .box {
-    max-height: 450px;
+    max-height: 350px;
     overflow-x: hidden;
     overflow-y: auto;
   }
