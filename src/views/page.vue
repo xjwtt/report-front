@@ -307,7 +307,6 @@ export default {
     },
     search () {
       let result = fuzzysort.go(this.keyword, this.malls, {key: 'Name'})
-      console.log(this.showMalls)
       if (result.length > 0) {
         let temp = []
         let resultMap = {}
@@ -322,9 +321,8 @@ export default {
             temp.push(v)
           }
         })
-        console.log(temp)
+        document.getElementsByClassName('box')[0].scrollTop = 0
         this.showMalls = temp
-        console.log(this.malls)
       }
     },
     AllCheckedOrNot () {
