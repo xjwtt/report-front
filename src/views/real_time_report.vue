@@ -67,7 +67,7 @@
           <div class="box">
             <el-row :gutter="24">
               <div v-for="(items,index) in unUsedWidget" :key="index">
-                <el-col :span="6" v-for="item in items " :key="item.Id">
+                <el-col :span="8" v-for="item in items " :key="item.Id">
                   <div>
                     <label class="checkbox checkboxStyle">
                       <input v-model="item.Checked" type="checkbox">
@@ -158,8 +158,8 @@ export default {
         el.Checked = false
       })
       this.unUsedWidget = []
-      for (let i = 0, len = unUsedWidget.length; i < len; i += 4) {
-        this.unUsedWidget.push(unUsedWidget.slice(i, i + 4))
+      for (let i = 0, len = unUsedWidget.length; i < len; i += 3) {
+        this.unUsedWidget.push(unUsedWidget.slice(i, i + 3))
       }
       this.addDialogVisible = true
     },

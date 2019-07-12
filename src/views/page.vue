@@ -68,7 +68,7 @@
             </div>
             <div class="box">
               <div v-for="(item,index) in showMalls" :key="index">
-                <el-col :span="5" style="margin-left: 3%">
+                <el-col :span="7" style="margin-left: 3%">
                   <div>
                     <label class="checkbox checkboxStyle">
                       <input v-model="item.Checked" type="checkbox">
@@ -502,7 +502,6 @@ export default {
 
   .checkbox .text {
     display: inline-block;
-    width: 120px;
     vertical-align: middle;
     -moz-user-select: none;
   }

@@ -178,6 +178,9 @@ export default {
               trigger: 'axis'
             },
             legend: {
+              type: 'scroll',
+              right: 200,
+              left: 100,
               data: legendLine
             },
             grid: {

@@ -119,7 +119,7 @@ export default {
       let yPassBy = this.data ? _.map(this.data['report'][dataArrayIndex], (it) => it.Passby) : []
       let yEnteringRate = this.data ? _.map(this.data['report'][dataArrayIndex], (it) => it.EnteringRate) : []
 
-      return {
+      let result = {
         color: theme.color,
         tooltip: {
           trigger: 'axis'
@@ -191,6 +191,8 @@ export default {
           }
         }]
       }
+      Object.freeze(result)
+      return result
     }
   }
 }

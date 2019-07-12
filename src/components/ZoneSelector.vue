@@ -82,12 +82,7 @@ export default {
       this.$set(this.zoneSelected, this.activeType, newVal)
     },
     selectedMall: {
-      async handler (newValue) {
-        // let result = await this.$store.dispatch({
-        //   type: 'zone/selectPZZTByMallIdZoneTypeEnable',
-        //   data: {MallIds: [newValue.Id], ZoneTypes: this.zoneTypes}
-        // })
-        // this.groupedZones = _.groupBy(result, _ => _.ZoneTypeName)
+      async handler (newValue, oldValue) {
         this.groupedZones = {}
         let tempMap = _.groupBy(newValue.PhysicalZones, (v) => v.ZoneTypeName)
         for (let i = 0, len = this.zoneTypes.length; i < len; i++) {
@@ -101,7 +96,11 @@ export default {
         this.zoneSelected = {}
         let value = _.map(this.groupedZones[this.activeType], _ => _.Id)
         this.$set(this.zoneSelected, this.activeType, value)
-        this.$emit('executeQuery', value)
+        if (!oldValue || oldValue.Id !== newValue.Id) {
+          if (value && value.length > 0) {
+            this.$emit('executeQuery', value)
+          }
+        }
       },
       immediate: true
     }
