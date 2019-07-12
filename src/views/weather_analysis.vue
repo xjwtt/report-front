@@ -82,7 +82,7 @@ export default {
           et: this.dateRangeValue[1],
           dateFields: this.dateFields,
           groupBy: [
-            {domain: 'Zone', period: '1d', timeFormatter: 'yyyy-MM-dd'}
+            {domain: 'All', period: '1d', timeFormatter: 'yyyy-MM-dd'}
           ],
           PhyIds: phyIds
         }

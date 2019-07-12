@@ -38,6 +38,8 @@
 import {mapActions, mapState} from 'vuex'
 import moment from 'moment'
 import _ from 'underscore'
+import i18n from '@/i18n'
+import weekFun from '@/lib/weekFun'
 
 export default {
   data: () => ({
@@ -67,6 +69,7 @@ export default {
     }),
     chartOption () {
       let that = this
+      const t = key => i18n.t(key)
       let chartTypName = that.$t(that.chartType)
       let dateTimes = this.data ? _.map(this.data['report'][0], (_) => _['DateTime']) : []
       let min = 0
@@ -104,7 +107,7 @@ export default {
         })
       })
       days = _.map(days, function (v) {
-        return moment(v).format('MM-DD')
+        return weekFun.GetDateWeek(t, v, 'YYYY-MM-DD', 'MM-DD')
       })
       let option = {
         tooltip: {
@@ -123,7 +126,7 @@ export default {
         },
         animation: false,
         grid: {
-          height: '75%',
+          height: '70%',
           y: '10%'
         },
         xAxis: {
@@ -133,7 +136,7 @@ export default {
             show: true
           },
           axisLabel: {
-            rotate: 45
+            rotate: 35
           }
         },
         yAxis: {
