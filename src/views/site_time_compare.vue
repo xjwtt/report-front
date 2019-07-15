@@ -149,7 +149,6 @@ export default {
           }]
           break
       }
-      let yAxisNameLeft = this.$t('man_time')
       return {
         color: theme.color,
         tooltip: {
@@ -180,7 +179,6 @@ export default {
         ],
         yAxis: [{
           type: 'value',
-          name: yAxisNameLeft,
           axisLabel: {
             formatter: '{value} '
           }

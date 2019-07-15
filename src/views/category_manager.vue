@@ -43,7 +43,7 @@
       <el-dialog :title="$t('prompt')"
                  :visible.sync="delDialogVisible"
                  width="30%">
-        <span>{{$t('confirm_delete')}}{{waitToDel.length}}{{$t('items_delete')}}</span>
+        <span>{{$t('confirm_delete')}}</span>
         <span slot="footer"
               class="dialog-footer">
           <el-button @click="delDialogVisible = false">{{$t('cancel')}}</el-button>
@@ -64,7 +64,7 @@ export default {
   name: 'category_manager',
   data: () => ({
     // table
-    supportBackup: true,
+    HeaderSettings: false,
     tblClass: 'table-bordered',
     tblStyle: 'color: #666',
     columns: [

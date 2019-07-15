@@ -101,7 +101,7 @@ export default {
         {title: 'operation', tdComp: 'td-moveopt', thComp: 'th-i18n', visible: true}
       ],
       cameraZoneColums: [
-        {title: 'name', field: 'Name', thComp: 'th-i18n'},
+        {title: 'physical_name', field: 'Name', thComp: 'th-i18n'},
         {title: 'zone_type_name', field: 'ZoneTypeName', thComp: 'th-i18n', tdComp: 'td-i18n'},
         {title: 'direction', field: 'Reverse', thComp: 'th-i18n', tdComp: 'td-reverse'},
         {title: 'operation', tdComp: 'td-moveopt', thComp: 'th-i18n', visible: true}

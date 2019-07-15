@@ -13,7 +13,7 @@
                    label-width="150px"
                    class="demo-modifyForm">
             <el-tabs v-model="activeName">
-              <el-tab-pane label="base" name="base">
+              <el-tab-pane :label="$t('base')" name="base">
                 <el-form-item :label="$t('job_group')" prop="jobGroup">
                   <el-input v-model.trim="modifyForm.jobGroup"></el-input>
                 </el-form-item>
@@ -23,7 +23,7 @@
                 <el-form-item :label="$t('method_name')" prop="methodName">
                   <el-input v-model.trim="modifyForm.methodName"></el-input>
                 </el-form-item>
-                <el-form-item :label="$t('Cron')" prop="cron">
+                <el-form-item :label="$t('cron_expression')" prop="cron">
                   <el-input v-model.trim="modifyForm.cron"></el-input>
                 </el-form-item>
                 <el-form-item :label="$t('SpringId')" prop="springId">
@@ -36,10 +36,10 @@
                               prop="status">
                   <el-radio v-model="modifyForm.status" :label="1">{{$t('normal')}}</el-radio>
                   <el-radio v-model="modifyForm.status" :label="0">{{$t('pause')}}</el-radio>
-                  <el-radio v-model="modifyForm.status" :label="-1">{{$t('delete')}}</el-radio>
+                  <!--                  <el-radio v-model="modifyForm.status" :label="-1">{{$t('delete')}}</el-radio>-->
                 </el-form-item>
               </el-tab-pane>
-              <el-tab-pane label="otherMessage" name="otherMessage">
+              <el-tab-pane :label="$t('otherMessage')" name="otherMessage">
                 <el-form-item :label="$t('otherMessage')" prop="otherMessage">
                   <el-input type="textarea" v-model.trim="modifyForm.otherMessage"></el-input>
                 </el-form-item>
@@ -96,7 +96,7 @@ export default {
     async submitForm (formName) {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
-          await this.$store.dispatch({type: 'company/saveOrUpdateCompany', data: this.modifyForm})
+          await this.$store.dispatch({type: 'task/saveOrUpdateTask', data: this.modifyForm})
           this.dialogVisible = false
           this.$emit('handleQueryChange')
         } else {

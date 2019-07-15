@@ -15,7 +15,7 @@ export default {
         case 0:
           return this.$t('pause')
         case -1:
-          return this.$t('delete')
+          return this.$t('pause')
       }
     },
     type () {

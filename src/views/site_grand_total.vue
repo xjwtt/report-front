@@ -87,7 +87,6 @@ export default {
     },
     chartOption () {
       let that = this
-      let yAxisName = this.$t('man_time')
       let minName = this.$t('min')
       let maxName = this.$t('max')
       let avgName = this.$t('avg')
@@ -128,7 +127,6 @@ export default {
             },
             yAxis: [{
               type: 'value',
-              name: yAxisName,
               axisLabel: {
                 formatter: '{value} '
               }

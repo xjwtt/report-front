@@ -7,6 +7,12 @@ export default {
   actions: {
     async gridTask (context, payload) {
       return ajax.post('/business/gridTask.action', payload.data)
+    },
+    async saveOrUpdateTask (context, payload) {
+      return ajax.post('/business/saveOrUpdateTask.action', payload.data)
+    },
+    async deleteTask (context, payload) {
+      return ajax.post('/business/deleteTask.action', payload.data)
     }
   }
 }

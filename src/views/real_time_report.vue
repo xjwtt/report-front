@@ -24,7 +24,7 @@
         <div class="button"
              v-show="editMode">
           <el-button @click="addWidget">{{$t('add_plugin-in')}}</el-button>
-          <el-button @click="resetWidget">{{$t('restore_default')}}</el-button>
+<!--          <el-button @click="resetWidget">{{$t('restore_default')}}</el-button>-->
           <el-button @click="saveWidget">{{$t('save_layout')}}</el-button>
           <el-button @click="recoveryWidget">{{$t('return')}}</el-button>
         </div>
