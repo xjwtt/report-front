@@ -52,7 +52,7 @@ export default {
   area_setting: 'エリア設定',
   device_setting: 'デバイス管理',
   data_maintenance: 'データメンテナンス',
-  user_manager: 'ユーザー管理',
+  user_manager: 'ユーザ設定',
   role_manager: 'アカウント設定',
   widget_manager: 'ウィジェット設定',
   menu_manager: 'メニュー設定',

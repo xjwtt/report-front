@@ -68,7 +68,7 @@ export default {
     tblClass: 'table-bordered',
     tblStyle: 'color: #666',
     columns: [
-      {title: 'I18Key', field: 'Name', sortable: true},
+      // {title: 'I18Key', field: 'Name', sortable: true},
       {title: 'name', thComp: 'th-i18n', field: 'Name', tdComp: 'td-i18n'},
       {title: 'key_name', thComp: 'th-i18n', field: 'KeyName'},
       {title: 'data', thComp: 'th-i18n', field: 'Data'},

@@ -59,7 +59,7 @@ export default {
     columns: [
       // { title: 'ID', field: 'Id', sortable: true },
       {title: 'company_name', thComp: 'th-i18n', field: 'CompanyName', sortable: true},
-      {title: 'I18Key', field: 'Title', thComp: 'th-filter'},
+      // {title: 'I18Key', field: 'Title', thComp: 'th-filter'},
       {title: 'name', thComp: 'th-i18n', field: 'Title', tdComp: 'td-i18n'},
       {title: 'ranked', field: 'Ranked', thComp: 'th-filter', sortable: true},
       {title: 'operation', thComp: 'th-i18n', tdComp: 'td-opt', visible: true}
