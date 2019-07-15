@@ -5,6 +5,10 @@
       <el-form :model="loginForm"
                ref="loginForm"
                :rules="loginRules">
+        <el-form-item prop="CompanyName">
+          <el-input v-model="loginForm.CompanyName"
+                    :placeholder="$t('company_name')"></el-input>
+        </el-form-item>
         <el-form-item prop="UserName">
           <el-input v-model="loginForm.UserName"
                     :placeholder="$t('user_name')"></el-input>
@@ -30,10 +34,14 @@ export default {
   data () {
     return {
       loginForm: {
+        CompanyName: '',
         UserName: '',
         UserPass: ''
       },
       loginRules: {
+        CompanyName: [
+          {required: true, message: this.$t('company_name'), trigger: 'blur'}
+        ],
         UserName: [
           {required: true, message: this.$t('user_name'), trigger: 'blur'}
         ],
@@ -46,12 +54,19 @@ export default {
   },
   methods: {
     async submitForm (formName) {
-      let loading = this.$loading({fullscreen: true})
-      if (await this.$store.dispatch({type: 'app/login', data: this.loginForm})) {
-        await this.$store.dispatch({type: 'app/getUserInfo', data: this.loginForm})
-        this.$router.replace('/')
-      }
-      loading.close()
+      this.$refs[formName].validate(async (valid) => {
+        if (valid) {
+          let loading = this.$loading({fullscreen: true})
+          this.loginForm['loginType'] = 'Company'
+          if (await this.$store.dispatch({type: 'app/login', data: this.loginForm})) {
+            await this.$store.dispatch({type: 'app/getUserInfo', data: this.loginForm})
+            this.$router.replace('/')
+          }
+          loading.close()
+        } else {
+          this.$message.error(this.$t('incorrect_parameter'))
+        }
+      })
     },
     async loginOtherMsg () {
       let href = window.location.href
@@ -60,9 +75,14 @@ export default {
       let urls = result.split('.')
       if (urls.length > 0) {
         let company = await this.$store.dispatch({type: 'app/loginOtherMsg', SecondaryDomain: urls[0]})
-        if (company && company.BackgroundImg && company.BackgroundImg.indexOf('data:') >= 0) {
-          this.loginStyle.background = 'url(' + company.BackgroundImg + ') no-repeat'
-          this.loginStyle['background-size'] = '100% 100%'
+        if (company) {
+          if (company.Name) {
+            this.loginForm.CompanyName = company.Name
+          }
+          if (company.BackgroundImg && company.BackgroundImg.indexOf('data:') >= 0) {
+            this.loginStyle.background = 'url(' + company.BackgroundImg + ') no-repeat'
+            this.loginStyle['background-size'] = '100% 100%'
+          }
         }
       }
     }
@@ -96,8 +116,8 @@ export default {
   }
 
   .loginForm {
-    width: 300px;
-    height: 200px;
+    width: 350px;
+    height: 300px;
     padding: 30px 30px 0 30px;
     margin-top: 50px;
     text-align: center;

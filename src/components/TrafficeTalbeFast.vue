@@ -129,7 +129,9 @@ export default {
           data = this.tableData ? _.map(this.headerData, xSelector) : []
           break
         case 'DomainLabel':
-          data = this.charTypes
+          data = _.map(this.charTypes, (v) => {
+            return this.$t(v)
+          })
           break
       }
       _.each(data, function (item, index) {

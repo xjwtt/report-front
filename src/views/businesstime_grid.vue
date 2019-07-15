@@ -24,7 +24,7 @@ export default {
   name: 'businesstime_grid',
   data: () => ({
     // table
-    supportBackup: true,
+    HeaderSettings: false,
     tblClass: 'table-bordered',
     tblStyle: 'color: #666',
     columns: [

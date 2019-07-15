@@ -16,7 +16,7 @@
                           prop="Name">
               <el-input v-model.trim="modifyForm.Name"></el-input>
             </el-form-item>
-            <el-form-item label="Logo" prop="ShowLogo">
+            <el-form-item :label="$t('logo')" prop="ShowLogo">
               <el-input v-model.trim="modifyForm.ShowLogo"></el-input>
             </el-form-item>
             <el-form-item :label="$t('secondary_domain')" prop="SecondaryDomain">

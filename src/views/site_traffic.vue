@@ -21,7 +21,7 @@
                       size="mini">
         <el-radio-button :label="'Enter'">{{$t('enter')}}</el-radio-button>
         <el-radio-button :label="'Exit'">{{$t('exit')}}</el-radio-button>
-        <!--<el-radio-button :label="'Stay'">{{$t('stay')}}</el-radio-button>-->
+        <el-radio-button :label="'Stay'">{{$t('stay')}}</el-radio-button>
       </el-radio-group>
       <chart style="width:100%"
              :autoResize="true"
@@ -51,9 +51,10 @@ export default {
     data: null,
     reportType: [1, 'DateTime'],
     chartType: 'Enter',
-    dateFields: ['Enter', 'Exit', 'Stay'],
-    charTypes: ['Enter', 'Exit'],
-    fixedHeader: []
+    dateFields: ['Enter'],
+    charTypes: ['Enter', 'Exit', 'Stay'],
+    fixedHeader: [],
+    dateStyle: null
   }),
   methods: {
     ...mapActions('report', ['query']),
@@ -101,7 +102,6 @@ export default {
     },
     chartOption () {
       let that = this
-      let yAxisName = this.$t('man_time')
       let minName = this.$t('min')
       let maxName = this.$t('max')
       let avgName = this.$t('avg')
@@ -142,7 +142,6 @@ export default {
             },
             yAxis: [{
               type: 'value',
-              name: yAxisName,
               axisLabel: {
                 formatter: '{value} '
               }

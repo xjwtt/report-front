@@ -24,7 +24,7 @@
                     </el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item :label="$t('Cron')"
+                <el-form-item :label="$t('cron_type')"
                               prop="CronType">
                   <el-select v-model.trim="modifyForm.CronType">
                     <el-option v-for="item in CronTypes"
@@ -53,7 +53,7 @@
                    ref=modifyForm
                    label-width="150px"
                    class="demo-modifyForm">
-            <el-form-item :label="$t('type')"
+            <el-form-item :label="$t('server_type')"
                           prop="ServerType">
               <el-select v-model.trim="serverConfig.ServerType" filterable :placeholder="$t('please_select')">
                 <el-option v-for="item in ServerTypes"

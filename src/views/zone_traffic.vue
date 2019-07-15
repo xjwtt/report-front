@@ -23,7 +23,7 @@
                       size="mini">
         <el-radio-button :label="'Enter'">{{$t('enter')}}</el-radio-button>
         <el-radio-button :label="'Exit'">{{$t('exit')}}</el-radio-button>
-        <!--<el-radio-button :label="'Stay'">{{$t('stay')}}</el-radio-button>-->
+        <el-radio-button :label="'Stay'">{{$t('stay')}}</el-radio-button>
       </el-radio-group>
       <chart :options="chartOption"
              style="width:100%"
@@ -116,7 +116,6 @@ export default {
     },
     chartOption () {
       let that = this
-      let yAxisName = this.$t('man_time')
       let minName = this.$t('min')
       let maxName = this.$t('max')
       let avgName = this.$t('avg')
@@ -158,7 +157,6 @@ export default {
             },
             yAxis: [{
               type: 'value',
-              name: yAxisName,
               axisLabel: {
                 formatter: '{value} '
               }

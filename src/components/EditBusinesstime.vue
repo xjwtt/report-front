@@ -10,7 +10,7 @@
           <el-form :model="modifyForm"
                    :rules="rules"
                    ref=modifyForm
-                   label-width="120px"
+                   label-width="140px"
                    class="demo-modifyForm">
             <el-form-item :label="$t('company_name')" prop="CompanyId">
               <el-select v-model.trim="modifyForm.CompanyId"

@@ -108,7 +108,7 @@
     <el-dialog :title="$t('prompt')"
                :visible.sync="delDialogVisible"
                width="30%">
-      <span>{{$t('confirm_delete')}} Zone : {{delCameraZone.Zone}} ?</span>
+      <span>{{$t('confirm_delete')}}</span>
       <span slot="footer"
             class="dialog-footer">
           <el-button @click="delDialogVisible = false">{{$t('cancel')}}</el-button>
@@ -124,7 +124,7 @@
       <el-form :model="zoneForm"
                :rules="zoneRules"
                ref=zoneForm
-               label-width="100px"
+               label-width="120px"
                class="demo-zoneForm">
         <el-form-item :label="$t('zone_code')"
                       prop="Zone">

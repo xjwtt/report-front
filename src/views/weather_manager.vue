@@ -30,11 +30,11 @@ export default {
   name: 'weather_manager',
   data: () => ({
     // table
-    supportBackup: true,
+    HeaderSettings: false,
     tblClass: 'table-bordered',
     tblStyle: 'color: #666',
     columns: [
-      {title: 'city', field: 'CityName', thComp: 'th-filter', sortable: true},
+      {title: 'weather_city', field: 'CityName', thComp: 'th-filter', sortable: true},
       {title: 'date', field: 'Date', thComp: 'th-filter', sortable: true},
       {title: 'weatherName', field: 'WeatherName', thComp: 'th-i18n'},
       {title: 'highTemp', field: 'HighTemp', thComp: 'th-i18n'},
