@@ -65,7 +65,7 @@ export default {
     columns: [
       {title: 'mall_name', field: 'MallName', thComp: 'th-filter', sortable: true},
       {title: 'physical_name', field: 'Name', thComp: 'th-filter', sortable: true},
-      {title: 'I18Key', field: 'ZoneTypeName', thComp: 'th-filter', sortable: true},
+      // {title: 'I18Key', field: 'ZoneTypeName', thComp: 'th-filter', sortable: true},
       {title: 'zone_type_name', field: 'ZoneTypeName', thComp: 'th-i18n', tdComp: 'td-i18n'},
       {title: 'ranked', field: 'Ranked', thComp: 'th-i18n', sortable: true},
       {title: 'status', field: 'Enabled', thComp: 'th-i18n', sortable: true, tdComp: 'td-status'},

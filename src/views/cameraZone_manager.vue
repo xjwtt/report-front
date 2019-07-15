@@ -58,7 +58,7 @@ export default {
     columns: [
       {title: 'mall_name', field: 'MallName', thComp: 'th-filter', sortable: true},
       {title: 'device#zone', field: 'DeviceIdZone', thComp: 'th-i18n'},
-      {title: 'I18Key', field: 'ZoneClass', thComp: 'th-filter', sortable: true},
+      // {title: 'I18Key', field: 'ZoneClass', thComp: 'th-filter', sortable: true},
       {title: 'zone_class', field: 'ZoneClass', thComp: 'th-i18n', tdComp: 'td-i18n'},
       {title: 'status', field: 'Enabled', thComp: 'th-i18n', sortable: true, tdComp: 'td-status'},
       {title: 'operation', tdComp: 'td-opt', thComp: 'th-i18n', visible: true}
