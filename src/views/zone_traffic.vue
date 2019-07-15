@@ -54,7 +54,7 @@ export default {
     data: null,
     reportType: [1, 'DateTime'],
     chartType: 'Enter',
-    charTypes: ['Enter', 'Exit']
+    charTypes: ['Enter', 'Exit', 'Stay']
   }),
   methods: {
     ...mapActions('report', ['query']),
