@@ -37,7 +37,7 @@
       <el-dialog :title="$t('prompt')"
                  :visible.sync="delDialogVisible"
                  width="30%">
-        <span>{{$t('confirm_delete')}}{{waitToDel.length}}{{$t('items_delete')}}</span>
+        <span>{{$t('confirm_delete')}}</span>
         <span slot="footer"
               class="dialog-footer">
           <el-button @click="delDialogVisible = false">{{$t('cancel')}}</el-button>
@@ -59,13 +59,13 @@ export default {
   name: 'mall_manager',
   data: () => ({
     // table
-    supportBackup: true,
+    HeaderSettings: false,
     tblClass: 'table-bordered',
     tblStyle: 'color: #666',
     columns: [
       {title: 'mall_name', field: 'Name', thComp: 'th-filter', sortable: true},
       {title: 'timezone', field: 'TimeZone', thComp: 'th-filter', sortable: true},
-      {title: 'location', field: 'MallLocation', thComp: 'th-filter', sortable: true},
+      {title: 'mall_position', field: 'MallLocation', thComp: 'th-filter', sortable: true},
       {title: 'mall_code', field: 'MallCode', thComp: 'th-filter', sortable: true},
       {title: 'clerk_number', field: 'ClerkNumber', thComp: 'th-i18n', sortable: true},
       {title: 'operation_acreage', field: 'OperationAcreage', thComp: 'th-i18n', sortable: true},

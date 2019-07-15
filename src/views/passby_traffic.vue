@@ -104,7 +104,6 @@ export default {
       return this.data ? this.data['report'][dataArrayIndex] : []
     },
     chartOption () {
-      let yAxisNameLeft = this.$t('man_time')
       let yAxisNameRight = this.$t('percent')
       let minName = this.$t('min')
       let maxName = this.$t('max')
@@ -147,7 +146,6 @@ export default {
         },
         yAxis: [{
           type: 'value',
-          name: yAxisNameLeft,
           axisLabel: {
             formatter: '{value} '
           }

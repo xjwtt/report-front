@@ -113,7 +113,6 @@ export default {
       return columns
     },
     chartOption () {
-      let yAxisNameLeft = this.$t('man_time')
       let yAxisNameRight = this.$t('percent')
       let entranceCountName = this.$t('entranceCount')
       let passCountName = this.$t('passCount')
@@ -167,7 +166,6 @@ export default {
         yAxis: [{
           gridIndex: 1,
           type: 'value',
-          name: yAxisNameLeft,
           axisLabel: {
             formatter: '{value} '
           }

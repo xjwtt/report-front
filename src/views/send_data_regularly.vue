@@ -39,7 +39,7 @@
       <el-dialog :title="$t('prompt')"
                  :visible.sync="delDialogVisible"
                  width="30%">
-        <span>{{$t('confirm_delete')}}{{waitToDel.length}}{{$t('items_delete')}}</span>
+        <span>{{$t('confirm_delete')}}</span>
         <span slot="footer"
               class="dialog-footer">
           <el-button @click="delDialogVisible = false">{{$t('cancel')}}</el-button>
@@ -60,12 +60,12 @@ import RelatedSendRegularlyMall from '@/components/RelatedSendRegularlyMall'
 export default {
   data: () => ({
     // table
-    supportBackup: true,
+    HeaderSettings: false,
     tblClass: 'table-bordered',
     tblStyle: 'color: #666',
     columns: [
       {title: 'company_name', field: 'CompanyName', thComp: 'th-filter', sortable: true},
-      {title: 'Cron', field: 'CronType', thComp: 'th-i18n', sortable: true},
+      {title: 'cron_type', field: 'CronType', thComp: 'th-i18n', sortable: true},
       {title: 'description', field: 'Description', thComp: 'th-i18n'},
       {title: 'mall_number', field: 'MallNumber', thComp: 'th-i18n'},
       {title: 'last_send_time', field: 'LastSendTime', thComp: 'th-i18n'},

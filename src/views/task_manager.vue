@@ -33,7 +33,7 @@
       <el-dialog :title="$t('prompt')"
                  :visible.sync="delDialogVisible"
                  width="30%">
-        <span>{{$t('confirm_delete')}}{{waitToDel.length}}{{$t('items_delete')}}</span>
+        <span>{{$t('confirm_delete')}}</span>
         <span slot="footer"
               class="dialog-footer">
           <el-button @click="delDialogVisible = false">{{$t('cancel')}}</el-button>
@@ -55,16 +55,15 @@ export default {
   name: 'task_manager',
   data: () => ({
     // table
-    supportBackup: true,
+    HeaderSettings: false,
     tblClass: 'table-bordered',
     tblStyle: 'color: #666',
     columns: [
       {title: 'job_group', field: 'jobGroup', thComp: 'th-filter', sortable: true},
       {title: 'job_name', field: 'jobName', thComp: 'th-i18n', sortable: true},
       {title: 'method_name', field: 'methodName', thComp: 'th-i18n'},
-      {title: 'Cron', field: 'cron', thComp: 'th-i18n'},
+      {title: 'cron_expression', field: 'cron', thComp: 'th-i18n'},
       {title: 'description', field: 'description', thComp: 'th-i18n'},
-      {title: 'SpringId', field: 'springId', thComp: 'th-i18n'},
       {title: 'status', field: 'status', thComp: 'th-i18n', sortable: true, tdComp: 'td-taskStatus'},
       {title: 'operation', tdComp: 'td-taskOpt', thComp: 'th-i18n', visible: true}
     ],
@@ -98,7 +97,7 @@ export default {
       this.delDialogVisible = true
     },
     async sureDelete () {
-      await this.$store.dispatch({type: 'company/deleteCompany', data: this.waitToDel})
+      await this.$store.dispatch({type: 'task/deleteTask', data: this.waitToDel})
       this.delDialogVisible = false
       this.handleQueryChange()
     },
