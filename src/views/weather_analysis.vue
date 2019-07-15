@@ -135,7 +135,6 @@ export default {
     chartOption () {
       let that = this
       that.columnsData = []
-      let yAxisName = that.$t('man_time')
       let minName = that.$t('min')
       let maxName = that.$t('max')
       let chartTypeName = that.$t(that.chartType)
@@ -244,7 +243,6 @@ export default {
         },
         yAxis: [{
           type: 'value',
-          name: yAxisName,
           axisLabel: {
             formatter: '{value}'
           }
