@@ -24,7 +24,7 @@
         <div class="button"
              v-show="editMode">
           <el-button @click="addWidget">{{$t('add_plugin-in')}}</el-button>
-<!--          <el-button @click="resetWidget">{{$t('restore_default')}}</el-button>-->
+          <!--          <el-button @click="resetWidget">{{$t('restore_default')}}</el-button>-->
           <el-button @click="saveWidget">{{$t('save_layout')}}</el-button>
           <el-button @click="recoveryWidget">{{$t('return')}}</el-button>
         </div>
@@ -68,17 +68,17 @@
             <el-row :gutter="24">
               <div v-for="(items,index) in unUsedWidget" :key="index">
                 <el-col :span="8" v-for="item in items " :key="item.Id">
-                  <div>
-                    <label class="checkbox checkboxStyle">
+                  <div class="checkbox checkboxStyle">
+                    <label>
                       <input v-model="item.Checked" type="checkbox">
                       <i class="fa fa-check-circle"></i>
                       <div class="text">
                         {{item.Name}}
                       </div>
-                      <div class="iZoom">
-                        <i class="fa fa-search-plus" @click="showWidget(item)"></i>
-                      </div>
                     </label>
+                    <div class="iZoom">
+                      <i class="fa fa-search-plus" @click="showWidget(item)"></i>
+                    </div>
                   </div>
                 </el-col>
               </div>

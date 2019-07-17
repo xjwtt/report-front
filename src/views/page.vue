@@ -507,6 +507,7 @@ export default {
   }
 
   .checkbox .iZoom {
+    font-size: 24px;
     float: right;
   }
 </style>
