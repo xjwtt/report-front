@@ -63,6 +63,7 @@ export default {
     tblClass: 'table-bordered',
     tblStyle: 'color: #666',
     columns: [
+      {title: 'company_name', field: 'CompanyName', thComp: 'th-filter', sortable: true},
       {title: 'mall_name', field: 'Name', thComp: 'th-filter', sortable: true},
       {title: 'timezone', field: 'TimeZone', thComp: 'th-filter', sortable: true},
       {title: 'mall_position', field: 'MallLocation', thComp: 'th-filter', sortable: true},
