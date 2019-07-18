@@ -28,6 +28,7 @@ export default {
     tblClass: 'table-bordered',
     tblStyle: 'color: #666',
     columns: [
+      {title: 'company_name', field: 'CompanyName', thComp: 'th-filter', sortable: true},
       {title: 'mall_name', field: 'MallName', thComp: 'th-filter', sortable: true},
       {title: 'time_type_name', field: 'TimeTypeName', thComp: 'th-i18n', sortable: true, tdComp: 'td-i18n'},
       {title: 'start_date', field: 'StartDate', thComp: 'th-i18n', sortable: true},
