@@ -8,8 +8,8 @@
         <nav-menu :menus="menus"></nav-menu>
       </div>
       <div>
-        <span style="color:#acacac"
-              @click="SiteRegionShow=!SiteRegionShow">{{selectedMalls.length}}/{{malls.length}} {{$t('site')}}
+         <span style="color:#acacac"
+                        @click="siteRegionShow()">{{selectedMalls.length}}/{{malls.length}} {{$t('site')}}
           <i :class="{'el-icon-arrow-down': !SiteRegionShow, 'el-icon-arrow-up': SiteRegionShow }"></i>
         </span>
         <el-dialog
@@ -18,16 +18,6 @@
           :show-close="false"
           width="80%"
           height="600px">
-          <!--          <el-transfer filterable-->
-          <!--                       :filter-method="filterMethod"-->
-          <!--                       filter-placeholder="..."-->
-          <!--                       v-model="selectMallsValue"-->
-          <!--                       @change="selectedMallsChange"-->
-          <!--                       :data="malls"-->
-          <!--                       :props="{ key: 'Id', label: 'Name', disable: false }"-->
-          <!--                       :titles="[$t('unchecked'),$t('selected')]">-->
-
-          <!--          </el-transfer>-->
           <el-card>
             <div slot="header" class="clearfix">
               <el-col :gutter="24">
@@ -45,7 +35,7 @@
                       </span>
                   </div>
                 </el-col>
-                <el-col :span="10">
+                <el-col :span="14">
                   <div style="margin-left: 20px;margin-top: -5px;">
                     <label class="checkbox">
                       <input v-model="AllChecked" type="checkbox" @click="AllCheckedOrNot">
@@ -56,7 +46,12 @@
                     </label>
                   </div>
                 </el-col>
-                <el-col :span="10">
+                <el-col :span="2">
+                  <span>
+                    {{selectShowMalls.length}}/{{showMalls.length}} {{$t('site')}}
+                  </span>
+                </el-col>
+                <el-col :span="4">
                   <div style="width: 100%;text-align: right">
                     <el-button type="primary"
                                @click="selectedMallsChange()">{{$t('ok')}}
@@ -215,6 +210,7 @@ export default {
       settingModifyForm: {Language: 'auto', Email: '', Telephone: ''},
       languageTypes: [],
       showMalls: [],
+      selectShowMalls: [],
       AllChecked: false,
       keyword: null,
       filterMethod (query, item) {
@@ -235,6 +231,10 @@ export default {
   },
   methods: {
     ...mapMutations('app', ['setSelectMalls']),
+    siteRegionShow () {
+      this.initSelectMalls()
+      this.SiteRegionShow = !this.SiteRegionShow
+    },
     async handleCommand (command) {
       switch (command) {
         case 'logout':
@@ -254,16 +254,16 @@ export default {
       }
     },
     selectedMallsChange () {
-      let selected = []
-      _.each(this.malls, function (v) {
-        if (v.Checked) {
-          selected.push(v.Id)
-        }
-      })
-      if (selected.length === 0) {
+      // let selected = []
+      // _.each(this.malls, function (v) {
+      //   if (v.Checked) {
+      //     selected.push(v.Id)
+      //   }
+      // })
+      if (this.selectShowMalls.length === 0) {
         this.$message.error(this.$t('hava_to_choose_a_site'))
       } else {
-        this.setSelectMalls(selected)
+        this.setSelectMalls(this.selectShowMalls)
         this.SiteRegionShow = false
         this.keyword = ''
       }
@@ -339,6 +339,32 @@ export default {
         }
       })
       this.AllChecked = (this.malls.length === checkedLen)
+    },
+    initSelectMalls () {
+      let that = this
+      that.showMalls = this.malls
+      let selectMallsValue = _.map(this.selectedMalls, _ => _.Id)
+      let mapSelectedMalls = _.object(selectMallsValue, selectMallsValue)
+      _.each(that.showMalls, function (v) {
+        let selected = mapSelectedMalls[v.Id]
+        if (selected) {
+          that.$set(v, 'Checked', true)
+        } else {
+          that.$set(v, 'Checked', false)
+        }
+      })
+    },
+    computedSelectShowMalls () {
+      let selected = []
+      _.each(this.showMalls, function (v) {
+        if (v.Checked) {
+          selected.push(v.Id)
+        }
+      })
+      if (selected.length === 0) {
+        this.$message.error(this.$t('hava_to_choose_a_site'))
+      }
+      this.selectShowMalls = selected
     }
   },
   computed: {
@@ -357,6 +383,7 @@ export default {
     showMalls: {
       handler () {
         this.computedAllChecked()
+        this.computedSelectShowMalls()
       },
       deep: true
     },
@@ -368,18 +395,7 @@ export default {
     }
   },
   mounted () {
-    let that = this
-    that.showMalls = this.malls
-    let selectMallsValue = _.map(this.selectedMalls, _ => _.Id)
-    let mapSelectedMalls = _.object(selectMallsValue, selectMallsValue)
-    _.each(that.showMalls, function (v) {
-      let selected = mapSelectedMalls[v.Id]
-      if (selected) {
-        that.$set(v, 'Checked', true)
-      } else {
-        that.$set(v, 'Checked', false)
-      }
-    })
+    this.initSelectMalls()
   }
 }
 </script>
