@@ -26,12 +26,11 @@
 import _ from 'underscore'
 
 export default {
-  name: 'RelatedMall',
   data () {
     return {
       dialogVisible: false,
       malls: [],
-      businessTimeId: '',
+      tagTypeId: '',
       selectMallsValue: [],
       filterMethod (query, item) {
         return item.Name.indexOf(query) > -1
@@ -42,15 +41,15 @@ export default {
     show (form) {
       this.dialogVisible = true
       this.selectCompanyMall(form.CompanyId)
-      this.userMall(form.Id)
+      this.tagTypeMall(form.Id)
     },
     async selectCompanyMall (companyId) {
       let rep = await this.$store.dispatch({type: 'mall/selectCompanyMall', data: {CompanyId: companyId}})
       this.malls = rep
     },
-    async userMall (businessTimeId) {
-      this.businessTimeId = businessTimeId
-      let rep = await this.$store.dispatch({type: 'mall/businessTimeMall', data: {businessTimeId: businessTimeId}})
+    async tagTypeMall (tagTypeId) {
+      this.tagTypeId = tagTypeId
+      let rep = await this.$store.dispatch({type: 'mall/tagTypeMall', data: {tagTypeId: tagTypeId}})
       this.selectMallsValue = _.map(rep, _ => _.Id)
     },
     async submitForm () {
@@ -67,8 +66,8 @@ export default {
         }
       })
       await this.$store.dispatch({
-        type: 'businesstime/businessTimeSaveMalls',
-        data: {Id: this.businessTimeId, mallIds: mallIds}
+        type: 'tagtype/tagTypeSaveMalls',
+        data: {Id: this.tagTypeId, mallIds: mallIds}
       })
       this.dialogVisible = false
       this.$emit('handleQueryChange')

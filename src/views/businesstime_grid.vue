@@ -5,14 +5,14 @@
       <div slot="header"
            class="clearfix">
         <span>{{$t('businesstime_grid')}}</span>
-        <datatable v-bind="$data">
-          <slot>
-            <div class="pull-right"
-                 style="margin:0 5px">
-            </div>
-          </slot>
-        </datatable>
       </div>
+      <datatable v-bind="$data">
+        <slot>
+          <div class="pull-right"
+               style="margin:0 5px">
+          </div>
+        </slot>
+      </datatable>
     </el-card>
   </div>
 </template>

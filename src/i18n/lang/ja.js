@@ -63,6 +63,8 @@ export default {
   physical_manager: 'デバイス領域設定',
   physicalZone_manager: 'デバイス領域連携',
   physicalZone_view: '機器閲覧',
+  tagtype_manager: '会社ラベルの設定',
+  tagtype_grid: '店舗ラベルの設定',
   camera_manager: 'デバイス設定',
   cameraZone_manager: 'デバイス詳細設定',
   camerastatus_manager: 'デバイスステータス',
@@ -506,6 +508,9 @@ export default {
   'zh-cn': '簡体字中国語',
   en: '英語',
   ja: '日本語',
+
+  site_count: '店舗数',
+  data_duplication: 'データの繰り返し',
 
   hava_to_choose_a_site: '一つのフィールドを選択しなければなりません',
   starttime_is_greater_than_endtime: '開始時間は終了時間より大きいです'

@@ -14,6 +14,9 @@ export default {
     async businessTimeMall (context, payload) {
       return ajax.post('/business/businessTimeMall.action', payload.data)
     },
+    async tagTypeMall (context, payload) {
+      return ajax.post('/business/tagTypeMall.action', payload.data)
+    },
     async selectCompanyMall (context, payload) {
       return ajax.post('/business/selectCompanyMall.action', payload.data)
     },

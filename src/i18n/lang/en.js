@@ -63,6 +63,8 @@ export default {
   physical_manager: 'Physical Manager',
   physicalZone_manager: 'PhysicalZone Manager',
   physicalZone_view: 'PhysicalZone View',
+  tagtype_manager: 'TagType Manager',
+  tagtype_grid: 'TagType Grid',
   camera_manager: 'Camera Manager',
   cameraZone_manager: 'CameraZone',
   camerastatus_manager: 'Camera Status',
@@ -506,6 +508,9 @@ export default {
   'zh-cn': 'SimplifiedChinese',
   en: 'English',
   ja: 'Japanese',
+
+  site_count: 'SiteCount',
+  data_duplication: 'Data Duplication',
 
   hava_to_choose_a_site: 'Hava to choose a site',
   starttime_is_greater_than_endtime: 'StartTime Is Greater Than EndTime'

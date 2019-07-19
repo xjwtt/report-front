@@ -22,6 +22,7 @@ import recover from './modules/recover'
 import history from './modules/historyflow'
 import task from './modules/task'
 import senddataregularly from './modules/senddataregularly'
+import tagtype from './modules/tagtype'
 
 Vue.use(Vuex)
 
@@ -57,7 +58,8 @@ const store = new Vuex.Store({
     recover,
     history,
     task,
-    senddataregularly
+    senddataregularly,
+    tagtype
   }
 })
 

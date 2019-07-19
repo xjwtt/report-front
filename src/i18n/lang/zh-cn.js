@@ -63,6 +63,8 @@ export default {
   physical_manager: '物理区域管理',
   physicalZone_manager: '摄像区域关联管理',
   physicalZone_view: '摄像区域查看',
+  tagtype_manager: '标签管理',
+  tagtype_grid: '标签查看',
   camera_manager: '客流摄像机管理',
   cameraZone_manager: '客流摄像区域查询',
   camerastatus_manager: '客流摄像机状态',
@@ -506,6 +508,9 @@ export default {
   'zh-cn': '简体中文',
   en: '英语',
   ja: '日语',
+
+  site_count: '案场数量',
+  data_duplication: '数据重复',
 
   hava_to_choose_a_site: '必须选择一个案场',
   starttime_is_greater_than_endtime: '开始时间比结束时间大'
