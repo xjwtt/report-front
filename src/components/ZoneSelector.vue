@@ -6,12 +6,12 @@
                  :key=key
                  :label=$t(key)
                  :name=key>
-      <span slot="label">
+      <label slot="label">
         <el-checkbox v-if="activeType===key"
                      :indeterminate="isIndeterminate"
                      v-model="checkAll"></el-checkbox>
         {{$t(key)}}
-      </span>
+      </label>
       <el-checkbox-group v-model="zoneIds">
         <el-checkbox v-for="zone in zones"
                      :label=zone.Id

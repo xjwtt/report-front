@@ -68,6 +68,7 @@ export default {
       {title: 'start_time', field: 'StartTime', thComp: 'th-i18n', sortable: true},
       {title: 'end_date', field: 'EndDate', thComp: 'th-i18n', sortable: true},
       {title: 'end_time', field: 'EndTime', thComp: 'th-i18n', sortable: true},
+      {title: 'site_count', field: 'SiteCount', thComp: 'th-i18n', sortable: true},
       {title: 'weekdays', field: 'Weekdays', thComp: 'th-i18n', tdComp: 'td-weekdays'},
       {title: 'description', field: 'Description', thComp: 'th-i18n'},
       {title: 'operation', tdComp: 'td-businesstimeOpt', thComp: 'th-i18n', visible: true}

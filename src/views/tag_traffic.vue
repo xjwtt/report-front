@@ -1,6 +1,7 @@
 <template>
   <div class="report-page">
     <div class="report-page-card">
+      <tag-selector ref="tagSelector"></tag-selector>
       <interval-picker></interval-picker>
       <date-range-picker></date-range-picker>
       <el-button type="primary"
@@ -21,12 +22,11 @@
                       size="mini">
         <el-radio-button :label="'Enter'">{{$t('enter')}}</el-radio-button>
         <el-radio-button :label="'Exit'">{{$t('exit')}}</el-radio-button>
-        <el-radio-button :label="'Stay'">{{$t('stay')}}</el-radio-button>
+        <!--        <el-radio-button :label="'Stay'">{{$t('stay')}}</el-radio-button>-->
       </el-radio-group>
       <chart style="width:100%"
              :autoResize="true"
              :options="chartOption"></chart>
-
     </div>
     <div class="report-page-card">
       <traffice-table-fast :columnsInit=columnsInit
@@ -35,7 +35,7 @@
                            :tableData=tableData
                            :headerData=headerData
                            :fixedHeader=fixedHeader
-                           :export-name="'site_traffic'">
+                           :export-name="'tag_traffic'">
       </traffice-table-fast>
     </div>
   </div>
@@ -43,6 +43,7 @@
 
 <script>
 import {mapActions} from 'vuex'
+import TagSelector from '@/components/TagSelector'
 import _ from 'underscore'
 import theme from '../lib/theme'
 
@@ -52,24 +53,39 @@ export default {
     reportType: [1, 'DateTime'],
     chartType: 'Enter',
     dateFields: ['Enter', 'Exit', 'Stay'],
-    charTypes: ['Enter', 'Exit', 'Stay'],
-    fixedHeader: [],
-    dateStyle: null
+    charTypes: ['Enter', 'Exit'],
+    fixedHeader: []
   }),
   methods: {
     ...mapActions('report', ['query']),
     async onQuery () {
+      let checkedTagTypes = this.$refs.tagSelector.checkedTagTypes
+      let mallIds = this.getMallIds(checkedTagTypes)
       this.data = await this.query({
         'report': {
+          mallIds: mallIds,
+          tagTypes: checkedTagTypes,
           dateFields: this.dateFields,
           groupBy: [
-            // {domain: 'Mall'},
-            {domain: 'Mall', period: 'All', timeFormatter: 'All'},
+            {domain: 'Tag', period: 'All', timeFormatter: 'All'},
             {domain: 'All'},
-            {domain: 'Mall'}
+            {domain: 'Tag'}
           ]
         }
       })
+    },
+    getMallIds (tagTypes) {
+      if (tagTypes) {
+        let set = new Set()
+        _.each(tagTypes, function (v) {
+          _.each(v.MallIds, function (id) {
+            set.add(id)
+          })
+        })
+        return Array.from(set)
+      } else {
+        return []
+      }
     }
   },
   computed: {
@@ -261,8 +277,15 @@ export default {
       }
     }
   },
-  async mounted () {
+  mounted () {
     this.onQuery()
+  },
+  components: {
+    TagSelector
   }
 }
 </script>
+
+<style scoped>
+
+</style>

@@ -17,6 +17,7 @@ export default {
     telephone: null,
     malls: [],
     menus: [],
+    tagTypes: [],
 
     companyID: null,
     companyName: null,
@@ -39,6 +40,7 @@ export default {
       state.email = payload.Email
       state.telephone = payload.Telephone
       state.malls = payload.Malls
+      state.tagTypes = payload.TagTypes
       state.selectedMall = payload.Malls[0]
       state.selectedMalls = payload.Malls
       state.menus = payload.Menus

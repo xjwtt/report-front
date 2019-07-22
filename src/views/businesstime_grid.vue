@@ -5,14 +5,14 @@
       <div slot="header"
            class="clearfix">
         <span>{{$t('businesstime_grid')}}</span>
-        <datatable v-bind="$data">
-          <slot>
-            <div class="pull-right"
-                 style="margin:0 5px">
-            </div>
-          </slot>
-        </datatable>
       </div>
+      <datatable v-bind="$data">
+        <slot>
+          <div class="pull-right"
+               style="margin:0 5px">
+          </div>
+        </slot>
+      </datatable>
     </el-card>
   </div>
 </template>
@@ -28,6 +28,7 @@ export default {
     tblClass: 'table-bordered',
     tblStyle: 'color: #666',
     columns: [
+      {title: 'company_name', field: 'CompanyName', thComp: 'th-filter', sortable: true},
       {title: 'mall_name', field: 'MallName', thComp: 'th-filter', sortable: true},
       {title: 'time_type_name', field: 'TimeTypeName', thComp: 'th-i18n', sortable: true, tdComp: 'td-i18n'},
       {title: 'start_date', field: 'StartDate', thComp: 'th-i18n', sortable: true},

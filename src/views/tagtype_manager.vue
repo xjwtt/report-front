@@ -1,15 +1,9 @@
 <template>
   <div class="config-page">
-    <el-card class="box-card"
-             style="flex:auto">
-      <div slot="header"
-           class="clearfix">
-        <span>{{$t('mall_manager')}}</span>
+    <el-card class="box-card" style="flex:auto">
+      <div slot="header" class="clearfix">
+        <span>{{$t('tagtype_manager')}}</span>
       </div>
-      <template>
-        <el-radio v-model="query.Enabled" :label="1">{{$t('start_using')}}</el-radio>
-        <el-radio v-model="query.Enabled" :label="-1">{{$t('block_up')}}</el-radio>
-      </template>
       <datatable v-bind="$data">
         <slot>
           <div class="pull-right"
@@ -33,7 +27,9 @@
           </div>
         </slot>
       </datatable>
-      <edit-mall ref=editDialog @handleQueryChange="handleQueryChange"></edit-mall>
+      <edit-tag-type ref="editDialog" @handleQueryChange="handleQueryChange"></edit-tag-type>
+      <related-tag-type-mall ref="RelatedBusinesstimeMall"
+                             @handleQueryChange="handleQueryChange"></related-tag-type-mall>
       <el-dialog :title="$t('prompt')"
                  :visible.sync="delDialogVisible"
                  width="30%">
@@ -46,17 +42,17 @@
         </span>
       </el-dialog>
     </el-card>
-
   </div>
 </template>
 
 <script>
 import Vue from 'vue'
-import EditMall from '@/components/EditMall'
 import _ from 'underscore'
+import EditTagType from '@/components/EditTagType'
+import RelatedTagTypeMall from '@/components/RelatedTagTypeMall'
 
 export default {
-  name: 'mall_manager',
+  name: 'tagtype_manager',
   data: () => ({
     // table
     HeaderSettings: false,
@@ -64,24 +60,19 @@ export default {
     tblStyle: 'color: #666',
     columns: [
       {title: 'company_name', field: 'CompanyName', thComp: 'th-filter', sortable: true},
-      {title: 'mall_name', field: 'Name', thComp: 'th-filter', sortable: true},
-      {title: 'timezone', field: 'TimeZone', thComp: 'th-filter', sortable: true},
-      {title: 'mall_position', field: 'MallLocation', thComp: 'th-filter', sortable: true},
-      {title: 'mall_code', field: 'MallCode', thComp: 'th-filter', sortable: true},
-      {title: 'clerk_number', field: 'ClerkNumber', thComp: 'th-i18n', sortable: true},
-      {title: 'operation_acreage', field: 'OperationAcreage', thComp: 'th-i18n', sortable: true},
-      {title: 'ranked', field: 'Ranked', thComp: 'th-i18n', sortable: true},
-      {title: 'status', field: 'Enabled', thComp: 'th-i18n', sortable: true, tdComp: 'td-status'},
-      {title: 'operation', thComp: 'th-i18n', tdComp: 'td-opt', visible: true}
+      {title: 'name', field: 'Name', thComp: 'th-i18n', sortable: true, tdComp: 'td-i18n'},
+      {title: 'site_count', field: 'SiteCount', thComp: 'th-i18n', sortable: true},
+      {title: 'description', field: 'Description', thComp: 'th-i18n'},
+      {title: 'rand', field: 'Ranked', thComp: 'th-i18n'},
+      {title: 'operation', tdComp: 'td-businesstimeOpt', thComp: 'th-i18n', visible: true}
     ],
     data: [],
     total: 0,
-    query: {'time_': 0, Enabled: 1},
+    query: {'time_': 0},
     selection: [],
     xprops: {
       eventbus: new Vue()
     },
-
     delDialogVisible: false,
     waitToDel: []
   }),
@@ -89,6 +80,7 @@ export default {
     this.xprops.eventbus
       .$on('EDIT', this.$refs.editDialog.show)
       .$on('DELETE', this.del)
+      .$on('RelatedMall', this.$refs.RelatedBusinesstimeMall.show)
   },
   methods: {
     newOne () {
@@ -103,15 +95,15 @@ export default {
       }
       this.delDialogVisible = true
     },
-    async sureDelete () {
-      await this.$store.dispatch({type: 'mall/delMall', data: this.waitToDel})
-      this.delDialogVisible = false
-      this.handleQueryChange()
-    },
     async handleQueryChange () {
-      let rep = await this.$store.dispatch({type: 'mall/gridMall', data: this.query})
+      let rep = await this.$store.dispatch({type: 'tagtype/gridTagType', data: this.query})
       this.total = rep.total
       this.data = rep.list
+    },
+    async sureDelete () {
+      await this.$store.dispatch({type: 'tagtype/deleteTagType', data: this.waitToDel})
+      this.delDialogVisible = false
+      this.handleQueryChange()
     }
   },
   watch: {
@@ -129,7 +121,8 @@ export default {
     this.query['time_'] = (new Date()).getTime()
   },
   components: {
-    EditMall
+    EditTagType,
+    RelatedTagTypeMall
   }
 }
 </script>
