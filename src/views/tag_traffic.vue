@@ -53,7 +53,7 @@ export default {
     reportType: [1, 'DateTime'],
     chartType: 'Enter',
     dateFields: ['Enter', 'Exit', 'Stay'],
-    charTypes: ['Enter', 'Exit'],
+    charTypes: ['Enter', 'Exit', 'Stay'],
     fixedHeader: []
   }),
   methods: {
