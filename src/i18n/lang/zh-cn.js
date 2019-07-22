@@ -21,7 +21,7 @@ export default {
   store_traffic: '商铺客流查询',
   area_traffic: '区域客流查询',
   passby_traffic: '入店率查询',
-  tag_traffic: '业态业种品类查询',
+  tag_traffic: '标签客流查询',
   site_kpi: '案场运营KPI分析',
   store_kpi: '商铺运营KPI分析',
   tag_kpi: '业态业种品类分析',

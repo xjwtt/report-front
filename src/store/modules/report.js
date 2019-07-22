@@ -66,6 +66,9 @@ export default {
         let location = payload.PhyIds
           ? {PhyIds: payload.PhyIds}
           : {MallIds: mallIds}
+        if (payload.tagTypes) {
+          location['TagTypes'] = payload.tagTypes
+        }
         st = moment(st).format('YYYY-MM-DD')
         et = moment(et).format('YYYY-MM-DD')
         let startTime = payload.startTime ? payload.startTime : ''

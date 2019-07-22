@@ -24,6 +24,7 @@ export const allRouters = {
   store_report: () => import('@/views/store_report'),
   zone_traffic: () => import('@/views/zone_traffic'),
   passby_traffic: () => import('@/views/passby_traffic'),
+  tag_traffic: () => import('@/views/tag_traffic'),
   site_location_compare: () => import('@/views/site_location_compare'),
   site_time_compare: () => import('@/views/site_time_compare'),
   // entrance_traffic: () => import('@/views/entrance_traffic')
