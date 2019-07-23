@@ -141,6 +141,7 @@ export default {
   site_name: '案场名称',
   site: '案场',
   all_election: '全选',
+  fast_tag_Selection: '标签快速选择',
   select_site: '案场选择',
   select_entrance: '出入口选择',
   select_aisle: '通道选择',
