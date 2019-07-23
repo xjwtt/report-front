@@ -1,4 +1,4 @@
-<template>
+<template xmlns:el-col="http://www.w3.org/1999/html">
   <div class="page">
     <div class="header">
       <div class="left">
@@ -9,7 +9,7 @@
       </div>
       <div>
          <span style="color:#acacac"
-                        @click="siteRegionShow()">{{selectedMalls.length}}/{{malls.length}} {{$t('site')}}
+               @click="siteRegionShow()">{{selectedMalls.length}}/{{malls.length}} {{$t('site')}}
           <i :class="{'el-icon-arrow-down': !SiteRegionShow, 'el-icon-arrow-up': SiteRegionShow }"></i>
         </span>
         <el-dialog
@@ -35,7 +35,24 @@
                       </span>
                   </div>
                 </el-col>
-                <el-col :span="14">
+                <el-col :span="6">
+                  <el-select
+                    size="small"
+                    v-model="tagSelect"
+                    multiple
+                    collapse-tags
+                    style="margin-left: 20px;"
+                    @change="tagSelectChange"
+                    :placeholder="$t('fast_tag_Selection')">
+                    <el-option
+                      v-for="item in tagTypes"
+                      :key="item.Id"
+                      :label="item.Name"
+                      :value="item.Id">
+                    </el-option>
+                  </el-select>
+                </el-col>
+                <el-col :span="4">
                   <div style="margin-left: 20px;margin-top: -5px;">
                     <label class="checkbox">
                       <input v-model="AllChecked" type="checkbox" @click="AllCheckedOrNot">
@@ -46,12 +63,14 @@
                     </label>
                   </div>
                 </el-col>
-                <el-col :span="2">
+                <el-col :span="4">
+                  <div style="width: 100%;text-align: right;margin-top: 5px">
                   <span>
                     {{selectShowMalls.length}}/{{showMalls.length}} {{$t('site')}}
                   </span>
+                  </div>
                 </el-col>
-                <el-col :span="4">
+                <el-col :span="6">
                   <div style="width: 100%;text-align: right">
                     <el-button type="primary"
                                @click="selectedMallsChange()">{{$t('ok')}}
@@ -213,6 +232,7 @@ export default {
       selectShowMalls: [],
       AllChecked: false,
       keyword: null,
+      tagSelect: [],
       filterMethod (query, item) {
         return item.Name.indexOf(query) > -1
       },
@@ -254,12 +274,6 @@ export default {
       }
     },
     selectedMallsChange () {
-      // let selected = []
-      // _.each(this.malls, function (v) {
-      //   if (v.Checked) {
-      //     selected.push(v.Id)
-      //   }
-      // })
       if (this.selectShowMalls.length === 0) {
         this.$message.error(this.$t('hava_to_choose_a_site'))
       } else {
@@ -365,6 +379,47 @@ export default {
         this.$message.error(this.$t('hava_to_choose_a_site'))
       }
       this.selectShowMalls = selected
+    },
+    tagSelectChange () {
+      let that = this
+      _.each(that.showMalls, (v) => {
+        v.Checked = false
+      })
+      let mallIds = []
+      _.each(that.tagSelect, (v) => {
+        _.each(that.tagTypes, (t) => {
+          if (v === t.Id) {
+            mallIds = mallIds.concat(t.MallIds)
+          }
+        })
+      })
+      let mallIdSet = new Set(mallIds)
+      for (let id of mallIdSet) {
+        for (let m of that.showMalls) {
+          if (id === m.Id) {
+            m.Checked = true
+            break
+          }
+        }
+      }
+    },
+    computedTagSelect () {
+      let that = this
+      that.tagSelect = []
+      let mallIdObject = _.object(this.selectShowMalls, this.selectShowMalls)
+      _.each(this.tagTypes, (t) => {
+        let ids = t.MallIds
+        let i = 0
+        _.each(ids, (id) => {
+          let find = mallIdObject[id]
+          if (find) {
+            i += 1
+          }
+        })
+        if (i === ids.length) {
+          that.tagSelect.push(t.Id)
+        }
+      })
     }
   },
   computed: {
@@ -373,7 +428,8 @@ export default {
       userName: state => state.userName,
       menus: state => state.menus,
       malls: state => state.malls,
-      selectedMalls: state => state.selectedMalls
+      selectedMalls: state => state.selectedMalls,
+      tagTypes: state => state.tagTypes
     })
   },
   components: {
@@ -384,6 +440,7 @@ export default {
       handler () {
         this.computedAllChecked()
         this.computedSelectShowMalls()
+        this.computedTagSelect()
       },
       deep: true
     },
