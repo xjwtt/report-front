@@ -207,8 +207,7 @@ export default {
             },
             legend: {
               type: 'scroll',
-              right: 200,
-              left: 100,
+              width: 600,
               data: legendLine
             },
             grid: {

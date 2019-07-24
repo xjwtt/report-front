@@ -134,8 +134,27 @@ export default {
             xAxis: {
               type: 'category',
               boundaryGap: true,
+              splitArea: {
+                show: true,
+                // interval: function (number, value) {
+                //   console.log(number)
+                //   console.log(value)
+                //   return true
+                // },
+                interval: 23,
+                areaStyle: {
+                  shadowColor: 'rgba(255,255,255,0.5)',
+                  shadowBlur: 10
+                }
+              },
               data: xBar,
               axisLabel: {
+                // interval: function (number, value) {
+                //   console.log(number)
+                //   console.log(value)
+                //   return true
+                // },
+                interval: 5,
                 rotate: 45
               }
             },
@@ -191,8 +210,7 @@ export default {
             },
             legend: {
               type: 'scroll',
-              right: 200,
-              left: 100,
+              width: 600,
               data: legendLine
             },
             grid: {

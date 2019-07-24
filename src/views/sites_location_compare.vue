@@ -1,7 +1,21 @@
 <template>
   <div class="report-page">
     <div class="report-page-card">
-      <compare-mall-select ref="mallSelect"></compare-mall-select>
+      <!--      <compare-mall-select ref="mallSelect"></compare-mall-select>-->
+      <div>
+        <el-row :gutter="20">
+          <el-col :span="6">
+            <span> {{$t('select_site')}}：</span>
+            <el-select v-model="selectMalls" multiple filterable collapse-tags placeholder="...">
+              <el-option v-for="mall in selectedMalls"
+                         :key="mall.Id"
+                         :label="mall.Name"
+                         :value="mall.Id">
+              </el-option>
+            </el-select>
+          </el-col>
+        </el-row>
+      </div>
       <interval-picker></interval-picker>
       <date-range-picker></date-range-picker>
       <el-button type="primary"
@@ -52,6 +66,8 @@ export default {
   data () {
     return {
       data: null,
+      selectMalls: [],
+      compareKey: [],
       reportType: [0, 'DateTime'],
       chartType: 'Enter'
     }
@@ -59,26 +75,36 @@ export default {
   methods: {
     ...mapActions('report', ['query']),
     async onQuery () {
-      this.data = await this.query({
+      let queryObject = {
         'report': {
           dateFields: ['Enter', 'Exit', 'HighTemp', 'LowTemp', 'WeatherName'],
           groupBy: [
             {domain: 'Mall'}
           ],
-          mallIds: [this.$refs.mallSelect.mallId],
-          startTime: '00:00:00',
-          endTime: '23:59:59'
-        },
-        'compare': {
-          dateFields: ['Enter', 'Exit', 'HighTemp', 'LowTemp', 'WeatherName'],
-          groupBy: [
-            {domain: 'Mall'}
-          ],
-          mallIds: [this.$refs.mallSelect.compareMallId],
+          mallIds: this.selectMalls[0],
           startTime: '00:00:00',
           endTime: '23:59:59'
         }
-      })
+      }
+      if (this.selectMalls.length > 1) {
+        this.compareKey = []
+        for (let i = 1; i < this.selectMalls.length; i++) {
+          let key = 'compare_' + i
+          this.compareKey.push(key)
+          queryObject[key] = {
+            dateFields: ['Enter', 'Exit', 'HighTemp', 'LowTemp', 'WeatherName'],
+            groupBy: [
+              {domain: 'Mall'}
+            ],
+            mallIds: [this.selectMalls[i]],
+            startTime: '00:00:00',
+            endTime: '23:59:59'
+          }
+        }
+      }
+      // 触发改变
+      this.data = null
+      this.data = await this.query(queryObject)
     }
   },
   computed: {
@@ -110,7 +136,14 @@ export default {
     },
     compareData () {
       let dataArrayIndex = this.reportType[0]
-      return this.data ? [this.data['compare'][dataArrayIndex]] : []
+      // return this.data ? this.data['compare'][dataArrayIndex] : []
+      let compareData = []
+      if (this.data) {
+        _.each(this.compareKey, (v) => {
+          compareData.push(this.data[v][dataArrayIndex])
+        })
+      }
+      return compareData
     },
     headerData () {
       let dataArrayIndex = this.reportType[0]
@@ -127,13 +160,21 @@ export default {
         legendData.push('')
       }
       let reportSeries = _.map(reportData, (_) => _[this.chartType])
-      let compareData = this.data ? this.data['compare'][dataArrayIndex] : []
-      if (compareData.length > 0) {
-        legendData.push(compareData[0]['DomainLabel'] + ' ')
-      } else {
-        legendData.push('')
+      // let compareData = this.data ? this.data['compare'][dataArrayIndex] : []
+      // if (compareData.length > 0) {
+      //   legendData.push(compareData[0]['DomainLabel'] + ' ')
+      // } else {
+      //   legendData.push('')
+      // }
+      let compareDatas = []
+      if (this.data && this.compareKey.length > 0) {
+        _.each(this.compareKey, (v) => {
+          let data = this.data[v] ? this.data[v][dataArrayIndex] : []
+          legendData.push(data[0]['DomainLabel'] + ' ')
+          let filter = _.map(data, (_) => _[this.chartType])
+          compareDatas.push(filter)
+        })
       }
-      let compareSeries = _.map(compareData, (_) => _[this.chartType])
       let series
       let xData
       switch (this.reportType[1]) {
@@ -142,13 +183,24 @@ export default {
           series = []
           break
         case 'DateTime':
+          // let compareSeries = _.map(compareData, (_) => _[this.chartType])
           xData = this.data ? _.map(this.data['report'][dataArrayIndex], (_) => _[this.reportType[1]]) : []
-          series = [{name: legendData[0], type: 'line', data: reportSeries}, {
-            name: legendData[1],
-            type: 'line',
-            stack: 'compare',
-            data: compareSeries
-          }]
+          series = [{name: legendData[0], type: 'line', data: reportSeries}]
+          if (compareDatas.length > 0) {
+            for (let i = 0; i < compareDatas.length - 1; i++) {
+              series.push({
+                name: legendData[i + 1],
+                type: 'line',
+                data: compareDatas[i]
+              })
+            }
+            series.push({
+              name: legendData[compareDatas.length],
+              type: 'line',
+              stack: 'compare',
+              data: compareDatas[compareDatas.length - 1]
+            })
+          }
           break
       }
       return {
@@ -200,6 +252,8 @@ export default {
     }
   },
   async mounted () {
+    this.selectMalls[0] = this.selectedMall.Id
+    // this.selectMalls[1] = this.selectedMall.Id
     this.onQuery()
   }
 }

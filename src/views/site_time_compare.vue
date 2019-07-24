@@ -50,7 +50,7 @@
                       size="mini">
         <el-radio-button :label="'Enter'">{{$t('enter')}}</el-radio-button>
         <el-radio-button :label="'Exit'">{{$t('exit')}}</el-radio-button>
-<!--        <el-radio-button :label="'Stay'">{{$t('stay')}}</el-radio-button>-->
+        <!--        <el-radio-button :label="'Stay'">{{$t('stay')}}</el-radio-button>-->
       </el-radio-group>
       <chart style="width:100%"
              :autoResize="true"
@@ -141,9 +141,9 @@ export default {
           for (let i = 0, len = datas.length; i < len; i++) {
             xData.push(datas[i] + '/' + compareDatas[i])
           }
-          series = [{name: this.$t('date_range'), type: 'bar', data: reportSeries}, {
+          series = [{name: this.$t('date_range'), type: 'line', data: reportSeries}, {
             name: this.$t('compare_date_range'),
-            type: 'bar',
+            type: 'line',
             stack: 'compare',
             data: compareSeries
           }]
@@ -164,7 +164,9 @@ export default {
           containLabel: true
         },
         toolbox: {
+          showTitle: false,
           feature: {
+            magicType: {type: ['line', 'bar']},
             saveAsImage: {}
           }
         },
@@ -172,6 +174,14 @@ export default {
           {
             type: 'category',
             data: xData,
+            splitArea: {
+              show: true,
+              interval: 0,
+              areaStyle: {
+                shadowColor: 'rgba(255,255,255,0.5)',
+                shadowBlur: 10
+              }
+            },
             axisLabel: {
               rotate: 45
             }
@@ -219,16 +229,16 @@ export default {
             et: compareEndDate
           }
         })
+        console.log(this.data)
       } else {
         this.$message.error(this.$t('time_interval_must_be_the_same'))
       }
     }
   },
   async mounted () {
-    let temp = moment()
-    let d = temp.subtract(1, 'days')
+    let d = moment().subtract(1, 'days')
     this.dateRangeValue = [d, d]
-    let cd = temp.subtract(2, 'days')
+    let cd = moment().subtract(2, 'days')
     this.compareDateRangeValue = [cd, cd]
     this.onQuery()
   }
