@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+import {mapState, mapActions} from 'vuex'
 import _ from 'underscore'
 import theme from '../lib/theme'
 
@@ -75,6 +75,9 @@ export default {
     }
   },
   computed: {
+    ...mapState('app', {
+      timeInterval: state => state.timeInterval
+    }),
     fixedHeader () {
       let timeInterval = this.$store.state.app.timeInterval.key
       switch (timeInterval) {
@@ -118,7 +121,7 @@ export default {
       let yPassBy = this.data ? _.map(this.data['report'][dataArrayIndex], (it) => it.Passby) : []
       let yEnteringRate = this.data ? _.map(this.data['report'][dataArrayIndex], (it) => it.EnteringRate) : []
 
-      let result = {
+      let bar = {
         color: theme.color,
         tooltip: {
           trigger: 'axis'
@@ -189,8 +192,53 @@ export default {
           }
         }]
       }
-      Object.freeze(result)
-      return result
+      if (this.timeInterval.key === '60m') {
+        let xGroup = _.groupBy(xData, (v) => {
+          return v.substring(0, 10)
+        })
+        let keys = Object.keys(xGroup)
+        if (keys.length > 0) {
+          let xGroupLen = xGroup[keys[0]].length
+          bar.xAxis['splitArea'] = {
+            show: true,
+            interval: xGroupLen - 1,
+            areaStyle: {
+              shadowColor: 'rgba(255,255,255,0.8)',
+              shadowBlur: 10
+            }
+          }
+          let space = function (number, num) {
+            num = num ? num : 2
+            let re = number % xGroupLen
+            if (re === 0) { // 每天的开始必须显示
+              return true
+            } else {
+              let temp = parseInt(xGroupLen / num)
+              if (re < (xGroupLen - 2)) { // 此处用于隔开和下一天的第一个
+                for (let i = 0; i <= num; i++) {
+                  if (re === i * temp) {
+                    return true
+                  }
+                }
+              }
+              return false
+            }
+          }
+          if (keys.length === 1) {
+            bar.xAxis.axisLabel['interval'] = 0
+          } else if (keys.length <= 8) {
+            bar.xAxis.axisLabel['interval'] = function (number, value) {
+              return space(number, 4)
+            }
+          } else {
+            bar.xAxis.axisLabel['interval'] = function (number, value) {
+              return space(number, 2)
+            }
+          }
+        }
+      }
+      Object.freeze(bar)
+      return bar
     }
   }
 }

@@ -29,6 +29,7 @@ export default {
   store_rank: 'ストアランク',
   show_kpi: 'KPIの表示',
 
+  sites_location_compare: '複数店舗比較',
   site_location_compare: '店舗比較',
   site_time_compare: '期間比較',
   store_location_compare: 'ストア比較',

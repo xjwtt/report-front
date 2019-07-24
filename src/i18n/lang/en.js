@@ -29,6 +29,7 @@ export default {
   store_rank: 'Store Rank',
   show_kpi: 'Show KPI',
 
+  sites_location_compare: 'Sites Location Compare',
   site_location_compare: 'Site Location Compare',
   site_time_compare: 'Site Time Compare',
   store_location_compare: 'Store Location Compare',
