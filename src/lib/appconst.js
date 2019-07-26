@@ -382,6 +382,24 @@ const timeIntervals = [
     }
   },
   {
+    key: 'Hourly',
+    timeFormatter: 'HH',
+    text: 'Hourly',
+    pickerOptions: {
+      disabledDate: disabledDate,
+      shortcuts: shortcuts60Min
+    }
+  },
+  {
+    key: 'Weekday',
+    timeFormatter: 'Weekday',
+    text: 'WeekDay',
+    pickerOptions: {
+      disabledDate: disabledDate,
+      shortcuts: shortcutsDay
+    }
+  },
+  {
     key: 'Week',
     timeFormatter: 'Week',
     text: 'Week',
