@@ -202,7 +202,6 @@ export default {
                 }
               }
               let space = function (number, num) {
-                num = num ? num : 2
                 let re = number % xGroupLen
                 if (re === 0) { // 每天的开始必须显示
                   return true
