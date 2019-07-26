@@ -266,7 +266,12 @@ export default {
                 _.each(firstData, function (v) {
                   switch (fh) {
                     case 'Temp':
-                      w.push(v['LowTemp'] + '~' + v['HighTemp'] + '℃/' + v['Pm25'])
+                      let unit = '℃'
+                      if (v['TempUnit']) {
+                        unit = v['TempUnit']
+                      }
+                      // w.push(v['LowTemp'] + '~' + v['HighTemp'] + unit + '/' + v['Pm25'])
+                      w.push(v['LowTemp'] + '~' + v['HighTemp'] + unit)
                       break
                     case 'Picture':
                       let p = ''

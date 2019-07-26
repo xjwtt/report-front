@@ -9,7 +9,7 @@
                         style="vertical-align: middle;"
                         size="mini">
           <el-radio-button :label="'WeatherName'">{{$t('weatherName')}}</el-radio-button>
-          <el-radio-button :label="'Pm25'">{{$t('pm25')}}</el-radio-button>
+<!--          <el-radio-button :label="'Pm25'">{{$t('pm25')}}</el-radio-button>-->
           <el-radio-button :label="'HighTemp'">{{$t('highTemp')}}</el-radio-button>
           <el-radio-button :label="'LowTemp'">{{$t('lowTemp')}}</el-radio-button>
         </el-radio-group>
