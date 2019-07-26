@@ -1,7 +1,7 @@
 <template>
   <el-row :gutter="20">
     <el-col :span="6">
-      {{$t('select_site')}}:
+      <span>{{$t('select_site')}}:</span>
       <el-select v-model="mallId"
                  filterable
                  placeholder="...">
@@ -13,7 +13,7 @@
       </el-select>
     </el-col>
     <el-col :span="6">
-      {{$t('contrast_site')}}:
+      <span>{{$t('contrast_site')}}:</span>
       <el-select v-model="compareMallId"
                  filterable
                  placeholder="...">

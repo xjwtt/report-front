@@ -146,12 +146,14 @@ export default {
     bodyData () {
       let result = this.computedBodyData(this.tableData)
       if (this.compareData) {
-        let compare = this.computedBodyData(this.compareData)
-        _.each(result, function (value) {
-          _.each(compare, function (compare) {
-            if (value.separate === compare.separate) {
-              value.data = value.data.concat(compare.data)
-            }
+        _.each(this.compareData, (c) => {
+          let compare = this.computedBodyData(c)
+          _.each(result, function (value) {
+            _.each(compare, function (compare) {
+              if (value.separate === compare.separate) {
+                value.data = value.data.concat(compare.data)
+              }
+            })
           })
         })
       }
@@ -171,7 +173,9 @@ export default {
       })
       let data = this.computedLeftFixed(this.tableData)
       if (this.compareData) {
-        data = data.concat(this.computedLeftFixed(this.compareData))
+        _.each(this.compareData, (c) => {
+          data = data.concat(this.computedLeftFixed(c))
+        })
       }
 
       /* 计算左边固定表格的宽度 */

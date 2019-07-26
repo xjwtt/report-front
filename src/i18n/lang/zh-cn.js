@@ -29,6 +29,7 @@ export default {
   store_rank: '商铺运营排行榜',
   show_kpi: '展示效果KPI分析',
 
+  sites_location_compare: '多客流地点对比',
   site_location_compare: '客流地点对比',
   site_time_compare: '客流时间对比',
   store_location_compare: '商铺KPI地点对比',
