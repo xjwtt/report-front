@@ -99,6 +99,7 @@ export default {
               case '10m':
               case '15m':
               case '30m':
+              case 'Hourly':
                 _.each(data[key][i], function (value) {
                   value['DateTime'] = moment(value['DateTime'], 'YYYY-MM-DD HH:mm:ss').format('HH:mm')
                 })
@@ -116,6 +117,11 @@ export default {
               case 'Year':
                 _.each(data[key][i], function (value) {
                   value['DateTime'] = moment(value['DateTime'], 'YYYY-MM-DD HH:mm:ss').format('YYYY')
+                })
+                break
+              case 'Weekday':
+                _.each(data[key][i], function (value) {
+                  value['DateTime'] = t(value['DateTime'])
                 })
                 break
             }
