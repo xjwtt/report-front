@@ -75,6 +75,7 @@ import {mapState, mapActions} from 'vuex'
 import _ from 'underscore'
 import moment from 'moment'
 import theme from '../lib/theme'
+import echartMethod from '../lib/echartMethod'
 
 export default {
   name: 'site_time_compare',
@@ -131,18 +132,18 @@ export default {
       let compareSeries = _.map(compareData, (_) => _[this.chartType])
       let legendData = [this.$t('date_range'), this.$t('compare_date_range')]
       let series
-      let xData
+      let xBar
       switch (this.reportType[1]) {
         case 'DomainLabel':
-          xData = legendData
+          xBar = legendData
           series = []
           break
         default:
-          xData = []
+          xBar = []
           let datas = this.data ? _.map(this.data['report'][dataArrayIndex], (_) => _[this.reportType[1]]) : []
           let compareDatas = this.data ? _.map(this.data['compare'][dataArrayIndex], (_) => _[this.reportType[1]]) : []
           for (let i = 0, len = datas.length; i < len; i++) {
-            xData.push(datas[i] + '/' + compareDatas[i])
+            xBar.push(datas[i] + '/' + compareDatas[i])
           }
           series = [{name: this.$t('date_range'), type: 'line', data: reportSeries}, {
             name: this.$t('compare_date_range'),
@@ -175,7 +176,7 @@ export default {
         },
         xAxis: {
           type: 'category',
-          data: xData,
+          data: xBar,
           axisLabel: {
             rotate: 45
           }
@@ -188,50 +189,7 @@ export default {
         }],
         series: series
       }
-      if (this.timeInterval.key === '60m') {
-        let xGroup = _.groupBy(xData, (v) => {
-          return v.substring(0, 10)
-        })
-        let keys = Object.keys(xGroup)
-        if (keys.length > 0) {
-          let xGroupLen = xGroup[keys[0]].length
-          bar.xAxis['splitArea'] = {
-            show: true,
-            interval: xGroupLen - 1,
-            areaStyle: {
-              shadowColor: 'rgba(255,255,255,0.8)',
-              shadowBlur: 10
-            }
-          }
-          let space = function (number, num) {
-            let re = number % xGroupLen
-            if (re === 0) { // 每天的开始必须显示
-              return true
-            } else {
-              let temp = parseInt(xGroupLen / num)
-              if (re < (xGroupLen - 2)) { // 此处用于隔开和下一天的第一个
-                for (let i = 0; i <= num; i++) {
-                  if (re === i * temp) {
-                    return true
-                  }
-                }
-              }
-              return false
-            }
-          }
-          if (keys.length === 1) {
-            bar.xAxis.axisLabel['interval'] = 0
-          } else if (keys.length <= 8) {
-            bar.xAxis.axisLabel['interval'] = function (number, value) {
-              return space(number, 4)
-            }
-          } else {
-            bar.xAxis.axisLabel['interval'] = function (number, value) {
-              return space(number, 2)
-            }
-          }
-        }
-      }
+      echartMethod.separate60M(this.timeInterval.key, bar, xBar)
       Object.freeze(bar)
       return bar
     }

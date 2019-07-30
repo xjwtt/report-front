@@ -46,6 +46,7 @@
 import {mapState, mapActions} from 'vuex'
 import _ from 'underscore'
 import theme from '../lib/theme'
+import echartMethod from '../lib/echartMethod'
 
 export default {
   data: () => ({
@@ -128,8 +129,8 @@ export default {
       switch (this.reportType[1]) {
         case 'DateTime':
           let ySelector = (_) => _[this.chartType]
-          let xData = this.data ? _.map(this.data['report'][dataArrayIndex], xSelector) : []
-          let yData = this.data ? _.map(this.data['report'][dataArrayIndex], ySelector) : []
+          let xBar = this.data ? _.map(this.data['report'][dataArrayIndex], xSelector) : []
+          let yBar = this.data ? _.map(this.data['report'][dataArrayIndex], ySelector) : []
 
           let bar = {
             color: theme.color,
@@ -153,7 +154,7 @@ export default {
             xAxis: {
               type: 'category',
               boundaryGap: true,
-              data: xData,
+              data: xBar,
               axisLabel: {
                 rotate: 45
               }
@@ -183,53 +184,10 @@ export default {
                   name: avgName
                 }]
               },
-              data: yData
+              data: yBar
             }]
           }
-          if (this.timeInterval.key === '60m') {
-            let xGroup = _.groupBy(xData, (v) => {
-              return v.substring(0, 10)
-            })
-            let keys = Object.keys(xGroup)
-            if (keys.length > 0) {
-              let xGroupLen = xGroup[keys[0]].length
-              bar.xAxis['splitArea'] = {
-                show: true,
-                interval: xGroupLen - 1,
-                areaStyle: {
-                  shadowColor: 'rgba(255,255,255,0.8)',
-                  shadowBlur: 10
-                }
-              }
-              let space = function (number, num) {
-                let re = number % xGroupLen
-                if (re === 0) { // 每天的开始必须显示
-                  return true
-                } else {
-                  let temp = parseInt(xGroupLen / num)
-                  if (re < (xGroupLen - 2)) { // 此处用于隔开和下一天的第一个
-                    for (let i = 0; i <= num; i++) {
-                      if (re === i * temp) {
-                        return true
-                      }
-                    }
-                  }
-                  return false
-                }
-              }
-              if (keys.length === 1) {
-                bar.xAxis.axisLabel['interval'] = 0
-              } else if (keys.length <= 8) {
-                bar.xAxis.axisLabel['interval'] = function (number, value) {
-                  return space(number, 4)
-                }
-              } else {
-                bar.xAxis.axisLabel['interval'] = function (number, value) {
-                  return space(number, 2)
-                }
-              }
-            }
-          }
+          echartMethod.separate60M(this.timeInterval.key, bar, xBar)
           Object.freeze(bar)
           return bar
         case 'DomainLabel_DateTime':
@@ -271,13 +229,17 @@ export default {
             xAxis: {
               type: 'category',
               boundaryGap: false,
-              data: xLine
+              data: xLine,
+              axisLabel: {
+                rotate: 45
+              }
             },
             yAxis: {
               type: 'value'
             },
             series: seriesLine
           }
+          echartMethod.separate60M(this.timeInterval.key, line, xLine)
           Object.freeze(line)
           return line
         case 'DomainLabel':

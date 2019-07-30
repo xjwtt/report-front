@@ -42,6 +42,7 @@
 import {mapState, mapActions} from 'vuex'
 import _ from 'underscore'
 import theme from '../lib/theme'
+import echartMethod from '../lib/echartMethod'
 
 export default {
   name: 'passby_traffic',
@@ -192,50 +193,7 @@ export default {
           }
         }]
       }
-      if (this.timeInterval.key === '60m') {
-        let xGroup = _.groupBy(xData, (v) => {
-          return v.substring(0, 10)
-        })
-        let keys = Object.keys(xGroup)
-        if (keys.length > 0) {
-          let xGroupLen = xGroup[keys[0]].length
-          bar.xAxis['splitArea'] = {
-            show: true,
-            interval: xGroupLen - 1,
-            areaStyle: {
-              shadowColor: 'rgba(255,255,255,0.8)',
-              shadowBlur: 10
-            }
-          }
-          let space = function (number, num) {
-            let re = number % xGroupLen
-            if (re === 0) { // 每天的开始必须显示
-              return true
-            } else {
-              let temp = parseInt(xGroupLen / num)
-              if (re < (xGroupLen - 2)) { // 此处用于隔开和下一天的第一个
-                for (let i = 0; i <= num; i++) {
-                  if (re === i * temp) {
-                    return true
-                  }
-                }
-              }
-              return false
-            }
-          }
-          if (keys.length === 1) {
-            bar.xAxis.axisLabel['interval'] = 0
-          } else if (keys.length <= 8) {
-            bar.xAxis.axisLabel['interval'] = function (number, value) {
-              return space(number, 4)
-            }
-          } else {
-            bar.xAxis.axisLabel['interval'] = function (number, value) {
-              return space(number, 2)
-            }
-          }
-        }
-      }
+      echartMethod.separate60M(this.timeInterval.key, bar, xData)
       Object.freeze(bar)
       return bar
     }
