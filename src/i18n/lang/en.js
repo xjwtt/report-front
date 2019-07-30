@@ -499,10 +499,17 @@ export default {
 
   zone_types: 'ZoneTypes',
   language_type: 'LanguageType',
-  temp_language_type: 'TempLanguageType',
+  weather_language: 'WeatherLanguage',
   weather_api_type: 'WeatherAPIType',
   hefeng_api_type: 'HEAPI',
   baidu_api_type: 'BaiduAPI',
+  temp_unit: 'TempUnit',
+  fahrenheit: 'Fahrenheit',
+  celsius: 'Celsius',
+  longitude: 'Longitude',
+  latitude: 'Latitude',
+  weather_code: 'WeatherCode',
+  location_search: 'LocationSearch',
   activity_holidays_type: 'ActivityHolidaysType',
   business_time_type: 'BusinessTimeType',
   chinese_festivals: 'ChineseFestivals',
@@ -524,6 +531,8 @@ export default {
   ru: 'Russian',
   in: 'Hindi',
   th: 'Thai',
+
+  weather_code_not_be_empty: 'weather code can not be empty',
 
   site_count: 'SiteCount',
   data_duplication: 'Data Duplication',

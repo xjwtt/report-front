@@ -499,10 +499,17 @@ export default {
 
   zone_types: '物理区域类型',
   language_type: '语言类型',
-  temp_language_type: '天气语言类型',
+  weather_language: '天气语言',
   weather_api_type: '天气API类型',
   hefeng_api_type: '和风API',
   baidu_api_type: '百度API',
+  temp_unit: '温度单位',
+  fahrenheit: '华氏度',
+  celsius: '摄氏度',
+  longitude: '经度',
+  latitude: '纬度',
+  weather_code: '天气代码',
+  location_search: '地点搜索',
   activity_holidays_type: '活动节假日类型',
   business_time_type: '营业时间类型',
   chinese_festivals: '中国节日',
@@ -524,6 +531,8 @@ export default {
   ru: '俄语',
   in: '印度语',
   th: '泰语',
+
+  weather_code_not_be_empty: '天气代码不能为空',
 
   site_count: '案场数量',
   data_duplication: '数据重复',

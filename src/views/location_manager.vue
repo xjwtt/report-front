@@ -72,6 +72,8 @@ export default {
     columns: [
       {title: 'name', thComp: 'th-i18n', field: 'Name', sortable: true},
       {title: 'get_weather', thComp: 'th-i18n', field: 'GetWeather', tdComp: 'td-getWeather'},
+      {title: 'weather_code', thComp: 'th-i18n', field: 'WeatherCode'},
+      {title: 'weather_language', thComp: 'th-i18n', field: 'WeatherLanguage', tdComp: 'td-i18n'},
       {title: 'ranked', thComp: 'th-i18n', field: 'Ranked', sortable: true},
       {title: 'operation', thComp: 'th-i18n', tdComp: 'td-opt', visible: true}
     ],
@@ -107,7 +109,16 @@ export default {
       this.handleQueryChange()
     },
     newOne () {
-      let newData = {ParentId: this.handleId, Name: '', Ranked: 0, GetWeather: -1}
+      let newData = {
+        ParentId: this.handleId,
+        Name: '',
+        Ranked: 0,
+        GetWeather: -1,
+        WeatherCode: '',
+        WeatherApiType: 'HeFeng',
+        WeatherLanguage: 'zh-cn',
+        Unit: 'm'
+      }
       this.$refs.editDialog.show(newData)
     },
     del (row) {
