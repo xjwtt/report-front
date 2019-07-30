@@ -276,10 +276,10 @@ export default {
                     case 'Picture':
                       let p = ''
                       if (v['DayPictureUrl']) {
-                        p += '<img src="' + v['DayPictureUrl'] + '"/>'
+                        p += '<img style="width: 42px;height:30px" src="' + v['DayPictureUrl'] + '"/>'
                       }
                       if (v['NightPictureUrl']) {
-                        p += '&nbsp;&nbsp;<img src="' + v['NightPictureUrl'] + '"/>'
+                        p += '&nbsp;&nbsp;<img style="width: 42px;height:30px" src="' + v['NightPictureUrl'] + '"/>'
                       }
                       w.push(p)
                       break

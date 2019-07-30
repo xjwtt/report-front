@@ -22,6 +22,9 @@ export default {
     },
     async deleteLocation (context, payload) {
       return ajax.post('/system/deleteLocation.action', payload.data)
+    },
+    async findHefengLocation (context, payload) {
+      return ajax.post('system/findHefengLocation.action', payload.data)
     }
   }
 }

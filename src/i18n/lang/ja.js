@@ -499,10 +499,17 @@ export default {
 
   zone_types: 'ゾーンタイプ',
   language_type: '言語タイプ',
-  temp_language_type: '気温言語タイプ',
-  weather_api_type: '気温APIタイプ',
+  weather_language: '天候言語',
+  weather_api_type: '天候APIタイプ',
   hefeng_api_type: 'HEAPI',
   baidu_api_type: '百度API',
+  temp_unit: '気温単位',
+  fahrenheit: '華氏度',
+  celsius: '摂氏度',
+  longitude: '経度',
+  latitude: '緯度',
+  weather_code: '天気コード',
+  location_search: '場所検索',
   activity_holidays_type: 'イベント・休日のタイプ',
   business_time_type: '営業時間のタイプ',
   chinese_festivals: '中国の祝祭日',
@@ -524,6 +531,8 @@ export default {
   ru: 'ロシア語',
   in: 'インド語',
   th: 'タイ語',
+
+  weather_code_not_be_empty: '天気コードは空にできません',
 
   site_count: '店舗数',
   data_duplication: 'データの繰り返し',
