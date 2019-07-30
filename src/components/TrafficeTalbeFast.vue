@@ -278,9 +278,9 @@ export default {
                       if (v['DayPictureUrl']) {
                         p += '<img style="width: 42px;height:30px" src="' + v['DayPictureUrl'] + '"/>'
                       }
-                      if (v['NightPictureUrl']) {
-                        p += '&nbsp;&nbsp;<img style="width: 42px;height:30px" src="' + v['NightPictureUrl'] + '"/>'
-                      }
+                      // if (v['NightPictureUrl']) {
+                      //   p += '&nbsp;&nbsp;<img style="width: 42px;height:30px" src="' + v['NightPictureUrl'] + '"/>'
+                      // }
                       w.push(p)
                       break
                     default:
