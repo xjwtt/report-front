@@ -15,6 +15,7 @@ export default {
     async query (context, payloads) {
       let args = {}
       let queryStatus = true
+      let nowTime = moment().format('YYYY-MM-DD HH:mm:ss')
       for (let key in payloads) {
         let payload = payloads[key]
         let dateFields = payload.dateFields
@@ -73,7 +74,9 @@ export default {
         et = moment(et).format('YYYY-MM-DD')
         let startTime = payload.startTime ? payload.startTime : ''
         let endTime = payload.endTime ? payload.endTime : ''
+
         args[key] = {
+          NowTime: nowTime,
           DataFields: dateFields,
           StartDate: st,
           EndDate: et,

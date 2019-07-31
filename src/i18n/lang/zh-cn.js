@@ -45,6 +45,7 @@ export default {
   peak_location: '区域高低峰分析',
   weather_analysis: '天气因素分析',
   event_analysis: '活动节假日分析',
+  prediction_analysis: '预测分析',
   face_analysis: '人脸数据分析',
   zone_face_analysis: '区域人脸分析',
   show_case_analysis: '展示效果分析',

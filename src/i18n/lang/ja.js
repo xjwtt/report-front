@@ -45,6 +45,7 @@ export default {
   peak_location: 'ピーク地点',
   weather_analysis: '天気の分析',
   event_analysis: 'イベント分析',
+  prediction_analysis: '予測分析',
   face_analysis: '顔認識分析',
   zone_face_analysis: 'ゾーン顔認識分析',
   show_case_analysis: 'ショーケース分析',
