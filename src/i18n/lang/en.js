@@ -45,6 +45,7 @@ export default {
   peak_location: 'Peak Location',
   weather_analysis: 'Weather Analysis',
   event_analysis: 'Event Analysis',
+  prediction_analysis: 'Prediction Analysis',
   face_analysis: 'Face Analysis',
   zone_face_analysis: 'Zone Face Analysis',
   show_case_analysis: 'Show Case Analysis',
