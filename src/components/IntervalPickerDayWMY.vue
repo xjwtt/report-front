@@ -3,9 +3,9 @@
     <span>{{ $t('time_interval') }}：</span>
     <el-radio-group v-model="dateStyle"
                     style="vertical-align: middle;"
-                    @change="this.setHourlyWeek"
+                    @change="this.setDayWMY"
                     size="mini">
-      <el-radio-button v-for="item in hourlyWeeks"
+      <el-radio-button v-for="item in dayWMYS"
                        :label="item.key"
                        :key="item.key">
         {{$t(item.text)}}
@@ -22,23 +22,24 @@ export default {
     dateStyle: null
   }),
   methods: {
-    ...mapMutations('app', ['setHourlyWeek'])
+    ...mapMutations('app', ['setDayWMY'])
   },
   computed: {
     ...mapState('app', {
-      hourlyWeek: state => state.hourlyWeek,
-      hourlyWeeks: state => state.hourlyWeeks
+      dayWMY: state => state.dayWMY,
+      dayWMYS: state => state.dayWMYS
     })
   },
   created () {
-    this.dateStyle = this.hourlyWeek.key
+    this.dateStyle = this.dayWMY.key
   },
   activated () {
-    this.dateStyle = this.hourlyWeek.key
+    this.dateStyle = this.dayWMY.key
   }
 }
 </script>
-<style>
+
+<style scoped>
   .intervalPicker {
     margin-top: 5px;
   }

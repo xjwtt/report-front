@@ -427,7 +427,44 @@ const timeIntervals = [
     }
   }
 ]
-
+const dayWMYs = [
+  {
+    key: '60m',
+    timeFormatter: 'yyyy-MM-dd HH:mm',
+    text: 'Day',
+    pickerOptions: {
+      disabledDate: disabledDate,
+      shortcuts: shortcutsDay
+    }
+  },
+  {
+    key: 'WeekPeak',
+    timeFormatter: 'WeekPeak',
+    text: 'Week',
+    pickerOptions: {
+      disabledDate: disabledDate,
+      shortcuts: shortcutsWeek
+    }
+  },
+  {
+    key: 'MonthPeak',
+    timeFormatter: 'MonthPeak',
+    text: 'Month',
+    pickerOptions: {
+      disabledDate: disabledDate,
+      shortcuts: shortcutsMonth
+    }
+  },
+  {
+    key: 'YearPeak',
+    timeFormatter: 'YearPeak',
+    text: 'Year',
+    pickerOptions: {
+      disabledDate: disabledDate,
+      shortcuts: shortcutsYear
+    }
+  }
+]
 const hourlyWeeks = [
   {
     key: 'Hourly',
@@ -486,12 +523,32 @@ const getWeekMonth = function (t) {
     shortcuts: weekMonths
   }
 }
+
+const getDefaultDayWMYs = function (t) {
+  let dwmy = dayWMYs[0]
+  _.each(dwmy.pickerOptions.shortcuts, function (p) {
+    p.text = t(p.text)
+  })
+  return dwmy
+}
+
+const getDayWMYs = function (t) {
+  _.each(dayWMYs, function (v) {
+    _.each(v.pickerOptions.shortcuts, function (p) {
+      p.text = t(p.text)
+    })
+  })
+  return dayWMYs
+}
+
 const appconst = {
   defaultDateRange: [moment(), moment()],
   defaultTimeInterval: getDefaultTimeInterval,
   timeIntervals: getTimeIntervals,
   defaultHourlyWeek: getDefaultHourlyWeek,
   hourlyWeeks: getHourlyWeeks,
-  weekMonthPickerOptions: getWeekMonth
+  weekMonthPickerOptions: getWeekMonth,
+  dayWMY: getDefaultDayWMYs,
+  dayWMYS: getDayWMYs
 }
 export default appconst

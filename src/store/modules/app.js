@@ -4,6 +4,7 @@ import {addRouterFromMenus} from '@/router/index'
 import i18n from '../../i18n'
 import appconst from '@/lib/appconst'
 import language from '@/lib/language'
+import moment from 'moment'
 
 const t = key => i18n.t(key)
 export default {
@@ -31,8 +32,11 @@ export default {
     timeIntervals: null,
     hourlyWeek: null,
     hourlyWeeks: null,
+    dayWMY: null,
+    dayWMYS: null,
     weekMonthPickerOptions: null,
-    dateRange: appconst.defaultDateRange
+    dateRange: appconst.defaultDateRange,
+    peakTimeDateRange: [moment().subtract(7, 'days'), moment().subtract(1, 'days')]
   },
   mutations: {
     setUserInfo (state, payload) {
@@ -58,6 +62,11 @@ export default {
       state.hourlyWeek = appconst.defaultHourlyWeek(t)
       state.hourlyWeeks = appconst.hourlyWeeks(t)
       state.weekMonthPickerOptions = appconst.weekMonthPickerOptions(t)
+      state.dayWMY = appconst.dayWMY(t)
+      state.dayWMYS = appconst.dayWMYS(t)
+    },
+    setDayWMY (state, pahload) {
+      state.dayWMY = _.find(state.dayWMYS, __ => __.key === pahload)
     },
     setHourlyWeek (state, payload) {
       state.hourlyWeek = _.find(state.hourlyWeeks, __ => __.key === payload)
@@ -67,6 +76,9 @@ export default {
     },
     setDateRange (state, payload) {
       state.dateRange = payload
+    },
+    setPeakTimeDateRange (state, payload) {
+      state.peakTimeDateRange = payload
     },
     setSelectMall (state, payload) {
       state.selectedMall = _.find(state.selectedMalls, _ => _.Id === payload)
