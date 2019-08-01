@@ -35,20 +35,23 @@
 </template>
 
 <script>
-import {mapActions, mapState} from 'vuex'
+import {mapMutations, mapActions, mapState} from 'vuex'
 import moment from 'moment'
 import _ from 'underscore'
 import i18n from '@/i18n'
 import weekFun from '@/lib/weekFun'
+import IntervalPickerDayWMY from '../components/IntervalPickerDayWMY'
 
 export default {
+  components: {IntervalPickerDayWMY},
   data: () => ({
     data: null,
-    dateRangeValue: [moment().subtract(7, 'days'), moment().subtract(1, 'days')],
+    dateRangeValue: null,
     chartType: 'Enter',
     dateFields: ['Enter', 'Exit', 'Stay']
   }),
   methods: {
+    ...mapMutations('app', ['setPeakTimeDateRange']),
     ...mapActions('report', ['query']),
     async onQuery () {
       this.data = await this.query({
@@ -57,7 +60,8 @@ export default {
           et: this.dateRangeValue[1],
           dateFields: this.dateFields,
           groupBy: [
-            {domain: 'All', period: '60m', timeFormatter: 'yyyy-MM-dd HH:mm'}
+            // {domain: 'All', period: '60m', timeFormatter: 'yyyy-MM-dd HH:mm'}
+            {domain: 'All', period: this.dayWMY.key, timeFormatter: this.dayWMY.timeFormatter}
           ]
         }
       })
@@ -65,6 +69,8 @@ export default {
   },
   computed: {
     ...mapState('app', {
+      dayWMY: state => state.dayWMY,
+      peakTimeDateRange: state => state.peakTimeDateRange,
       weekMonthPickerOptions: state => state.weekMonthPickerOptions
     }),
     chartOption () {
@@ -107,7 +113,14 @@ export default {
         })
       })
       days = _.map(days, function (v) {
-        return weekFun.GetDateWeek(t, v, 'YYYY-MM-DD', 'MM-DD')
+        switch (that.dayWMY.key) {
+          case 'MonthPeak':
+            return moment(v).format('YYYY-MM')
+          case 'YearPeak':
+            return moment(v).format('YYYY')
+          default:
+            return weekFun.GetDateWeek(t, v, 'YYYY-MM-DD', 'MM-DD')
+        }
       })
       let option = {
         tooltip: {
@@ -182,7 +195,11 @@ export default {
     }
   },
   async mounted () {
+    this.dateRangeValue = this.peakTimeDateRange
     this.onQuery()
+  },
+  activated () {
+    this.dateRangeValue = this.peakTimeDateRange
   }
 }
 </script>

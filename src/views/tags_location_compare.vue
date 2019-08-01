@@ -6,15 +6,15 @@
         <el-row :gutter="20">
           <el-col :span="6">
             <span> {{$t('select_site')}}：</span>
-            <el-select v-model="selectMalls"
+            <el-select v-model="selectTags"
                        multiple
                        filterable
                        collapse-tags
                        placeholder="...">
-              <el-option v-for="mall in selectedMalls"
-                         :key="mall.Id"
-                         :label="mall.Name"
-                         :value="mall.Id">
+              <el-option v-for="tag in tagTypes"
+                         :key="tag.Id"
+                         :label="tag.Name"
+                         :value="tag.Id">
               </el-option>
             </el-select>
           </el-col>
@@ -39,7 +39,7 @@
                       size="mini">
         <el-radio-button :label="'Enter'">{{$t('enter')}}</el-radio-button>
         <el-radio-button :label="'Exit'">{{$t('exit')}}</el-radio-button>
-        <!--        <el-radio-button :label="'Stay'">{{$t('stay')}}</el-radio-button>-->
+        <!--         <el-radio-button :label="'Stay'">{{$t('stay')}}</el-radio-button>-->
       </el-radio-group>
       <chart style="width:100%"
              :autoResize="true"
@@ -67,11 +67,11 @@ import theme from '../lib/theme'
 import echartMethod from '../lib/echartMethod'
 
 export default {
-  name: 'site_location_compare',
+  name: 'tags_location_compare',
   data () {
     return {
       data: null,
-      selectMalls: [],
+      selectTags: [],
       compareKey: [],
       reportType: [0, 'DateTime'],
       chartType: 'Enter'
@@ -80,28 +80,36 @@ export default {
   methods: {
     ...mapActions('report', ['query']),
     async onQuery () {
+      let queryTag = _.filter(this.tagTypes, (v) => {
+        return v.Id === this.selectTags[0]
+      })
       let queryObject = {
         'report': {
           dateFields: ['Enter', 'Exit', 'HighTemp', 'LowTemp', 'WeatherName'],
           groupBy: [
-            {domain: 'Mall'}
+            {domain: 'Tag'}
           ],
-          mallIds: this.selectMalls[0],
+          mallIds: this.getMallIds(queryTag),
+          tagTypes: queryTag,
           startTime: '00:00:00',
           endTime: '23:59:59'
         }
       }
-      if (this.selectMalls.length > 1) {
+      if (this.selectTags.length > 1) {
         this.compareKey = []
-        for (let i = 1; i < this.selectMalls.length; i++) {
+        for (let i = 1; i < this.selectTags.length; i++) {
+          let tempTag = _.filter(this.tagTypes, (v) => {
+            return v.Id === this.selectTags[i]
+          })
           let key = 'compare_' + i
           this.compareKey.push(key)
           queryObject[key] = {
             dateFields: ['Enter', 'Exit', 'HighTemp', 'LowTemp', 'WeatherName'],
             groupBy: [
-              {domain: 'Mall'}
+              {domain: 'Tag'}
             ],
-            mallIds: [this.selectMalls[i]],
+            mallIds: this.getMallIds(tempTag),
+            tagTypes: tempTag,
             startTime: '00:00:00',
             endTime: '23:59:59'
           }
@@ -110,13 +118,25 @@ export default {
       // 触发改变
       this.data = null
       this.data = await this.query(queryObject)
+    },
+    getMallIds (tagTypes) {
+      if (tagTypes) {
+        let set = new Set()
+        _.each(tagTypes, function (v) {
+          _.each(v.MallIds, function (id) {
+            set.add(id)
+          })
+        })
+        return Array.from(set)
+      } else {
+        return []
+      }
     }
   },
   computed: {
     ...mapState('app', {
-      timeInterval: state => state.timeInterval,
-      selectedMall: state => state.selectedMall,
-      selectedMalls: state => state.selectedMalls
+      tagTypes: state => state.tagTypes,
+      timeInterval: state => state.timeInterval
     }),
     fixedHeader () {
       let timeInterval = this.$store.state.app.timeInterval.key
@@ -247,8 +267,10 @@ export default {
     }
   },
   async mounted () {
-    this.selectMalls.push(this.selectedMall.Id)
-    this.onQuery()
+    if (this.tagTypes) {
+      this.selectTags.push(this.tagTypes[0].Id)
+      this.onQuery()
+    }
   }
 }
 </script>

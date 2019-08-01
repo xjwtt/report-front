@@ -16,7 +16,7 @@
                        class="demo-modifyForm">
                 <el-form-item :label="$t('company_name')"
                               prop="CompanyId">
-                  <el-select v-model.trim="modifyForm.CompanyId" filterable :placeholder="$t('please_select')">
+                  <el-select v-model.trim="modifyForm.CompanyId" filterable placeholder="...">
                     <el-option v-for="item in companys"
                                :key="item.Id"
                                :label="item.Name"
@@ -48,50 +48,69 @@
           </el-row>
         </el-tab-pane>
         <el-tab-pane :label="$t('server_config')" name="server">
-          <el-form :model="serverConfig"
-                   :rules="rules"
-                   ref=modifyForm
-                   label-width="150px"
-                   class="demo-modifyForm">
-            <el-form-item :label="$t('server_type')"
-                          prop="ServerType">
-              <el-select v-model.trim="serverConfig.ServerType" filterable :placeholder="$t('please_select')">
-                <el-option v-for="item in ServerTypes"
-                           :key="item.Id"
-                           :label="item.Id"
-                           :value="item.Id">
-                </el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item label="Ip"
-                          prop="IpAddress">
-              <el-input v-model.trim="serverConfig.IpAddress"></el-input>
-            </el-form-item>
-            <el-form-item label="Port"
-                          prop="Port">
-              <el-input v-model.trim="serverConfig.Port"></el-input>
-            </el-form-item>
-            <el-form-item v-if="serverConfig.ServerType == 'HTTP'"
-                          label="Path"
-                          prop="Path">
-              <el-input v-model.trim="serverConfig.Path"></el-input>
-            </el-form-item>
-            <el-form-item v-if="serverConfig.ServerType == 'FTP'"
-                          :label="$t('username')"
-                          prop="UserName">
-              <el-input v-model.trim="serverConfig.UserName"></el-input>
-            </el-form-item>
-            <el-form-item v-if="serverConfig.ServerType == 'FTP'"
-                          :label="$t('password')"
-                          prop="Password">
-              <el-input v-model.trim="serverConfig.Password"></el-input>
-            </el-form-item>
-            <el-form-item v-if="serverConfig.ServerType == 'FTP'"
-                          :label="$t('directory')"
-                          prop="Directory">
-              <el-input v-model.trim="serverConfig.directory"></el-input>
-            </el-form-item>
-          </el-form>
+          <el-row :gutter="20">
+            <el-col :span="14">
+              <el-form :model="serverConfig"
+                       :rules="rules"
+                       ref=modifyForm
+                       label-width="150px"
+                       class="demo-modifyForm">
+                <el-form-item :label="$t('server_type')"
+                              prop="ServerType">
+                  <el-select v-model.trim="serverConfig.ServerType" filterable placeholder="...">
+                    <el-option v-for="item in ServerTypes"
+                               :key="item.Id"
+                               :label="item.Id"
+                               :value="item.Id">
+                    </el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item :label="$t('file_type')"
+                              prop="ServerType" v-if="serverConfig.ServerType !=='HTTP' ">
+                  <el-select v-model.trim="serverConfig.FileType" filterable placeholder="...">
+                    <el-option v-for="item in FileTypes"
+                               :key="item.Id"
+                               :label="item.Id"
+                               :value="item.Id">
+                    </el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item label="host"
+                              prop="Host">
+                  <el-input v-model.trim="serverConfig.Host"></el-input>
+                </el-form-item>
+                <el-form-item label="Port"
+                              prop="Port">
+                  <el-input v-model.trim="serverConfig.Port"></el-input>
+                </el-form-item>
+                <el-form-item v-if="serverConfig.ServerType === 'HTTP'"
+                              label="Path"
+                              prop="Path">
+                  <el-input v-model.trim="serverConfig.Path"></el-input>
+                </el-form-item>
+                <el-form-item v-if="serverConfig.ServerType !== 'HTTP'"
+                              :label="$t('username')"
+                              prop="UserName">
+                  <el-input v-model.trim="serverConfig.UserName"></el-input>
+                </el-form-item>
+                <el-form-item v-if="serverConfig.ServerType !== 'HTTP'"
+                              :label="$t('password')"
+                              prop="Password">
+                  <el-input v-model.trim="serverConfig.Password"></el-input>
+                </el-form-item>
+                <el-form-item v-if="serverConfig.ServerType === 'SFTP'"
+                              :label="$t('privateKey')"
+                              prop="privateKey">
+                  <el-input v-model.trim="serverConfig.PrivateKey"></el-input>
+                </el-form-item>
+                <el-form-item v-if="serverConfig.ServerType !== 'HTTP'"
+                              :label="$t('directory')"
+                              prop="Directory">
+                  <el-input v-model.trim="serverConfig.directory"></el-input>
+                </el-form-item>
+              </el-form>
+            </el-col>
+          </el-row>
         </el-tab-pane>
       </el-tabs>
     </template>
@@ -121,7 +140,10 @@ const defaultServerConfig = () => {
   return {ServerType: 'HTTP'}
 }
 const serverTypes = () => {
-  return [{Id: 'HTTP'}, {Id: 'FTP'}]
+  return [{Id: 'HTTP'}, {Id: 'FTP'}, {Id: 'FTPS'}, {Id: 'SFTP'}]
+}
+const fileTypes = () => {
+  return [{Id: 'csv'}, {Id: 'txt'}]
 }
 export default {
   name: 'EditUser',
@@ -149,6 +171,7 @@ export default {
       roles: [],
       CronTypes: cronTypes(),
       ServerTypes: serverTypes(),
+      FileTypes: fileTypes(),
       serverConfig: null
     }
   },
@@ -175,6 +198,7 @@ export default {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
           this.modifyForm.ConfigureMessage = JSON.stringify(this.serverConfig)
+
           await this.$store.dispatch({type: 'senddataregularly/saveOrUpdateSendRegularly', data: this.modifyForm})
           this.dialogVisible = false
           this.$emit('handleQueryChange')
