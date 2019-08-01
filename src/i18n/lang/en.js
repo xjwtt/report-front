@@ -383,6 +383,7 @@ export default {
   basics_config: 'Basics Config',
   server_config: 'Server Config',
   server_type: 'Server Type',
+  file_type: '',
   cron_type: 'Cron Type',
 
   user_name: 'UserName',

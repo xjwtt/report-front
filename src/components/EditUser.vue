@@ -18,7 +18,7 @@
             </el-form-item>
             <el-form-item :label="$t('company_name')"
                           prop="CompanyId">
-              <el-select v-model.trim="modifyForm.CompanyId" filterable :placeholder="$t('please_select')">
+              <el-select v-model.trim="modifyForm.CompanyId" filterable placeholder="...">
                 <el-option v-for="company in companys"
                            :key="company.Id"
                            :label="company.Name"
@@ -32,7 +32,7 @@
             </el-form-item>
             <el-form-item :label="$t('role_name')"
                           prop="RoleId">
-              <el-select v-model.trim="modifyForm.RoleId" filterable :placeholder="$t('please_select')">
+              <el-select v-model.trim="modifyForm.RoleId" filterable placeholder="...">
                 <el-option v-for="role in roles"
                            :key="role.Id"
                            :label="role.Name"

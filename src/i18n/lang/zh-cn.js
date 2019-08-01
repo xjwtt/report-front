@@ -383,6 +383,7 @@ export default {
   basics_config: '基础配置',
   server_config: '服务配置',
   server_type: '协议类型',
+  file_type: '文件类型',
   cron_type: '时间间隔',
 
   user_name: '用户名',

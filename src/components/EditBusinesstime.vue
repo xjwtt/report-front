@@ -25,7 +25,7 @@
             </el-form-item>
             <el-form-item :label="$t('time_type_name')"
                           prop="TimeType">
-              <el-select v-model.trim="modifyForm.TimeType" filterable :placeholder="$t('please_select')">
+              <el-select v-model.trim="modifyForm.TimeType" filterable placeholder="....">
                 <el-option v-for="type in businessTimeTypes"
                            :key="type.Id"
                            :label="type.Name"
