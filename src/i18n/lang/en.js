@@ -328,6 +328,8 @@ export default {
 
   ThanLastWeek: 'ThanLastWeek',
   ThanLastMonth: 'ThanLastMonth',
+  lastWeektoday: 'LastWeek',
+  lastyeartoday: 'LastYear',
   man_time: 'man/time',
   min: 'Min',
   max: 'Max',

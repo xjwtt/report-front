@@ -328,6 +328,8 @@ export default {
 
   ThanLastWeek: '先週(100%)比',
   ThanLastMonth: '先月(100%)比',
+  lastWeektoday: '先週の同日',
+  lastyeartoday: '前年の同日',
   man_time: 'マンタイム',
   min: '分',
   max: '最大',

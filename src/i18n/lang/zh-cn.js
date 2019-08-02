@@ -328,6 +328,8 @@ export default {
 
   ThanLastWeek: '比上周',
   ThanLastMonth: '比上月',
+  lastWeektoday: '上周今日',
+  lastyeartoday: '去年今日',
   man_time: '人次',
   min: '最小值',
   max: '最大值',
