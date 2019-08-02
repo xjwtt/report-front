@@ -196,6 +196,11 @@ export default {
     }
   },
   async mounted () {
+    let monday = moment().day('Monday')
+    console.log(monday.format('YYYY-MM-DD'))
+    console.log(monday.add(6, 'day').format('YYYY-MM-DD'))
+    console.log(moment().week())
+    console.log(moment().add(-1, 'year').week(5).format('YYYY-MM-DD'))
     this.dateRangeValue = this.peakTimeDateRange
     this.onQuery()
   },

@@ -344,6 +344,9 @@ export default {
   stay_persons: 'Stay Persons',
   price_perpiece: 'Price Perpiece',
   collecting_power: 'Collecting Power',
+  week_flow_compare: 'Week Flow Compare',
+  this_week_flow: 'ThisWeekFlow',
+  same_week_last_year_flow: 'SameWeekLastYearFlow',
 
   save: 'Save',
   associated: 'Associated',

@@ -103,24 +103,6 @@ export default {
           queryArgs[key].Locations.MallIds = _.pluck(this.selectMalls, 'Id')
         }
       }
-
-      // try {
-      //   var queryArgs = this.queryArgsFn(dates, moment)
-      //   if (!queryArgs.StartDate) {
-      //     queryArgs.StartDate = moment(dates[0]).format('YYYY-MM-DD')
-      //   }
-      //   if (!queryArgs.EndDate) {
-      //     queryArgs.EndDate = moment(dates[1]).format('YYYY-MM-DD')
-      //   }
-      //   if (!queryArgs.Locations) {
-      //     queryArgs.Locations = {MallIds: _.pluck(this.selectMalls, 'Id')}
-      //   }
-      // } catch (e) {
-      //   this.error = `<div>Run QueryArgsFn Error<br>${e}</div>`
-      //   this.loading = false
-      //   return
-      // }
-
       let res
       try {
         res = await ajax.post('/report/GlobalReport.action', queryArgs, {skipInterceptors: true})
@@ -132,7 +114,7 @@ export default {
       }
 
       try {
-        this.resultProcessorFn(res, this.DisplayMap, _)
+        this.resultProcessorFn(res, this.DisplayMap, moment, _)
       } catch (e) {
         this.error = `<div>Run resultProcessorFn Error<br>${e}</div>`
         return
@@ -202,7 +184,7 @@ export default {
           return
         }
         try {
-          this.resultProcessorFn = new Function('r', 'D', '_', `${this.ResultProcessor}`)
+          this.resultProcessorFn = new Function('r', 'D', 'm', '_', `${this.ResultProcessor}`)
         } catch (e) {
           this.error = `<div>Init ResultProcessorFn Error<br>${e}</div>`
         }

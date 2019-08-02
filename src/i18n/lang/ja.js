@@ -344,6 +344,9 @@ export default {
   stay_persons: '滞留人数',
   price_perpiece: '単価',
   collecting_power: '集客力',
+  week_flow_compare: '週客数比較',
+  this_week_flow: '今週客数',
+  same_week_last_year_flow: '前年の同週客数',
 
   save: '保存する',
   associated: '関連する',
