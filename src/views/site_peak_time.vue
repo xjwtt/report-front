@@ -1,6 +1,7 @@
 <template>
   <div class="report-page">
     <div class="report-page-card">
+      <interval-picker-day-w-m-y></interval-picker-day-w-m-y>
       <div>
         <span>{{ $t('date_range') }}：</span>
         <el-date-picker v-model="dateRangeValue"
