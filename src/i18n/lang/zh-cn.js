@@ -344,6 +344,9 @@ export default {
   stay_persons: '停留人数',
   price_perpiece: '件单价',
   collecting_power: '集客力',
+  week_flow_compare: '周客流对比',
+  this_week_flow: '本周客流',
+  same_week_last_year_flow: '去年同周客流',
 
   save: '保存',
   associated: '已关联',
