@@ -29,14 +29,20 @@
 
     </div>
     <div class="report-page-card">
-      <traffice-table-fast :columnsInit=columnsInit
-                           :charTypes=charTypes
-                           :tableType=tableType
-                           :tableData=tableData
-                           :headerData=headerData
-                           :fixedHeader=fixedHeader
-                           :export-name="'site_traffic'">
-      </traffice-table-fast>
+      <!--      <traffice-table-fast :columnsInit=columnsInit-->
+      <!--                           :charTypes=charTypes-->
+      <!--                           :tableType=tableType-->
+      <!--                           :tableData=tableData-->
+      <!--                           :headerData=headerData-->
+      <!--                           :fixedHeader=fixedHeader-->
+      <!--                           :export-name="'site_traffic'"-->
+      <!--                           :timeIntervalKey=timeInterval.key>-->
+      <!--      </traffice-table-fast>-->
+      <traffice-bigdata-table :columns=columns
+                              :tableDataHandled=tableDataHandled
+                              :fixedCol=this.columnsFixed.length-1
+                              :export-name="'site_traffic'">
+      </traffice-bigdata-table>
     </div>
   </div>
 </template>
@@ -52,10 +58,9 @@ export default {
     data: null,
     reportType: [1, 'DateTime'],
     chartType: 'Enter',
-    dateFields: ['Enter', 'Exit', 'Stay'],
-    charTypes: ['Enter', 'Exit', 'Stay'],
-    fixedHeader: [],
-    dateStyle: null
+    dateFields: ['Enter', 'Exit', 'Stay', 'HighTemp', 'LowTemp', 'WeatherName'],
+    charTypes: ['Enter', 'Exit','Stay'],
+    fixedHeader: []
   }),
   methods: {
     ...mapActions('report', ['query']),
