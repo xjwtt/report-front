@@ -29,14 +29,19 @@
              :options="chartOption"></chart>
     </div>
     <div class="report-page-card">
-      <traffice-table-fast :columnsInit=columnsInit
-                           :charTypes=charTypes
-                           :tableType=tableType
-                           :tableData=tableData
-                           :headerData=headerData
-                           :fixedHeader=fixedHeader
-                           :export-name="'tag_traffic'">
-      </traffice-table-fast>
+      <!--      <traffice-table-fast :columnsInit=columnsInit-->
+      <!--                           :charTypes=charTypes-->
+      <!--                           :tableType=tableType-->
+      <!--                           :tableData=tableData-->
+      <!--                           :headerData=headerData-->
+      <!--                           :fixedHeader=fixedHeader-->
+      <!--                           :export-name="'tag_traffic'">-->
+      <!--      </traffice-table-fast>-->
+      <traffice-bigdata-table :columns=columns
+                              :tableDataHandled=tableDataHandled
+                              :fixedCol=this.columnsFixed.length-1
+                              :export-name="'site_traffic'">
+      </traffice-bigdata-table>
     </div>
   </div>
 </template>
@@ -47,6 +52,7 @@ import TagSelector from '@/components/TagSelector'
 import _ from 'underscore'
 import theme from '../lib/theme'
 import echartMethod from '../lib/echartMethod'
+import moment from 'moment'
 
 export default {
   data: () => ({
@@ -93,6 +99,163 @@ export default {
     ...mapState('app', {
       timeInterval: state => state.timeInterval
     }),
+    fixedHeader () {
+      return []
+    },
+    groupByData () {
+      let dataArrayIndex = this.reportType[0]
+      let data = this.data ? this.data['report'][dataArrayIndex] : []
+      let period = this.timeInterval.key
+      let groupByData = {}
+      switch (period) {
+        case '5m':
+        case '10m':
+        case '15m':
+        case '30m':
+        case '60m':
+          groupByData = _.groupBy(data, (v) => {
+            return moment(v.TimeLabel).format('YYYY-MM-DD')
+          })
+          break
+        default:
+          groupByData['All'] = data
+      }
+      let result = {}
+      _.each(groupByData, (v, k) => {
+        let domain = _.groupBy(v, (items) => {
+          return items['DomainLabel']
+        })
+        _.each(domain, (d, dk) => {
+          result[k + '_' + dk] = d
+        })
+      })
+      return result
+    },
+    columnsFixed () {
+      let fixed = ['location']
+      let period = this.timeInterval.key
+      switch (period) {
+        case '5m':
+        case '10m':
+        case '15m':
+        case '30m':
+        case '60m':
+          fixed = fixed.concat(['type', 'date', 'total'])
+          break
+        default:
+          fixed = fixed.concat(['type', 'total'])
+      }
+      return fixed
+    },
+    columns () {
+      let columns = [].concat(this.columnsFixed)
+      _.each(columns, (value, index) => {
+        columns[index] = this.$t(value)
+      })
+      let data = []
+      switch (this.reportType[1]) {
+        case 'DateTime':
+        case 'DomainLabel_DateTime':
+          let xSelector = (_) => _['DateTime']
+          let keys = Object.keys(this.groupByData)
+          if (keys.length > 0) {
+            let temp = this.groupByData[keys[0]]
+            data = _.map(temp, xSelector)
+            if (this.timeInterval.key === '60m') {
+              data = _.map(data, (v) => {
+                return moment(v).format('HH:mm')
+              })
+            }
+          }
+          break
+        case 'DomainLabel':
+          data = _.map(this.charTypes, (v) => {
+            return this.$t(v)
+          })
+          break
+      }
+      columns = columns.concat(data)
+      return columns.map((title, col) => {
+        return {
+          title: title,
+          align: 'center'
+        }
+      })
+    },
+    tableDataHandled () {
+      let that = this
+      let body = []
+      switch (this.reportType[1]) {
+        case 'DateTime':
+        case 'DomainLabel_DateTime':
+          let firstKeys = Object.keys(that.groupByData)
+          if (firstKeys.length > 0) {
+            let data = that.groupByData[firstKeys[0]]
+            _.each(this.fixedHeader, (type) => {
+              let row = ['', that.$t(type), '-']
+              _.each(data, (v) => {
+                switch (type) {
+                  case 'Picture':
+                    let p = ''
+                    if (v['DayPictureUrl']) {
+                      p = '<img style="width: 42px;height:30px" src="' + v['DayPictureUrl'] + '"/>'
+                    }
+                    row.push(p)
+                    break
+                  default:
+                    row.push(v[type])
+                }
+              })
+              body.push(row)
+            })
+          }
+          _.each(that.groupByData, (v, k) => {
+            _.each(that.charTypes, (type) => {
+              let row = []
+              _.each(that.columnsFixed, (f) => {
+                switch (f) {
+                  case 'location':
+                    row.push(v[0]['DomainLabel'])
+                    break
+                  case 'type':
+                    row.push(this.$t(type))
+                    break
+                  case 'date':
+                    row.push(moment(v[0]['TimeLabel']).format('YYYY-MM-DD'))
+                    break
+                  case 'total':
+                    let total = 0
+                    _.each(v, (item) => {
+                      total += item[type]
+                    })
+                    row.push(total)
+                    break
+                  default:
+                    row.push(v[0][f])
+                    break
+                }
+              })
+              _.each(v, (item) => {
+                row.push(item[type])
+              })
+              body.push(row)
+            })
+          })
+          break
+        case 'DomainLabel':
+          _.each(that.groupByData, (v, k) => {
+            let row = [v[0]['DomainLabel']]
+            _.each(that.charTypes, (type) => {
+              _.each(v, (item) => {
+                row.push(item[type])
+              })
+            })
+            body.push(row)
+          })
+          break
+      }
+      return body
+    },
     columnsInit () {
       return ['location']
     },

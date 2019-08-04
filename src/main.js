@@ -14,6 +14,8 @@ import {router} from './router/index'
 import i18n from './i18n'
 import store from './store'
 import './tables'
+import '../static/css/bootstrap.min.css'
+import '../static/css/font-awesome.min.css'
 
 import IntervalPicker from './components/IntervalPicker'
 import IntervalPickerHourlyweek from './components/IntervalPickerHourlyweek'
@@ -27,6 +29,7 @@ import TrafficeTable from './components/TrafficeTable'
 import TrafficeTalbeFast from './components/TrafficeTalbeFast'
 import TrafficeTalbeFastBks from './components/TrafficeTalbeFast_bks'
 import TrafficeTalbeCompareFast from './components/TrafficeTalbeCompareFast'
+import TrafficeBigdataTable from './components/TrafficeBigdataTable'
 import ZoneSelector from './components/ZoneSelector'
 
 Vue.config.productionTip = false
@@ -50,6 +53,7 @@ Vue.component('traffice-table', TrafficeTable)
 Vue.component('traffice-table-fast', TrafficeTalbeFast)
 Vue.component('traffice-table-fast-bks', TrafficeTalbeFastBks)
 Vue.component('traffice-table-compare-fast', TrafficeTalbeCompareFast)
+Vue.component('traffice-bigdata-table', TrafficeBigdataTable)
 Vue.component('zone-selector', ZoneSelector)
 
 let asyncMain = async () => {
