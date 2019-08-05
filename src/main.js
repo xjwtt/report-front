@@ -26,8 +26,6 @@ import SingelMallSelect from './components/SingelMallSelect'
 import CompareMallSelect from './components/CompareMallSelect'
 import TheTable from './components/TheTable'
 import TrafficeTable from './components/TrafficeTable'
-import TrafficeTalbeFast from './components/TrafficeTalbeFast'
-import TrafficeTalbeFastBks from './components/TrafficeTalbeFast_bks'
 import TrafficeTalbeCompareFast from './components/TrafficeTalbeCompareFast'
 import TrafficeBigdataTable from './components/TrafficeBigdataTable'
 import ZoneSelector from './components/ZoneSelector'
@@ -50,8 +48,6 @@ Vue.component('singel-mall-select', SingelMallSelect)
 Vue.component('compare-mall-select', CompareMallSelect)
 Vue.component('the-table', TheTable)
 Vue.component('traffice-table', TrafficeTable)
-Vue.component('traffice-table-fast', TrafficeTalbeFast)
-Vue.component('traffice-table-fast-bks', TrafficeTalbeFastBks)
 Vue.component('traffice-table-compare-fast', TrafficeTalbeCompareFast)
 Vue.component('traffice-bigdata-table', TrafficeBigdataTable)
 Vue.component('zone-selector', ZoneSelector)
