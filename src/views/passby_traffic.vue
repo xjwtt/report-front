@@ -15,6 +15,7 @@
                       style="vertical-align: middle;"
                       size="mini">
         <el-radio-button :label='[1,"DateTime"]'>{{$t('time_group')}}</el-radio-button>
+        <el-radio-button :label='[2,"DomainLabel_DateTime"]'>{{$t('location_time_group')}}</el-radio-button>
         <el-radio-button :label='[0,"DomainLabel"]'>{{$t('location_group')}}</el-radio-button>
       </el-radio-group>
       <el-radio-group
@@ -26,14 +27,15 @@
              :options="chartOption"></chart>
     </div>
     <div class="report-page-card">
-      <traffice-table-fast :columnsInit=columnsInit
-                           :charTypes=charTypes
-                           :tableType=tableType
-                           :tableData=tableData
-                           :headerData=headerData
-                           :fixedHeader=fixedHeader
-                           :export-name="'passby_traffic'">
-      </traffice-table-fast>
+      <traffice-bigdata-table :report-type=reportType
+                              :period=this.timeInterval.key
+                              :char-types=charTypes
+                              :fixed-header=fixedHeader
+                              :report-types=reportTypes
+                              :columns-fixed=columnsFixed
+                              :data=this.data
+                              :export-name="'passby_traffic'">
+      </traffice-bigdata-table>
     </div>
   </div>
 </template>
@@ -83,29 +85,34 @@ export default {
       let timeInterval = this.$store.state.app.timeInterval.key
       switch (timeInterval) {
         case '1d':
-          return ['WeatherName', 'Temp']
+          return ['Picture', 'WeatherName', 'Temp']
         default:
           return []
       }
     },
-    columnsInit () {
-      return ['location']
+    reportTypes () {
+      return ['report']
     },
-    tableData () {
-      let dataArrayIndex = this.reportType[0]
-      switch (dataArrayIndex) {
-        case 0:
-          return this.data ? this.data['report'][dataArrayIndex] : []
-        case 1:
-          return this.data ? this.data['report'][2] : []
+    columnsFixed () {
+      let fixed = ['location']
+      let period = this.timeInterval.key
+      switch (this.reportType[1]) {
+        case 'DomainLabel_DateTime':
+        case 'DateTime':
+          switch (period) {
+            case '5m':
+            case '10m':
+            case '15m':
+            case '30m':
+            case '60m':
+              fixed = fixed.concat(['type', 'date', 'WeatherName', 'total'])
+              break
+            default:
+              fixed = fixed.concat(['type', 'total'])
+          }
+          break
       }
-    },
-    tableType () {
-      return this.reportType[1]
-    },
-    headerData () {
-      let dataArrayIndex = this.reportType[0]
-      return this.data ? this.data['report'][dataArrayIndex] : []
+      return fixed
     },
     chartOption () {
       let yAxisNameRight = this.$t('percent')
@@ -116,8 +123,14 @@ export default {
       let enteringRate = this.$t('enteringRate')
 
       let dataArrayIndex = this.reportType[0]
-
-      let xData = this.data ? _.map(this.data['report'][dataArrayIndex], (_) => _[this.reportType[1]]) : []
+      let type = this.reportType[1]
+      switch (type) {
+        case 'DomainLabel_DateTime':
+          type = 'DateTime'
+          dataArrayIndex = 1
+          break
+      }
+      let xData = this.data ? _.map(this.data['report'][dataArrayIndex], (_) => _[type]) : []
       let yEnter = this.data ? _.map(this.data['report'][dataArrayIndex], (it) => it.Enter) : []
       let yPassBy = this.data ? _.map(this.data['report'][dataArrayIndex], (it) => it.Passby) : []
       let yEnteringRate = this.data ? _.map(this.data['report'][dataArrayIndex], (it) => it.EnteringRate) : []

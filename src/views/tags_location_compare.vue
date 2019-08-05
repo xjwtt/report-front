@@ -47,15 +47,15 @@
 
     </div>
     <div class="report-page-card">
-      <traffice-table-fast :columnsInit=columnsInit
-                           :charTypes=charTypes
-                           :tableType=tableType
-                           :tableData=tableData
-                           :compareData=compareData
-                           :headerData=headerData
-                           :fixedHeader=fixedHeader
-                           :export-name="'site_location_compare'">
-      </traffice-table-fast>
+      <traffice-bigdata-table :report-type=reportType
+                              :period=this.timeInterval.key
+                              :char-types=charTypes
+                              :fixed-header=fixedHeader
+                              :report-types=reportTypes
+                              :columns-fixed=columnsFixed
+                              :data=this.data
+                              :export-name="'tags_location_compare'">
+      </traffice-bigdata-table>
     </div>
   </div>
 </template>
@@ -138,42 +138,35 @@ export default {
       tagTypes: state => state.tagTypes,
       timeInterval: state => state.timeInterval
     }),
-    fixedHeader () {
-      let timeInterval = this.$store.state.app.timeInterval.key
-      switch (timeInterval) {
-        case '1d':
-          return ['WeatherName', 'Temp']
-        default:
-          return []
-      }
-    },
-    columnsInit () {
-      return ['location']
-    },
     charTypes () {
       return [this.chartType]
     },
-    tableType () {
-      return this.reportType[1]
+    fixedHeader () {
+      return []
     },
-    tableData () {
-      let dataArrayIndex = this.reportType[0]
-      return this.data ? this.data['report'][dataArrayIndex] : []
+    reportTypes () {
+      return ['report'].concat(this.compareKey)
     },
-    compareData () {
-      let dataArrayIndex = this.reportType[0]
-      // return this.data ? this.data['compare'][dataArrayIndex] : []
-      let compareData = []
-      if (this.data) {
-        _.each(this.compareKey, (v) => {
-          compareData.push(this.data[v][dataArrayIndex])
-        })
+    columnsFixed () {
+      let fixed = ['location']
+      let period = this.timeInterval.key
+      switch (this.reportType[1]) {
+        case 'DomainLabel_DateTime':
+        case 'DateTime':
+          switch (period) {
+            case '5m':
+            case '10m':
+            case '15m':
+            case '30m':
+            case '60m':
+              fixed = fixed.concat(['type', 'date', 'total'])
+              break
+            default:
+              fixed = fixed.concat(['type', 'total'])
+          }
+          break
       }
-      return compareData
-    },
-    headerData () {
-      let dataArrayIndex = this.reportType[0]
-      return this.data ? this.data['report'][dataArrayIndex] : []
+      return fixed
     },
     chartOption () {
       let dataArrayIndex = this.reportType[0]

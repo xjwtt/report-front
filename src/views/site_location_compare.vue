@@ -29,15 +29,15 @@
 
     </div>
     <div class="report-page-card">
-      <traffice-table-fast :columnsInit=columnsInit
-                           :charTypes=charTypes
-                           :tableType=tableType
-                           :tableData=tableData
-                           :compareData=compareData
-                           :headerData=headerData
-                           :fixedHeader=fixedHeader
-                           :export-name="'site_location_compare'">
-      </traffice-table-fast>
+      <traffice-bigdata-table :report-type=reportType
+                              :period=this.timeInterval.key
+                              :char-types=charTypes
+                              :fixed-header=fixedHeader
+                              :report-types=reportTypes
+                              :columns-fixed=columnsFixed
+                              :data=this.data
+                              :export-name="'site_location_compare'">
+      </traffice-bigdata-table>
     </div>
   </div>
 </template>
@@ -85,6 +85,9 @@ export default {
     ...mapState('app', {
       timeInterval: state => state.timeInterval
     }),
+    charTypes () {
+      return [this.chartType]
+    },
     fixedHeader () {
       let timeInterval = this.$store.state.app.timeInterval.key
       switch (timeInterval) {
@@ -94,26 +97,29 @@ export default {
           return []
       }
     },
-    columnsInit () {
-      return ['location']
+    reportTypes () {
+      return ['report', 'compare']
     },
-    charTypes () {
-      return [this.chartType]
-    },
-    tableType () {
-      return this.reportType[1]
-    },
-    tableData () {
-      let dataArrayIndex = this.reportType[0]
-      return this.data ? this.data['report'][dataArrayIndex] : []
-    },
-    compareData () {
-      let dataArrayIndex = this.reportType[0]
-      return this.data ? [this.data['compare'][dataArrayIndex]] : []
-    },
-    headerData () {
-      let dataArrayIndex = this.reportType[0]
-      return this.data ? this.data['report'][dataArrayIndex] : []
+    columnsFixed () {
+      let fixed = ['location']
+      let period = this.timeInterval.key
+      switch (this.reportType[1]) {
+        case 'DomainLabel_DateTime':
+        case 'DateTime':
+          switch (period) {
+            case '5m':
+            case '10m':
+            case '15m':
+            case '30m':
+            case '60m':
+              fixed = fixed.concat(['type', 'date', 'WeatherName', 'total'])
+              break
+            default:
+              fixed = fixed.concat(['type', 'total'])
+          }
+          break
+      }
+      return fixed
     },
     chartOption () {
       let dataArrayIndex = this.reportType[0]
