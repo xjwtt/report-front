@@ -98,7 +98,6 @@ export default {
       let dailyAverage = this.$t('daily_average') + chartTypeName
       let columns = [
         {
-          width: 150,
           prop: 'Key',
           fixed: true,
           label: this.$t(this.analysisType),
@@ -106,7 +105,6 @@ export default {
           formatter: (row, col) => row['Key']
         },
         {
-          width: 100,
           prop: 'Days',
           fixed: true,
           label: this.$t('days'),
@@ -114,7 +112,6 @@ export default {
           formatter: (row, col) => row['Days']
         },
         {
-          width: 120,
           prop: 'Data',
           fixed: true,
           label: chartTypeName,
@@ -122,7 +119,6 @@ export default {
           formatter: (row, col) => row['Data']
         },
         {
-          width: 120,
           prop: 'AvgData',
           fixed: true,
           label: dailyAverage,
