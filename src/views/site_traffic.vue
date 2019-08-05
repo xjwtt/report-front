@@ -60,8 +60,7 @@ export default {
     reportType: [1, 'DateTime'],
     chartType: 'Enter',
     dateFields: ['Enter', 'Exit', 'Stay', 'HighTemp', 'LowTemp', 'WeatherName'],
-    charTypes: ['Enter', 'Exit'],
-    fixedHeader: []
+    charTypes: ['Enter', 'Exit']
   }),
   methods: {
     ...mapActions('report', ['query']),
@@ -118,22 +117,33 @@ export default {
     columnsFixed () {
       let fixed = ['location']
       let period = this.timeInterval.key
-      switch (period) {
-        case '5m':
-        case '10m':
-        case '15m':
-        case '30m':
-        case '60m':
-          switch (this.reportType[1]) {
-            case 'DomainLabel_DateTime':
+      switch (this.reportType[1]) {
+        case 'DomainLabel_DateTime':
+          switch (period) {
+            case '5m':
+            case '10m':
+            case '15m':
+            case '30m':
+            case '60m':
               fixed = fixed.concat(['type', 'date', 'WeatherName', 'total'])
               break
             default:
-              fixed = fixed.concat(['type', 'date', 'total'])
+              fixed = fixed.concat(['type', 'total'])
           }
           break
-        default:
-          fixed = fixed.concat(['type', 'total'])
+        case 'DateTime':
+          switch (period) {
+            case '5m':
+            case '10m':
+            case '15m':
+            case '30m':
+            case '60m':
+              fixed = fixed.concat(['type', 'date', 'total'])
+              break
+            default:
+              fixed = fixed.concat(['type', 'total'])
+          }
+          break
       }
       return fixed
     },
