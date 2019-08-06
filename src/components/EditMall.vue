@@ -128,7 +128,13 @@ const defaultForm = () => {
   }
 }
 const timeZones = () => {
-  return _.map(['Asia/Shanghai', 'Asia/Ho_Chi_Minh', 'Pacific/Guadalcanal', 'America/Los_Angeles', 'America/Puerto_Rico', 'America/Phoenix', 'Asia/Karachi', 'Pacific/Auckland', 'Asia/Yerevan', 'Pacific/Apia', 'Asia/Tokyo', 'Asia/Kolkata', 'America/Indiana/Indianapolis', 'Europe/Paris', 'Africa/Addis_Ababa', 'America/Chicago', 'America/St_Johns', 'Africa/Harare', 'Asia/Dhaka', 'America/Sao_Paulo', 'America/Anchorage', 'Africa/Cairo', 'America/Argentina/Buenos_Aires', 'Australia/Sydney', 'Australia/Darwin'], function (it) {
+  return _.map(['-12:00', '-11:30', '-11:00', '-10:30', '-10:00', '-09:30', '-09:00', '-08:30',
+    '-08:00', '-07:30', '-07:00', '-06:30', '-06:00', '-05:30', '-05:00', '-04:30',
+    '-04:00', '-03:30', '-03:00', '-02:30', '-02:00', '-01:30', '-01:00', '-00:30',
+    '00:00',
+    '+00:30', '+01:00', '+01:30', '+02:00', '+02:30', '+03:00', '+03:30', '+04:00',
+    '+04:30', '+05:00', '+05:30', '+06:00', '+06:30', '+07:00', '+07:30', '+08:00',
+    '+08:30', '+09:00', '+09:30', '+10:00', '+10:30', '+11:00', '+11:30', '+12:00'], (it) => {
     return {Id: it}
   })
 }
