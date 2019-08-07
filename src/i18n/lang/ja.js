@@ -422,6 +422,7 @@ export default {
   go_to_login: 'ログインしてください',
   deviceid_can_not_be_repeated: 'デバイスIDを繰り返すことはできません',
   associated_with_physical_regions: '物理領域に関連する',
+  associations_cannot_be_deleted: '関連があって削除できません',
   have_children_menu: 'サブメニュー',
   have_children_location: 'サブ場所',
   have_children_user: 'サブユーザー',

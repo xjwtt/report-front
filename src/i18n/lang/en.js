@@ -422,6 +422,8 @@ export default {
   go_to_login: 'Please go to login',
   deviceid_can_not_be_repeated: 'DeviceId Can not be repeated',
   associated_with_physical_regions: 'Associated with physical regions',
+  associations_cannot_be_deleted: 'Associations cannot be deleted',
+  there_is_an_associated_can_not_deleted: '',
   have_children_menu: 'Have children menu',
   have_children_location: 'Have children location',
   have_children_user: 'Have children user',

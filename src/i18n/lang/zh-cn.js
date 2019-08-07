@@ -422,6 +422,7 @@ export default {
   go_to_login: '去登录',
   deviceid_can_not_be_repeated: '设备码不能重复',
   associated_with_physical_regions: '与物理区域有关联',
+  associations_cannot_be_deleted: '有关联不能删除',
   have_children_menu: '有子菜单',
   have_children_location: '有子地点',
   have_children_user: '有子用户',
