@@ -68,9 +68,9 @@
                          filterable
                          placeholder="...">
                 <el-option v-for="item in timeZones"
-                           :key="item.Id"
-                           :label="item.Id"
-                           :value="item.Id">
+                           :key="item.KeyName"
+                           :label="item.Name"
+                           :value="item.KeyName">
 
                 </el-option>
               </el-select>
@@ -110,7 +110,6 @@
 </template>
 
 <script>
-import _ from 'underscore'
 
 const defaultForm = () => {
   return {
@@ -119,24 +118,13 @@ const defaultForm = () => {
     ProvinceId: '',
     CityId: '',
     DistrictId: '',
-    TimeZone: 'Asia/Shanghai',
+    TimeZone: 'Etc/GMT-8',
     ClerkNumber: 0,
     OperationAcreage: 0,
     Ranked: 0,
     MallCode: '',
     Enabled: 1
   }
-}
-const timeZones = () => {
-  return _.map(['-12:00', '-11:30', '-11:00', '-10:30', '-10:00', '-09:30', '-09:00', '-08:30',
-    '-08:00', '-07:30', '-07:00', '-06:30', '-06:00', '-05:30', '-05:00', '-04:30',
-    '-04:00', '-03:30', '-03:00', '-02:30', '-02:00', '-01:30', '-01:00', '-00:30',
-    '00:00',
-    '+00:30', '+01:00', '+01:30', '+02:00', '+02:30', '+03:00', '+03:30', '+04:00',
-    '+04:30', '+05:00', '+05:30', '+06:00', '+06:30', '+07:00', '+07:30', '+08:00',
-    '+08:30', '+09:00', '+09:30', '+10:00', '+10:30', '+11:00', '+11:30', '+12:00'], (it) => {
-    return {Id: it}
-  })
 }
 export default {
   name: 'EditCompany',
@@ -161,7 +149,7 @@ export default {
           {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
         ]
       },
-      timeZones: timeZones(),
+      timeZones: [],
       companys: [],
       provinces: [],
       citys: [],
@@ -216,6 +204,10 @@ export default {
       if (type === 'pro') {
         this.provinces = rep
       }
+    },
+    async selectCategoryByKeyName () {
+      let rep = await this.$store.dispatch({type: 'category/selectCategoryByKeyName', data: {KeyName: 'timezone'}})
+      this.timeZones = rep
     }
   },
   watch: {
@@ -231,6 +223,9 @@ export default {
       },
       deep: true
     }
+  },
+  activated () {
+    this.selectCategoryByKeyName()
   }
 }
 </script>
