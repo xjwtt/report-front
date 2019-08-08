@@ -13,6 +13,7 @@ import mall from './modules/mall'
 import location from './modules/location'
 import camera from './modules/camera'
 import cameraZone from './modules/cameraZone'
+import device from './modules/device'
 import physical from './modules/physical'
 import category from './modules/category'
 import zonecamera from './modules/zonecamera'
@@ -50,6 +51,7 @@ const store = new Vuex.Store({
     location,
     camera,
     cameraZone,
+    device,
     physical,
     category,
     zonecamera,
