@@ -17,6 +17,8 @@ import tdTaskOpt from './tableFields/td-taskOpt'
 import tdSendRegularlyOpt from './tableFields/td-sendRegularlyOpt'
 import tdSendStatus from './tableFields/td-sendStatus'
 import tdWeekdays from './tableFields/td-weekdays'
+import tdGender from './tableFields/td-Gender'
+import tdImage from './tableFields/td-Image'
 
 Vue.use(Datatable)
 Vue.prototype.$i18nForDatatable = Vue.prototype.$t
@@ -37,3 +39,5 @@ Vue.component('td-taskOpt', tdTaskOpt)
 Vue.component('td-sendRegularlyOpt', tdSendRegularlyOpt)
 Vue.component('td-sendStatus', tdSendStatus)
 Vue.component('td-weekdays', tdWeekdays)
+Vue.component('td-gender', tdGender)
+Vue.component('td-image', tdImage)

@@ -13,6 +13,7 @@ import mall from './modules/mall'
 import location from './modules/location'
 import camera from './modules/camera'
 import cameraZone from './modules/cameraZone'
+import device from './modules/device'
 import physical from './modules/physical'
 import category from './modules/category'
 import zonecamera from './modules/zonecamera'
@@ -23,6 +24,7 @@ import history from './modules/historyflow'
 import task from './modules/task'
 import senddataregularly from './modules/senddataregularly'
 import tagtype from './modules/tagtype'
+import face from './modules/face'
 
 Vue.use(Vuex)
 
@@ -50,6 +52,7 @@ const store = new Vuex.Store({
     location,
     camera,
     cameraZone,
+    device,
     physical,
     category,
     zonecamera,
@@ -59,7 +62,8 @@ const store = new Vuex.Store({
     history,
     task,
     senddataregularly,
-    tagtype
+    tagtype,
+    face
   }
 })
 

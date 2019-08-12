@@ -38,6 +38,8 @@ export const allRouters = {
   location_manager: () => import('@/views/location_manager'),
   camera_manager: () => import('@/views/camera_manager'),
   camerastatus_manager: () => import('@/views/camerastatus_manager'),
+  device_manager: () => import('@/views/device_manager'),
+  devicestatus_manager: () => import('@/views/devicestatus_manager'),
   cameraZone_manager: () => import('@/views/cameraZone_manager'),
   physical_manager: () => import('@/views/physical_manager'),
   physicalZone_manager: () => import('@/views/physicalZone_manager'),
@@ -57,5 +59,6 @@ export const allRouters = {
   show_case_analysis: () => import('@/views/show_case_analysis'),
   send_data_regularly: () => import('@/views/send_data_regularly'),
   zone_face_analysis: () => import('@/views/zone_face_analysis'),
-  category_manager: () => import('@/views/category_manager')
+  category_manager: () => import('@/views/category_manager'),
+  face_grid: () => import('@/views/face_grid')
 }
