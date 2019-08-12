@@ -59,5 +59,6 @@ export const allRouters = {
   show_case_analysis: () => import('@/views/show_case_analysis'),
   send_data_regularly: () => import('@/views/send_data_regularly'),
   zone_face_analysis: () => import('@/views/zone_face_analysis'),
-  category_manager: () => import('@/views/category_manager')
+  category_manager: () => import('@/views/category_manager'),
+  face_grid: () => import('@/views/face_grid')
 }

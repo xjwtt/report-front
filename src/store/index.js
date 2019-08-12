@@ -24,6 +24,7 @@ import history from './modules/historyflow'
 import task from './modules/task'
 import senddataregularly from './modules/senddataregularly'
 import tagtype from './modules/tagtype'
+import face from './modules/face'
 
 Vue.use(Vuex)
 
@@ -61,7 +62,8 @@ const store = new Vuex.Store({
     history,
     task,
     senddataregularly,
-    tagtype
+    tagtype,
+    face
   }
 })
 
