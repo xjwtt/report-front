@@ -14,8 +14,6 @@ import {router} from './router/index'
 import i18n from './i18n'
 import store from './store'
 import './tables'
-import '../static/css/bootstrap.min.css'
-import '../static/css/font-awesome.min.css'
 
 import IntervalPicker from './components/IntervalPicker'
 import IntervalPickerHourlyweek from './components/IntervalPickerHourlyweek'
