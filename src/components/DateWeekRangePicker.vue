@@ -5,12 +5,12 @@
                     type="daterange"
                     :placeholder="$t('selection_date')"
                     :range-separator="' - '"
-                    @change="setDateRange"
+                    @change="setPeakTimeDateRange"
                     :editable="false"
                     :clearable="false"
                     style="width:220px;"
                     size="small"
-                    :picker-options="timeInterval.pickerOptions">
+                    :picker-options="weekMonthPickerOptions">
     </el-date-picker>
   </div>
 </template>
@@ -24,18 +24,18 @@ export default {
   }),
   computed: {
     ...mapState('app', {
-      dateRange: state => state.dateRange,
-      timeInterval: state => state.timeInterval
+      peakTimeDateRange: state => state.peakTimeDateRange,
+      weekMonthPickerOptions: state => state.weekMonthPickerOptions
     })
   },
   methods: {
-    ...mapMutations('app', ['setDateRange'])
+    ...mapMutations('app', ['setPeakTimeDateRange'])
   },
   created () {
-    this.dateRangeValue = this.dateRange
+    this.dateRangeValue = this.peakTimeDateRange
   },
   activated () {
-    this.dateRangeValue = this.dateRange
+    this.dateRangeValue = this.peakTimeDateRange
   }
 }
 </script>

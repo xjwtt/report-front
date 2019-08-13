@@ -49,6 +49,7 @@ export default {
   prediction_analysis: '预测分析',
   face_analysis: '人脸数据分析',
   zone_face_analysis: '区域人脸分析',
+  face_grid: '人脸记录',
   show_case_analysis: '展示效果分析',
 
   system_setting: '系统设置',
@@ -410,6 +411,10 @@ export default {
   Shelf: '展区',
   Face: '人脸',
 
+  date_time: '时间',
+  age_type: '年龄类型',
+  gender: '性别',
+  photo: '照片',
   male: '男',
   female: '女',
   genderage: '性别年龄',

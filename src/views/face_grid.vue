@@ -2,18 +2,7 @@
   <div class="report-page">
     <div class="report-page-card">
       <singel-mall-select ref="mallSelect"></singel-mall-select>
-      <div style="margin-top: 5px">
-        <span>{{ $t('date_range') }}：</span>
-        <el-date-picker v-model="dateRangeValue"
-                        type="daterange"
-                        :placeholder="$t('selection_date')"
-                        :range-separator="' - '"
-                        :editable="false"
-                        :clearable="false"
-                        style="width:220px;"
-                        size="small">
-        </el-date-picker>
-      </div>
+      <date-range-picker></date-range-picker>
       <el-button type="primary"
                  size="small"
                  @click="onQuery">{{$t('query')}}
@@ -27,6 +16,7 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 import moment from 'moment'
 import Vue from 'vue'
 
@@ -38,27 +28,29 @@ export default {
       tblClass: 'table-bordered',
       tblStyle: 'color: #666',
       columns: [
-        {title: 'DateTime', field: 'DateTime', thComp: 'th-i18n', sortable: true},
-        {title: 'AgeType', field: 'AgeType', thComp: 'th-filter'},
-        {title: 'Gender', field: 'Gender', thComp: 'th-filter', tdComp: 'td-gender'},
-        {title: 'Image', field: 'Image', tdComp: 'td-image'}
+        {title: 'date_time', field: 'DateTime', thComp: 'th-i18n', sortable: true},
+        {title: 'age_type', field: 'AgeType', thComp: 'th-i18n'},
+        {title: 'gender', field: 'Gender', thComp: 'th-i18n', tdComp: 'td-gender'},
+        {title: 'photo', field: 'Image', thComp: 'th-i18n', tdComp: 'td-image'}
       ],
       data: [],
       total: 0,
       query: {'time_': 0},
       xprops: {
         eventbus: new Vue()
-      },
-      // date
-      dateRangeValue: [moment(), moment()]
+      }
     }
   },
-  computed: {},
+  computed: {
+    ...mapState('app', {
+      dateRange: state => state.dateRange
+    })
+  },
   methods: {
     async onQuery () {
       this.query['MallId'] = this.$refs.mallSelect.mallId
-      this.query['StartDate'] = moment(this.dateRangeValue[0]).format('YYYY-MM-DD')
-      this.query['EndDate'] = moment(this.dateRangeValue[1]).format('YYYY-MM-DD')
+      this.query['StartDate'] = moment(this.dateRange[0]).format('YYYY-MM-DD')
+      this.query['EndDate'] = moment(this.dateRange[1]).format('YYYY-MM-DD')
       let rep = await this.$store.dispatch({type: 'face/faceGrid', data: this.query})
       this.total = rep.total
       this.data = rep.list

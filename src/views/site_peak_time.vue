@@ -2,19 +2,7 @@
   <div class="report-page">
     <div class="report-page-card">
       <interval-picker-day-w-m-y></interval-picker-day-w-m-y>
-      <div>
-        <span>{{ $t('date_range') }}：</span>
-        <el-date-picker v-model="dateRangeValue"
-                        type="daterange"
-                        :placeholder="$t('selection_date')"
-                        :range-separator="' - '"
-                        :editable="false"
-                        :clearable="false"
-                        style="width:220px;"
-                        size="small"
-                        :picker-options="weekMonthPickerOptions">
-        </el-date-picker>
-      </div>
+      <date-week-range-picker></date-week-range-picker>
       <el-button type="primary"
                  size="small"
                  @click="onQuery">{{$t('query')}}
@@ -26,7 +14,7 @@
                       size="mini">
         <el-radio-button :label="'Enter'">{{$t('enter')}}</el-radio-button>
         <el-radio-button :label="'Exit'">{{$t('exit')}}</el-radio-button>
-        <el-radio-button :label="'Stay'">{{$t('stay')}}</el-radio-button>
+        <!--        <el-radio-button :label="'Stay'">{{$t('stay')}}</el-radio-button>-->
       </el-radio-group>
       <chart style="width:100%;height: 500px"
              :autoResize="true"
@@ -36,7 +24,7 @@
 </template>
 
 <script>
-import {mapMutations, mapActions, mapState} from 'vuex'
+import {mapActions, mapState} from 'vuex'
 import moment from 'moment'
 import _ from 'underscore'
 import i18n from '@/i18n'
@@ -47,18 +35,16 @@ export default {
   components: {IntervalPickerDayWMY},
   data: () => ({
     data: null,
-    dateRangeValue: null,
     chartType: 'Enter',
     dateFields: ['Enter', 'Exit', 'Stay']
   }),
   methods: {
-    ...mapMutations('app', ['setPeakTimeDateRange']),
     ...mapActions('report', ['query']),
     async onQuery () {
       this.data = await this.query({
         'report': {
-          st: this.dateRangeValue[0],
-          et: this.dateRangeValue[1],
+          st: this.peakTimeDateRange[0],
+          et: this.peakTimeDateRange[1],
           dateFields: this.dateFields,
           groupBy: [
             // {domain: 'All', period: '60m', timeFormatter: 'yyyy-MM-dd HH:mm'}
@@ -71,8 +57,7 @@ export default {
   computed: {
     ...mapState('app', {
       dayWMY: state => state.dayWMY,
-      peakTimeDateRange: state => state.peakTimeDateRange,
-      weekMonthPickerOptions: state => state.weekMonthPickerOptions
+      peakTimeDateRange: state => state.peakTimeDateRange
     }),
     chartOption () {
       let that = this
@@ -195,17 +180,8 @@ export default {
       return option
     }
   },
-  async mounted () {
-    let monday = moment().day('Monday')
-    console.log(monday.format('YYYY-MM-DD'))
-    console.log(monday.add(6, 'day').format('YYYY-MM-DD'))
-    console.log(moment().week())
-    console.log(moment().add(-1, 'year').week(5).format('YYYY-MM-DD'))
-    this.dateRangeValue = this.peakTimeDateRange
+  mounted () {
     this.onQuery()
-  },
-  activated () {
-    this.dateRangeValue = this.peakTimeDateRange
   }
 }
 </script>

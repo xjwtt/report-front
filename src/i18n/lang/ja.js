@@ -49,6 +49,7 @@ export default {
   prediction_analysis: '予測分析',
   face_analysis: '顔認識分析',
   zone_face_analysis: 'ゾーン顔認識分析',
+  face_grid: '顔記録',
   show_case_analysis: 'ショーケース分析',
 
   system_setting: 'システム管理',
@@ -410,6 +411,10 @@ export default {
   Shelf: '棚',
   Face: '人面',
 
+  date_time: '时间',
+  age_type: '年龄类型',
+  gender: '性别',
+  photo: '照片',
   male: '男性',
   female: '女性',
   genderage: '性別年齢',
