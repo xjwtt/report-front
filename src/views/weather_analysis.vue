@@ -3,30 +3,18 @@
     <div class="report-page-card">
       <singel-mall-select></singel-mall-select>
       <zone-selector @executeQuery='executeQuery' :zone-types="zoneTypes" ref=zoneSelector></zone-selector>
-      <div>
+      <div style="margin-top: 3px">
         <span>{{$t('types_of_analysis')}}</span>
         <el-radio-group v-model="analysisType"
                         style="vertical-align: middle;"
                         size="mini">
           <el-radio-button :label="'WeatherName'">{{$t('weatherName')}}</el-radio-button>
-<!--          <el-radio-button :label="'Pm25'">{{$t('pm25')}}</el-radio-button>-->
+          <!--          <el-radio-button :label="'Pm25'">{{$t('pm25')}}</el-radio-button>-->
           <el-radio-button :label="'HighTemp'">{{$t('highTemp')}}</el-radio-button>
           <el-radio-button :label="'LowTemp'">{{$t('lowTemp')}}</el-radio-button>
         </el-radio-group>
       </div>
-      <div>
-        <span>{{ $t('date_range') }}：</span>
-        <el-date-picker v-model="dateRangeValue"
-                        type="daterange"
-                        :placeholder="$t('selection_date')"
-                        :range-separator="' - '"
-                        :editable="false"
-                        :clearable="false"
-                        style="width:220px;"
-                        size="small"
-                        :picker-options="weekMonthPickerOptions">
-        </el-date-picker>
-      </div>
+      <date-week-range-picker></date-week-range-picker>
       <el-button type="primary"
                  size="small"
                  @click="onQuery">{{$t('query')}}
@@ -55,7 +43,6 @@
 
 <script>
 import {mapActions, mapState} from 'vuex'
-import moment from 'moment'
 import _ from 'underscore'
 import theme from '../lib/theme'
 
@@ -63,7 +50,6 @@ export default {
   data: () => ({
     data: null,
     zoneTypes: ['Entrance', 'Corridor', 'Floor', 'Domain'],
-    dateRangeValue: [moment().subtract(7, 'days'), moment().subtract(1, 'days')],
     analysisType: 'WeatherName',
     chartType: 'Enter',
     dateFields: ['Enter', 'Exit', 'WeatherName'],
@@ -78,8 +64,8 @@ export default {
     async executeQuery (phyIds) {
       this.data = await this.query({
         'report': {
-          st: this.dateRangeValue[0],
-          et: this.dateRangeValue[1],
+          st: this.peakTimeDateRange[0],
+          et: this.peakTimeDateRange[1],
           dateFields: this.dateFields,
           groupBy: [
             {domain: 'All', period: '1d', timeFormatter: 'yyyy-MM-dd'}
@@ -91,7 +77,7 @@ export default {
   },
   computed: {
     ...mapState('app', {
-      weekMonthPickerOptions: state => state.weekMonthPickerOptions
+      peakTimeDateRange: state => state.peakTimeDateRange
     }),
     columnsFields () {
       let chartTypeName = this.$t(this.chartType)

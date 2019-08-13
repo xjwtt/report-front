@@ -2,19 +2,7 @@
   <div class="report-page">
     <div class="report-page-card">
       <singel-mall-select></singel-mall-select>
-      <div>
-        <span>{{ $t('date_range') }}：</span>
-        <el-date-picker v-model="dateRangeValue"
-                        type="daterange"
-                        :placeholder="$t('selection_date')"
-                        :range-separator="' - '"
-                        :editable="false"
-                        :clearable="false"
-                        style="width:220px;"
-                        size="small"
-                        :picker-options="weekMonthPickerOptions">
-        </el-date-picker>
-      </div>
+      <date-week-range-picker></date-week-range-picker>
       <el-button type="primary"
                  size="small"
                  @click="onQuery">{{$t('query')}}
@@ -46,7 +34,6 @@
 
 <script>
 import {mapActions, mapState} from 'vuex'
-import moment from 'moment'
 import fm from '@/lib/fieldsManager'
 import _ from 'underscore'
 import theme from '../lib/theme'
@@ -55,7 +42,6 @@ export default {
   data: () => ({
     zoneTypes: ['Shelf'],
     data: [],
-    dateRangeValue: [moment().subtract(7, 'days'), moment().subtract(1, 'days')],
     dateFields: ['EntranceCount', 'PassCount', 'DisplayRate', 'StayCount', 'AttractionRate', 'AverageStay'],
     allZones: [],
     zoneIds: [],
@@ -66,8 +52,8 @@ export default {
     async onQuery () {
       this.data = await this.query({
         'report': {
-          st: this.dateRangeValue[0],
-          et: this.dateRangeValue[1],
+          st: this.peakTimeDateRange[0],
+          et: this.peakTimeDateRange[1],
           dateFields: this.dateFields,
           groupBy: [
             {domain: 'Zone', period: 'All', timeFormatter: 'All'},
@@ -80,7 +66,7 @@ export default {
   },
   computed: {
     ...mapState('app', {
-      weekMonthPickerOptions: state => state.weekMonthPickerOptions,
+      peakTimeDateRange: state => state.peakTimeDateRange,
       selectedMall: state => state.selectedMall
     }),
     columnsData () {
@@ -229,10 +215,6 @@ export default {
   watch: {
     selectedMall: {
       async handler (newValue) {
-        // let result = await this.$store.dispatch({
-        //   type: 'zone/selectPZZTByMallIdZoneTypeEnable',
-        //   data: {MallIds: [newValue.Id], ZoneTypes: this.zoneTypes}
-        // })
         let tempMap = _.groupBy(newValue.PhysicalZones, (v) => v.ZoneTypeName)
         let result = []
         for (let i = 0, len = this.zoneTypes.length; i < len; i++) {

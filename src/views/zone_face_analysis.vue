@@ -2,20 +2,7 @@
   <div class="report-page">
     <div class="report-page-card">
       <singel-mall-select></singel-mall-select>
-      <zone-selector :zone-types="zoneTypes" ref=zoneSelector></zone-selector>
-      <div>
-        <span>{{ $t('date_range') }}：</span>
-        <el-date-picker v-model="dateRangeValue"
-                        type="daterange"
-                        :placeholder="$t('selection_date')"
-                        :range-separator="' - '"
-                        :editable="false"
-                        :clearable="false"
-                        style="width:220px;"
-                        size="small"
-                        :picker-options="weekMonthPickerOptions">
-        </el-date-picker>
-      </div>
+      <date-range-picker></date-range-picker>
       <el-button type="primary"
                  size="small"
                  @click="onQuery">{{$t('query')}}
@@ -26,7 +13,7 @@
                       style="vertical-align: middle;"
                       size="mini">
         <el-radio-button :label="'GenderAge'">{{$t('genderage')}}</el-radio-button>
-        <el-radio-button :label="'NewOldCustomer'">{{$t('newoldcustomer')}}</el-radio-button>
+        <!--        <el-radio-button :label="'NewOldCustomer'">{{$t('newoldcustomer')}}</el-radio-button>-->
       </el-radio-group>
       <chart :options="chartOption"
              style="width:100%"
@@ -36,9 +23,10 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import {mapActions, mapState} from 'vuex'
 import moment from 'moment'
 import theme from '../lib/theme'
+import _ from 'underscore'
 
 const legendDefault = () => ({
   name: '',
@@ -61,21 +49,30 @@ const pieDefault = () => ({
 })
 export default {
   data: () => ({
+    data: null,
     chartType: 'GenderAge',
-    zoneTypes: ['Face'],
     dateRangeValue: [moment().subtract(7, 'days'), moment().subtract(1, 'days')]
   }),
   methods: {
-    onQuery () {
-
+    ...mapActions('report', ['query']),
+    async onQuery () {
+      this.data = await this.query({
+        'report': {
+          dateFields: ['Gender', 'AgeType'],
+          groupBy: [
+            {domain: 'All', period: 'All', timeFormatter: 'All'}
+          ],
+          mallIds: [this.selectedMall.Id]
+        }
+      })
     }
   },
   computed: {
     ...mapState('app', {
-      weekMonthPickerOptions: state => state.weekMonthPickerOptions
+      selectedMall: state => state.selectedMall
     }),
     chartOption () {
-      let categoryY = ['≥16', '16~30', '31~45', '46~60', '61≤']
+      let categoryY = ['0-18', '19-35', '36-55', '56+']
       let title01
       let title02 = this.$t('age_ratio')
       let seriesData = []
@@ -86,10 +83,22 @@ export default {
           legendData.push(this.$t('customer'))
           let customer = legendDefault()
           customer.name = this.$t('customer')
-          customer.data = [10, 20, 50, 10, 10]
+          customer.data = []
+          let ageRatio = this.data ? this.data.report[0][0].AgeRatio : {}
+          let total = 0
+          _.each(ageRatio, (v) => {
+            total += v
+          })
+          _.forEach(categoryY, (v) => {
+            let n = ageRatio[v] ? ageRatio[v] : 0
+            let ratio = total !== 0 ? Math.round(n * 100 / total) : 0
+            customer.data.push(ratio)
+          })
           seriesData.push(customer)
           let pie = pieDefault()
-          pie.data = [{name: this.$t('male'), value: 50}, {name: this.$t('female'), value: 60}]
+          let male = this.data ? this.data.report[0][0].Male : 0
+          let female = this.data ? this.data.report[0][0].Female : 0
+          pie.data = [{name: this.$t('male'), value: male}, {name: this.$t('female'), value: female}]
           seriesData.push(pie)
           break
         case 'NewOldCustomer':
@@ -155,6 +164,9 @@ export default {
       Object.freeze(chart)
       return chart
     }
+  },
+  mounted () {
+    this.onQuery()
   }
 }
 </script>

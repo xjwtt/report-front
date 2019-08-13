@@ -20,6 +20,7 @@ import IntervalPickerHourlyweek from './components/IntervalPickerHourlyweek'
 import IntervalPickerDayWMY from './components/IntervalPickerDayWMY'
 import DateRangePicker from './components/DateRangePicker'
 import DateRange from './components/DateRange'
+import DateWeekRangePicker from './components/DateWeekRangePicker'
 import SingelMallSelect from './components/SingelMallSelect'
 import CompareMallSelect from './components/CompareMallSelect'
 import TheTable from './components/TheTable'
@@ -42,6 +43,7 @@ Vue.component('interval-picker-hourlyweek', IntervalPickerHourlyweek)
 Vue.component('interval-picker-day-w-m-y', IntervalPickerDayWMY)
 Vue.component('date-range-picker', DateRangePicker)
 Vue.component('date-range', DateRange)
+Vue.component('date-week-range-picker', DateWeekRangePicker)
 Vue.component('singel-mall-select', SingelMallSelect)
 Vue.component('compare-mall-select', CompareMallSelect)
 Vue.component('the-table', TheTable)

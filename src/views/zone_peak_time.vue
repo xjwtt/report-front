@@ -4,20 +4,7 @@
       <singel-mall-select></singel-mall-select>
       <zone-selector @executeQuery='executeQuery' :zone-types="zoneTypes" ref=zoneSelector></zone-selector>
       <interval-picker-day-w-m-y></interval-picker-day-w-m-y>
-      <div>
-        <span>{{ $t('date_range') }}：</span>
-        <el-date-picker v-model="dateRangeValue"
-                        type="daterange"
-                        :placeholder="$t('selection_date')"
-                        :range-separator="' - '"
-                        :editable="false"
-                        :clearable="false"
-                        style="width:220px;"
-                        size="small"
-                        @change="setPeakTimeDateRange"
-                        :picker-options="weekMonthPickerOptions">
-        </el-date-picker>
-      </div>
+      <date-week-range-picker></date-week-range-picker>
       <el-button type="primary"
                  size="small"
                  @click="onQuery">{{$t('query')}}
@@ -39,7 +26,7 @@
 </template>
 
 <script>
-import {mapMutations, mapActions, mapState} from 'vuex'
+import {mapActions, mapState} from 'vuex'
 import moment from 'moment'
 import _ from 'underscore'
 import i18n from '@/i18n'
@@ -48,13 +35,11 @@ import weekFun from '@/lib/weekFun'
 export default {
   data: () => ({
     zoneTypes: ['Entrance', 'Corridor', 'Floor', 'Domain'],
-    dateRangeValue: null,
     data: null,
     chartType: 'Enter',
     dateFields: ['Enter', 'Exit', 'Stay']
   }),
   methods: {
-    ...mapMutations('app', ['setPeakTimeDateRange']),
     ...mapActions('report', ['query']),
     async onQuery () {
       let phyIds = this.$refs.zoneSelector.zoneIds
@@ -63,8 +48,8 @@ export default {
     async executeQuery (phyIds) {
       this.data = await this.query({
         'report': {
-          st: this.dateRangeValue[0],
-          et: this.dateRangeValue[1],
+          st: this.peakTimeDateRange[0],
+          et: this.peakTimeDateRange[1],
           dateFields: this.dateFields,
           groupBy: [
             // {domain: 'All', period: '60m', timeFormatter: 'yyyy-MM-dd HH:mm'}
@@ -78,8 +63,7 @@ export default {
   computed: {
     ...mapState('app', {
       dayWMY: state => state.dayWMY,
-      peakTimeDateRange: state => state.peakTimeDateRange,
-      weekMonthPickerOptions: state => state.weekMonthPickerOptions
+      peakTimeDateRange: state => state.peakTimeDateRange
     }),
     chartOption () {
       let that = this
@@ -202,12 +186,6 @@ export default {
       Object.freeze(option)
       return option
     }
-  },
-  async created () {
-    this.dateRangeValue = this.peakTimeDateRange
-  },
-  activated () {
-    this.dateRangeValue = this.peakTimeDateRange
   }
 }
 </script>

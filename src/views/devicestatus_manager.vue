@@ -41,7 +41,7 @@ export default {
         {title: 'serial_number', field: 'SerialNumber', thComp: 'th-i18n'},
         {title: 'last_data_time', field: 'LastDataTime', thComp: 'th-i18n', sortable: true},
         {title: 'update_time', field: 'UpdateTime', thComp: 'th-i18n', sortable: true},
-        {title: 'status', field: 'Enabled', thComp: 'th-i18n', tdComp: 'td-cameraStatus'}
+        {title: 'status', field: 'DeviceStatus', thComp: 'th-i18n', tdComp: 'td-cameraStatus'}
       ],
       data: [],
       total: 0,
