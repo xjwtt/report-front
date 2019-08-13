@@ -1,4 +1,4 @@
-<style lang="less">
+<style lang="less" scoped>
   @import './vue-bigdata-table.less';
 </style>
 
