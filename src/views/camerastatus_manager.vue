@@ -14,6 +14,12 @@
         <slot>
           <div class="pull-right"
                style="margin:0 5px">
+            <button class="btn btn-default"
+                    type="button"
+                    @click="handleQueryChange()">
+              <i class="fa"
+                 :class="'el-icon-refresh'"></i>
+            </button>
           </div>
         </slot>
       </datatable>

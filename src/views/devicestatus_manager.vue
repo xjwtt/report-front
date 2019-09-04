@@ -9,14 +9,20 @@
         <el-radio v-model="query.DeviceStatus" :label="'正常'">{{$t('normal')}}</el-radio>
         <el-radio v-model="query.DeviceStatus" :label="'断线'">{{$t('offLine')}}</el-radio>
       </template>
+      <datatable v-bind="$data">
+        <slot>
+          <div class="pull-right"
+               style="margin:0 5px">
+            <button class="btn btn-default"
+                    type="button"
+                    @click="handleQueryChange()">
+              <i class="fa"
+                 :class="'el-icon-refresh'"></i>
+            </button>
+          </div>
+        </slot>
+      </datatable>
     </el-card>
-    <datatable v-bind="$data">
-      <slot>
-        <div class="pull-right"
-             style="margin:0 5px">
-        </div>
-      </slot>
-    </datatable>
   </div>
 </template>
 
