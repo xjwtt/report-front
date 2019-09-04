@@ -16,6 +16,12 @@
                style="margin:0 5px">
             <button class="btn btn-default"
                     type="button"
+                    @click="handleQueryChange()">
+              <i class="fa"
+                 :class="'el-icon-refresh'"></i>
+            </button>
+            <button class="btn btn-default"
+                    type="button"
                     @click="newOne()">
               <i class="fa"
                  :class="'fa-plus'"></i>
@@ -36,6 +42,9 @@
       <edit-send-regularly ref=editDialog @handleQueryChange="handleQueryChange"></edit-send-regularly>
       <related-send-regularly-mall ref=relatedSendRegularlyMall
                                    @handleQueryChange="handleQueryChange"></related-send-regularly-mall>
+      <send-regularly-log ref=sendRegularlyLog></send-regularly-log>
+      <send-regularly-custom-upload ref="customUpload"
+                                    @handleQueryChange="handleQueryChange"></send-regularly-custom-upload>
       <el-dialog :title="$t('prompt')"
                  :visible.sync="delDialogVisible"
                  width="30%">
@@ -56,6 +65,8 @@ import Vue from 'vue'
 import _ from 'underscore'
 import EditSendRegularly from '@/components/EditSendRegularly'
 import RelatedSendRegularlyMall from '@/components/RelatedSendRegularlyMall'
+import SendRegularlyLog from '../components/SendRegularlyLog'
+import SendRegularlyCustomUpload from '../components/SendRegularlyCustomUpload'
 
 export default {
   data: () => ({
@@ -88,6 +99,8 @@ export default {
     this.xprops.eventbus
       .$on('DELETE', this.del)
       .$on('EDIT', this.$refs.editDialog.show)
+      .$on('Logs', this.$refs.sendRegularlyLog.show)
+      .$on('CustomUpload', this.$refs.customUpload.show)
       .$on('RelatedSendRegularlyMall', this.$refs.relatedSendRegularlyMall.show)
   },
   methods: {
@@ -130,7 +143,9 @@ export default {
   },
   components: {
     EditSendRegularly,
-    RelatedSendRegularlyMall
+    RelatedSendRegularlyMall,
+    SendRegularlyLog,
+    SendRegularlyCustomUpload
   }
 }
 </script>

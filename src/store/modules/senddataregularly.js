@@ -8,6 +8,9 @@ export default {
     async gridSendRegularly (context, payload) {
       return ajax.post('/system/gridSendRegularly.action', payload.data)
     },
+    async gridSendRegularlyLogs (context, payload) {
+      return ajax.post('/system/gridSendRegularlyLogs.action', payload.data)
+    },
     async saveOrUpdateSendRegularly (context, payload) {
       return ajax.post('/system/saveOrUpdateSendRegularly.action', payload.data)
     },
@@ -16,6 +19,12 @@ export default {
     },
     async delSendRegularly (context, payload) {
       return ajax.post('/system/delSendRegularly.action', payload.data)
+    },
+    async uploadByLog (context, payload) {
+      return ajax.post('/system/uploadBySendRegulaylyLog.action', payload.data)
+    },
+    async uploadByTime (context, payload) {
+      return ajax.post('/system/uploadBySendRegulaylyIdAndTime.action', payload.data)
     }
   }
 }
