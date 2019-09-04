@@ -20,11 +20,16 @@
                    style="margin:0 5px">
                 <button class="btn btn-default"
                         type="button"
+                        @click="handleQueryChange()">
+                  <i class="fa"
+                     :class="'el-icon-refresh'"></i>
+                </button>
+                <button class="btn btn-default"
+                        type="button"
                         @click="newOne()">
                   <i class="fa"
                      :class="'fa-plus'"></i>
                 </button>
-
                 <button v-if="selection.length>0"
                         class="btn btn-danger"
                         type="button"

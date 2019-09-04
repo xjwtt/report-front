@@ -27,6 +27,7 @@ import TheTable from './components/TheTable'
 import TrafficeTable from './components/TrafficeTable'
 import TrafficeTalbeCompareFast from './components/TrafficeTalbeCompareFast'
 import TrafficeBigdataTable from './components/TrafficeBigdataTable'
+import BaseBigdataTable from './components/BaseBigdataTable'
 import ZoneSelector from './components/ZoneSelector'
 
 Vue.config.productionTip = false
@@ -50,6 +51,7 @@ Vue.component('the-table', TheTable)
 Vue.component('traffice-table', TrafficeTable)
 Vue.component('traffice-table-compare-fast', TrafficeTalbeCompareFast)
 Vue.component('traffice-bigdata-table', TrafficeBigdataTable)
+Vue.component('base-bigdata-table', BaseBigdataTable)
 Vue.component('zone-selector', ZoneSelector)
 
 let asyncMain = async () => {

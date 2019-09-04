@@ -33,10 +33,10 @@
              :options="chartOption"></chart>
     </div>
     <div class="report-page-card">
-      <the-table :fields=columnsFields
-                 :data=columnsData
-                 :maxHeight="240"
-                 :export-name="'weather_analysis'"></the-table>
+      <base-bigdata-table :fixed-col="0"
+                          :header="header"
+                          :table-data-handled="tableDataHandled"
+                          :export-name="'weather_analysis'"></base-bigdata-table>
     </div>
   </div>
 </template>
@@ -79,40 +79,20 @@ export default {
     ...mapState('app', {
       peakTimeDateRange: state => state.peakTimeDateRange
     }),
-    columnsFields () {
+    header () {
       let chartTypeName = this.$t(this.chartType)
       let dailyAverage = this.$t('daily_average') + chartTypeName
-      let columns = [
-        {
-          prop: 'Key',
-          fixed: true,
-          label: this.$t(this.analysisType),
-          sortable: false,
-          formatter: (row, col) => row['Key']
-        },
-        {
-          prop: 'Days',
-          fixed: true,
-          label: this.$t('days'),
-          sortable: false,
-          formatter: (row, col) => row['Days']
-        },
-        {
-          prop: 'Data',
-          fixed: true,
-          label: chartTypeName,
-          sortable: false,
-          formatter: (row, col) => row['Data']
-        },
-        {
-          prop: 'AvgData',
-          fixed: true,
-          label: dailyAverage,
-          sortable: false,
-          formatter: (row, col) => row['AvgData']
-        }
-      ]
-      return columns
+      // ['Key','Days','Data','AvgData']
+      return [this.$t(this.analysisType), this.$t('days'), chartTypeName, dailyAverage]
+    },
+    tableDataHandled () {
+      let result = []
+      _.each(this.columnsData, (d) => {
+        result.push(_.map(d, (v, k) => {
+          return v
+        }))
+      })
+      return result
     },
     chartOption () {
       let that = this

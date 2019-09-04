@@ -24,10 +24,10 @@
              :autoResize="true"></chart>
     </div>
     <div class="report-page-card">
-      <the-table :fields=columnsFields
-                 :data=columnsData
-                 :max-height="300"
-                 :export-name="'showCase_table'"></the-table>
+      <base-bigdata-table :fixed-col="0"
+                          :header="header"
+                          :table-data-handled="tableDataHandled"
+                          :export-name="'show_case_analysis'"></base-bigdata-table>
     </div>
   </div>
 </template>
@@ -69,34 +69,39 @@ export default {
       peakTimeDateRange: state => state.peakTimeDateRange,
       selectedMall: state => state.selectedMall
     }),
-    columnsData () {
-      return this.data['report'] ? this.data['report'][0] : []
+    header () {
+      return this.headerTitle[0]
     },
-    columnsFields () {
-      let locale = this.$i18n.locale
-      let columns = [{
-        width: 200,
-        prop: 'DomainLabel',
-        fixed: true,
-        label: this.$t('location_of_show_case'),
-        sortable: false,
-        formatter: (row, col) => row['DomainLabel']
-      }]
+    headerTitle () {
+      let header = [this.$t('location_of_show_case')]
+      let title = [['DomainLabel', {}]]
       for (let index = 0; index < this.dateFields.length; index++) {
         let fieldName = this.dateFields[index]
         let field = fm[fieldName]
         if (field) {
-          columns.push({
-            width: 150,
-            prop: fieldName,
-            fixed: false,
-            label: this.$t(field.displayI18Key),
-            sortable: false,
-            formatter: (row, col) => field.tableDisplayFunc ? field.tableDisplayFunc(row[fieldName], locale) : row[fieldName]
-          })
+          header.push(this.$t(field.displayI18Key))
+          title.push([fieldName, field])
         }
       }
-      return columns
+      let result = [header, title]
+      return result
+    },
+    tableDataHandled () {
+      let that = this
+      let data = this.data['report'] ? this.data['report'][0] : []
+      let result = []
+      _.each(data, (d) => {
+        let temp = []
+        _.each(that.headerTitle[1], (v) => {
+          let value = d[v[0]]
+          if (v[1] && v[1].tableDisplayFunc) {
+            value = v[1].tableDisplayFunc(value)
+          }
+          temp.push(value)
+        })
+        result.push(temp)
+      })
+      return result
     },
     chartOption () {
       let yAxisNameRight = this.$t('percent')

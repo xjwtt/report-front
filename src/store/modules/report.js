@@ -34,24 +34,26 @@ export default {
             : context.rootState.app.timeInterval.key
           /* 判断 period 如果 period */
           let duration = moment.duration(moment(et).diff(moment(st)))
-          switch (period) {
-            case '5m':
-            case '10m':
-            case '15m':
-            case '30m':
-              if (duration.asDays() >= 1) {
-                Vue.prototype.$message.error(t('the_time_period_must_be_one_day'))
-                queryStatus = false
-                return
-              }
-              break
-            case '60m':
-              if (duration.asDays() > 31) {
-                Vue.prototype.$message.error(t('the_time_period_must_be_31_day'))
-                queryStatus = false
-                return
-              }
-              break
+          if (g.domain !== 'All') {
+            switch (period) {
+              case '5m':
+              case '10m':
+              case '15m':
+              case '30m':
+                if (duration.asDays() >= 1) {
+                  Vue.prototype.$message.error(t('the_time_period_must_be_one_day'))
+                  queryStatus = false
+                  return
+                }
+                break
+              case '60m':
+                if (duration.asDays() > 31) {
+                  Vue.prototype.$message.error(t('the_time_period_must_be_31_day'))
+                  queryStatus = false
+                  return
+                }
+                break
+            }
           }
           let timeFormatter = g.timeFormatter
             ? g.timeFormatter
