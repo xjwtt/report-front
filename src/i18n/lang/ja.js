@@ -421,10 +421,10 @@ export default {
   Shelf: '棚',
   Face: '人面',
 
-  date_time: '时间',
-  age_type: '年龄类型',
+  date_time: '時間',
+  age_type: '年齢のタイプ',
   gender: '性别',
-  photo: '照片',
+  photo: '写真',
   male: '男性',
   female: '女性',
   genderage: '性別年齢',
