@@ -72,7 +72,8 @@ export default {
       selectedMall: state => state.selectedMall
     }),
     chartOption () {
-      let categoryY = ['0-18', '19-35', '36-55', '56+']
+      // let categoryY = ['0-18', '19-35', '36-55', '56+']
+      let categoryY = this.data ? this.data.report[0][0].AgeTypes : []
       let title01
       let title02 = this.$t('age_ratio')
       let seriesData = []
