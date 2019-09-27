@@ -51,6 +51,8 @@ export default {
   zone_face_analysis: 'ゾーン顔認識分析',
   face_grid: '顔記録',
   show_case_analysis: 'ショーケース分析',
+  alarm_analysis: 'アラーム分析',
+  eas_device_alarm_analysis: 'EASアラーム分析',
 
   system_setting: 'システム管理',
   area_setting: 'エリア設定',
@@ -200,6 +202,7 @@ export default {
   PiecePerReceipt: '商品単価',
   PricePerPiece: '商品単価',
   ClerkRatio: '店員単価',
+  AlarmTimes: 'アラーム回数',
 
   Daily_Avg: '日別平均',
   days: '日',
@@ -420,6 +423,7 @@ export default {
   MallShop: 'ショップ',
   Shelf: '棚',
   Face: '人面',
+  eas_device: 'デバイス',
 
   date_time: '時間',
   age_type: '年齢のタイプ',

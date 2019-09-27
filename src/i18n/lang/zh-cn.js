@@ -51,6 +51,8 @@ export default {
   zone_face_analysis: '区域人脸分析',
   face_grid: '人脸记录',
   show_case_analysis: '展示效果分析',
+  alarm_analysis: '报警分析',
+  eas_device_alarm_analysis: 'EAS报警分析',
 
   system_setting: '系统设置',
   area_setting: '场地设置',
@@ -200,6 +202,7 @@ export default {
   PiecePerReceipt: '票件数',
   PricePerPiece: '件单价',
   ClerkRatio: '顾客员工比',
+  AlarmTimes: '报警次数',
 
   Daily_Avg: '日均',
   days: '天数',
@@ -420,6 +423,7 @@ export default {
   MallShop: '商铺',
   Shelf: '展区',
   Face: '人脸',
+  eas_device: '设备',
 
   date_time: '时间',
   age_type: '年龄类型',

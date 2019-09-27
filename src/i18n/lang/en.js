@@ -51,6 +51,8 @@ export default {
   zone_face_analysis: 'Zone Face Analysis',
   face_grid: 'Face Grid',
   show_case_analysis: 'Show Case Analysis',
+  alarm_analysis: 'Alarm Analysis',
+  eas_device_alarm_analysis: 'EASDeviceAlarmAnalysis',
 
   system_setting: 'System Setting',
   area_setting: 'Area Setting',
@@ -201,6 +203,7 @@ export default {
   number_of_tickets: 'Number of Tickets',
   PricePerPiece: 'PricePerPiece',
   ClerkRatio: 'ClerkRatio',
+  AlarmTimes: 'AlarmTimes',
 
   Daily_Avg: 'Daily Avg',
   days: 'Days',
@@ -420,6 +423,7 @@ export default {
   MallShop: 'MallShop',
   Shelf: 'Shelf',
   Face: 'Face',
+  eas_device: 'Device',
 
   date_time: 'Time',
   age_type: 'AgeType',

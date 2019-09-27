@@ -1,7 +1,7 @@
 <template>
   <div class="report-page">
     <div class="report-page-card">
-      <singel-mall-select></singel-mall-select>
+      <single-mall-select></single-mall-select>
       <zone-selector @executeQuery='executeQuery' :zoneTypes="zoneTypes" ref=zoneSelector></zone-selector>
       <interval-picker></interval-picker>
       <date-range-picker></date-range-picker>

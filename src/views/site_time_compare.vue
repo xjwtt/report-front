@@ -1,7 +1,7 @@
 <template>
   <div class="report-page">
     <div class="report-page-card">
-      <singel-mall-select ref="mallSelect"></singel-mall-select>
+      <single-mall-select ref="mallSelect"></single-mall-select>
       <interval-picker></interval-picker>
       <el-row>
         <el-col :span="6">

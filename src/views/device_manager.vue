@@ -38,7 +38,7 @@
           </div>
         </slot>
       </datatable>
-      <edit-device ref="editDialog"></edit-device>
+      <edit-device ref="editDialog" @handleQueryChange="handleQueryChange"></edit-device>
       <el-dialog :title="$t('prompt')"
                  :visible.sync="delDialogVisible"
                  width="30%">
@@ -70,13 +70,15 @@ export default {
       columns: [
         {title: 'mall_name', field: 'MallName', thComp: 'th-filter', sortable: true},
         {title: 'device_id', field: 'DeviceId', thComp: 'th-filter', sortable: true},
+        {title: 'device_name', field: 'DeviceName', thComp: 'th-filter', sortable: true},
         {title: 'device_type', field: 'DeviceTypeName', thComp: 'th-filter', sortable: true},
         {title: 'position', field: 'Position', thComp: 'th-i18n'},
         {title: 'IP', field: 'IpAddress', thComp: 'th-i18n', sortable: true},
-        {title: 'Mac', field: 'MacAddress', thComp: 'th-i18n'},
+        // {title: 'Mac', field: 'MacAddress', thComp: 'th-i18n'},
         {title: 'serial_number', field: 'SerialNumber', thComp: 'th-i18n'},
         {title: 'last_data_time', field: 'LastDataTime', thComp: 'th-i18n', sortable: true},
         {title: 'update_time', field: 'UpdateTime', thComp: 'th-i18n', sortable: true},
+        {title: 'ranked', field: 'Ranked', thComp: 'th-i18n', sortable: true},
         {title: 'status', field: 'Enabled', thComp: 'th-i18n', tdComp: 'td-status'},
         {title: 'operation', tdComp: 'td-opt', thComp: 'th-i18n', visible: true}
       ],
