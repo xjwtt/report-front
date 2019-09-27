@@ -27,6 +27,10 @@
                           prop="DeviceId">
               <el-input v-model.trim="modifyForm.DeviceId"></el-input>
             </el-form-item>
+            <el-form-item :label="$t('device_name')"
+                          prop="DeviceName">
+              <el-input v-model.trim="modifyForm.DeviceName"></el-input>
+            </el-form-item>
             <el-form-item :label="$t('device_type')"
                           prop="DeviceType">
               <el-select v-model.trim="modifyForm.DeviceType"
@@ -50,6 +54,10 @@
             <el-form-item :label="$t('serial_number')"
                           prop="SerialNumber">
               <el-input v-model.trim="modifyForm.SerialNumber"></el-input>
+            </el-form-item>
+            <el-form-item :label="$t('ranked')"
+                          prop="Ranked">
+              <el-input-number v-model="modifyForm.Ranked"></el-input-number>
             </el-form-item>
             <el-form-item :label="$t('is_enabled')"
                           prop="Enabled">
@@ -75,11 +83,13 @@ const defaultForm = () => {
     MallId: '',
     Id: '',
     DeviceId: '',
+    DeviceName: '',
     DeviceType: '',
     Position: '',
     IpAddress: '',
     SerialNumber: '',
-    Enabled: 1
+    Enabled: 1,
+    Ranked: 0
   }
 }
 export default {
@@ -93,6 +103,9 @@ export default {
           {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
         ],
         DeviceId: [
+          {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
+        ],
+        DeviceName: [
           {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
         ],
         DeviceType: [

@@ -1,7 +1,7 @@
 <template>
   <div class="report-page">
     <div class="report-page-card">
-      <singel-mall-select ref="mallSelect"></singel-mall-select>
+      <single-mall-select ref="mallSelect"></single-mall-select>
       <date-range-picker></date-range-picker>
       <el-button type="primary"
                  size="small"

@@ -60,5 +60,6 @@ export const allRouters = {
   send_data_regularly: () => import('@/views/send_data_regularly'),
   zone_face_analysis: () => import('@/views/zone_face_analysis'),
   category_manager: () => import('@/views/category_manager'),
-  face_grid: () => import('@/views/face_grid')
+  face_grid: () => import('@/views/face_grid'),
+  eas_device_alarm_analysis: () => import('@/views/eas_device_alarm_analysis')
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="report-page">
     <div class="report-page-card">
-      <singel-mall-select></singel-mall-select>
+      <single-mall-select></single-mall-select>
       <zone-selector @executeQuery='executeQuery' :zone-types="zoneTypes" ref=zoneSelector></zone-selector>
       <div style="margin-top: 3px">
         <span>{{$t('types_of_analysis')}}</span>

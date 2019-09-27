@@ -1,8 +1,8 @@
 <template>
   <div class="report-page">
     <div class="report-page-card">
-      <single-mall-select></single-mall-select>
-      <zone-selector @executeQuery='executeQuery' :zone-types="zoneTypes" ref=zoneSelector></zone-selector>
+      <single-mall-select ref="singleMall"></single-mall-select>
+      <eas-device-selector @executeQuery='executeQuery' ref=easDeviceSelector></eas-device-selector>
       <interval-picker></interval-picker>
       <date-range-picker></date-range-picker>
       <el-button type="primary"
@@ -18,13 +18,6 @@
         <el-radio-button :label='[2,"DomainLabel_DateTime"]'>{{$t('location_time_group')}}</el-radio-button>
         <el-radio-button :label='[0,"DomainLabel"]'>{{$t('location_group')}}</el-radio-button>
       </el-radio-group>
-      <el-radio-group v-model="chartType"
-                      style="vertical-align: middle;"
-                      size="mini">
-        <el-radio-button :label="'Enter'">{{$t('enter')}}</el-radio-button>
-        <el-radio-button :label="'Exit'">{{$t('exit')}}</el-radio-button>
-        <el-radio-button :label="'Stay'">{{$t('stay')}}</el-radio-button>
-      </el-radio-group>
       <chart :options="chartOption"
              style="width:100%"
              :autoResize="true"></chart>
@@ -32,8 +25,8 @@
     <div class="report-page-card">
       <traffice-bigdata-table :report-type=reportType
                               :period=this.timeInterval.key
-                              :char-types=charTypes
-                              :fixed-header=fixedHeader
+                              :char-types=chartTypes
+                              :fixed-header=[]
                               :report-types=reportTypes
                               :columns-fixed=columnsFixed
                               :data=this.data
@@ -50,31 +43,33 @@ import theme from '../lib/theme'
 import echartMethod from '../lib/echartMethod'
 
 export default {
-  data: () => ({
-    // 此处要按顺序写，关系到页面中展示的顺序
-    zoneTypes: ['Entrance', 'Corridor', 'Floor', 'Domain'],
-    data: null,
-    reportType: [1, 'DateTime'],
-    chartType: 'Enter',
-    charTypes: ['Enter', 'Exit', 'Stay']
-  }),
+  data () {
+    return {
+      data: null,
+      reportType: [1, 'DateTime'],
+      chartType: 'AlarmTimes',
+      chartTypes: ['AlarmTimes']
+    }
+  },
   methods: {
     ...mapActions('report', ['query']),
     async onQuery () {
-      let phyIds = this.$refs.zoneSelector.zoneIds
-      this.executeQuery(phyIds)
+      let deviceIds = this.$refs.easDeviceSelector.deviceSelected
+      let mallId = this.$refs.singleMall.mallId
+      this.executeQuery(deviceIds, mallId)
     },
-    async executeQuery (phyIds) {
+    async executeQuery (deviceIds, mallId) {
       this.data = await this.query({
         'report': {
-          dateFields: ['Enter', 'Exit', 'Stay', 'HighTemp', 'LowTemp', 'WeatherName'],
+          dateFields: ['EasAlarm'],
           groupBy: [
-            {domain: 'Zone', period: 'All', timeFormatter: 'All'},
+            {domain: 'Device', period: 'All', timeFormatter: 'All'},
             {domain: 'All'},
-            {domain: 'Zone'}
+            {domain: 'Device'}
             // { domain: 'All', period: 'All', timeFormatter: 'All' }
           ],
-          PhyIds: phyIds
+          mallIds: [mallId],
+          deviceIds: deviceIds
         }
       })
     }
@@ -83,37 +78,11 @@ export default {
     ...mapState('app', {
       timeInterval: state => state.timeInterval
     }),
-    fixedHeader () {
-      let timeInterval = this.$store.state.app.timeInterval.key
-      switch (timeInterval) {
-        case '1d':
-          return ['Picture', 'WeatherName', 'Temp']
-        default:
-          return []
-      }
-    },
     reportTypes () {
       return ['report']
     },
     columnsFixed () {
-      let fixed = ['location']
-      let period = this.timeInterval.key
-      switch (this.reportType[1]) {
-        case 'DomainLabel_DateTime':
-        case 'DateTime':
-          switch (period) {
-            case '5m':
-            case '10m':
-            case '15m':
-            case '30m':
-            case '60m':
-              fixed = fixed.concat(['type', 'date', 'WeatherName', 'total'])
-              break
-            default:
-              fixed = fixed.concat(['type', 'total'])
-          }
-          break
-      }
+      let fixed = ['location', 'type', 'total']
       return fixed
     },
     chartOption () {
@@ -284,3 +253,7 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+</style>

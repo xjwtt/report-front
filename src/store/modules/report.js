@@ -72,6 +72,9 @@ export default {
         if (payload.tagTypes) {
           location['TagTypes'] = payload.tagTypes
         }
+        if (payload.deviceIds) {
+          location['DeviceIds'] = payload.deviceIds
+        }
         st = moment(st).format('YYYY-MM-DD')
         et = moment(et).format('YYYY-MM-DD')
         let startTime = payload.startTime ? payload.startTime : ''

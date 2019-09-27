@@ -21,7 +21,7 @@ import IntervalPickerDayWMY from './components/IntervalPickerDayWMY'
 import DateRangePicker from './components/DateRangePicker'
 import DateRange from './components/DateRange'
 import DateWeekRangePicker from './components/DateWeekRangePicker'
-import SingelMallSelect from './components/SingelMallSelect'
+import SingleMallSelect from './components/SingleMallSelect'
 import CompareMallSelect from './components/CompareMallSelect'
 import TheTable from './components/TheTable'
 import TrafficeTable from './components/TrafficeTable'
@@ -29,6 +29,7 @@ import TrafficeTalbeCompareFast from './components/TrafficeTalbeCompareFast'
 import TrafficeBigdataTable from './components/TrafficeBigdataTable'
 import BaseBigdataTable from './components/BaseBigdataTable'
 import ZoneSelector from './components/ZoneSelector'
+import EasDeviceSelector from './components/EasDeviceSelector'
 
 Vue.config.productionTip = false
 
@@ -45,7 +46,7 @@ Vue.component('interval-picker-day-w-m-y', IntervalPickerDayWMY)
 Vue.component('date-range-picker', DateRangePicker)
 Vue.component('date-range', DateRange)
 Vue.component('date-week-range-picker', DateWeekRangePicker)
-Vue.component('singel-mall-select', SingelMallSelect)
+Vue.component('single-mall-select', SingleMallSelect)
 Vue.component('compare-mall-select', CompareMallSelect)
 Vue.component('the-table', TheTable)
 Vue.component('traffice-table', TrafficeTable)
@@ -53,6 +54,7 @@ Vue.component('traffice-table-compare-fast', TrafficeTalbeCompareFast)
 Vue.component('traffice-bigdata-table', TrafficeBigdataTable)
 Vue.component('base-bigdata-table', BaseBigdataTable)
 Vue.component('zone-selector', ZoneSelector)
+Vue.component('eas-device-selector', EasDeviceSelector)
 
 let asyncMain = async () => {
   await store.dispatch('app/getUserInfo')
