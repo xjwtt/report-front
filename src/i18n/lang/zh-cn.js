@@ -390,6 +390,7 @@ export default {
   user_email: '邮箱',
   user_telephone: '手机号',
   user_setting: '用户设置',
+  view_details: '查看详情',
 
   recover_data: '汇总数据',
   reset_businesstime: '营业时间重置',

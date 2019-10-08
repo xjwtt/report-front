@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="案场"
+  <el-dialog :title="$t('site')"
              v-if="dialogVisible"
              :visible.sync="dialogVisible"
              :close-on-click-modal="false"

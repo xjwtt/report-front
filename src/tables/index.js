@@ -20,6 +20,7 @@ import tdSendRegularlyLogOpt from './tableFields/td-sendRegularlyLogOpt'
 import tdWeekdays from './tableFields/td-weekdays'
 import tdGender from './tableFields/td-Gender'
 import tdImage from './tableFields/td-Image'
+import tdFaceMatchOpt from './tableFields/td-faceMatchOpt'
 
 Vue.use(Datatable)
 Vue.prototype.$i18nForDatatable = Vue.prototype.$t
@@ -43,3 +44,4 @@ Vue.component('td-sendRegularlyLogOpt', tdSendRegularlyLogOpt)
 Vue.component('td-weekdays', tdWeekdays)
 Vue.component('td-gender', tdGender)
 Vue.component('td-image', tdImage)
+Vue.component('td-faceMatchOpt', tdFaceMatchOpt)
