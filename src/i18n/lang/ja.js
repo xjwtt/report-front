@@ -50,6 +50,7 @@ export default {
   face_analysis: '顔認識分析',
   zone_face_analysis: 'ゾーン顔認識分析',
   face_grid: '顔記録',
+  face_match_grid: '記録を取りなおす',
   show_case_analysis: 'ショーケース分析',
   alarm_analysis: 'アラーム分析',
   eas_device_alarm_analysis: 'EASアラーム分析',

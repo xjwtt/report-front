@@ -50,6 +50,7 @@ export default {
   face_analysis: 'Face Analysis',
   zone_face_analysis: 'Zone Face Analysis',
   face_grid: 'Face Grid',
+  face_match_grid: 'Face Mathc Grid',
   show_case_analysis: 'Show Case Analysis',
   alarm_analysis: 'Alarm Analysis',
   eas_device_alarm_analysis: 'EASDeviceAlarmAnalysis',

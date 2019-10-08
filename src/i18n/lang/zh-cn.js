@@ -50,6 +50,7 @@ export default {
   face_analysis: '人脸数据分析',
   zone_face_analysis: '区域人脸分析',
   face_grid: '人脸记录',
+  face_match_grid: '去重记录',
   show_case_analysis: '展示效果分析',
   alarm_analysis: '报警分析',
   eas_device_alarm_analysis: 'EAS报警分析',
