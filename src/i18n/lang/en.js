@@ -390,6 +390,7 @@ export default {
   user_email: 'Email',
   user_telephone: 'Telephone',
   user_setting: 'User Setting',
+  view_details: 'View Details',
 
   recover_data: 'Recover Data',
   reset_businesstime: 'Reset BusinessTime',

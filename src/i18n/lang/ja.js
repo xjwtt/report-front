@@ -390,6 +390,7 @@ export default {
   user_email: 'メールアドレス',
   user_telephone: '電話番号',
   user_setting: 'ユーザ設定',
+  view_details: '詳細を表示',
 
   recover_data: 'データの復元',
   reset_businesstime: 'Business Timeをリセットする',
