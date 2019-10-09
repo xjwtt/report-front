@@ -184,20 +184,30 @@ export default {
                     row.push(moment(v[0]['TimeLabel']).format('YYYY-MM-DD'))
                     break
                   case 'total':
-                    let total = 0
+                    let temp = 0
                     switch (type) {
                       case 'EnteringRate':
                         if (domainCount.length >= 2) {
-                          total = domainCount[1] > 0 ? parseInt((domainCount[0] / domainCount[1]) * 10000) / 100 : 0
+                          temp = domainCount[1] > 0 ? parseInt((domainCount[0] / domainCount[1]) * 10000) / 100 : 0
                         }
+                        break
+                      case 'Stay':
+                        let enter = 0
+                        let exit = 0
+                        _.each(v, (item) => {
+                          enter += item['Enter']
+                          exit += item['Exit']
+                        })
+                        temp = enter - exit
+                        domainCount.push(temp)
                         break
                       default:
                         _.each(v, (item) => {
-                          total += item[type]
+                          temp += item[type]
                         })
-                        domainCount.push(total)
+                        domainCount.push(temp)
                     }
-                    row.push(total)
+                    row.push(temp)
                     break
                   default:
                     row.push(v[0][f])
