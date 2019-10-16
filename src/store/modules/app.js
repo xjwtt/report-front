@@ -36,6 +36,7 @@ export default {
     dayWMYS: null,
     weekMonthPickerOptions: null,
     dateRange: appconst.defaultDateRange,
+    selectLastYear: false,
     peakTimeDateRange: [moment().subtract(7, 'days'), moment().subtract(1, 'days')]
   },
   mutations: {
@@ -76,6 +77,9 @@ export default {
     },
     setDateRange (state, payload) {
       state.dateRange = payload
+    },
+    setSelectLastYaer (state, payload) {
+      state.selectLastYear = payload
     },
     setPeakTimeDateRange (state, payload) {
       state.peakTimeDateRange = payload

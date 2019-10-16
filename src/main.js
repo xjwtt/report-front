@@ -19,6 +19,7 @@ import IntervalPicker from './components/IntervalPicker'
 import IntervalPickerHourlyweek from './components/IntervalPickerHourlyweek'
 import IntervalPickerDayWMY from './components/IntervalPickerDayWMY'
 import DateRangePicker from './components/DateRangePicker'
+import DateRangePickerAndLastYear from './components/DateRangePickerAndLastYear'
 import DateRange from './components/DateRange'
 import DateWeekRangePicker from './components/DateWeekRangePicker'
 import SingleMallSelect from './components/SingleMallSelect'
@@ -44,6 +45,7 @@ Vue.component('interval-picker', IntervalPicker)
 Vue.component('interval-picker-hourlyweek', IntervalPickerHourlyweek)
 Vue.component('interval-picker-day-w-m-y', IntervalPickerDayWMY)
 Vue.component('date-range-picker', DateRangePicker)
+Vue.component('date-range-picker-and-last-year', DateRangePickerAndLastYear)
 Vue.component('date-range', DateRange)
 Vue.component('date-week-range-picker', DateWeekRangePicker)
 Vue.component('single-mall-select', SingleMallSelect)

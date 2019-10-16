@@ -20,11 +20,24 @@
         </slot>
       </datatable>
     </el-card>
+    <edit-businesstime-mall ref=editDialog @handleQueryChange="handleQueryChange"></edit-businesstime-mall>
+    <el-dialog :title="$t('prompt')"
+               :visible.sync="delDialogVisible"
+               width="30%">
+      <span>{{$t('confirm_delete')}}</span>
+      <span slot="footer"
+            class="dialog-footer">
+          <el-button @click="delDialogVisible = false">{{$t('cancel')}}</el-button>
+          <el-button type="primary"
+                     @click="sureDelete">{{$t('ok')}}</el-button>
+        </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import Vue from 'vue'
+import EditBusinesstimeMall from '../components/EditBusinesstimeMall'
 
 export default {
   name: 'businesstime_grid',
@@ -42,7 +55,8 @@ export default {
       {title: 'end_date', field: 'EndDate', thComp: 'th-i18n', sortable: true},
       {title: 'end_time', field: 'EndTime', thComp: 'th-i18n', sortable: true},
       {title: 'weekdays', field: 'Weekdays', thComp: 'th-i18n', tdComp: 'td-weekdays'},
-      {title: 'description', field: 'BusinessDescription', thComp: 'th-i18n'}
+      {title: 'description', field: 'BusinessDescription', thComp: 'th-i18n'},
+      {title: 'operation', thComp: 'th-i18n', tdComp: 'td-opt', visible: true}
     ],
     data: [],
     total: 0,
@@ -50,13 +64,33 @@ export default {
     selection: [],
     xprops: {
       eventbus: new Vue()
-    }
+    },
+    // del
+    delDialogVisible: false,
+    waitToDel: {}
   }),
+  mounted () {
+    this.xprops.eventbus
+      .$on('DELETE', this.del)
+      .$on('EDIT', this.$refs.editDialog.show)
+  },
   methods: {
     async handleQueryChange () {
       let rep = await this.$store.dispatch({type: 'businesstime/gridMallBusinessTime', data: this.query})
       this.total = rep.total
       this.data = rep.list
+    },
+    del (row) {
+      this.waitToDel = {'BusinesstimeId': row.BusinesstimeId, 'MallId': row.MallId}
+      this.delDialogVisible = true
+    },
+    async sureDelete () {
+      await this.$store.dispatch({
+        type: 'businesstime/deleteBusinessTimeByBusinessTimeIdAndMallId',
+        data: this.waitToDel
+      })
+      this.delDialogVisible = false
+      this.handleQueryChange()
     }
   },
   activated () {
@@ -72,6 +106,9 @@ export default {
       },
       deep: true
     }
+  },
+  components: {
+    EditBusinesstimeMall
   }
 }
 </script>

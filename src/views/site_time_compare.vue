@@ -148,6 +148,7 @@ export default {
           series = [{name: this.$t('date_range'), type: 'line', data: reportSeries}, {
             name: this.$t('compare_date_range'),
             type: 'line',
+            barGap: '-50%',
             stack: 'compare',
             data: compareSeries
           }]
