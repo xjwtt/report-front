@@ -4,7 +4,8 @@
       <single-mall-select></single-mall-select>
       <zone-selector @executeQuery='executeQuery' :zone-types="zoneTypes" ref=zoneSelector></zone-selector>
       <interval-picker></interval-picker>
-      <date-range-picker></date-range-picker>
+      <!--      <date-range-picker></date-range-picker>-->
+      <date-range-picker-and-last-year></date-range-picker-and-last-year>
       <el-button type="primary"
                  size="small"
                  @click="onQuery">{{$t('query')}}
@@ -45,6 +46,7 @@
 
 <script>
 import {mapState, mapActions} from 'vuex'
+import moment from 'moment'
 import _ from 'underscore'
 import theme from '../lib/theme'
 import echartMethod from '../lib/echartMethod'
@@ -65,8 +67,22 @@ export default {
       this.executeQuery(phyIds)
     },
     async executeQuery (phyIds) {
-      this.data = await this.query({
-        'report': {
+      let query = {}
+      query['report'] = {
+        dateFields: ['Enter', 'Exit', 'Stay', 'HighTemp', 'LowTemp', 'WeatherName'],
+        groupBy: [
+          {domain: 'Zone', period: 'All', timeFormatter: 'All'},
+          {domain: 'All'},
+          {domain: 'Zone'}
+          // { domain: 'All', period: 'All', timeFormatter: 'All' }
+        ],
+        PhyIds: phyIds
+      }
+      if (this.selectLastYear) {
+        let dateRangeValue = this.dateRange
+        let startDate = moment(dateRangeValue[0]).add(-1, 'year')
+        let endDate = moment(dateRangeValue[1]).add(-1, 'year')
+        query['lastYear'] = {
           dateFields: ['Enter', 'Exit', 'Stay', 'HighTemp', 'LowTemp', 'WeatherName'],
           groupBy: [
             {domain: 'Zone', period: 'All', timeFormatter: 'All'},
@@ -74,14 +90,19 @@ export default {
             {domain: 'Zone'}
             // { domain: 'All', period: 'All', timeFormatter: 'All' }
           ],
-          PhyIds: phyIds
+          PhyIds: phyIds,
+          st: startDate,
+          et: endDate
         }
-      })
+      }
+      this.data = await this.query(query)
     }
   },
   computed: {
     ...mapState('app', {
-      timeInterval: state => state.timeInterval
+      timeInterval: state => state.timeInterval,
+      dateRange: state => state.dateRange,
+      selectLastYear: state => state.selectLastYear
     }),
     fixedHeader () {
       let timeInterval = this.$store.state.app.timeInterval.key
@@ -124,19 +145,74 @@ export default {
       let chartTypeName = that.$t(that.chartType)
       let dataArrayIndex = this.reportType[0]
       let xSelector = (_) => _[this.reportType[1]]
+      let legendData
       switch (this.reportType[1]) {
         case 'DateTime':
           let ySelector = (_) => _[this.chartType]
-          let xBar = this.data ? _.map(this.data['report'][dataArrayIndex], xSelector) : []
-          let yBar = this.data ? _.map(this.data['report'][dataArrayIndex], ySelector) : []
-
+          legendData = [chartTypeName]
+          let xBar = []
+          let xReport = this.data ? _.map(this.data['report'][dataArrayIndex], xSelector) : []
+          let yReport = this.data ? _.map(this.data['report'][dataArrayIndex], ySelector) : []
+          let series = [{
+            name: chartTypeName,
+            type: 'bar',
+            stack: '',
+            markPoint: {
+              data: [{
+                type: 'max',
+                name: maxName
+              }, {
+                type: 'min',
+                name: minName
+              }]
+            },
+            markLine: {
+              data: [{
+                type: 'average',
+                name: avgName
+              }]
+            },
+            data: yReport
+          }]
+          if (this.data && this.data['lastYear']) {
+            let xLastYearReport = this.data ? _.map(this.data['lastYear'][dataArrayIndex], xSelector) : []
+            let yLastYearReport = this.data ? _.map(this.data['lastYear'][dataArrayIndex], ySelector) : []
+            legendData.push(this.$t('last_year'))
+            series.push({
+              name: this.$t('last_year'),
+              type: 'bar',
+              stack: '',
+              barGap: '-50%',
+              markPoint: {
+                data: [{
+                  type: 'max',
+                  name: maxName
+                }, {
+                  type: 'min',
+                  name: minName
+                }]
+              },
+              markLine: {
+                data: [{
+                  type: 'average',
+                  name: avgName
+                }]
+              },
+              data: yLastYearReport
+            })
+            for (let i = 0, len = xReport.length; i < len; i++) {
+              xBar.push(xReport[i] + '/' + xLastYearReport[i])
+            }
+          } else {
+            xBar = xReport
+          }
           let bar = {
             color: theme.color,
-            title: {
-              text: ''
-            },
             tooltip: {
               trigger: 'axis'
+            },
+            legend: {
+              data: legendData
             },
             grid: {
               left: '3%',
@@ -163,27 +239,7 @@ export default {
                 formatter: '{value} '
               }
             }],
-            series: [{
-              name: chartTypeName,
-              type: 'bar',
-              stack: '',
-              markPoint: {
-                data: [{
-                  type: 'max',
-                  name: maxName
-                }, {
-                  type: 'min',
-                  name: minName
-                }]
-              },
-              markLine: {
-                data: [{
-                  type: 'average',
-                  name: avgName
-                }]
-              },
-              data: yBar
-            }]
+            series: series
           }
           echartMethod.separate60M(this.timeInterval.key, bar, xBar)
           Object.freeze(bar)
@@ -241,7 +297,7 @@ export default {
           Object.freeze(line)
           return line
         case 'DomainLabel':
-          let legendData = this.data ? _.map(this.data['report'][dataArrayIndex], xSelector) : []
+          legendData = this.data ? _.map(this.data['report'][dataArrayIndex], xSelector) : []
           let pieSeriesData = this.data ? _.map(this.data['report'][dataArrayIndex], function (it) {
             return {name: it[that.reportType[1]], value: it[that.chartType]}
           }) : []

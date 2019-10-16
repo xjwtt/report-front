@@ -227,7 +227,7 @@ export default {
   this_month: '今月',
   last_month: '先月',
   this_year: '今年',
-  last_year: '去年',
+  last_year: '昨年',
   last_half_year: 'この半年',
   three_years: '3年',
   five_years: '5年',

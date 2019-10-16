@@ -71,7 +71,6 @@
                         range-separator="-"
                         :picker-options="{
                             start: '00:00',
-                            step: '00:05',
                             end: '23:59'
                           }"
                         placeholder="...">
@@ -85,7 +84,6 @@
                         range-separator="-"
                         :picker-options="{
                             start: '00:00',
-                            step: '00:05',
                             end: '23:59'
                           }"
                         placeholder="...">
