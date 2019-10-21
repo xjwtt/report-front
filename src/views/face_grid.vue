@@ -31,7 +31,7 @@ export default {
         {title: 'date_time', field: 'DateTime', thComp: 'th-i18n', sortable: true},
         {title: 'age_type', field: 'AgeType', thComp: 'th-i18n'},
         {title: 'gender', field: 'Gender', thComp: 'th-i18n', tdComp: 'td-gender'},
-        {title: 'photo', field: 'Image', thComp: 'th-i18n', tdComp: 'td-image'}
+        {title: 'photo', field: 'ImageUrl', thComp: 'th-i18n', tdComp: 'td-image'}
       ],
       data: [],
       total: 0,
