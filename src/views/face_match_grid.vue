@@ -30,9 +30,11 @@ export default {
       tblClass: 'table-bordered',
       tblStyle: 'color: #666',
       columns: [
-        {title: 'name', field: 'Name', thComp: 'th-i18n', sortable: true},
-        {title: 'photo', field: 'MatchedImg', thComp: 'th-i18n', tdComp: 'td-image'},
-        {title: 'last_data_time', field: 'LastDataTime', thComp: 'th-i18n'},
+        {title: 'date_time', field: 'DateTime', thComp: 'th-i18n'},
+        {title: 'age_type', field: 'AgeType', thComp: 'th-i18n'},
+        {title: 'gender', field: 'Gender', thComp: 'th-i18n', tdComp: 'td-gender'},
+        {title: 'photo', field: 'ImageUrl', thComp: 'th-i18n', tdComp: 'td-image'},
+        {title: 'number', field: 'Number', thComp: 'th-i18n'},
         {title: 'operation', tdComp: 'td-faceMatchOpt', thComp: 'th-i18n', visible: true}
       ],
       data: [],
@@ -63,7 +65,7 @@ export default {
       this.query['MallId'] = this.$refs.mallSelect.mallId
       this.query['StartDate'] = this.startDate
       this.query['EndDate'] = this.endDate
-      let rep = await this.$store.dispatch({type: 'face/faceMatchGrid', data: this.query})
+      let rep = await this.$store.dispatch({type: 'face/lastFaceGrid', data: this.query})
       this.total = rep.total
       this.data = rep.list
     }

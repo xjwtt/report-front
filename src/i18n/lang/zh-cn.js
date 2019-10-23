@@ -426,7 +426,9 @@ export default {
   Shelf: '展区',
   Face: '人脸',
   eas_device: '设备',
+  Face_device: '人脸设备',
 
+  number: '数量',
   date_time: '时间',
   age_type: '年龄类型',
   gender: '性别',
