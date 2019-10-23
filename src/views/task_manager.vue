@@ -125,6 +125,7 @@ export default {
   },
   activated () {
     // time_保证每次进入页面都会获取最新数据 防止数据修改页面没有拿到最新数据
+    Vue.set(this.query, 'offset', 0)
     this.query['time_'] = (new Date()).getTime()
   },
   components: {
