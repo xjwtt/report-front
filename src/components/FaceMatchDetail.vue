@@ -31,34 +31,49 @@ export default {
         {title: 'date_time', field: 'DateTime', thComp: 'th-i18n', sortable: true},
         {title: 'age_type', field: 'AgeType', thComp: 'th-i18n'},
         {title: 'gender', field: 'Gender', thComp: 'th-i18n', tdComp: 'td-gender'},
-        {title: 'photo', field: 'Image', thComp: 'th-i18n', tdComp: 'td-image'}
+        {title: 'photo', field: 'ImageUrl', thComp: 'th-i18n', tdComp: 'td-image'}
       ],
       data: [],
       total: 0,
-      query: {'time_': 0},
+      pageSizeOptions: [5, 10, 20, 50, 100],
+      query: {'time_': 0, 'limit': 5},
       xprops: {
         eventbus: new Vue()
       },
       // --
       dialogVisible: false,
-      faceMatchId: null
+      personId: null
     }
   },
   methods: {
     show (form) {
       this.dialogVisible = true
-      this.faceMatchId = form.Id
-      this.onQuery()
+      this.personId = form.PersonId
+      Vue.set(this.query, 'offset', 0)
+      this.query['time_'] = (new Date()).getTime()
     },
     async onQuery () {
-      if (this.faceMatchId && this.startDate && this.endDate) {
+      if (this.personId && this.startDate && this.endDate) {
+        this.query['PersonId'] = this.personId
+        this.query['StartDate'] = this.startDate
+        this.query['EndDate'] = this.endDate
         let rep = await this.$store.dispatch({
-          type: 'face/faceMatchDetailGrid',
-          data: {'FaceMatchId': this.faceMatchId, 'StartDate': this.startDate, 'EndDate': this.endDate}
+          type: 'face/lastFaceDetailGrid',
+          data: this.query
         })
         this.total = rep.total
         this.data = rep.list
       }
+    }
+  },
+  watch: {
+    query: {
+      handler (nValue) {
+        if (nValue.time_ !== 0) {
+          this.onQuery()
+        }
+      },
+      deep: true
     }
   }
 }

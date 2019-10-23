@@ -426,7 +426,9 @@ export default {
   Shelf: '棚',
   Face: '人面',
   eas_device: 'デバイス',
+  Face_device: '顔デバイス',
 
+  number: '数',
   date_time: '時間',
   age_type: '年齢のタイプ',
   gender: '性别',

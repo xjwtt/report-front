@@ -426,7 +426,9 @@ export default {
   Shelf: 'Shelf',
   Face: 'Face',
   eas_device: 'Device',
+  Face_device: 'FaceDevice',
 
+  number: 'Number',
   date_time: 'Time',
   age_type: 'AgeType',
   gender: 'Gender',
