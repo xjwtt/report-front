@@ -16,7 +16,7 @@
     <span slot="footer"
           class="dialog-footer">
       <el-button type="primary"
-                 @click="submitForm('modifyForm')">{{$t('ok')}}</el-button>
+                 @click="submitForm()">{{$t('ok')}}</el-button>
       <el-button @click="dialogVisible = false">{{$t('cancel')}}</el-button>
     </span>
   </el-dialog>

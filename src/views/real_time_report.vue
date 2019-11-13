@@ -165,6 +165,7 @@ export default {
     },
     saveAddWidget () {
       let maxY = _.max(this.userWidgets, el => el.y)
+      let elY = maxY.y + maxY.h
       _.each(this.unUsedWidget, (items) => {
         _.each(items, (el) => {
           if (el.Checked) {
@@ -172,7 +173,7 @@ export default {
             el.w = el.minW
             el.h = el.minH
             el.x = 0
-            el.y = maxY.y + maxY.h
+            el.y = !isNaN(elY) ? elY : 0
             this.userWidgets.push(el)
           }
         })
