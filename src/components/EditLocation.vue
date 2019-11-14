@@ -103,7 +103,6 @@
 import _ from 'underscore'
 
 export default {
-  name: 'EditMenu',
   data () {
     return {
       activeName: 'base',

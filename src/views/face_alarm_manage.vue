@@ -4,7 +4,7 @@
              style="flex:auto">
       <div slot="header"
            class="clearfix">
-        <span>{{$t('businesstime_grid')}}</span>
+        <span>{{$t('face_alarm_manage')}}</span>
       </div>
       <datatable v-bind="$data">
         <slot>
@@ -16,11 +16,19 @@
               <i class="fa"
                  :class="'el-icon-refresh'"></i>
             </button>
+            <button class="btn btn-default"
+                    type="button"
+                    @click="newOne()">
+              <i class="fa"
+                 :class="'fa-plus'"></i>
+            </button>
           </div>
         </slot>
       </datatable>
     </el-card>
-    <edit-businesstime-mall ref=editDialog @handleQueryChange="handleQueryChange"></edit-businesstime-mall>
+    <edit-face-alarm ref=editDialog @handleQueryChange="handleQueryChange"></edit-face-alarm>
+    <related-face-alarm-device ref=RelatedFaceAlarmDevice
+                               @handleQueryChange="handleQueryChange"></related-face-alarm-device>
     <el-dialog :title="$t('prompt')"
                :visible.sync="delDialogVisible"
                width="30%">
@@ -36,9 +44,11 @@
 </template>
 
 <script>
+
 import Vue from 'vue'
 import _ from 'underscore'
-import EditBusinesstimeMall from '../components/EditBusinesstimeMall'
+import EditFaceAlarm from '../components/EditFaceAlarm'
+import RelatedFaceAlarmDevice from '../components/RelatedFaceAlarmDevice'
 
 export default {
   data: () => ({
@@ -47,16 +57,16 @@ export default {
     tblClass: 'table-bordered',
     tblStyle: 'color: #666',
     columns: [
-      {title: 'company_name', field: 'CompanyName', thComp: 'th-filter', sortable: true},
       {title: 'mall_name', field: 'MallName', thComp: 'th-filter', sortable: true},
-      {title: 'time_type_name', field: 'TimeTypeName', thComp: 'th-i18n', sortable: true, tdComp: 'td-i18n'},
+      {title: 'name', field: 'Name', thComp: 'th-i18n', sortable: true, tdComp: 'td-i18n'},
       {title: 'start_date', field: 'StartDate', thComp: 'th-i18n', sortable: true},
       {title: 'start_time', field: 'StartTime', thComp: 'th-i18n', sortable: true},
       {title: 'end_date', field: 'EndDate', thComp: 'th-i18n', sortable: true},
       {title: 'end_time', field: 'EndTime', thComp: 'th-i18n', sortable: true},
-      {title: 'weekdays', field: 'Weekdays', thComp: 'th-i18n', tdComp: 'td-weekdays'},
-      {title: 'description', field: 'BusinessDescription', thComp: 'th-i18n'},
-      {title: 'operation', thComp: 'th-i18n', tdComp: 'td-opt', visible: true}
+      {title: 'device_number', field: 'DeviceNumber', thComp: 'th-i18n', sortable: true},
+      {title: 'description', field: 'Description', thComp: 'th-i18n'},
+      {title: 'ranked', field: 'Ranked', thComp: 'th-i18n'},
+      {title: 'operation', thComp: 'th-i18n', tdComp: 'td-businesstimeOpt', visible: true}
     ],
     data: [],
     total: 0,
@@ -73,25 +83,29 @@ export default {
     this.xprops.eventbus
       .$on('DELETE', this.del)
       .$on('EDIT', this.$refs.editDialog.show)
+      .$on('Related', this.$refs.RelatedFaceAlarmDevice.show)
   },
   methods: {
     async handleQueryChange () {
-      let rep = await this.$store.dispatch({type: 'businesstime/gridMallBusinessTime', data: this.query})
+      let rep = await this.$store.dispatch({type: 'faceAlarm/gridFaceAlarm', data: this.query})
       this.total = rep.total
       this.data = rep.list
+    },
+    newOne () {
+      this.$refs.editDialog.show()
     },
     del (row) {
       this.waitToDel = []
       if (row) {
-        this.waitToDel.push(row.BusinessTimeMallId)
+        this.waitToDel.push(row.Id)
       } else {
-        this.waitToDel = _.map(this.selection, el => el.BusinessTimeMallId)
+        this.waitToDel = _.map(this.selection, el => el.Id)
       }
       this.delDialogVisible = true
     },
     async sureDelete () {
       await this.$store.dispatch({
-        type: 'businesstime/deleteBusinessTimeByIds',
+        type: 'faceAlarm/deleteFaceAlarmByIds',
         data: this.waitToDel
       })
       this.delDialogVisible = false
@@ -114,7 +128,12 @@ export default {
     }
   },
   components: {
-    EditBusinesstimeMall
+    EditFaceAlarm,
+    RelatedFaceAlarmDevice
   }
 }
 </script>
+
+<style scoped>
+
+</style>

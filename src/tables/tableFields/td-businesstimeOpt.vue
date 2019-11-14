@@ -1,7 +1,7 @@
 <template>
   <div>
     <button :title="$t('site')"
-            @click="xprops.eventbus.$emit('RelatedMall',row)">
+            @click="xprops.eventbus.$emit('Related',row)">
       <i class="el-icon-setting"></i>
     </button>
     <button :title="$t('edit')"

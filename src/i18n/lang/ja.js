@@ -87,6 +87,9 @@ export default {
   send_data_regularly: 'データ送信設定',
   task_manager: 'タスク設定',
   category_manager: 'カテゴリ管理',
+  face_data_maintain: '顔データのメンテナンス',
+  face_alarm_manage: '警報設備関連',
+  face_alarm_record: '警報記録の照会',
 
   export: 'エクスポート',
   personalized_home_page: 'カスタマイズ',
