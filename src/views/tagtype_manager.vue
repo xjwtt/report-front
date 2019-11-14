@@ -86,7 +86,7 @@ export default {
     this.xprops.eventbus
       .$on('EDIT', this.$refs.editDialog.show)
       .$on('DELETE', this.del)
-      .$on('RelatedMall', this.$refs.RelatedBusinesstimeMall.show)
+      .$on('Related', this.$refs.RelatedBusinesstimeMall.show)
   },
   methods: {
     newOne () {

@@ -87,6 +87,9 @@ export default {
   send_data_regularly: 'Send Data Regularly',
   task_manager: 'Task Manager',
   category_manager: 'Categroy Manager',
+  face_data_maintain: 'FaceData MainTain',
+  face_alarm_manage: 'FaceAlarmManage',
+  face_alarm_record: 'FaceAlarmRecord',
 
   export: 'Export',
   personalized_home_page: 'Personalized',

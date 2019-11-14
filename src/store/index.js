@@ -25,6 +25,7 @@ import task from './modules/task'
 import senddataregularly from './modules/senddataregularly'
 import tagtype from './modules/tagtype'
 import face from './modules/face'
+import faceAlarm from './modules/faceAlarm'
 
 Vue.use(Vuex)
 
@@ -63,7 +64,8 @@ const store = new Vuex.Store({
     task,
     senddataregularly,
     tagtype,
-    face
+    face,
+    faceAlarm
   }
 })
 

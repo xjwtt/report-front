@@ -87,6 +87,9 @@ export default {
   send_data_regularly: '定时数据发送',
   task_manager: '任务管理',
   category_manager: '类别管理',
+  face_data_maintain: '人脸数据维护',
+  face_alarm_manage: '报警设备关联',
+  face_alarm_record: '报警记录查询',
 
   export: '导出',
   personalized_home_page: '个性化首页',

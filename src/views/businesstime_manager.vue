@@ -92,7 +92,7 @@ export default {
   mounted () {
     this.xprops.eventbus
       .$on('EDIT', this.$refs.editDialog.show)
-      .$on('RelatedMall', this.$refs.RelatedBusinesstimeMall.show)
+      .$on('Related', this.$refs.RelatedBusinesstimeMall.show)
       .$on('DELETE', this.del)
   },
   methods: {
