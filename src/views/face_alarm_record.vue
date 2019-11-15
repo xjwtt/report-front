@@ -69,6 +69,7 @@
 
 <script>
 import Vue from 'vue'
+import moment from 'moment'
 
 const modifyForm = () => {
   return {
@@ -125,12 +126,15 @@ export default {
     async queryData (formName) {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
+          this.query['Did'] = this.modifyForm['DeviceId']
+          this.query['Date'] = moment(this.modifyForm['Date']).format('YYYY-MM-DD')
           let rep = await this.$store.dispatch({
-            type: 'faceAlarm/getFaceDeviceByMallId',
-            data: {Did: formName.DeviceId}
+            type: 'faceAlarm/gridFaceAlarmRecord',
+            data: this.query
           })
           this.tableShow = true
-          this.data = rep
+          this.data = rep.list
+          this.total = rep.total
         }
       })
     }
