@@ -211,7 +211,7 @@ export default {
   watch: {
     'serverConfig.ServerType': {
       handler: function (newValue, OldValue) {
-        console.log(newValue)
+        // console.log(newValue)
       },
       deep: true
     }

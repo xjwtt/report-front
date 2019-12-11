@@ -64,5 +64,6 @@ export const allRouters = {
   face_match_grid: () => import('@/views/face_match_grid'),
   eas_device_alarm_analysis: () => import('@/views/eas_device_alarm_analysis'),
   face_alarm_manage: () => import('@/views/face_alarm_manage'),
-  face_alarm_record: () => import('@/views/face_alarm_record')
+  face_alarm_record: () => import('@/views/face_alarm_record'),
+  export_table: () => import('@/views/export_table')
 }

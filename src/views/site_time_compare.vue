@@ -227,7 +227,7 @@ export default {
             et: compareEndDate
           }
         })
-        console.log(this.data)
+        // console.log(this.data)
       } else {
         this.$message.error(this.$t('time_interval_must_be_the_same'))
       }

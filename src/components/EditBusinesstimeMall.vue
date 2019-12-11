@@ -141,7 +141,7 @@ export default {
   },
   methods: {
     show (form) {
-      console.log(form)
+      // console.log(form)
       this.dialogVisible = true
       this.$nextTick(() => {
         this.$refs['modifyForm'].resetFields()

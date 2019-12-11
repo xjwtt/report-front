@@ -64,7 +64,7 @@ export default {
       }
     })
     this.columns = columns
-    console.log(moment().format('YYYY-MM-DD HH:mm:ss'))
+    // console.log(moment().format('YYYY-MM-DD HH:mm:ss'))
   }
 }
 </script>
