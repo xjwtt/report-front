@@ -39,7 +39,7 @@
               <el-date-picker
                 v-model="modifyForm.StartDate"
                 type="date"
-                placeholder="Select Date">
+                :placeholder="$t('start_date')">
               </el-date-picker>
             </el-form-item>
             <el-form-item :label="$t('end_date')"
@@ -47,7 +47,7 @@
               <el-date-picker
                 v-model="modifyForm.EndDate"
                 type="date"
-                placeholder="Select Date">
+                :placeholder="$t('end_date')">
               </el-date-picker>
             </el-form-item>
             <el-form-item :label="$t('weekdays')"
@@ -65,7 +65,7 @@
                     step: '00:01',
                     end: '23:59'
                   }"
-                placeholder="Selete Time">
+                :placeholder="$t('start_time')">
               </el-time-select>
             </el-form-item>
             <el-form-item :label="$t('end_time')"
@@ -77,7 +77,7 @@
                     step: '00:01',
                     end: '23:59'
                   }"
-                placeholder="Selete Time">
+                :placeholder="$t('end_time')">
               </el-time-select>
             </el-form-item>
             <el-form-item :label="$t('description')"

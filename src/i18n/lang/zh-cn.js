@@ -90,6 +90,8 @@ export default {
   face_data_maintain: '人脸数据维护',
   face_alarm_manage: '报警设备关联',
   face_alarm_record: '报警记录查询',
+  customer_manager: '客户管理',
+  export_table: '导出表格',
 
   export: '导出',
   personalized_home_page: '个性化首页',
@@ -576,6 +578,12 @@ export default {
 
   site_count: '案场数量',
   data_duplication: '数据重复',
+
+  principal: '负责人',
+  principal_tell: '负责人电话',
+  principal_mall: '负责人邮箱',
+  contract_start_date: '合同开始时间',
+  contract_end_date: '合同结束时间',
 
   hava_to_choose_a_site: '必须选择一个案场',
   starttime_is_greater_than_endtime: '开始时间比结束时间大'
