@@ -64,7 +64,7 @@ export default {
   name: 'camera_manager',
   data: () => ({
     // table
-    HeaderSettings: false,
+    HeaderSettings: true,
     tblClass: 'table-bordered',
     tblStyle: 'color: #666',
     columns: [
@@ -73,7 +73,7 @@ export default {
       {title: 'position', field: 'Position', thComp: 'th-i18n'},
       {title: 'zone_count', field: 'ZoneCount', thComp: 'th-i18n', sortable: true},
       {title: 'IP', field: 'IpAddress', thComp: 'th-i18n', sortable: true},
-      {title: 'Mac', field: 'MacAddress', thComp: 'th-i18n'},
+      {title: 'Mac', field: 'MacAddress', thComp: 'th-i18n', visible: false},
       {title: 'serial_number', field: 'SerialNumber', thComp: 'th-i18n'},
       {title: 'device_type', field: 'DeviceType', thComp: 'th-i18n', sortable: true},
       {title: 'last_data_time', field: 'LastDataTime', thComp: 'th-i18n', sortable: true},

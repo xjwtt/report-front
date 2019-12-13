@@ -12,7 +12,7 @@
             <el-form :model="modifyForm"
                      :rules="rules"
                      ref=modifyForm
-                     label-width="150px">
+                     label-width="100px">
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('mall')" prop="MallId">
@@ -51,7 +51,7 @@
                     </el-date-picker>
                   </el-form-item>
                 </el-col>
-                <el-col :span="2">
+                <el-col :span="4">
                   <el-button type="primary" @click="queryData('modifyForm')">{{$t('query')}}</el-button>
                 </el-col>
               </el-row>

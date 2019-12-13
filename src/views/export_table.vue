@@ -12,7 +12,7 @@
             <el-form :model="modifyForm"
                      :rules="rules"
                      ref=modifyForm
-                     label-width="150px">
+                     label-width="120px">
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('mall')" prop="MallId">

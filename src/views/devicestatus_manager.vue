@@ -34,14 +34,14 @@ export default {
   data () {
     return {
       // table
-      HeaderSettings: false,
+      HeaderSettings: true,
       tblClass: 'table-bordered',
       tblStyle: 'color: #666',
       columns: [
         {title: 'mall_name', field: 'MallName', thComp: 'th-filter', sortable: true},
         {title: 'device_id', field: 'DeviceId', thComp: 'th-filter', sortable: true},
         {title: 'device_type', field: 'DeviceTypeName', thComp: 'th-filter', sortable: true},
-        {title: 'position', field: 'Position', thComp: 'th-i18n'},
+        {title: 'position', field: 'Position', thComp: 'th-i18n', visible: false},
         {title: 'IP', field: 'IpAddress', thComp: 'th-i18n', sortable: true},
         {title: 'Mac', field: 'MacAddress', thComp: 'th-i18n'},
         {title: 'serial_number', field: 'SerialNumber', thComp: 'th-i18n'},
