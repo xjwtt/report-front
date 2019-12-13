@@ -92,6 +92,7 @@ export default {
   face_alarm_record: 'FaceAlarmRecord',
   customer_manager: 'CustomerManager',
   export_table: 'ExportTable',
+  company_info: 'CompanyInfo',
 
   export: 'Export',
   personalized_home_page: 'Personalized',
@@ -582,9 +583,12 @@ export default {
 
   principal: 'Principal',
   principal_tell: 'PrincipalTEll',
-  principal_mall: 'PrincipalMail',
+  principal_mail: 'PrincipalMail',
   contract_start_date: 'ContractStartDate',
   contract_end_date: 'ContractEndDate',
+  company_address: 'CompanyAddress',
+  site_list: 'SiteList',
+  account_list: 'AccountList',
 
   hava_to_choose_a_site: 'Hava to choose a site',
   starttime_is_greater_than_endtime: 'StartTime Is Greater Than EndTime'

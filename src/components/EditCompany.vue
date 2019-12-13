@@ -17,13 +17,16 @@
                           prop="Name">
               <el-input v-model.trim="modifyForm.Name"></el-input>
             </el-form-item>
+            <el-form-item :label="$t('company_address')" prop="CompanyAddress">
+              <el-input v-model.trim="modifyForm.CompanyAddress"></el-input>
+            </el-form-item>
             <el-form-item :label="$t('principal')" prop="Principal">
               <el-input v-model.trim="modifyForm.Principal"></el-input>
             </el-form-item>
             <el-form-item :label="$t('principal_tell')" prop="PrincipalTEll">
               <el-input v-model.trim="modifyForm.PrincipalTEll"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('principal_mall')" prop="PrincipalMail">
+            <el-form-item :label="$t('principal_mail')" prop="PrincipalMail">
               <el-input v-model.trim="modifyForm.PrincipalMail"></el-input>
             </el-form-item>
             <el-form-item :label="$t('contract_end_date')"
@@ -72,6 +75,7 @@ const defaultForm = () => {
   return {
     Name: '',
     Status: 1,
+    CompanyAddress: '',
     Principal: '',
     PrincipalMail: '',
     PrincipalTEll: '',

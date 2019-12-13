@@ -92,6 +92,7 @@ export default {
   face_alarm_record: '警報記録の照会',
   customer_manager: 'アカウント管理',
   export_table: '表をエクスポート',
+  company_info: '会社情報',
 
   export: 'エクスポート',
   personalized_home_page: 'カスタマイズ',
@@ -581,9 +582,12 @@ export default {
 
   principal: '担当者名',
   principal_tell: '担当者連絡先TELL',
-  principal_mall: '担当者連絡先Mail',
+  principal_mail: '担当者連絡先Mail',
   contract_start_date: '契約開始時間',
   contract_end_date: '契約終了時間',
+  company_address: '会社住所',
+  site_list: '店舗リスト',
+  account_list: 'アカウントリスト',
 
   hava_to_choose_a_site: '一つ以上の店舗を選択してください',
   starttime_is_greater_than_endtime: '開始時間は終了時間より大きいです'
