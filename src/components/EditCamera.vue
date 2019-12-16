@@ -4,7 +4,7 @@
                v-if="dialogVisible"
                :visible.sync="dialogVisible"
                :close-on-click-modal="false"
-               width="70%">
+               width="60%">
       <el-tabs v-model="activeName">
         <el-tab-pane :label="$t('flow_device')" name="device">
           <el-row :gutter="20">
@@ -13,6 +13,7 @@
                        :rules="rules"
                        ref=modifyForm
                        label-width="150px"
+                       size="small"
                        class="demo-modifyForm">
                 <el-form-item :label="$t('mall')" prop="MallId">
                   <el-select v-model.trim="modifyForm.MallId"
@@ -65,6 +66,7 @@
               <el-table
                 :data="zoneTableData"
                 border
+                size="small"
                 style="width: 100%">
                 <el-table-column
                   prop="Zone"
@@ -75,7 +77,6 @@
                   :label="$t('zone_class')">
                 </el-table-column>
                 <el-table-column
-                  fixed="right"
                   :label="$t('status')">
                   <template slot-scope="scope">
                     <el-tag size="medium" :type="scope.row.Enabled ===1?'success':'danger'">
@@ -84,7 +85,6 @@
                   </template>
                 </el-table-column>
                 <el-table-column
-                  fixed="right"
                   :label="$t('operation')"
                   width="180">
                   <template slot-scope="scope">
@@ -120,11 +120,12 @@
                v-if="cameraZoneDialogVisible"
                :visible.sync="cameraZoneDialogVisible"
                :close-on-click-modal="false"
-               width="70%">
+               width="60%">
       <el-form :model="zoneForm"
                :rules="zoneRules"
                ref=zoneForm
                label-width="120px"
+               size="small"
                class="demo-zoneForm">
         <el-form-item :label="$t('zone_code')"
                       prop="Zone">

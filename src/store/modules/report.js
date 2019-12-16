@@ -75,6 +75,9 @@ export default {
         if (payload.deviceIds) {
           location['DeviceIds'] = payload.deviceIds
         }
+        if (payload.ZoneType) {
+          location['ZoneType'] = payload.ZoneType
+        }
         st = moment(st).format('YYYY-MM-DD')
         et = moment(et).format('YYYY-MM-DD')
         let startTime = payload.startTime ? payload.startTime : ''

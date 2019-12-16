@@ -73,7 +73,6 @@ import RelatedUserMall from '@/components/RelatedUserMall'
 import _ from 'underscore'
 
 export default {
-  name: 'user_manager',
   data: () => ({
     // table
     HeaderSettings: false,

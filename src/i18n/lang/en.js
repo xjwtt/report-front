@@ -90,6 +90,9 @@ export default {
   face_data_maintain: 'FaceData MainTain',
   face_alarm_manage: 'FaceAlarmManage',
   face_alarm_record: 'FaceAlarmRecord',
+  customer_manager: 'CustomerManager',
+  export_table: 'ExportTable',
+  company_info: 'CompanyInfo',
 
   export: 'Export',
   personalized_home_page: 'Personalized',
@@ -536,6 +539,7 @@ export default {
   last_send_status: 'LastSendStatus',
   cron_expression: 'Cron Expression',
   device_type: 'Device Type',
+  camera_device_type: 'CameraDeviceType',
 
   zone_types: 'ZoneTypes',
   language_type: 'LanguageType',
@@ -577,6 +581,18 @@ export default {
 
   site_count: 'SiteCount',
   data_duplication: 'Data Duplication',
+
+  principal: 'Principal',
+  principal_tell: 'PrincipalTEll',
+  principal_mail: 'PrincipalMail',
+  contract_start_date: 'ContractStartDate',
+  contract_end_date: 'ContractEndDate',
+  company_address: 'CompanyAddress',
+  site_list: 'SiteList',
+  account_list: 'AccountList',
+  go_back: 'Go Back',
+  address: 'Address',
+  create_time: 'CreateTime',
 
   hava_to_choose_a_site: 'Hava to choose a site',
   starttime_is_greater_than_endtime: 'StartTime Is Greater Than EndTime'

@@ -3,7 +3,7 @@
              v-if="dialogVisible"
              :visible.sync="dialogVisible"
              :close-on-click-modal="false"
-             width="70%">
+             width="60%">
     <template>
       <el-row :gutter="20">
         <el-col :span="14">
@@ -11,6 +11,7 @@
                    :rules="rules"
                    ref=modifyForm
                    label-width="150px"
+                   size="small"
                    class="demo-modifyForm">
             <el-form-item :label="$t('mall')" prop="MallId">
               <el-select v-model.trim="modifyForm.MallId"
@@ -63,7 +64,7 @@
           class="dialog-footer">
       <el-button type="primary"
                  @click="submitForm('modifyForm')">{{$t('ok')}}</el-button>
-      <el-button @click="cameraZoneDialogVisible = false">{{$t('cancel')}}</el-button>
+      <el-button @click="dialogVisible = false">{{$t('cancel')}}</el-button>
     </span>
   </el-dialog>
 </template>

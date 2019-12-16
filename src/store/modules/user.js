@@ -34,6 +34,9 @@ export default {
     },
     async saveMalls (context, payload) {
       return ajax.post('/system/saveUserMalls.action', payload.data)
+    },
+    async selectUserByCompanyId (context, payload) {
+      return ajax.post('/system/selectUserByCompanyId.action', payload.data)
     }
   }
 }

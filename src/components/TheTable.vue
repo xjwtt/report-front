@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-button @click="exportExcel">{{$t('export')}}</el-button>
+    <el-button @click="exportExcel" style="margin-bottom: 5px">{{$t('export')}}</el-button>
     <el-table id="table"
               :data="data"
               :max-height="maxHeight"

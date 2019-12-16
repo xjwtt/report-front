@@ -12,7 +12,7 @@
             <el-form :model="modifyForm"
                      :rules="rules"
                      ref=modifyForm
-                     label-width="150px">
+                     label-width="100px">
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('mall')" prop="MallId">
@@ -51,7 +51,7 @@
                     </el-date-picker>
                   </el-form-item>
                 </el-col>
-                <el-col :span="2">
+                <el-col :span="4">
                   <el-button type="primary" @click="queryData('modifyForm')">{{$t('query')}}</el-button>
                 </el-col>
               </el-row>
@@ -69,6 +69,7 @@
 
 <script>
 import Vue from 'vue'
+import moment from 'moment'
 
 const modifyForm = () => {
   return {
@@ -125,12 +126,15 @@ export default {
     async queryData (formName) {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
+          this.query['Did'] = this.modifyForm['DeviceId']
+          this.query['Date'] = moment(this.modifyForm['Date']).format('YYYY-MM-DD')
           let rep = await this.$store.dispatch({
-            type: 'faceAlarm/getFaceDeviceByMallId',
-            data: {Did: formName.DeviceId}
+            type: 'faceAlarm/gridFaceAlarmRecord',
+            data: this.query
           })
           this.tableShow = true
-          this.data = rep
+          this.data = rep.list
+          this.total = rep.total
         }
       })
     }
