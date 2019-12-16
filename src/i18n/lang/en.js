@@ -589,6 +589,9 @@ export default {
   company_address: 'CompanyAddress',
   site_list: 'SiteList',
   account_list: 'AccountList',
+  go_back: 'Go Back',
+  address: 'Address',
+  create_time: 'CreateTime',
 
   hava_to_choose_a_site: 'Hava to choose a site',
   starttime_is_greater_than_endtime: 'StartTime Is Greater Than EndTime'

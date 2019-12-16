@@ -588,6 +588,9 @@ export default {
   company_address: '公司地址',
   site_list: '案场列表',
   account_list: '账户列表',
+  go_back: '返回',
+  address: '地址',
+  create_time: '创建时间',
 
   hava_to_choose_a_site: '必须选择一个案场',
   starttime_is_greater_than_endtime: '开始时间比结束时间大'

@@ -31,6 +31,9 @@ export default {
     },
     async selectCompanyMallByMallid (context, payload) {
       return ajax.post('/business/selectCompanyMallByMallid.action', payload.data)
+    },
+    async selectMallByCompanyId (context, payload) {
+      return ajax.post('/business/selectMallByCompanyId.action', payload.data)
     }
   }
 }

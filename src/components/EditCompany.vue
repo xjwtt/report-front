@@ -13,49 +13,55 @@
                    label-width="150px"
                    size="small"
                    class="demo-modifyForm">
-            <el-form-item :label="$t('company_name')"
-                          prop="Name">
-              <el-input v-model.trim="modifyForm.Name"></el-input>
-            </el-form-item>
-            <el-form-item :label="$t('company_address')" prop="CompanyAddress">
-              <el-input v-model.trim="modifyForm.CompanyAddress"></el-input>
-            </el-form-item>
-            <el-form-item :label="$t('principal')" prop="Principal">
-              <el-input v-model.trim="modifyForm.Principal"></el-input>
-            </el-form-item>
-            <el-form-item :label="$t('principal_tell')" prop="PrincipalTEll">
-              <el-input v-model.trim="modifyForm.PrincipalTEll"></el-input>
-            </el-form-item>
-            <el-form-item :label="$t('principal_mail')" prop="PrincipalMail">
-              <el-input v-model.trim="modifyForm.PrincipalMail"></el-input>
-            </el-form-item>
-            <el-form-item :label="$t('contract_end_date')"
-                          prop="ContractEndDate">
-              <el-date-picker v-model="dateRange"
-                              type="daterange"
-                              :clearable="false"
-                              range-separator="-"
-                              :start-placeholder="$t('start_date')"
-                              :end-placeholder="$t('end_date')">
-              </el-date-picker>
-            </el-form-item>
-            <el-form-item :label="$t('type')" prop="ShowLogo">
-              <el-input v-model.trim="modifyForm.Type"></el-input>
-            </el-form-item>
-            <el-form-item :label="$t('logo')" prop="ShowLogo">
-              <el-input v-model.trim="modifyForm.ShowLogo"></el-input>
-            </el-form-item>
-            <el-form-item :label="$t('secondary_domain')" prop="SecondaryDomain">
-              <el-input v-model.trim="modifyForm.SecondaryDomain"></el-input>
-            </el-form-item>
-            <el-form-item :label="$t('background_image')" prop="BackgroundImg">
-              <el-input v-model.trim="modifyForm.BackgroundImg"></el-input>
-            </el-form-item>
-            <el-form-item :label="$t('is_enabled')"
-                          prop="Status">
-              <el-radio v-model="modifyForm.Status" :label="1">{{$t('start_using')}}</el-radio>
-              <el-radio v-model="modifyForm.Status" :label="-1">{{$t('block_up')}}</el-radio>
-            </el-form-item>
+            <el-tabs v-model="activeName">
+              <el-tab-pane :label="$t('base')" name="base">
+                <el-form-item :label="$t('company_name')"
+                              prop="Name">
+                  <el-input v-model.trim="modifyForm.Name"></el-input>
+                </el-form-item>
+                <el-form-item :label="$t('logo')" prop="ShowLogo">
+                  <el-input v-model.trim="modifyForm.ShowLogo"></el-input>
+                </el-form-item>
+                <el-form-item :label="$t('secondary_domain')" prop="SecondaryDomain">
+                  <el-input v-model.trim="modifyForm.SecondaryDomain"></el-input>
+                </el-form-item>
+                <el-form-item :label="$t('background_image')" prop="BackgroundImg">
+                  <el-input v-model.trim="modifyForm.BackgroundImg"></el-input>
+                </el-form-item>
+                <el-form-item :label="$t('is_enabled')"
+                              prop="Status">
+                  <el-radio v-model="modifyForm.Status" :label="1">{{$t('start_using')}}</el-radio>
+                  <el-radio v-model="modifyForm.Status" :label="-1">{{$t('block_up')}}</el-radio>
+                </el-form-item>
+              </el-tab-pane>
+              <el-tab-pane :label="$t('otherMessage')" name="otherMessage">
+                <el-form-item :label="$t('company_address')" prop="CompanyAddress">
+                  <el-input v-model.trim="modifyForm.CompanyAddress"></el-input>
+                </el-form-item>
+                <el-form-item :label="$t('principal')" prop="Principal">
+                  <el-input v-model.trim="modifyForm.Principal"></el-input>
+                </el-form-item>
+                <el-form-item :label="$t('principal_tell')" prop="PrincipalTEll">
+                  <el-input v-model.trim="modifyForm.PrincipalTEll"></el-input>
+                </el-form-item>
+                <el-form-item :label="$t('principal_mail')" prop="PrincipalMail">
+                  <el-input v-model.trim="modifyForm.PrincipalMail"></el-input>
+                </el-form-item>
+                <el-form-item :label="$t('contract_end_date')"
+                              prop="ContractEndDate">
+                  <el-date-picker v-model="dateRange"
+                                  type="daterange"
+                                  :clearable="false"
+                                  range-separator="-"
+                                  :start-placeholder="$t('start_date')"
+                                  :end-placeholder="$t('end_date')">
+                  </el-date-picker>
+                </el-form-item>
+                <el-form-item :label="$t('type')" prop="ShowLogo">
+                  <el-input v-model.trim="modifyForm.Type"></el-input>
+                </el-form-item>
+              </el-tab-pane>
+            </el-tabs>
           </el-form>
         </el-col>
       </el-row>
@@ -71,6 +77,7 @@
 
 <script>
 import moment from 'moment'
+
 const defaultForm = () => {
   return {
     Name: '',
@@ -94,6 +101,7 @@ export default {
       dialogVisible: false,
       modifyForm: defaultForm(),
       dateRange: [moment(), moment()],
+      activeName: 'base',
       rules: {
         Name: [
           {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
@@ -104,6 +112,7 @@ export default {
   methods: {
     show (form) {
       this.dialogVisible = true
+      this.activeName = 'base'
       this.$nextTick(() => {
         this.$refs['modifyForm'].resetFields()
       })

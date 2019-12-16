@@ -72,7 +72,6 @@ export default {
       {title: 'company_name', field: 'CompanyName', thComp: 'th-filter', sortable: true},
       {title: 'mall_name', field: 'Name', thComp: 'th-filter', sortable: true},
       {title: 'timezone', field: 'TimeZone', thComp: 'th-filter', sortable: true},
-      {title: 'mall_position', field: 'MallLocation', thComp: 'th-filter', sortable: true},
       {title: 'mall_code', field: 'MallCode', thComp: 'th-filter', sortable: true},
       {title: 'clerk_number', field: 'ClerkNumber', thComp: 'th-i18n', sortable: true},
       {title: 'operation_acreage', field: 'OperationAcreage', thComp: 'th-i18n', sortable: true},

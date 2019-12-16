@@ -30,7 +30,6 @@ import _ from 'underscore'
 import FileSaver from 'file-saver'
 
 export default {
-  name: 'BaseBigdataTable',
   props: {
     fixedCol: {
       type: Number,

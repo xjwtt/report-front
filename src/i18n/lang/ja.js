@@ -588,6 +588,9 @@ export default {
   company_address: '会社住所',
   site_list: '店舗リスト',
   account_list: 'アカウントリスト',
+  go_back: '戻る',
+  address: '住所',
+  create_time: '設置日',
 
   hava_to_choose_a_site: '一つ以上の店舗を選択してください',
   starttime_is_greater_than_endtime: '開始時間は終了時間より大きいです'
