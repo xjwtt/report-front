@@ -539,6 +539,7 @@ export default {
   last_send_status: 'LastSendStatus',
   cron_expression: 'Cron Expression',
   device_type: 'Device Type',
+  camera_device_type: 'CameraDeviceType',
 
   zone_types: 'ZoneTypes',
   language_type: 'LanguageType',

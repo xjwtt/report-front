@@ -538,6 +538,7 @@ export default {
   last_send_status: '送信ステータス',
   cron_expression: '時刻表式',
   device_type: 'デバイスタイプ',
+  camera_device_type: 'ゲストデバイスタイプ',
 
   zone_types: 'ゾーンタイプ',
   language_type: '言語タイプ',

@@ -538,6 +538,7 @@ export default {
   last_send_status: '最后发送状态',
   cron_expression: '时间表达式',
   device_type: '设备类型',
+  camera_device_type: '客流设备类型',
 
   zone_types: '物理区域类型',
   language_type: '语言类型',
