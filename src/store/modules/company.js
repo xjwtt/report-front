@@ -16,6 +16,9 @@ export default {
     },
     async selectCompany (context, payload) {
       return ajax.get('/business/selectCompany.action')
+    },
+    async companyInfo (context, payload) {
+      return ajax.get('/business/companyInfo.action')
     }
   }
 }

@@ -23,8 +23,8 @@ export default {
     async deleteBusinessTime (context, payload) {
       return ajax.post('/business/deleteBusinessTime.action', payload.data)
     },
-    async deleteBusinessTimeByBusinessTimeIdAndMallId (context, payload) {
-      return ajax.post('/business/deleteBusinessTimeByBusinessTimeIdAndMallId.action', payload.data)
+    async deleteBusinessTimeByIds (context, payload) {
+      return ajax.post('/business/deleteBusinessTimeByIds.action', payload.data)
     }
   }
 }

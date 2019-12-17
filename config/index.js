@@ -12,9 +12,9 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '**/*.action': {
-        target: 'http://global.iretailer.net', // 接口的域名
-        // target: 'http://47.106.173.42:81', // 接口的域名
-        // target: 'http://localhost:88', // 接口的域名
+        // target: 'http://global.iretailer.net', // 接口的域名
+        // target: 'http://reportv3.iretailer.net', // 接口的域名
+        target: 'http://localhost:88', // 接口的域名
         changeOrigin: true // 如果接口跨域，需要进行这个参数配置
       }
     },

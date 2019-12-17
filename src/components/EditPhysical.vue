@@ -3,7 +3,7 @@
              v-if="dialogVisible"
              :visible.sync="dialogVisible"
              :close-on-click-modal="false"
-             width="70%">
+             width="60%">
     <template>
       <el-row :gutter="20">
         <el-col :span="14">
@@ -11,6 +11,7 @@
                    :rules="rules"
                    ref=modifyForm
                    label-width="150px"
+                   size="small"
                    class="demo-modifyForm">
             <el-form-item :label="$t('physical_name')"
                           prop="Name">

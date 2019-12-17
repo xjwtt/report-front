@@ -87,6 +87,12 @@ export default {
   send_data_regularly: 'データ送信設定',
   task_manager: 'タスク設定',
   category_manager: 'カテゴリ管理',
+  face_data_maintain: '顔データのメンテナンス',
+  face_alarm_manage: '警報設備関連',
+  face_alarm_record: '警報記録の照会',
+  customer_manager: 'アカウント管理',
+  export_table: '表をエクスポート',
+  company_info: '会社情報',
 
   export: 'エクスポート',
   personalized_home_page: 'カスタマイズ',
@@ -532,6 +538,7 @@ export default {
   last_send_status: '送信ステータス',
   cron_expression: '時刻表式',
   device_type: 'デバイスタイプ',
+  camera_device_type: 'ゲストデバイスタイプ',
 
   zone_types: 'ゾーンタイプ',
   language_type: '言語タイプ',
@@ -573,6 +580,18 @@ export default {
 
   site_count: '店舗数',
   data_duplication: 'データの繰り返し',
+
+  principal: '担当者名',
+  principal_tell: '担当者連絡先TELL',
+  principal_mail: '担当者連絡先Mail',
+  contract_start_date: '契約開始時間',
+  contract_end_date: '契約終了時間',
+  company_address: '会社住所',
+  site_list: '店舗リスト',
+  account_list: 'アカウントリスト',
+  go_back: '戻る',
+  address: '住所',
+  create_time: '設置日',
 
   hava_to_choose_a_site: '一つ以上の店舗を選択してください',
   starttime_is_greater_than_endtime: '開始時間は終了時間より大きいです'

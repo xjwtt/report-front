@@ -62,5 +62,9 @@ export const allRouters = {
   category_manager: () => import('@/views/category_manager'),
   face_grid: () => import('@/views/face_grid'),
   face_match_grid: () => import('@/views/face_match_grid'),
-  eas_device_alarm_analysis: () => import('@/views/eas_device_alarm_analysis')
+  eas_device_alarm_analysis: () => import('@/views/eas_device_alarm_analysis'),
+  face_alarm_manage: () => import('@/views/face_alarm_manage'),
+  face_alarm_record: () => import('@/views/face_alarm_record'),
+  export_table: () => import('@/views/export_table'),
+  company_info: () => import('@/views/company_info')
 }

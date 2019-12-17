@@ -292,7 +292,8 @@ export default {
         if (valid) {
           await this.$store.dispatch({type: 'user/userSetting', data: this.settingModifyForm})
           this.settingDialogVisible = false
-          await this.$store.dispatch({type: 'app/getUserInfo', data: this.loginForm})
+          // await this.$store.dispatch({type: 'app/getUserInfo', data: this.loginForm})
+          location.reload()
           this.$message.success(this.$t('success'))
         }
       })

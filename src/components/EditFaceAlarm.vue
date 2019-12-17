@@ -13,30 +13,48 @@
                    label-width="150px"
                    size="small"
                    class="demo-modifyForm">
-            <el-form-item :label="$t('parent_name')"
-                          prop="ParentName">
-              <el-input :value="this.$t(parentName)" :disabled="true"></el-input>
+            <el-form-item :label="$t('mall')" prop="MallId">
+              <el-select v-model.trim="modifyForm.MallId"
+                         filterable
+                         placeholder="...">
+                <el-option v-for="item in malls"
+                           :key="item.Id"
+                           :label="item.Name"
+                           :value="item.Id">
+                </el-option>
+              </el-select>
             </el-form-item>
             <el-form-item :label="$t('name')"
                           prop="Name">
               <el-input v-model.trim="modifyForm.Name"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('page_url')"
-                          prop="PageUrl">
-              <el-input v-model.trim="modifyForm.PageUrl"></el-input>
+            <el-form-item :label="$t('start_time')"
+                          prop="StartTime">
+              <el-time-select
+                v-model="modifyForm.StartTime"
+                :picker-options="{
+                    start: '00:00',
+                    step: '00:01',
+                    end: '23:59'
+                  }"
+                placeholder="Selete Time">
+              </el-time-select>
             </el-form-item>
-            <el-form-item :label="$t('ranked')"
-                          prop="Ranked">
-              <el-input-number v-model.trim="modifyForm.Ranked"></el-input-number>
+            <el-form-item :label="$t('end_time')"
+                          prop="EndTime">
+              <el-time-select
+                v-model="modifyForm.EndTime"
+                :picker-options="{
+                    start: '00:00',
+                    step: '00:01',
+                    end: '23:59'
+                  }"
+                placeholder="Selete Time">
+              </el-time-select>
             </el-form-item>
             <el-form-item :label="$t('description')"
                           prop="Description">
               <el-input v-model.trim="modifyForm.Description"></el-input>
-            </el-form-item>
-            <el-form-item :label="$t('is_enabled')"
-                          prop="Visible">
-              <el-radio v-model="modifyForm.Visible" :label="1">{{$t('start_using')}}</el-radio>
-              <el-radio v-model="modifyForm.Visible" :label="-1">{{$t('block_up')}}</el-radio>
             </el-form-item>
           </el-form>
         </el-col>
@@ -52,24 +70,33 @@
 </template>
 
 <script>
+import moment from 'moment'
+
 const defaultForm = () => {
-  return {ParentId: '', Name: '', PageUrl: '', Ranked: 0, Description: '', Visible: 1}
+  return {
+    Id: 0,
+    MallId: '',
+    Name: '',
+    StartTime: '',
+    EndTime: '',
+    Ranked: 0,
+    Description: ''
+  }
 }
 export default {
-  name: 'EditMenu',
   data () {
     return {
       dialogVisible: false,
-      modifyForm: defaultForm(),
-      parentName: '',
+      modifyForm: null,
+      malls: null,
       rules: {
-        Name: [
+        MallId: [
           {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
         ],
-        PageUrl: [
+        StartTime: [
           {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
         ],
-        Ranked: [
+        EndTime: [
           {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
         ]
       }
@@ -77,30 +104,33 @@ export default {
   },
   methods: {
     show (form) {
+      this.selectCompanyMall()
       this.dialogVisible = true
       this.$nextTick(() => {
         this.$refs['modifyForm'].resetFields()
       })
-      if (form.ParentId) {
-        this.selectMenutById(form.ParentId)
-      }
       this.modifyForm = form ? Object.assign({}, form) : defaultForm()
+    },
+    async selectCompanyMall () {
+      let rep = await this.$store.dispatch({type: 'mall/selectCompanyMall'})
+      this.malls = rep
     },
     async submitForm (formName) {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
-          await this.$store.dispatch({type: 'menu/saveOrUpdateMenu', data: this.modifyForm})
+          let startTime = moment(this.modifyForm.StartTime, 'HH:mm')
+          let endTime = moment(this.modifyForm.EndTime, 'HH:mm')
+          if (startTime.isAfter(endTime)) {
+            this.$message.error(this.$t('starttime_is_greater_than_endtime'))
+            return
+          }
+          this.modifyForm.StartTime = startTime.format('HH:mm:ss')
+          this.modifyForm.EndTime = endTime.format('HH:mm:ss')
+          await this.$store.dispatch({type: 'faceAlarm/saveOrUpdateFaceAlarm', data: this.modifyForm})
           this.dialogVisible = false
           this.$emit('handleQueryChange')
-          this.$emit('userMenuTree')
-        } else {
-          this.$message.error(this.$t('incorrect_parameter'))
         }
       })
-    },
-    async selectMenutById (id) {
-      let rep = await this.$store.dispatch({type: 'menu/selectMenutById', data: {id: id}})
-      this.parentName = rep.Name
     }
   }
 }

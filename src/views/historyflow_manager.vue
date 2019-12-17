@@ -2,8 +2,10 @@
   <div class="config-page">
     <el-card class="box-card"
              style="flex:auto">
-      <div>
-        <span>{{$t('historyflow_manager')}}</span>
+        <div slot="header"
+             class="clearfix">
+          <span>{{$t('historyflow_manager')}}</span>
+        </div>
         <template>
           <el-row>
             <el-col :span="18">
@@ -123,7 +125,6 @@
             </el-col>
           </el-row>
         </template>
-      </div>
     </el-card>
     <el-dialog :title="$t('prompt')"
                :visible.sync="changeDialogVisible"
