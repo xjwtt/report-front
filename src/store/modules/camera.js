@@ -16,6 +16,9 @@ export default {
     },
     async userCameraStatus (context, payload) {
       return ajax.post('/business/userCameraStatus.action', payload.data)
+    },
+    async getCameraTypeCount (context, payload) {
+      return ajax.post('/business/getCameraTypeCount.action', payload.data)
     }
   }
 }

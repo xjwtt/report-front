@@ -26,6 +26,16 @@
                     </el-option>
                   </el-select>
                 </el-form-item>
+                <el-form-item :label="$t('camera_device_type')"
+                              prop="DeviceType">
+                  <el-select v-model.trim="modifyForm.DeviceType">
+                    <el-option v-for="item in cameraDeviceTypes"
+                               :key="item.Id"
+                               :label="item.Name"
+                               :value="item.KeyName">
+                    </el-option>
+                  </el-select>
+                </el-form-item>
                 <el-form-item :label="$t('device_id')"
                               prop="DeviceId">
                   <el-input v-model.trim="modifyForm.DeviceId"></el-input>
@@ -165,6 +175,7 @@ const defaultForm = () => {
     Id: '',
     DeviceId: '',
     DeviceName: '',
+    DeviceType: '',
     Position: '',
     IpAddress: '',
     SerialNumber: '',
@@ -185,11 +196,15 @@ export default {
       activeName: 'device',
       dialogVisible: false,
       modifyForm: defaultForm(),
+      cameraDeviceTypes: [],
       rules: {
         MallId: [
           {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
         ],
         DeviceId: [
+          {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
+        ],
+        DeviceType: [
           {required: true, message: this.$t('please_fill_in_the_value'), trigger: 'blur'}
         ]
       },
@@ -211,6 +226,7 @@ export default {
       this.dialogVisible = true
       this.activeName = 'device'
       this.selectCompanyMall()
+      this.selectCategoryByKeyName()
       this.$nextTick(() => {
         this.$refs['modifyForm'].resetFields()
       })
@@ -305,6 +321,13 @@ export default {
           this.$message.error(this.$t('incorrect_parameter'))
         }
       })
+    },
+    async selectCategoryByKeyName () {
+      let rep = await this.$store.dispatch({
+        type: 'category/selectCategoryByKeyName',
+        data: {KeyName: 'CameraDeviceType'}
+      })
+      this.cameraDeviceTypes = rep
     }
   }
 }

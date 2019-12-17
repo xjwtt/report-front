@@ -38,18 +38,23 @@
       <the-table :fields=tableHeader
                  :data=this.malls
                  :maxHeight="500"
-                 :export-name="'store_report'"></the-table>
+                 :export-name="'site_info'"></the-table>
     </div>
   </div>
 </template>
 
 <script>
+import _ from 'underscore'
+
 export default {
   props: {
     company: {
       type: Array
     },
     malls: {
+      type: Array
+    },
+    cameraDeviceTypes: {
       type: Array
     }
   },
@@ -112,6 +117,15 @@ export default {
         sortable: false,
         formatter: (row, col) => row['ContractEndDate']
       }]
+      _.each(this.cameraDeviceTypes, (v) => {
+        headers.push({
+          width: 100,
+          prop: v.Data,
+          label: v.Data,
+          sortable: false,
+          formatter: (row, col) => row[v.Data]
+        })
+      })
       return headers
     }
   },
