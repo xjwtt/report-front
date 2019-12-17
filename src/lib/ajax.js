@@ -8,6 +8,7 @@ const t = key => i18n.t(key)
 const ajax = axios.create({
   timeout: 10000
 })
+// 请求拦截
 ajax.interceptors.request.use(
   function (config) {
     if (!config.skipInterceptors) {
@@ -20,6 +21,7 @@ ajax.interceptors.request.use(
   }
 )
 
+// 响应拦截
 ajax.interceptors.response.use(
   respon => {
     if (respon.config.loading) {
