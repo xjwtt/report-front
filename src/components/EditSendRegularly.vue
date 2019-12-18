@@ -54,6 +54,7 @@
               <el-form :model="serverConfig"
                        :rules="rules"
                        ref=modifyForm
+                       size="small"
                        label-width="150px"
                        class="demo-modifyForm">
                 <el-form-item :label="$t('server_type')"
@@ -84,6 +85,17 @@
                               prop="Port">
                   <el-input v-model.trim="serverConfig.Port"></el-input>
                 </el-form-item>
+                <el-form-item v-if="serverConfig.ServerType === 'FTP' || serverConfig.ServerType === 'FTPS'"
+                              label="WorkMode"
+                              prop="WorkMode">
+                  <el-select v-model.trim="serverConfig.WorkMode" filterable>
+                    <el-option v-for="item in WorkModes"
+                               :key="item.Id"
+                               :label="item.Id"
+                               :value="item.Id">
+                    </el-option>
+                  </el-select>
+                </el-form-item>
                 <el-form-item v-if="serverConfig.ServerType === 'HTTP'"
                               label="Path"
                               prop="Path">
@@ -107,7 +119,7 @@
                 <el-form-item v-if="serverConfig.ServerType !== 'HTTP'"
                               :label="$t('directory')"
                               prop="Directory">
-                  <el-input v-model.trim="serverConfig.directory"></el-input>
+                  <el-input v-model.trim="serverConfig.Directory"></el-input>
                 </el-form-item>
               </el-form>
             </el-col>
@@ -138,13 +150,27 @@ const cronTypes = () => {
   return [{Id: '5m'}, {Id: '10m'}, {Id: '15m'}, {Id: '30m'}, {Id: '1h'}, {Id: '1d'}]
 }
 const defaultServerConfig = () => {
-  return {ServerType: 'HTTP'}
+  return {
+    ServerType: 'HTTP',
+    FileType: 'csv',
+    Host: '',
+    Port: '',
+    WorkMode: 'passive',
+    Path: '',
+    UserName: '',
+    Password: '',
+    PrivateKey: '',
+    Directory: ''
+  }
 }
 const serverTypes = () => {
   return [{Id: 'HTTP'}, {Id: 'FTP'}, {Id: 'FTPS'}, {Id: 'SFTP'}]
 }
 const fileTypes = () => {
   return [{Id: 'csv'}, {Id: 'txt'}]
+}
+const workModes = () => {
+  return [{Id: 'active'}, {Id: 'passive'}]
 }
 export default {
   name: 'EditUser',
@@ -173,6 +199,7 @@ export default {
       CronTypes: cronTypes(),
       ServerTypes: serverTypes(),
       FileTypes: fileTypes(),
+      WorkModes: workModes(),
       serverConfig: null
     }
   },
@@ -199,7 +226,6 @@ export default {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
           this.modifyForm.ConfigureMessage = JSON.stringify(this.serverConfig)
-
           await this.$store.dispatch({type: 'senddataregularly/saveOrUpdateSendRegularly', data: this.modifyForm})
           this.dialogVisible = false
           this.$emit('handleQueryChange')
