@@ -147,7 +147,7 @@ const defaultForm = () => {
   }
 }
 const cronTypes = () => {
-  return [{Id: '5m'}, {Id: '10m'}, {Id: '15m'}, {Id: '30m'}, {Id: '1h'}, {Id: '1d'}]
+  return [{Id: '5m'}, {Id: '10m'}, {Id: '15m'}, {Id: '30m'}, {Id: '60m'}, {Id: '1d'}]
 }
 const defaultServerConfig = () => {
   return {
