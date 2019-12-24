@@ -594,5 +594,7 @@ export default {
   create_time: '設置日',
 
   hava_to_choose_a_site: '一つ以上の店舗を選択してください',
-  starttime_is_greater_than_endtime: '開始時間は終了時間より大きいです'
+  starttime_is_greater_than_endtime: '開始時間は終了時間より大きいです',
+  send_mail: 'メールを送る',
+  send: '送信'
 }

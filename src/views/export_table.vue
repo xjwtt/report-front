@@ -5,7 +5,7 @@
                style="flex:auto">
         <div slot="header"
              class="clearfix">
-          <span>{{$t('export_manager')}}</span>
+          <span>{{$t('export_table')}}</span>
         </div>
         <template>
           <el-col :span="18">

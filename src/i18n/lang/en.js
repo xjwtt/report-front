@@ -595,5 +595,7 @@ export default {
   create_time: 'CreateTime',
 
   hava_to_choose_a_site: 'Hava to choose a site',
-  starttime_is_greater_than_endtime: 'StartTime Is Greater Than EndTime'
+  starttime_is_greater_than_endtime: 'StartTime Is Greater Than EndTime',
+  send_mail: 'SendMail',
+  send: 'Send'
 }
