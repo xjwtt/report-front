@@ -5,10 +5,10 @@
       <el-form :model="loginForm"
                ref="loginForm"
                :rules="loginRules">
-        <!--        <el-form-item prop="CompanyName">-->
-        <!--          <el-input v-model="loginForm.CompanyName"-->
-        <!--                    :placeholder="$t('company_name')"></el-input>-->
-        <!--        </el-form-item>-->
+        <el-form-item prop="CompanyName">
+          <el-input v-model="loginForm.CompanyName"
+                    :placeholder="$t('company_name')"></el-input>
+        </el-form-item>
         <el-form-item prop="UserName">
           <el-input v-model="loginForm.UserName"
                     :placeholder="$t('user_name')"></el-input>
@@ -34,14 +34,14 @@ export default {
   data () {
     return {
       loginForm: {
-        // CompanyName: '',
+        CompanyName: '',
         UserName: '',
         UserPass: ''
       },
       loginRules: {
-        // CompanyName: [
-        //   {required: true, message: this.$t('company_name'), trigger: 'blur'}
-        // ],
+        CompanyName: [
+          {required: true, message: this.$t('company_name'), trigger: 'blur'}
+        ],
         UserName: [
           {required: true, message: this.$t('user_name'), trigger: 'blur'}
         ],
@@ -57,7 +57,7 @@ export default {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
           let loading = this.$loading({fullscreen: true})
-          // this.loginForm['loginType'] = 'Company'
+          this.loginForm['loginType'] = 'Company'
           if (await this.$store.dispatch({type: 'app/login', data: this.loginForm})) {
             await this.$store.dispatch({type: 'app/getUserInfo', data: this.loginForm})
             this.$router.replace('/')
@@ -117,8 +117,7 @@ export default {
 
   .loginForm {
     width: 350px;
-    /*height: 300px;*/
-    height: 230px;
+    height: 300px;
     padding: 30px 30px 0 30px;
     margin-top: 50px;
     text-align: center;

@@ -50,7 +50,7 @@
                       size="mini">
         <el-radio-button :label="'Enter'">{{$t('enter')}}</el-radio-button>
         <el-radio-button :label="'Exit'">{{$t('exit')}}</el-radio-button>
-        <!--        <el-radio-button :label="'Stay'">{{$t('stay')}}</el-radio-button>-->
+        <el-radio-button :label="'Stay'">{{$t('stay')}}</el-radio-button>
       </el-radio-group>
       <chart style="width:100%"
              :autoResize="true"
@@ -227,7 +227,6 @@ export default {
             et: compareEndDate
           }
         })
-        // console.log(this.data)
       } else {
         this.$message.error(this.$t('time_interval_must_be_the_same'))
       }
