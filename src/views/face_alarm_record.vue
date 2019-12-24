@@ -149,6 +149,7 @@ export default {
     'modifyForm.MallId': {
       handler: function (newValue, OldValue) {
         this.getFaceDeviceByMallId(newValue)
+        this.modifyForm.DeviceId = ''
       },
       deep: true
     }

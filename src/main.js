@@ -30,7 +30,7 @@ import TrafficeTalbeCompareFast from './components/TrafficeTalbeCompareFast'
 import TrafficeBigdataTable from './components/TrafficeBigdataTable'
 import BaseBigdataTable from './components/BaseBigdataTable'
 import ZoneSelector from './components/ZoneSelector'
-import EasDeviceSelector from './components/EasDeviceSelector'
+import DeviceSelector from './components/DeviceSelector'
 
 Vue.config.productionTip = false
 
@@ -56,7 +56,7 @@ Vue.component('traffice-table-compare-fast', TrafficeTalbeCompareFast)
 Vue.component('traffice-bigdata-table', TrafficeBigdataTable)
 Vue.component('base-bigdata-table', BaseBigdataTable)
 Vue.component('zone-selector', ZoneSelector)
-Vue.component('eas-device-selector', EasDeviceSelector)
+Vue.component('device-selector', DeviceSelector)
 
 let asyncMain = async () => {
   await store.dispatch('app/getUserInfo')

@@ -1,7 +1,8 @@
 <template>
   <div class="report-page">
     <div class="report-page-card">
-      <single-mall-select ref="mallSelect"></single-mall-select>
+      <single-mall-select></single-mall-select>
+      <device-selector @executeQuery='executeQuery' ref=deviceSelector device-type="FaceDevice"></device-selector>
       <date-range-picker></date-range-picker>
       <el-button type="primary"
                  size="small"
@@ -48,7 +49,11 @@ export default {
   },
   methods: {
     async onQuery () {
-      this.query['MallId'] = this.$refs.mallSelect.mallId
+      let dids = this.$refs.deviceSelector.deviceSelected
+      this.executeQuery(dids)
+    },
+    async executeQuery (dids) {
+      this.query['Dids'] = dids
       this.query['StartDate'] = moment(this.dateRange[0]).format('YYYY-MM-DD')
       this.query['EndDate'] = moment(this.dateRange[1]).format('YYYY-MM-DD')
       let rep = await this.$store.dispatch({type: 'face/faceGrid', data: this.query})
@@ -65,11 +70,6 @@ export default {
       },
       deep: true
     }
-  },
-  activated () {
-    // time_保证每次进入页面都会获取最新数据 防止数据修改页面没有拿到最新数据
-    Vue.set(this.query, 'offset', 0)
-    this.query['time_'] = (new Date()).getTime()
   }
 }
 </script>
