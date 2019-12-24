@@ -64,9 +64,7 @@ export default {
   watch: {
     query: {
       handler (nValue) {
-        if (nValue.time_ !== 0) {
-          this.onQuery()
-        }
+        this.onQuery()
       },
       deep: true
     }
