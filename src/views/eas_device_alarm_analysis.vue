@@ -2,7 +2,7 @@
   <div class="report-page">
     <div class="report-page-card">
       <single-mall-select ref="singleMall"></single-mall-select>
-      <eas-device-selector @executeQuery='executeQuery' ref=easDeviceSelector></eas-device-selector>
+      <device-selector @executeQuery='executeQuery' ref=easDeviceSelector device-type="Eas"></device-selector>
       <interval-picker></interval-picker>
       <date-range-picker></date-range-picker>
       <el-button type="primary"

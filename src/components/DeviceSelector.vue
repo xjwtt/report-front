@@ -11,7 +11,7 @@
         {{$t(lableName)}}
       </label>
       <el-checkbox-group v-model="deviceSelected">
-        <el-checkbox v-for="device in easAlramDevice"
+        <el-checkbox v-for="device in device"
                      :label=device.Id
                      :key=device.Id>
           {{device.DeviceName}}
@@ -26,10 +26,16 @@ import {mapState} from 'vuex'
 import _ from 'underscore'
 
 export default {
+  props: {
+    deviceType: {
+      type: String,
+      required: true
+    }
+  },
   data () {
     return {
       lableName: 'eas_device',
-      easAlramDevice: [],
+      device: [],
       deviceSelected: []
     }
   },
@@ -37,17 +43,17 @@ export default {
     isIndeterminate: {
       get: function () {
         let selectLength = this.deviceSelected ? this.deviceSelected.length : 0
-        return selectLength > 0 && selectLength < this.easAlramDevice.length
+        return selectLength > 0 && selectLength < this.device.length
       }
     },
     checkAll: {
       get: function () {
         let select = this.deviceSelected ? this.deviceSelected.length : 0
-        let all = this.easAlramDevice ? this.easAlramDevice.length : 0
+        let all = this.device ? this.device.length : 0
         return select === all
       },
       set: function (value) {
-        this.deviceSelected = value ? _.map(this.easAlramDevice, _ => _.Id) : []
+        this.deviceSelected = value ? _.map(this.device, _ => _.Id) : []
       }
     },
     ...mapState('app', {
@@ -57,9 +63,9 @@ export default {
   watch: {
     selectedMall: {
       async handler (newValue, oldValue) {
-        let easAlarmDevice = newValue.EasAlarmDevice
-        this.easAlramDevice = [].concat(easAlarmDevice)
-        this.deviceSelected = [].concat(easAlarmDevice ? _.map(easAlarmDevice, _ => _.Id) : [])
+        let device = newValue.Device ? newValue.Device[this.deviceType] : []
+        this.device = [].concat(device)
+        this.deviceSelected = [].concat(device ? _.map(device, _ => _.Id) : [])
         if (!oldValue || oldValue.Id !== newValue.Id) {
           if (this.deviceSelected && this.deviceSelected.length > 0) {
             this.$emit('executeQuery', this.deviceSelected, newValue.Id)
