@@ -9,7 +9,8 @@
       <label slot="label">
         <el-checkbox v-if="activeType===key"
                      :indeterminate="isIndeterminate"
-                     v-model="checkAll"></el-checkbox>
+                     v-model="checkAll">
+        </el-checkbox>
         {{$t(key)}}
       </label>
       <el-checkbox-group v-model="zoneIds">
@@ -47,6 +48,9 @@ export default {
       get: function () {
         let selectLength = this.zoneIds.length
         return selectLength > 0 && selectLength < this.groupedZones[this.activeType].length
+      },
+      set: function (val) {
+        return val
       }
     },
     checkAll: {
@@ -54,7 +58,7 @@ export default {
         return this.zoneIds.length === this.groupedZones[this.activeType].length
       },
       set: function (value) {
-        this.$set(this.zoneSelected, this.activeType, value ? _.map(this.groupedZones[this.activeType], _ => _.Id) : [])
+        this.$set(this.zoneSelected, this.activeType, value ? [] : _.map(this.groupedZones[this.activeType], _ => _.Id))
       }
     },
     ...mapState('app', {
