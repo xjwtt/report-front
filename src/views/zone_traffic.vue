@@ -24,7 +24,7 @@
                       size="mini">
         <el-radio-button :label="'Enter'">{{$t('enter')}}</el-radio-button>
         <el-radio-button :label="'Exit'">{{$t('exit')}}</el-radio-button>
-        <el-radio-button :label="'Stay'">{{$t('stay')}}</el-radio-button>
+<!--        <el-radio-button :label="'Stay'">{{$t('stay')}}</el-radio-button>-->
       </el-radio-group>
       <chart :options="chartOption"
              style="width:100%"
@@ -58,7 +58,7 @@ export default {
     data: null,
     reportType: [1, 'DateTime'],
     chartType: 'Enter',
-    charTypes: ['Enter', 'Exit', 'Stay']
+    charTypes: ['Enter', 'Exit']
   }),
   methods: {
     ...mapActions('report', ['query']),
