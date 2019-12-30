@@ -73,6 +73,11 @@ export default {
         }
       }
     }
+  },
+  activated () {
+    let device = this.selectedMall.Device ? this.selectedMall.Device[this.deviceType] : []
+    this.device = [].concat(device)
+    this.deviceSelected = [].concat(device ? _.map(device, _ => _.Id) : [])
   }
 }
 </script>
