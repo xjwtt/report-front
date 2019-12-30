@@ -46,7 +46,7 @@ export default {
     data: null,
     reportType: [0, 'PeakGroup'],
     chartType: 'Enter',
-    dateFields: ['Enter', 'Exit', 'Stay']
+    dateFields: ['Enter', 'Exit']
   }),
   methods: {
     ...mapActions('report', ['query']),
