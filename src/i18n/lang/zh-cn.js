@@ -594,5 +594,8 @@ export default {
   create_time: '创建时间',
 
   hava_to_choose_a_site: '必须选择一个案场',
-  starttime_is_greater_than_endtime: '开始时间比结束时间大'
+  starttime_is_greater_than_endtime: '开始时间比结束时间大',
+  send_mail: '发送邮件',
+  send: '发送'
+
 }

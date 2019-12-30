@@ -50,9 +50,22 @@
         :label="$t('site_count')">
       </el-table-column>
       <el-table-column
+        :label="$t('send_mail')"
+        width="110">
+        <template slot-scope="scope">
+          <el-button
+            @click.native.prevent=""
+            type="text"
+            size="small">
+            {{$t('send')}}
+          </el-button>
+        </template>
+      </el-table-column>
+      <el-table-column
         fixed="right"
+        align="center"
         :label="$t('operation')"
-        width="140">
+        width="200">
         <template slot-scope="scope">
           <el-button
             @click.native.prevent="showSiteInfo(scope.row)"
