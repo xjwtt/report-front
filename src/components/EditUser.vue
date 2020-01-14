@@ -90,6 +90,7 @@ const defaultForm = () => {
     ParentId: '',
     RoleId: '',
     UserPwd: '',
+    conUserPwd: '',
     Language: 'zh-cn',
     Telephone: '',
     Email: ''
@@ -177,7 +178,10 @@ export default {
       })
     },
     async selectCategoryByKeyName () {
-      let rep = await this.$store.dispatch({type: 'category/selectCategoryByKeyName', data: {KeyName: 'LanguageType'}})
+      let rep = await this.$store.dispatch({
+        type: 'category/selectCategoryByKeyName',
+        data: {KeyName: 'LanguageType'}
+      })
       rep.forEach((v) => {
         v.Name = this.$t(v.Name)
       })
