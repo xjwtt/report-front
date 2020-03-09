@@ -38,6 +38,7 @@
 import _ from 'underscore'
 import FileSaver from 'file-saver'
 import XLSX from 'xlsx'
+import moment from 'moment'
 
 export default {
   name: 'TrafficeTable',
@@ -74,7 +75,7 @@ export default {
       /* get binary string as output */
       var wbout = XLSX.write(wb, {bookType: 'xlsx', bookSST: false, type: 'array'})
       try {
-        FileSaver.saveAs(new Blob([wbout], {type: 'application/octet-stream'}), 'exportExcel.xlsx')
+        FileSaver.saveAs(new Blob([wbout], {type: 'application/octet-stream'}), 'exportExcel' + moment().format('YYYYMMDDHHmmss') + '.xlsx')
       } catch (e) {
         if (typeof console !== 'undefined') console.log(e, wbout)
       }

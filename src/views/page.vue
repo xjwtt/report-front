@@ -8,7 +8,7 @@
         <nav-menu :menus="menus"></nav-menu>
       </div>
       <div>
-         <span style="color:#acacac"
+         <span style="color:#acacac;margin-right: 10px"
                @click="siteRegionShow()">{{selectedMalls.length}}/{{malls.length}} {{$t('site')}}
           <i :class="{'el-icon-arrow-down': !SiteRegionShow, 'el-icon-arrow-up': SiteRegionShow }"></i>
         </span>
@@ -97,6 +97,20 @@
             </div>
           </el-card>
         </el-dialog>
+        <el-dropdown class="user" trigger="click" @command="changeLanguage">
+            <span class="el-dropdown-link" style="color:#acacac;margin-right: 10px">
+              Language
+              <i class="el-icon-arrow-down el-icon--right"></i>
+            </span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item
+              v-for="item in languageTypes"
+              :key="item.KeyName"
+              :command="item.KeyName">
+              {{item.Name}}
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
         <el-dropdown class="user"
                      trigger="click"
                      @command="handleCommand">
@@ -261,7 +275,6 @@ export default {
           this.logOutDialogVisible = true
           break
         case 'userSetting':
-          this.selectCategoryByKeyName()
           let appState = this.$store.state.app
           this.settingModifyForm.Language = appState.language
           this.settingModifyForm.Email = appState.email
@@ -298,6 +311,15 @@ export default {
         }
       })
     },
+    async changeLanguage (command) {
+      let appState = this.$store.state.app
+      let post = {Language: appState.language, Email: appState.email, Telephone: appState.telephone}
+      if (command && command !== appState.language) {
+        post.Language = command
+        await this.$store.dispatch({type: 'user/userSetting', data: post})
+        location.reload()
+      }
+    },
     sureChangePwd (formName) {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
@@ -315,7 +337,10 @@ export default {
       })
     },
     async selectCategoryByKeyName () {
-      let rep = await this.$store.dispatch({type: 'category/selectCategoryByKeyName', data: {KeyName: 'LanguageType'}})
+      let rep = await this.$store.dispatch({
+        type: 'category/selectCategoryByKeyName',
+        data: {KeyName: 'LanguageType'}
+      })
       _.each(rep, (v) => {
         v.Name = this.$t(v.Name)
       })
@@ -454,6 +479,7 @@ export default {
   },
   mounted () {
     this.initSelectMalls()
+    this.selectCategoryByKeyName()
   }
 }
 </script>

@@ -23,6 +23,7 @@
 <script>
 import FileSaver from 'file-saver'
 import _ from 'underscore'
+import moment from 'moment'
 
 export default {
   props: {
@@ -63,7 +64,7 @@ export default {
         csvData.push(d)
       })
       try {
-        FileSaver.saveAs(new Blob([csvData.join('\n')], {type: 'text/plain;charset=utf-8'}), this.exportName + '.csv')
+        FileSaver.saveAs(new Blob([csvData.join('\n')], {type: 'text/plain;charset=utf-8'}), this.exportName + moment().format('YYYYMMDDHHmmss') + '.csv')
       } catch (e) {
         if (typeof console !== 'undefined') console.log(e)
       }
