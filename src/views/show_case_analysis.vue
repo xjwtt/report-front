@@ -27,7 +27,7 @@
       <base-bigdata-table :fixed-col="0"
                           :header="header"
                           :table-data-handled="tableDataHandled"
-                          :export-name="'show_case_analysis'"></base-bigdata-table>
+                          :export-name="exportName"></base-bigdata-table>
     </div>
   </div>
 </template>
@@ -36,6 +36,7 @@
 import {mapActions, mapState} from 'vuex'
 import fm from '@/lib/fieldsManager'
 import _ from 'underscore'
+import moment from 'moment'
 import theme from '../lib/theme'
 
 export default {
@@ -69,6 +70,9 @@ export default {
       peakTimeDateRange: state => state.peakTimeDateRange,
       selectedMall: state => state.selectedMall
     }),
+    exportName () {
+      return 'show_case_analysis' + moment().format('YYYYMMDDHHmmss')
+    },
     header () {
       return this.headerTitle[0]
     },

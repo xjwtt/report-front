@@ -133,14 +133,14 @@ export default {
     }
   },
   methods: {
-    show (form) {
+    async show (form) {
       this.dialogVisible = true
       this.$nextTick(() => {
         this.$refs['modifyForm'].resetFields()
       })
       this.selectCompanyByUser()
       this.selectRole()
-      this.selectCategoryByKeyName()
+      await this.selectCategoryByKeyName()
       // this.selectUserByParentId()
       if (form) {
         this.pwdShow = false
@@ -148,6 +148,7 @@ export default {
       } else {
         this.pwdShow = true
         this.modifyForm = defaultForm()
+        this.modifyForm.Language = this.languageTypes ? this.languageTypes[0].KeyName : 'en'
       }
     },
     // async selectUserByParentId () {

@@ -113,7 +113,7 @@ export default {
       }, {
         width: 120,
         prop: 'ContractEndDate',
-        label: this.$t('contract_end_date'),
+        label: this.$t('contract_period'),
         sortable: false,
         formatter: (row, col) => row['ContractEndDate']
       }]

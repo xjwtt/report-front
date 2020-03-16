@@ -113,7 +113,7 @@
                 <el-form-item :label="$t('principal_mail')" prop="PrincipalMail">
                   <el-input v-model.trim="modifyForm.PrincipalMail"></el-input>
                 </el-form-item>
-                <el-form-item :label="$t('contract_end_date')"
+                <el-form-item :label="$t('contract_period')"
                               prop="ContractEndDate">
                   <el-date-picker v-model="dateRange"
                                   type="daterange"

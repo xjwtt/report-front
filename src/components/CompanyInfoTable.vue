@@ -39,7 +39,7 @@
       <el-table-column
         prop="ContractEndDate"
         width="110"
-        :label="$t('contract_end_date')">
+        :label="$t('contract_period')">
       </el-table-column>
       <el-table-column
         prop="Type"

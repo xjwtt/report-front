@@ -586,7 +586,7 @@ export default {
   principal_tell: 'PrincipalTEll',
   principal_mail: 'PrincipalMail',
   contract_start_date: 'ContractStartDate',
-  contract_end_date: 'ContractEndDate',
+  contract_period: 'ContractPeriod',
   company_address: 'CompanyAddress',
   site_list: 'SiteList',
   account_list: 'AccountList',

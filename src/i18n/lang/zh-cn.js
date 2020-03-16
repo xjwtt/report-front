@@ -585,7 +585,7 @@ export default {
   principal_tell: '负责人电话',
   principal_mail: '负责人邮箱',
   contract_start_date: '合同开始时间',
-  contract_end_date: '合同结束时间',
+  contract_period: '合同时间',
   company_address: '公司地址',
   site_list: '案场列表',
   account_list: '账户列表',
