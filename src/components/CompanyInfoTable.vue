@@ -7,14 +7,15 @@
       max-height="550">
       <el-table-column
         fixed
+        prop="CompanyCode"
+        width="180"
+        :label="$t('company_code')">
+      </el-table-column>
+      <el-table-column
+        fixed
         prop="Name"
         width="180"
         :label="$t('company_name')">
-      </el-table-column>
-      <el-table-column
-        prop="CompanyAddress"
-        width="260"
-        :label="$t('company_address')">
       </el-table-column>
       <el-table-column
         prop="Principal"
@@ -22,45 +23,30 @@
         :label="$t('principal')">
       </el-table-column>
       <el-table-column
-        prop="PrincipalTEll"
-        width="140"
-        :label="$t('principal_tell')">
-      </el-table-column>
-      <el-table-column
         prop="PrincipalMail"
         width="200"
         :label="$t('principal_mail')">
       </el-table-column>
       <el-table-column
-        prop="ContractStartDate"
-        width="110"
-        :label="$t('contract_start_date')">
-      </el-table-column>
-      <el-table-column
-        prop="ContractEndDate"
-        width="110"
-        :label="$t('contract_period')">
-      </el-table-column>
-      <el-table-column
         prop="Type"
-        :label="$t('type')">
+        :label="$t('distributor')">
       </el-table-column>
       <el-table-column
         prop="SiteCount"
         :label="$t('site_count')">
       </el-table-column>
-      <el-table-column
-        :label="$t('send_mail')"
-        width="110">
-        <template slot-scope="scope">
-          <el-button
-            @click.native.prevent=""
-            type="text"
-            size="small">
-            {{$t('send')}}
-          </el-button>
-        </template>
-      </el-table-column>
+<!--      <el-table-column-->
+<!--        :label="$t('send_mail')"-->
+<!--        width="110">-->
+<!--        <template slot-scope="scope">-->
+<!--          <el-button-->
+<!--            @click.native.prevent=""-->
+<!--            type="text"-->
+<!--            size="small">-->
+<!--            {{$t('send')}}-->
+<!--          </el-button>-->
+<!--        </template>-->
+<!--      </el-table-column>-->
       <el-table-column
         fixed="right"
         align="center"
@@ -101,7 +87,7 @@ export default {
   },
   methods: {
     convertCSV () {
-      let tableHeader = ['Name', 'CompanyAddress', 'Principal', 'PrincipalTELL', 'PrincipalMail', 'ContractStartDate', 'ContractEndDate', 'Type', 'SiteCount']
+      let tableHeader = ['CompanyCode', 'Name', 'Principal', 'PrincipalMail', 'Type', 'SiteCount']
       let csvData = []
       csvData.push(tableHeader)
       _.each(this.tableData, function (v) {

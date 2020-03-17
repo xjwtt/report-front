@@ -581,10 +581,12 @@ export default {
   site_count: '案场数量',
   data_duplication: '数据重复',
 
+  company_code: '公司编号',
   principal: '负责人',
   principal_tell: '负责人电话',
   principal_mail: '负责人邮箱',
   contract_start_date: '合同开始时间',
+  contract_end_date: '合同结束时间',
   contract_period: '合同时间',
   company_address: '公司地址',
   site_list: '案场列表',
@@ -592,6 +594,7 @@ export default {
   go_back: '返回',
   address: '地址',
   create_time: '创建时间',
+  distributor: '经销商',
 
   hava_to_choose_a_site: '必须选择一个案场',
   starttime_is_greater_than_endtime: '开始时间比结束时间大',

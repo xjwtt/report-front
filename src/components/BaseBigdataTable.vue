@@ -93,7 +93,7 @@ export default {
       })
       try {
         // moment().format('YYYYMMDDHHmmss')
-        FileSaver.saveAs(new Blob([csvData.join('\n')], {type: 'text/plain;charset=utf-8'}), this.exportName+ '.csv')
+        FileSaver.saveAs(new Blob([csvData.join('\n')], {type: 'text/plain;charset=utf-8'}), this.exportName + '.csv')
       } catch (e) {
         if (typeof console !== 'undefined') console.log(e, csvData)
       }
