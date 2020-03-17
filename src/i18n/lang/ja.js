@@ -95,6 +95,7 @@ export default {
   company_info: '会社情報',
 
   export: 'エクスポート',
+  import: 'インポート',
   personalized_home_page: 'カスタマイズ',
   save_layout: 'レイアウトの保存',
   'add_plugin-in': 'ウィジェットの追加',

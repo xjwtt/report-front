@@ -1,6 +1,14 @@
 <template>
   <div style="width: 94%;margin-left: 3%">
     <el-button @click="convertCSV" style="margin-bottom: 5px">{{$t('export')}}</el-button>
+    <el-upload
+      class="upload-demo"
+      action="business/uploadCompany.action"
+      :show-file-list="false"
+      :on-success="uploadSuccess"
+      accept=".xls,.xlsx">
+      <el-button type="primary">{{$t('import')}}</el-button>
+    </el-upload>
     <el-table
       :data="tableData"
       border
@@ -35,18 +43,18 @@
         prop="SiteCount"
         :label="$t('site_count')">
       </el-table-column>
-<!--      <el-table-column-->
-<!--        :label="$t('send_mail')"-->
-<!--        width="110">-->
-<!--        <template slot-scope="scope">-->
-<!--          <el-button-->
-<!--            @click.native.prevent=""-->
-<!--            type="text"-->
-<!--            size="small">-->
-<!--            {{$t('send')}}-->
-<!--          </el-button>-->
-<!--        </template>-->
-<!--      </el-table-column>-->
+      <!--      <el-table-column-->
+      <!--        :label="$t('send_mail')"-->
+      <!--        width="110">-->
+      <!--        <template slot-scope="scope">-->
+      <!--          <el-button-->
+      <!--            @click.native.prevent=""-->
+      <!--            type="text"-->
+      <!--            size="small">-->
+      <!--            {{$t('send')}}-->
+      <!--          </el-button>-->
+      <!--        </template>-->
+      <!--      </el-table-column>-->
       <el-table-column
         fixed="right"
         align="center"
@@ -103,6 +111,19 @@ export default {
         if (typeof console !== 'undefined') console.log(e)
       }
     },
+    uploadSuccess (res) {
+      if (res.status === 1000) {
+        this.$message({
+          message: 'success',
+          type: 'success'
+        })
+      } else {
+        this.$message({
+          message: res.showText,
+          type: 'error'
+        })
+      }
+    },
     showSiteInfo (row) {
       this.$emit('showSiteInfo', row)
     },
@@ -113,6 +134,11 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style>
+  .upload-demo {
+    display: inline-block;
+  }
+  .el-upload__input {
+    display: none !important;
+  }
 </style>

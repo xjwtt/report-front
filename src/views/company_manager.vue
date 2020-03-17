@@ -66,6 +66,7 @@ export default {
     tblStyle: 'color: #666',
     columns: [
       {title: 'company_name', field: 'Name', thComp: 'th-filter', sortable: true},
+      {title: 'company_code', field: 'CompanyCode', thComp: 'th-i18n', sortable: true},
       {title: 'secondary_domain', field: 'SecondaryDomain', thComp: 'th-i18n'},
       {title: 'status', field: 'Status', sortable: true, thComp: 'th-i18n', tdComp: 'td-status'},
       {title: 'operation', thComp: 'th-i18n', tdComp: 'td-opt', visible: true}

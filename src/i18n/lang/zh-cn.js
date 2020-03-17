@@ -95,6 +95,7 @@ export default {
   company_info: '公司信息',
 
   export: '导出',
+  import: '导入',
   personalized_home_page: '个性化首页',
   save_layout: '保存布局',
   'add_plugin-in': '新增插件',

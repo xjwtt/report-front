@@ -95,6 +95,7 @@ export default {
   company_info: 'CompanyInfo',
 
   export: 'Export',
+  import: 'Import',
   personalized_home_page: 'Personalized',
   save_layout: 'SaveLayout',
   'add_plugin-in': 'Add Plug-in',
