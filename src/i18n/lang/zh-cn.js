@@ -93,6 +93,7 @@ export default {
   customer_manager: '客户管理',
   export_table: '导出表格',
   company_info: '公司信息',
+  export_license: '导出License',
 
   export: '导出',
   import: '导入',

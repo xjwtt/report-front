@@ -93,6 +93,7 @@ export default {
   customer_manager: 'アカウント管理',
   export_table: '表をエクスポート',
   company_info: '会社情報',
+  export_license: 'ライセンス証発行',
 
   export: 'エクスポート',
   import: 'インポート',

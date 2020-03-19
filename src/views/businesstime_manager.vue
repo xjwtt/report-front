@@ -61,7 +61,6 @@ import RelatedBusinesstimeMall from '@/components/RelatedBusinesstimeMall'
 import _ from 'underscore'
 
 export default {
-  name: 'businesstime_manager',
   data: () => ({
     // table
     HeaderSettings: false,

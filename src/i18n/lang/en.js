@@ -93,6 +93,7 @@ export default {
   customer_manager: 'CustomerManager',
   export_table: 'ExportTable',
   company_info: 'CompanyInfo',
+  export_license: 'ExportLicense',
 
   export: 'Export',
   import: 'Import',

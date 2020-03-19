@@ -14,41 +14,22 @@
                          :prop="column.prop"
                          :label="column.label">
         </el-table-column>
-        <!--        <el-table-column-->
-        <!--          fixed-->
-        <!--          prop="CompanyCode"-->
-        <!--          width="180"-->
-        <!--          :label="$t('company_code')">-->
-        <!--        </el-table-column>-->
-        <!--        <el-table-column-->
-        <!--          prop="Name"-->
-        <!--          width="180"-->
-        <!--          :label="$t('company_name')">-->
-        <!--        </el-table-column>-->
-        <!--        <el-table-column-->
-        <!--          prop="Principal"-->
-        <!--          width="160"-->
-        <!--          :label="$t('principal')">-->
-        <!--        </el-table-column>-->
-        <!--        <el-table-column-->
-        <!--          prop="PrincipalMail"-->
-        <!--          width="200"-->
-        <!--          :label="$t('principal_mail')">-->
-        <!--        </el-table-column>-->
       </el-table>
     </div>
     <div>
-      <!--      <the-table :fields=tableHeader-->
-      <!--                 :data=this.malls-->
-      <!--                 :maxHeight="500"-->
-      <!--                 :export-name="'site_info'"></the-table>-->
       <el-button @click="exportExcel" style="margin-bottom: 5px">{{$t('export')}}</el-button>
+      <el-button @click="exportLicense" style="margin-bottom: 5px">{{$t('export_license')}}</el-button>
       <el-table id="table"
+                ref="table"
                 :data="this.malls"
                 :max-height="500"
                 stripe
                 border
                 style="width: 100%">
+        <el-table-column
+          type="selection"
+          width="55">
+        </el-table-column>
         <el-table-column v-for="column in tableHeader"
                          :width="column.width?column.width:120"
                          :key="column.Id"
@@ -67,6 +48,7 @@
 import _ from 'underscore'
 import FileSaver from 'file-saver'
 import moment from 'moment'
+import axios from 'axios'
 
 export default {
   props: {
@@ -132,6 +114,30 @@ export default {
   methods: {
     goBack () {
       this.$emit('goBack')
+    },
+    exportLicense () {
+      let select = this.$refs.table.selection
+      if (select.length > 0) {
+        let companyName = this.company.length > 0 ? this.company[0].Name : ''
+        // ajax.post('/business/download.action', {CompanyName: companyName, malls: select})
+        axios.post('/business/download.action',
+          {CompanyName: companyName, malls: select},
+          {responseType: 'blob'}).then(res => {
+          let blob = res.data
+          let reader = new FileReader()
+          reader.readAsDataURL(blob)
+          reader.onload = (e) => {
+            let a = document.createElement('a')
+            a.download = companyName + moment().format('YYYYMMDDHHmmss') + '.zip'
+            a.href = e.target.result
+            document.body.appendChild(a)
+            a.click()
+            document.body.removeChild(a)
+          }
+        })
+      } else {
+        this.$message.error(this.$t('hava_to_choose_a_site'))
+      }
     },
     exportExcel () {
       let csvData = []
