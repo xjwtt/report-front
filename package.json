@@ -16,7 +16,7 @@
     "element-ui": "^2.12.0",
     "file-saver": "^1.3.8",
     "fuzzysort": "^1.1.4",
-    "moment": "^2.22.2",
+    "moment": "^2.29.4",
     "underscore": "^1.9.1",
     "vue": "^2.5.2",
     "vue-bigdata-table": "^1.0.0",
